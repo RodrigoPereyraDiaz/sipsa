@@ -123,8 +123,6 @@ public class EmpresaDatos extends javax.swing.JDialog {
         Boolean resultado = this.controlador.aceptarDatosEmpresa(cuit, nombre);
         if (resultado){
             this.setVisible(false);
-        } else {
-            ///TODO si no puede guardar
         }
 }//GEN-LAST:event_jButtonAceptarActionPerformed
 

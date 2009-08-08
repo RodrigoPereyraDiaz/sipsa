@@ -11,7 +11,7 @@ package sipsa.dominio;
  */
 public class TipoProducto{
     private String modelo;
-    private String nombre;
+    private String descripcion;
     private int duracionGarantia;
 
     /**
@@ -31,15 +31,15 @@ public class TipoProducto{
     /**
      * @return the nombre
      */
-    public String getNombre() {
-        return nombre;
+    public String getDescripcion() {
+        return descripcion;
     }
 
     /**
      * @param nombre the nombre to set
      */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     /**

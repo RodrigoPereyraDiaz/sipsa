@@ -68,7 +68,7 @@ public class TipoProductoControl implements IListarAgregarEliminar, ITipoProduct
     public Boolean aceptarDatosTipoProducto(String modelo, String nombre, int duracionGarantia){
         TipoProducto tp = new TipoProducto();
         tp.setModelo(modelo);
-        tp.setNombre(nombre);
+        tp.setDescripcion(nombre);
         tp.setDuracionGarantia(duracionGarantia);
         if (this.persistencia.existTipoProducto(tp)){
            //TODO informar que ya existe
@@ -83,14 +83,14 @@ public class TipoProductoControl implements IListarAgregarEliminar, ITipoProduct
      * @return TableModel de Tipos de Productos
      */
     public DefaultTableModel getModelo() {
-        String[] columnNames = {"Modelo", "Nombre", "Duracion Garantia"};
+        String[] columnNames = {"Modelo", "Descripcion", "Duracion Garantia"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
         this.listaTipoProducto = persistencia.getListTipoProducto();
         for (Iterator tpIt = this.listaTipoProducto.iterator(); tpIt.hasNext();) {
             TipoProducto tipoProducto = (TipoProducto) tpIt.next();
-            Object[] datos = new String[modelo.getColumnCount()];
+            Object[] datos = new Object[modelo.getColumnCount()];
             datos[0] = tipoProducto.getModelo();
-            datos[1] = tipoProducto.getNombre();
+            datos[1] = tipoProducto.getDescripcion();
             datos[2] = tipoProducto.getDuracionGarantia();
             modelo.addRow(datos);
         }

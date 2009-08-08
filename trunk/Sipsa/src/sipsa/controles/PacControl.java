@@ -86,7 +86,7 @@ public class PacControl implements IEmpresaDatos, IListarAgregarEliminar {
         this.listaPac = persistencia.getListPac();
         for (Iterator PacIt = this.listaPac.iterator(); PacIt.hasNext();) {
             Pac pac = (Pac) PacIt.next();
-            Object[] datos = new String[modelo.getColumnCount()];
+            Object[] datos = new Object[modelo.getColumnCount()];
             datos[0] = pac.getCuit();
             datos[1] = pac.getNombre();
             modelo.addRow(datos);

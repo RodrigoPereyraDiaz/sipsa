@@ -139,7 +139,9 @@ public class TipoProductoDatos extends javax.swing.JDialog {
         String modelo = this.jTextFieldModelo.getText();
         String nombre = this.jTextFieldNombreProducto.getText();
         int duracionGarantia = Integer.parseInt(this.jTextFieldDuracGarantia.getText());
-        this.controlador.aceptarDatosTipoProducto(modelo, nombre, duracionGarantia);
+        if (this.controlador.aceptarDatosTipoProducto(modelo, nombre, duracionGarantia)){
+            this.setVisible(false);
+        }
 
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
