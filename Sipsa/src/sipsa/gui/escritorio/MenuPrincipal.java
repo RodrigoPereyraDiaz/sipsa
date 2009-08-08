@@ -64,21 +64,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButtonABPAC.setText("Agregar o Eliminar PAC");
+        jButtonABPAC.setText("Administrar Puntos de Atencion al Cliente");
         jButtonABPAC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonABPACActionPerformed(evt);
             }
         });
 
-        jButtonABTiposProductos.setText("Agregar o Eliminar Tipos de Productos");
+        jButtonABTiposProductos.setText("Administrar Tipos de Productos");
         jButtonABTiposProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonABTiposProductosActionPerformed(evt);
             }
         });
 
-        jButtonABPV.setText("Agregar o Eliminar PV");
+        jButtonABPV.setText("Administrar Puntos de Venta");
         jButtonABPV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonABPVActionPerformed(evt);
@@ -100,14 +100,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonABTiposProductos, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
-                    .addComponent(jButtonABPV, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
-                    .addComponent(jButtonABPAC, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
-                    .addComponent(jButtonImportarProductosVenta, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE))
+                    .addComponent(jButtonABTiposProductos, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
+                    .addComponent(jButtonABPV, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
+                    .addComponent(jButtonABPAC, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonImportarProductosVenta, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(137, 137, 137)
-                .addComponent(jButtonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                .addComponent(jButtonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
                 .addGap(146, 146, 146))
         );
         layout.setVerticalGroup(

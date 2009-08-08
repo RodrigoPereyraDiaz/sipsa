@@ -52,7 +52,7 @@ public class ProductoAdapter {
             producto.setNroSerie(rs.getString("nroSerie"));
             producto.setFabrica(rs.getString("fabrica"));
             producto.setFechaFabricacion(rs.getDate("fechaFabricacion"));
-            producto.setNombre(rs.getString("nombre"));
+            producto.setDescripcion(rs.getString("nombre"));
             producto.setModelo(rs.getString("modelo"));
             producto.setDuracionGarantia(rs.getInt("duracionGarantia"));
           }

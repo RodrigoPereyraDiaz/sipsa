@@ -30,8 +30,8 @@ public class TipoProductoAdapter {
         PreparedStatement ps;
         ResultSet rs;
         String consulta =
-                "SELECT modelo, nombre, duracionGarantia " +
-                "FROM   TipoProductos " +
+                "SELECT modelo, descripcion, duracionGarantia " +
+                "FROM   TiposProducto " +
                 "WHERE  modelo = ?";
 
         try {
@@ -40,7 +40,7 @@ public class TipoProductoAdapter {
           rs = ps.executeQuery();
 
           if (rs.next()) {
-            tipoProducto.setNombre(rs.getString("nombre"));
+            tipoProducto.setDescripcion(rs.getString("descripcion"));
             tipoProducto.setModelo(rs.getString("modelo"));
             tipoProducto.setDuracionGarantia(rs.getInt("duracionGarantia"));
           }
@@ -61,12 +61,12 @@ public class TipoProductoAdapter {
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         String consulta =
-            "INSERT INTO TipoProductos (modelo, nombre, duracionGarantia) " +
+            "INSERT INTO TiposProducto (modelo, descripcion, duracionGarantia) " +
             "VALUES (?, ?, ?)";
         try {
           ps = conn.prepareStatement(consulta);
           ps.setString(1, tipoProducto.getModelo());
-          ps.setString(2, tipoProducto.getNombre());
+          ps.setString(2, tipoProducto.getDescripcion());
           ps.setInt(3, tipoProducto.getDuracionGarantia());
           ps.execute();
           ps.close();
@@ -86,7 +86,7 @@ public class TipoProductoAdapter {
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         String consulta =
-            "DELETE FROM TipoProductos " +
+            "DELETE FROM TiposProducto " +
             "WHERE  modelo = ? ";
         try {
           ps = conn.prepareStatement(consulta);
@@ -112,7 +112,7 @@ public class TipoProductoAdapter {
         ResultSet rs;
         String consulta =
                 "SELECT modelo " +
-                "FROM   TipoProductos " +
+                "FROM   TiposProducto " +
                 "WHERE  modelo = ?";
 
         boolean existe = false;

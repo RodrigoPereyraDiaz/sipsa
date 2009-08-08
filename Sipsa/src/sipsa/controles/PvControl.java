@@ -86,7 +86,7 @@ public class PvControl implements IEmpresaDatos, IListarAgregarEliminar {
         this.listaPv = persistencia.getListPv();
         for (Iterator PvIt = this.listaPv.iterator(); PvIt.hasNext();) {
             Pv pv = (Pv) PvIt.next();
-            Object[] datos = new String[modelo.getColumnCount()];
+            Object[] datos = new Object[modelo.getColumnCount()];
             datos[0] = pv.getCuit();
             datos[1] = pv.getNombre();
             modelo.addRow(datos);
