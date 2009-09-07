@@ -29,7 +29,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
      */
     public MenuPrincipal(IMenuPrincipal controlador) {
         initComponents();
-        Image img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/sipsa/gui/recursos/logotipo.png"));
+        Image img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/sipsa/gui/recursos/Sipsa.png"));
         this.setIconImage(img);
         this.setLocationRelativeTo(null);
         this.controlador = controlador;
