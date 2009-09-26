@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jnlp codebase="file:/home/elsupergomez/Proyectos/Sipsa/Sipsa/dist/" href="launch.jnlp" spec="1.0+">
+    <information>
+        <title>Sipsa</title>
+        <vendor>Pereyra Diaz, Sanchez</vendor>
+        <homepage href="http://code.google.com/p/sipsa/"/>
+        <description>Sistema de gestion Sipsa para la materia Sistemas de Informacion II</description>
+        <description kind="short">Sipsa</description>
+    <icon href="Sipsa.png" kind="splash"/>
+<icon href="Sipsa.png" kind="default"/>
+</information>
+<security>
+<all-permissions/>
+</security>
+    <resources>
+<j2se version="1.5+"/>
+<jar eager="true" href="Sipsa.jar" main="true"/>
+    <jar href="lib/mysql-connector-java-5.1.6-bin.jar"/>
+<jar href="lib/tango-icon-theme-0.8.0.jar"/>
+<jar href="lib/sqlitejdbc-0.5.4.jar"/>
+</resources>
+    <application-desc main-class="sipsa.Sipsa">
+    </application-desc>
+</jnlp>
