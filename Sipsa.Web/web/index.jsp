@@ -14,6 +14,6 @@
         <title>Sipsa Web</title>
     </head>
     <body>
-        <h1>Bienvenido al sitio de Sipsa</h1>
+        <h1>Bienvenido al sitio de Sipsa </h1>
     </body>
 </html>
