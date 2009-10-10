@@ -86,5 +86,4 @@ public class OrdenDeTrabajo {
     public void setMotivoEstado(String motivoEstado) {
         this.motivoEstado = motivoEstado;
     }
-    //TODO
 }
