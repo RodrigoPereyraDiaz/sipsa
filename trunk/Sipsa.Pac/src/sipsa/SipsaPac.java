@@ -5,6 +5,9 @@
 
 package sipsa;
 
+import javax.swing.UIManager;
+import sipsa.presentacion.escritorio.Login;
+
 /**
  *
  * @author elsupergomez
@@ -15,7 +18,16 @@ public class SipsaPac {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        try {
+            //Indica al UIManager que use el tema nativo del Sistema Operativo
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        Login login = new Login();
+        login.setVisible(true);
+
     }
 
 }
