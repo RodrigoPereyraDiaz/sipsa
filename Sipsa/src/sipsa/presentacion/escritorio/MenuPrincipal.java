@@ -130,19 +130,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonABTiposProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonABTiposProductosActionPerformed
-        this.controlador.AdministrarTipoProducto();
+        this.controlador.administrarTipoProducto();
 }//GEN-LAST:event_jButtonABTiposProductosActionPerformed
 
     private void jButtonImportarProductosVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImportarProductosVentaActionPerformed
-        this.controlador.ImportarArchivoProductos();
+        this.controlador.importarArchivoProductos();
     }//GEN-LAST:event_jButtonImportarProductosVentaActionPerformed
 
     private void jButtonABPVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonABPVActionPerformed
-        this.controlador.AdministrarPv();
+        this.controlador.administrarPv();
     }//GEN-LAST:event_jButtonABPVActionPerformed
 
     private void jButtonABPACActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonABPACActionPerformed
-        this.controlador.AdministrarPac();
+        this.controlador.administrarPac();
     }//GEN-LAST:event_jButtonABPACActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
