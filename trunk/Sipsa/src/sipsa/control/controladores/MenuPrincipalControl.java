@@ -5,7 +5,6 @@
 
 package sipsa.control.controladores;
 
-import sipsa.control.controladores.*;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -32,7 +31,7 @@ public class MenuPrincipalControl implements IMenuPrincipal {
     /**
      * Invoca el fomulario para Administracion de Puntos de Venta
      */
-    public void AdministrarPv() {
+    public void administrarPv() {
         PvControl pvControl = new PvControl();
         pvControl.MostrarAdministrar();
     }
@@ -40,7 +39,7 @@ public class MenuPrincipalControl implements IMenuPrincipal {
     /**
      * Invoca el formulario para Administracion de Puntos de Atencion al Cliente
      */
-    public void AdministrarPac() {
+    public void administrarPac() {
         PacControl pacControl = new PacControl();
         pacControl.MostrarAdministrar();
     }
@@ -48,7 +47,7 @@ public class MenuPrincipalControl implements IMenuPrincipal {
     /**
      * Invoca el fomulario para Administracion de Tipos de Productos
      */
-    public void AdministrarTipoProducto() {
+    public void administrarTipoProducto() {
         TipoProductoControl tipoProductoControl = new TipoProductoControl();
         tipoProductoControl.MostrarAdministrar();
     }
@@ -56,7 +55,7 @@ public class MenuPrincipalControl implements IMenuPrincipal {
     /**
      * Invoca el servicio de importacion de Productos desde un archivo
      */
-    public void ImportarArchivoProductos() {
+    public void importarArchivoProductos() {
         //@TODO revisar los try y catchs
         ProductosControl control = new ProductosControl();
         try {

@@ -15,18 +15,18 @@ public interface IMenuPrincipal {
     /**
      * Accion correspondiente al boton Administrar PV
      */
-    public void AdministrarPv();
+    public void administrarPv();
     /**
      * Accion correspondiente al boton Administrar PAC
      */
-    public void AdministrarPac();
+    public void administrarPac();
     /**
      * Accion correspondiente al boton Administrar Tipos de Productos
      */
-    public void AdministrarTipoProducto();
+    public void administrarTipoProducto();
     /**
      * Accion correspondiente al boton Importar Productos
      */
-    public void ImportarArchivoProductos();
+    public void importarArchivoProductos();
     
 }
