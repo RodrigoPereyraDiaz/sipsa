@@ -11,17 +11,17 @@ import javax.swing.table.DefaultTableModel;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public interface IListarAgregarEliminar {
+public interface IListarABM {
 
     /**
-     * Accion correspondiente al boton Agregar
+     * Accion correspondiente al boton agregar
      */
-    public void Agregar();
+    public void agregar();
     /**
-     * Accion correspondiente al boton Eliminar
+     * Accion correspondiente al boton eliminar
      * @param id Identificar de la fila seleccionada en el jTable
      */
-    public void Eliminar(int index);
+    public void eliminar(int index);
     /**
      * Obtiene la descripcion para utilizar en formularios genericos
      * @return Titulo para el jFrame
