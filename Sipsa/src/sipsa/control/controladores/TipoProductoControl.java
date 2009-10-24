@@ -8,19 +8,20 @@ package sipsa.control.controladores;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import sipsa.presentacion.interfaces.ITipoProductoDatos;
-import sipsa.presentacion.interfaces.IListarAgregarEliminar;
-import sipsa.persistencia.FachadaPersistencia;
+
 import sipsa.dominio.TipoProducto;
-import sipsa.presentacion.escritorio.ListarAgregarEliminar;
+import sipsa.presentacion.interfaces.ITipoProductoDatos;
+import sipsa.presentacion.interfaces.IListarABM;
+import sipsa.presentacion.escritorio.ListarABM;
 import sipsa.presentacion.escritorio.TipoProductoDatos;
+import sipsa.persistencia.FachadaPersistencia;
 
 /**
  * Controlador de Tipo de Producto
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class TipoProductoControl implements IListarAgregarEliminar, ITipoProductoDatos{
+public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
 
     private FachadaPersistencia persistencia = new FachadaPersistencia();
     private List<TipoProducto> listaTipoProducto;
@@ -28,15 +29,15 @@ public class TipoProductoControl implements IListarAgregarEliminar, ITipoProduct
     /**
      * Muestra el administrador de Tipos de Productos
      */
-    public void MostrarAdministrar(){
-        ListarAgregarEliminar listarControl = new ListarAgregarEliminar(this);
+    public void mostrarAdministrar(){
+        ListarABM listarControl = new ListarABM(this);
         listarControl.setVisible(true);
     }
 
     /**
      * Muestra el formulario para agregar un nuevo Tipo de Producto
      */
-    public void Agregar() {
+    public void agregar() {
         TipoProductoDatos tipoProductoDatos = new TipoProductoDatos(this);
         tipoProductoDatos.setVisible(true);
     }
@@ -45,7 +46,7 @@ public class TipoProductoControl implements IListarAgregarEliminar, ITipoProduct
      * Elimina del medio de persistencia el Tipo de Producto identificado
      * @param id Identificador unico de Tipo de Producto
      */
-    public void Eliminar(int index) {
+    public void eliminar(int index) {
         TipoProducto tipoProducto = this.listaTipoProducto.get(index);
         persistencia.deteletTipoProducto(tipoProducto);
     }

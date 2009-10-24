@@ -3,12 +3,6 @@
  * Proyecto Sipsa
  */
 
-/*
- * TipoProductoDatos.java
- *
- * Created on 20-jun-2009, 22:28:14
- */
-
 package sipsa.presentacion.escritorio;
 
 import sipsa.presentacion.interfaces.ITipoProductoDatos;
@@ -32,7 +26,6 @@ public class TipoProductoDatos extends javax.swing.JDialog {
         this.setTitle(this.controlador.getDescripcion());
     }
 
-
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -44,10 +37,10 @@ public class TipoProductoDatos extends javax.swing.JDialog {
 
         jLabelNombreProducto = new javax.swing.JLabel();
         jLabelModelo = new javax.swing.JLabel();
-        jLabelDurgarantia = new javax.swing.JLabel();
+        jLabelDuracionGarantia = new javax.swing.JLabel();
         jTextFieldNombreProducto = new javax.swing.JTextField();
         jTextFieldModelo = new javax.swing.JTextField();
-        jTextFieldDuracGarantia = new javax.swing.JTextField();
+        jTextFieldDuracionGarantia = new javax.swing.JTextField();
         jButtonAceptar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jLabelMeses = new javax.swing.JLabel();
@@ -61,7 +54,7 @@ public class TipoProductoDatos extends javax.swing.JDialog {
 
         jLabelModelo.setText("Modelo:");
 
-        jLabelDurgarantia.setText("Duración de la garantía:");
+        jLabelDuracionGarantia.setText("Duración de la garantía:");
 
         jButtonAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/tango-project/tango-icon-theme/16x16/actions/document-save.png"))); // NOI18N
         jButtonAceptar.setText("Aceptar");
@@ -92,21 +85,21 @@ public class TipoProductoDatos extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelModelo)
                             .addComponent(jLabelNombreProducto)
-                            .addComponent(jLabelDurgarantia))
+                            .addComponent(jLabelDuracionGarantia))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jTextFieldModelo, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldNombreProducto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jTextFieldDuracGarantia, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldDuracionGarantia, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabelMeses))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(126, 126, 126)
+                        .addGap(241, 241, 241)
                         .addComponent(jButtonAceptar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(115, 115, 115)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGap(12, 12, 12))
         );
         layout.setVerticalGroup(
@@ -122,13 +115,13 @@ public class TipoProductoDatos extends javax.swing.JDialog {
                     .addComponent(jLabelNombreProducto))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldDuracGarantia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelDurgarantia)
+                    .addComponent(jTextFieldDuracionGarantia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelDuracionGarantia)
                     .addComponent(jLabelMeses))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jButtonAceptar)
-                    .addComponent(jButtonCancelar))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonCancelar)
+                    .addComponent(jButtonAceptar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -138,9 +131,11 @@ public class TipoProductoDatos extends javax.swing.JDialog {
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         String modelo = this.jTextFieldModelo.getText();
         String nombre = this.jTextFieldNombreProducto.getText();
-        int duracionGarantia = Integer.parseInt(this.jTextFieldDuracGarantia.getText());
+        int duracionGarantia = Integer.parseInt(this.jTextFieldDuracionGarantia.getText());
         if (this.controlador.aceptarDatosTipoProducto(modelo, nombre, duracionGarantia)){
             this.setVisible(false);
+        } else {
+            //TODO informar error en los datos
         }
 
     }//GEN-LAST:event_jButtonAceptarActionPerformed
@@ -152,11 +147,11 @@ public class TipoProductoDatos extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAceptar;
     private javax.swing.JButton jButtonCancelar;
-    private javax.swing.JLabel jLabelDurgarantia;
+    private javax.swing.JLabel jLabelDuracionGarantia;
     private javax.swing.JLabel jLabelMeses;
     private javax.swing.JLabel jLabelModelo;
     private javax.swing.JLabel jLabelNombreProducto;
-    private javax.swing.JTextField jTextFieldDuracGarantia;
+    private javax.swing.JTextField jTextFieldDuracionGarantia;
     private javax.swing.JTextField jTextFieldModelo;
     private javax.swing.JTextField jTextFieldNombreProducto;
     // End of variables declaration//GEN-END:variables

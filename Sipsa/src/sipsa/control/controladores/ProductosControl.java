@@ -8,8 +8,8 @@ package sipsa.control.controladores;
 import java.io.IOException;
 import java.text.ParseException;
 import javax.swing.JFileChooser;
-import sipsa.persistencia.FachadaPersistencia;
 
+import sipsa.persistencia.FachadaPersistencia;
 
 /**
  * Controlador de Productos
@@ -24,7 +24,7 @@ public class ProductosControl {
      * @throws IOException 
      * @throws ParseException
      */
-    public void ImportarProductosDesdeArchivo() throws IOException, ParseException{
+    public void importarProductosDesdeArchivo() throws IOException, ParseException{
         //@TODO revisar las exepciones
         JFileChooser jfileChooser = new JFileChooser();
         int i = jfileChooser.showOpenDialog(jfileChooser);

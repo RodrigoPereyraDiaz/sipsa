@@ -10,22 +10,22 @@ import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import sipsa.presentacion.escritorio.MenuPrincipal;
-import sipsa.presentacion.interfaces.IMenuPrincipal;
+import sipsa.presentacion.escritorio.MenuSipsa;
+import sipsa.presentacion.interfaces.IMenuSipsa;
 
 /**
  * Controlador del Menu Principal
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class MenuPrincipalControl implements IMenuPrincipal {
+public class MenuSipsaControl implements IMenuSipsa {
 
     /**
-     * Muestra el Menu Principal
+     * Muestra el formulario Menu Sipsa
      */
-    public void MostrarMenu(){
-        MenuPrincipal menuPrincipal = new MenuPrincipal(this);
-        menuPrincipal.setVisible(true);
+    public void mostrarMenu(){
+        MenuSipsa menuSipsa = new MenuSipsa(this);
+        menuSipsa.setVisible(true);
     }
 
     /**
@@ -33,7 +33,7 @@ public class MenuPrincipalControl implements IMenuPrincipal {
      */
     public void administrarPv() {
         PvControl pvControl = new PvControl();
-        pvControl.MostrarAdministrar();
+        pvControl.mostrarAdministrar();
     }
 
     /**
@@ -41,7 +41,7 @@ public class MenuPrincipalControl implements IMenuPrincipal {
      */
     public void administrarPac() {
         PacControl pacControl = new PacControl();
-        pacControl.MostrarAdministrar();
+        pacControl.mostrarAdministrar();
     }
 
     /**
@@ -49,7 +49,7 @@ public class MenuPrincipalControl implements IMenuPrincipal {
      */
     public void administrarTipoProducto() {
         TipoProductoControl tipoProductoControl = new TipoProductoControl();
-        tipoProductoControl.MostrarAdministrar();
+        tipoProductoControl.mostrarAdministrar();
     }
 
     /**
@@ -60,12 +60,24 @@ public class MenuPrincipalControl implements IMenuPrincipal {
         ProductosControl control = new ProductosControl();
         try {
             try {
-                control.ImportarProductosDesdeArchivo();
+                control.importarProductosDesdeArchivo();
             } catch (ParseException ex) {
-                Logger.getLogger(MenuPrincipalControl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(MenuSipsaControl.class.getName()).log(Level.SEVERE, null, ex);
             }
         } catch (IOException ex) {
-            Logger.getLogger(MenuPrincipalControl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MenuSipsaControl.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void mostrarReporteOTRealizadas() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void mostrarReporteOTPendientes() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void mostrarReporteOTVencidas() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
