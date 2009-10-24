@@ -6,7 +6,7 @@
 package sipsa;
 
 import javax.swing.UIManager;
-import sipsa.control.controladores.MenuPrincipalControl;
+import sipsa.control.controladores.MenuSipsaControl;
 
 /**
  * Punto de inicio del Sistema Sipsa
@@ -27,7 +27,7 @@ public class Sipsa {
             e.printStackTrace();
         }
 
-        MenuPrincipalControl menuPrincipalControl = new MenuPrincipalControl();
-        menuPrincipalControl.MostrarMenu();
+        MenuSipsaControl menuSipsaControl = new MenuSipsaControl();
+        menuSipsaControl.mostrarMenu();
     }
 }

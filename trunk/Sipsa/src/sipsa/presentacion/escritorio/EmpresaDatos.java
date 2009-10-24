@@ -3,12 +3,6 @@
  * Proyecto Sipsa
  */
 
-/*
- * EmpresaDatos.java
- *
- * Created on 14/06/2009, 17:55:38
- */
-
 package sipsa.presentacion.escritorio;
 
 import sipsa.presentacion.interfaces.IEmpresaDatos;
@@ -123,6 +117,8 @@ public class EmpresaDatos extends javax.swing.JDialog {
         Boolean resultado = this.controlador.aceptarDatosEmpresa(cuit, nombre);
         if (resultado){
             this.setVisible(false);
+        } else {
+            //TODO informar error en datos
         }
 }//GEN-LAST:event_jButtonAceptarActionPerformed
 

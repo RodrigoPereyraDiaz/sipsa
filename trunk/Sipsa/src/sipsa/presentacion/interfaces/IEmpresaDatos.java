@@ -19,6 +19,7 @@ public interface IEmpresaDatos {
      * @return Resultado de la persistencia
      */
     public Boolean aceptarDatosEmpresa(String cuit, String nombre);
+
     /**
      * Obtiene la descripcion para utilizar en formularios genericos
      * @return Titulo para el jFrame

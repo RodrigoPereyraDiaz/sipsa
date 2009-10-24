@@ -7,12 +7,13 @@ package sipsa.control.controladores;
 
 import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
-import sipsa.presentacion.interfaces.IListarAgregarEliminar;
+import java.util.List;
+
+import sipsa.dominio.Pac;
+import sipsa.presentacion.interfaces.IListarABM;
 import sipsa.presentacion.interfaces.IEmpresaDatos;
 import sipsa.presentacion.escritorio.EmpresaDatos;
-import java.util.List;
-import sipsa.dominio.Pac;
-import sipsa.presentacion.escritorio.ListarAgregarEliminar;
+import sipsa.presentacion.escritorio.ListarABM;
 import sipsa.persistencia.FachadaPersistencia;
 
 /**
@@ -20,16 +21,16 @@ import sipsa.persistencia.FachadaPersistencia;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class PacControl implements IEmpresaDatos, IListarAgregarEliminar {
+public class PacControl implements IEmpresaDatos, IListarABM {
     private FachadaPersistencia persistencia = new FachadaPersistencia();
     private List<Pac> listaPac;
 
     /**
      * Muestra el formulario para administrar Puntos de Atencion al Cliente
      */
-    public void MostrarAdministrar(){
-        ListarAgregarEliminar listarAgregarEliminar = new ListarAgregarEliminar(this);
-        listarAgregarEliminar.setVisible(true);
+    public void mostrarAdministrar(){
+        ListarABM listarABM = new ListarABM(this);
+        listarABM.setVisible(true);
     }
 
     /**
@@ -62,7 +63,7 @@ public class PacControl implements IEmpresaDatos, IListarAgregarEliminar {
     /**
      * Muestra el formulario para agregar un nuevo Punto de Atencion al Cliente
      */
-    public void Agregar() {
+    public void agregar() {
         EmpresaDatos empresaDatos = new EmpresaDatos(this);
         empresaDatos.setVisible(true);
     }
@@ -71,7 +72,7 @@ public class PacControl implements IEmpresaDatos, IListarAgregarEliminar {
      * Elimina del medio de persistencia el Punto de Atencion al Cliente especificado
      * @param id Identificador unico de Punto de Atencion al Cliente
      */
-    public void Eliminar(int index) {
+    public void eliminar(int index) {
         Pac pac = this.listaPac.get(index);
         this.persistencia.deletePac(pac);
     }

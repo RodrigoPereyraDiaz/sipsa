@@ -19,11 +19,10 @@ public interface ITipoProductoDatos {
      * @param duracionGarantia
      * @return Resultado de la Persistencia
      */
-    Boolean aceptarDatosTipoProducto(String modelo, String nombre, int duracionGarantia);
+    public Boolean aceptarDatosTipoProducto(String modelo, String nombre, int duracionGarantia);
     /**
      * Obtiene la descripcion para utilizar en formularios genericos
      * @return Titulo para el jFrame
      */
-    String getDescripcion();
-
+    public String getDescripcion();
 }

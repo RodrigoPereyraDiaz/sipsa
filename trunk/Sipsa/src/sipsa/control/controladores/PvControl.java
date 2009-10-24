@@ -11,26 +11,26 @@ import javax.swing.table.DefaultTableModel;
 
 import sipsa.dominio.Pv;
 import sipsa.persistencia.FachadaPersistencia;
-import sipsa.presentacion.interfaces.IListarAgregarEliminar;
+import sipsa.presentacion.interfaces.IListarABM;
 import sipsa.presentacion.interfaces.IEmpresaDatos;
 import sipsa.presentacion.escritorio.EmpresaDatos;
-import sipsa.presentacion.escritorio.ListarAgregarEliminar;
+import sipsa.presentacion.escritorio.ListarABM;
 
 /**
  * Controlador de Punto de Venta
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class PvControl implements IEmpresaDatos, IListarAgregarEliminar {
+public class PvControl implements IEmpresaDatos, IListarABM {
 
     private FachadaPersistencia persistencia = new FachadaPersistencia();
     private List<Pv> listaPv;
     /**
      * Muestra el formulacion para Administrar Puntos de Venta
      */
-    public void MostrarAdministrar(){
-        ListarAgregarEliminar listarControl = new ListarAgregarEliminar(this);
-        listarControl.setVisible(true);
+    public void mostrarAdministrar(){
+        ListarABM listarABMPv = new ListarABM(this);
+        listarABMPv.setVisible(true);
     }
 
     /**
@@ -62,16 +62,16 @@ public class PvControl implements IEmpresaDatos, IListarAgregarEliminar {
     /**
      * Muestra el formulario para agregar un nuevo Punto de Venta
      */
-    public void Agregar() {
+    public void agregar() {
         EmpresaDatos formulario = new EmpresaDatos(this);
         formulario.setVisible(true);
     }
 
     /**
-     * Eliminar del medio de persistencia el Punto de Venta identificado
+     * eliminar del medio de persistencia el Punto de Venta identificado
      * @param id Identificador unico del Punto de Venta
      */
-    public void Eliminar(int index) {
+    public void eliminar(int index) {
         Pv pv = this.listaPv.get(index);
         this.persistencia.deletePv(pv);
     }
