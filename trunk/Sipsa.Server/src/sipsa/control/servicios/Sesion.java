@@ -1,35 +1,48 @@
+/*
+ * Sistemas de Informacion II 2009
+ * Proyecto Sipsa
+ */
+
 package sipsa.control.servicios;
 
-import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.IOException;
 
+/**
+ * Sesion de Cliente conectado al Servidor
+ * @author Claudio Rodrigo Pereyra Diaz
+ * @author Maria Eugenia Sanchez
+ */
 public class Sesion extends Thread {
 
     private Conexion conexion;
+    private Servidor servidor;
 
-    public Sesion(Socket socket) {
-        conexion = new Conexion(socket);
+    /**
+     * Crea una nueva instancia de Sesion
+     * @param conexion Conexion con el Cliente
+     * @param servidor Servidor receptor de la conexion
+     */
+    public Sesion(Conexion conexion,Servidor servidor) {
+        this.conexion = conexion;
+        this.servidor = servidor;
         this.start();
     }
 
+    /**
+     * Espera mensaje de solicitud desde el cliente, y envia la respuesta correspondiente
+     */
     @Override
-    public void run() {
-        while (true){
-            try {
-                Mensaje mensaje = conexion.recibirMensaje();
-                Mensaje respuesta = this.procesarMensaje(mensaje);
+    final public void run() {
+        try {
+            while (true){
+                Mensaje solicitud = conexion.recibirMensaje();
+                servidor.notificar("<== " + this.conexion.getDireccionRemota() + " - " + solicitud.getDescriptor());
+                Mensaje respuesta = solicitud.procesar();
                 conexion.enviarMensaje(respuesta);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Sesion.class.getName()).log(Level.SEVERE, null, ex);
+                servidor.notificar("==> " + this.conexion.getDireccionRemota() + " - " + respuesta.getDescriptor());
             }
+        } catch (IOException ex) {
+            servidor.notificar("Cliente desde " + this.conexion.getDireccionRemota() + " desconectado");
         }
-    }
-
-    private Mensaje procesarMensaje(Mensaje mensaje){
-        //TODO procesar mensaje y armar mensaje de respuesta
-        if (mensaje.getDescriptor().equalsIgnoreCase("hola servidor"))
-            mensaje.setDescriptor("hola cliente");
-        return mensaje;
     }
 }
