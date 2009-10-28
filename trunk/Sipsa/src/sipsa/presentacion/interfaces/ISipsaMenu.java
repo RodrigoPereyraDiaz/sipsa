@@ -10,7 +10,7 @@ package sipsa.presentacion.interfaces;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public interface IMenuSipsa {
+public interface ISipsaMenu {
 
     /**
      * Accion correspondiente al boton Administrar Puntos de Venta

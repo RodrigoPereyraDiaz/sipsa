@@ -4,33 +4,32 @@
  */
 
 /*
- * MenuSipsa.java
+ * SipsaMenu.java
  *
  * Created on 13/06/2009, 17:14:43
  */
 
 package sipsa.presentacion.escritorio;
 
-import java.awt.Image;
-import java.awt.Toolkit;
-import sipsa.presentacion.interfaces.IMenuPrincipal;
+import sipsa.Configuracion;
+import sipsa.presentacion.interfaces.ISipsaMenu;
 
 /**
  * Formulario del Menu Principal
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class MenuSipsa extends javax.swing.JFrame {
+public class SipsaMenu extends javax.swing.JFrame {
 
-    private IMenuPrincipal controlador;
+    private ISipsaMenu controlador;
 
-    /** Creates new form MenuSipsa
+    /** Creates new form SipsaMenu
      * @param controlador Controlador del formulario
      */
-    public MenuSipsa(IMenuPrincipal controlador) {
+    public SipsaMenu(ISipsaMenu controlador) {
         initComponents();
-        Image img = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/sipsa/presentacion/recursos/Sipsa.png"));
-        this.setIconImage(img);
+        Configuracion configuracion = Configuracion.getInstancia();
+        this.setIconImage(configuracion.getIcono());
         this.setLocationRelativeTo(null);
         this.controlador = controlador;
     }
@@ -49,9 +48,9 @@ public class MenuSipsa extends javax.swing.JFrame {
         jButtonAdministrarTiposProductos = new javax.swing.JButton();
         jButtonAdministrarPv = new javax.swing.JButton();
         jButtonSalir = new javax.swing.JButton();
-        jButtonReporteOTEntreFechas = new javax.swing.JButton();
         jButtonReporteOTRealizadas = new javax.swing.JButton();
         jButtonReporteOTPendientes = new javax.swing.JButton();
+        jButtonReporteOTVencidas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sipsa");
@@ -99,14 +98,6 @@ public class MenuSipsa extends javax.swing.JFrame {
             }
         });
 
-        jButtonReporteOTEntreFechas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/tango-project/tango-icon-theme/16x16/actions/document-print-preview.png"))); // NOI18N
-        jButtonReporteOTEntreFechas.setText("Reporte Ordenes de Trabajo Entre Fechas");
-        jButtonReporteOTEntreFechas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonReporteOTEntreFechasActionPerformed(evt);
-            }
-        });
-
         jButtonReporteOTRealizadas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/tango-project/tango-icon-theme/16x16/actions/document-print-preview.png"))); // NOI18N
         jButtonReporteOTRealizadas.setText("Reporte Ordenes de Trabajo Realizadas");
         jButtonReporteOTRealizadas.addActionListener(new java.awt.event.ActionListener() {
@@ -120,6 +111,14 @@ public class MenuSipsa extends javax.swing.JFrame {
         jButtonReporteOTPendientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonReporteOTPendientesActionPerformed(evt);
+            }
+        });
+
+        jButtonReporteOTVencidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/tango-project/tango-icon-theme/16x16/actions/document-print-preview.png"))); // NOI18N
+        jButtonReporteOTVencidas.setText("Reporte Ordenes de Trabajo Vencidas");
+        jButtonReporteOTVencidas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReporteOTVencidasActionPerformed(evt);
             }
         });
 
@@ -139,12 +138,15 @@ public class MenuSipsa extends javax.swing.JFrame {
                 .addGap(137, 137, 137)
                 .addComponent(jButtonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
                 .addGap(146, 146, 146))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonReporteOTEntreFechas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonReporteOTRealizadas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
                     .addComponent(jButtonReporteOTPendientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonReporteOTVencidas, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -158,13 +160,13 @@ public class MenuSipsa extends javax.swing.JFrame {
                 .addComponent(jButtonAdministrarPac)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonImportarProductosVenta)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonReporteOTEntreFechas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonReporteOTRealizadas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonReporteOTPendientes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonReporteOTVencidas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonSalir)
                 .addContainerGap())
         );
@@ -193,26 +195,26 @@ public class MenuSipsa extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
-    private void jButtonReporteOTEntreFechasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReporteOTEntreFechasActionPerformed
-        this.controlador.AdministrarPv();
-}//GEN-LAST:event_jButtonReporteOTEntreFechasActionPerformed
-
     private void jButtonReporteOTRealizadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReporteOTRealizadasActionPerformed
-        this.controlador.AdministrarPac();
+        this.controlador.mostrarReporteOTRealizadas();
 }//GEN-LAST:event_jButtonReporteOTRealizadasActionPerformed
 
     private void jButtonReporteOTPendientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReporteOTPendientesActionPerformed
-        // TODO add your handling code here:
+        this.controlador.mostrarReporteOTPendientes();
 }//GEN-LAST:event_jButtonReporteOTPendientesActionPerformed
+
+    private void jButtonReporteOTVencidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReporteOTVencidasActionPerformed
+        this.controlador.mostrarReporteOTVencidas();
+    }//GEN-LAST:event_jButtonReporteOTVencidasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdministrarPac;
     private javax.swing.JButton jButtonAdministrarPv;
     private javax.swing.JButton jButtonAdministrarTiposProductos;
     private javax.swing.JButton jButtonImportarProductosVenta;
-    private javax.swing.JButton jButtonReporteOTEntreFechas;
     private javax.swing.JButton jButtonReporteOTPendientes;
     private javax.swing.JButton jButtonReporteOTRealizadas;
+    private javax.swing.JButton jButtonReporteOTVencidas;
     private javax.swing.JButton jButtonSalir;
     // End of variables declaration//GEN-END:variables
 

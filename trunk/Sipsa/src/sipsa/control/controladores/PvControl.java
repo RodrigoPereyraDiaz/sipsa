@@ -10,7 +10,7 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 import sipsa.dominio.Pv;
-import sipsa.persistencia.FachadaPersistencia;
+import sipsa.persistencia.Persistencia;
 import sipsa.presentacion.interfaces.IListarABM;
 import sipsa.presentacion.interfaces.IEmpresaDatos;
 import sipsa.presentacion.escritorio.EmpresaDatos;
@@ -23,7 +23,7 @@ import sipsa.presentacion.escritorio.ListarABM;
  */
 public class PvControl implements IEmpresaDatos, IListarABM {
 
-    private FachadaPersistencia persistencia = new FachadaPersistencia();
+    private Persistencia persistencia = new Persistencia();
     private List<Pv> listaPv;
     /**
      * Muestra el formulacion para Administrar Puntos de Venta
@@ -92,5 +92,9 @@ public class PvControl implements IEmpresaDatos, IListarABM {
             modelo.addRow(datos);
         }
         return modelo;
+    }
+
+    public void modificar(int index) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
