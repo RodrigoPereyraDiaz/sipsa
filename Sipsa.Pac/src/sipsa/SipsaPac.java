@@ -38,10 +38,12 @@ public class SipsaPac {
             mensaje.setDescriptor("hola servidor");
             conexion.enviarMensaje(mensaje);
             Mensaje mensajerespuesta = conexion.recibirMensaje();
-            Login login = new Login();
-            login.setVisible(true);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(SipsaPac.class.getName()).log(Level.SEVERE, null, ex);
+            mensajerespuesta.procesar();
+            mensaje.setDescriptor("hola de nuevo servidor");
+            conexion.enviarMensaje(mensaje);
+            mensaje.setDescriptor("chau servidor");
+            conexion.enviarMensaje(mensaje);
+            conexion.finalizar();
         } catch (IOException ex) {
             Logger.getLogger(SipsaPac.class.getName()).log(Level.SEVERE, null, ex);
         }
