@@ -5,6 +5,7 @@
 
 package sipsa.presentacion.escritorio;
 
+import sipsa.Configuracion;
 import sipsa.presentacion.interfaces.ITipoProductoDatos;
 
 /**
@@ -21,6 +22,8 @@ public class TipoProductoDatos extends javax.swing.JDialog {
      */
     public TipoProductoDatos(ITipoProductoDatos controlador) {
         initComponents();
+        Configuracion configuracion = Configuracion.getInstancia();
+        this.setIconImage(configuracion.getIcono());
         this.setLocationRelativeTo(null);
         this.controlador = controlador;
         this.setTitle(this.controlador.getDescripcion());

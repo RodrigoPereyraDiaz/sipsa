@@ -14,7 +14,7 @@ import sipsa.presentacion.interfaces.ITipoProductoDatos;
 import sipsa.presentacion.interfaces.IListarABM;
 import sipsa.presentacion.escritorio.ListarABM;
 import sipsa.presentacion.escritorio.TipoProductoDatos;
-import sipsa.persistencia.FachadaPersistencia;
+import sipsa.persistencia.Persistencia;
 
 /**
  * Controlador de Tipo de Producto
@@ -23,7 +23,7 @@ import sipsa.persistencia.FachadaPersistencia;
  */
 public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
 
-    private FachadaPersistencia persistencia = new FachadaPersistencia();
+    private Persistencia persistencia = new Persistencia();
     private List<TipoProducto> listaTipoProducto;
 
     /**
@@ -96,5 +96,9 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
             modelo.addRow(datos);
         }
         return modelo;
+    }
+
+    public void modificar(int index) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

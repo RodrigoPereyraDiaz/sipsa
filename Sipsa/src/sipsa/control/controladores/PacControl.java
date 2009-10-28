@@ -14,7 +14,7 @@ import sipsa.presentacion.interfaces.IListarABM;
 import sipsa.presentacion.interfaces.IEmpresaDatos;
 import sipsa.presentacion.escritorio.EmpresaDatos;
 import sipsa.presentacion.escritorio.ListarABM;
-import sipsa.persistencia.FachadaPersistencia;
+import sipsa.persistencia.Persistencia;
 
 /**
  * Controlador de Punto de Atencion la Cliente
@@ -22,7 +22,7 @@ import sipsa.persistencia.FachadaPersistencia;
  * @author Maria Eugenia Sanchez
  */
 public class PacControl implements IEmpresaDatos, IListarABM {
-    private FachadaPersistencia persistencia = new FachadaPersistencia();
+    private Persistencia persistencia = new Persistencia();
     private List<Pac> listaPac;
 
     /**
@@ -93,5 +93,9 @@ public class PacControl implements IEmpresaDatos, IListarABM {
             modelo.addRow(datos);
         }
         return modelo;
+    }
+
+    public void modificar(int index) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

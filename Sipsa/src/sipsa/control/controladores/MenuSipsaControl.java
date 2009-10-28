@@ -5,26 +5,21 @@
 
 package sipsa.control.controladores;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import sipsa.presentacion.escritorio.MenuSipsa;
-import sipsa.presentacion.interfaces.IMenuSipsa;
+import sipsa.presentacion.escritorio.SipsaMenu;
+import sipsa.presentacion.interfaces.ISipsaMenu;
 
 /**
  * Controlador del Menu Principal
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class MenuSipsaControl implements IMenuSipsa {
+public class MenuSipsaControl implements ISipsaMenu {
 
     /**
      * Muestra el formulario Menu Sipsa
      */
     public void mostrarMenu(){
-        MenuSipsa menuSipsa = new MenuSipsa(this);
+        SipsaMenu menuSipsa = new SipsaMenu(this);
         menuSipsa.setVisible(true);
     }
 
@@ -56,17 +51,8 @@ public class MenuSipsaControl implements IMenuSipsa {
      * Invoca el servicio de importacion de Productos desde un archivo
      */
     public void importarArchivoProductos() {
-        //@TODO revisar los try y catchs
         ProductosControl control = new ProductosControl();
-        try {
-            try {
-                control.importarProductosDesdeArchivo();
-            } catch (ParseException ex) {
-                Logger.getLogger(MenuSipsaControl.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(MenuSipsaControl.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        control.importarProductosDesdeArchivo();
     }
 
     public void mostrarReporteOTRealizadas() {
