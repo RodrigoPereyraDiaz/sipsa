@@ -15,6 +15,7 @@ public class TipoProducto{
     private int duracionGarantia;
 
     /**
+     * Obtiene el Modelo del tipo de producto
      * @return the modelo
      */
     public String getModelo() {
@@ -22,6 +23,7 @@ public class TipoProducto{
     }
 
     /**
+     * Establece el Modelo del tipo de producto
      * @param modelo the modelo to set
      */
     public void setModelo(String modelo) {
@@ -29,6 +31,7 @@ public class TipoProducto{
     }
 
     /**
+     * Obtiene el Nombre del tipo de producto
      * @return the nombre
      */
     public String getDescripcion() {
@@ -36,13 +39,15 @@ public class TipoProducto{
     }
 
     /**
-     * @param nombre the nombre to set
+     * Establece la descripcion del tipo de producto
+     * @param descripcion
      */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
     /**
+     * Obtiene la duracion de la garantia del tipo de producto
      * @return the duracionGarantia
      */
     public int getDuracionGarantia() {
@@ -50,6 +55,7 @@ public class TipoProducto{
     }
 
     /**
+     * Establece la duracion de la garantia del tipo de producto
      * @param duracionGarantia the duracionGarantia to set
      */
     public void setDuracionGarantia(int duracionGarantia) {

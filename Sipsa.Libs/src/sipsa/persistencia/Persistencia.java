@@ -5,17 +5,36 @@
 
 package sipsa.persistencia;
 
+import sipsa.persistencia.ProductoBroker;
+import sipsa.persistencia.PvBroker;
+import sipsa.persistencia.TipoProductoBroker;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import sipsa.dominio.*;
+import sipsa.persistencia.PacBroker;
 
 /**
  * Punto de acceso a los medios de persistencia
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
+ * Patrones: Facade, Singleton
+
  */
-public class FachadaPersistencia {
+public class Persistencia {
+
+    private static Persistencia persistencia;
+
+    /**
+     * Obtiene la instancia del punto de acceso a la persistencia
+     * @return Instancia de Persistencia
+     */
+    public static Persistencia getPersistencia(){
+        if (persistencia.equals(null)){
+            persistencia = new Persistencia();
+        }
+        return persistencia;
+    }
 
     ///Fachada de la persistencia de Pac
 
@@ -25,7 +44,7 @@ public class FachadaPersistencia {
      * @return Instancia del PAC
      */
     public Pac getPac(String id) {
-        PacAdapter pacAdapter = new PacAdapter();
+        PacBroker pacAdapter = new PacBroker();
         return pacAdapter.getPac(id);
     }
 
@@ -35,7 +54,7 @@ public class FachadaPersistencia {
      * @return Resultado de la operacion persistencia
      */
     public boolean savePac(Pac pac){
-        PacAdapter pacAdapter = new PacAdapter();
+        PacBroker pacAdapter = new PacBroker();
         return pacAdapter.savePac(pac);
     }
     
@@ -45,7 +64,7 @@ public class FachadaPersistencia {
      * @return Resultado de la operacion de persistencia
      */
     public boolean deletePac(Pac pac){
-        PacAdapter pacAdapter = new PacAdapter();
+        PacBroker pacAdapter = new PacBroker();
         return pacAdapter.deletePac(pac);
     }
 
@@ -55,7 +74,7 @@ public class FachadaPersistencia {
      * @return Existencia del PAC
      */
     public boolean existPac(Pac pac){
-        PacAdapter pacAdapter = new PacAdapter();
+        PacBroker pacAdapter = new PacBroker();
         return pacAdapter.exist(pac);
     }
 
@@ -64,7 +83,7 @@ public class FachadaPersistencia {
      * @return Lista de PACs
      */
     public ArrayList<Pac> getListPac(){
-        PacAdapter pacAdapter = new PacAdapter();
+        PacBroker pacAdapter = new PacBroker();
         return pacAdapter.getList();
     }
 
@@ -76,7 +95,7 @@ public class FachadaPersistencia {
      * @return Instancia de PV
      */
     public Pv getPV(String id){
-        PvAdapter pvAdapter = new PvAdapter();
+        PvBroker pvAdapter = new PvBroker();
         return pvAdapter.getPv(id);
     }
 
@@ -86,7 +105,7 @@ public class FachadaPersistencia {
      * @return Resultado de la operacion de persistencia
      */
     public boolean savePv(Pv pv){
-        PvAdapter pvAdapter = new PvAdapter();
+        PvBroker pvAdapter = new PvBroker();
         return pvAdapter.savePv(pv);
     }
 
@@ -96,7 +115,7 @@ public class FachadaPersistencia {
      * @return Resultado de la operacion de persistencia
      */
     public boolean deletePv(Pv pv){
-        PvAdapter pvAdapter = new PvAdapter();
+        PvBroker pvAdapter = new PvBroker();
         return pvAdapter.deletePv(pv);
     }
 
@@ -106,7 +125,7 @@ public class FachadaPersistencia {
      * @return Existencia del PV
      */
     public boolean existPv(Pv pv){
-        PvAdapter pvAdapter = new PvAdapter();
+        PvBroker pvAdapter = new PvBroker();
         return pvAdapter.exist(pv);
     }
 
@@ -115,7 +134,7 @@ public class FachadaPersistencia {
      * @return Lista de PVs
      */
     public ArrayList<Pv> getListPv(){
-        PvAdapter pvAdapter = new PvAdapter();
+        PvBroker pvAdapter = new PvBroker();
         return pvAdapter.getList();
     }
 
@@ -127,7 +146,7 @@ public class FachadaPersistencia {
      * @return Intancia de Producto
      */
     public Producto getProducto(String id){
-        ProductoAdapter productoAdapter = new ProductoAdapter();
+        ProductoBroker productoAdapter = new ProductoBroker();
         return productoAdapter.getProducto(id);
     }
 
@@ -137,7 +156,7 @@ public class FachadaPersistencia {
      * @return Resultado de la operacion de persistencia
      */
     public boolean saveProducto(Producto producto){
-        ProductoAdapter productoAdapter = new ProductoAdapter();
+        ProductoBroker productoAdapter = new ProductoBroker();
         return productoAdapter.saveProducto(producto);
     }
 
@@ -147,7 +166,7 @@ public class FachadaPersistencia {
      * @return Resultado de la operacion de persistencia
      */
     public boolean deleteProducto(Producto producto){
-        ProductoAdapter productoAdapter = new ProductoAdapter();
+        ProductoBroker productoAdapter = new ProductoBroker();
         return productoAdapter.deleteProducto(producto);
     }
 
@@ -157,7 +176,7 @@ public class FachadaPersistencia {
      * @return Existencia del producto
      */
     public boolean existProducto(Producto producto){
-        ProductoAdapter productoAdapter = new ProductoAdapter();
+        ProductoBroker productoAdapter = new ProductoBroker();
         return productoAdapter.exist(producto);
     }
 
@@ -166,7 +185,7 @@ public class FachadaPersistencia {
      * @return Lista de Productos
      */
     public ArrayList<Producto> getListProductos(){
-        ProductoAdapter productoAdapter = new ProductoAdapter();
+        ProductoBroker productoAdapter = new ProductoBroker();
         return productoAdapter.getList();
     }
 
@@ -178,7 +197,7 @@ public class FachadaPersistencia {
      * @return Instancia de Tipo de Producto
      */
     public TipoProducto getTipoProducto(String id){
-        TipoProductoAdapter tipoProductoAdapter = new TipoProductoAdapter();
+        TipoProductoBroker tipoProductoAdapter = new TipoProductoBroker();
         return tipoProductoAdapter.getTipoProducto(id);
     }
 
@@ -188,7 +207,7 @@ public class FachadaPersistencia {
      * @return Resultado de la operacion de persistencia
      */
     public boolean saveTipoProducto(TipoProducto tipoProducto){
-        TipoProductoAdapter tipoProductoAdapter = new TipoProductoAdapter();
+        TipoProductoBroker tipoProductoAdapter = new TipoProductoBroker();
         return tipoProductoAdapter.saveTipoProducto(tipoProducto);
     }
 
@@ -198,7 +217,7 @@ public class FachadaPersistencia {
      * @return Resultado del operacion de persistencia
      */
     public boolean deteletTipoProducto(TipoProducto tipoProducto){
-        TipoProductoAdapter tipoProductoAdapter = new TipoProductoAdapter();
+        TipoProductoBroker tipoProductoAdapter = new TipoProductoBroker();
         return tipoProductoAdapter.deleteTipoProducto(tipoProducto);
     }
 
@@ -208,7 +227,7 @@ public class FachadaPersistencia {
      * @return Existencia del Tipo de Producto
      */
     public boolean existTipoProducto(TipoProducto tipoProducto){
-        TipoProductoAdapter tipoProductoAdapter = new TipoProductoAdapter();
+        TipoProductoBroker tipoProductoAdapter = new TipoProductoBroker();
         return tipoProductoAdapter.exist(tipoProducto);
     }
 
@@ -217,7 +236,7 @@ public class FachadaPersistencia {
      * @return Lista de Tipos de Producto
      */
     public ArrayList<TipoProducto> getListTipoProducto(){
-        TipoProductoAdapter tipoProductoAdapter = new TipoProductoAdapter();
+        TipoProductoBroker tipoProductoAdapter = new TipoProductoBroker();
         return tipoProductoAdapter.getList();
     }
 
@@ -230,7 +249,7 @@ public class FachadaPersistencia {
      */
     //@TODO verfificar las exepciones
     public boolean importProductos(String pathFile) throws IOException, ParseException{
-        ProductoAdapter productoAdapter = new ProductoAdapter();
+        ProductoBroker productoAdapter = new ProductoBroker();
         return productoAdapter.importarProductos(pathFile);
     }
 

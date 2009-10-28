@@ -1,18 +1,19 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Sistemas de Informacion II 2009
+ * Proyecto Sipsa
  */
 
 package sipsa.dominio;
 
 /**
- *
- * @author elsupergomez
+ * Orden de Trabajo
+ * @author Claudio Rodrigo Pereyra Diaz
+ * @author Maria Eugenia Sanchez
  */
-
 public class OrdenDeTrabajo {
     private Venta garantia;
     private Pac pac;
+    //TODO revisar si esta bien usar un enumerado o es mejor el Patron State
     private EstadoOT estado;
     private String observaciones;
     private String motivoEstado;
