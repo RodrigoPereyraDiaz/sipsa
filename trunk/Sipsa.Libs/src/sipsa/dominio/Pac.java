@@ -41,5 +41,4 @@ public class Pac{
     public void setCuit(String cuit) {
         this.cuit = cuit;
     }
-
 }

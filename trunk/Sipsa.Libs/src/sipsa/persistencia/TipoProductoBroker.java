@@ -17,14 +17,14 @@ import sipsa.dominio.TipoProducto;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class TipoProductoAdapter {
+public class TipoProductoBroker {
 
     /**
      * Obtiene un Tipo de producto desde la base de datos
      * @param modelo Identificar unico del Tipo de Producto
      * @return Instancia del Tipo de Producto
      */
-    protected TipoProducto getTipoProducto(String modelo){
+    public TipoProducto getTipoProducto(String modelo){
         TipoProducto tipoProducto = new TipoProducto();
         Connection conn = DB.getConexion();
         PreparedStatement ps;
@@ -57,7 +57,7 @@ public class TipoProductoAdapter {
      * @param tipoProducto Tipo de Producto a guardar
      * @return Resultado de la operacion
      */
-    protected boolean saveTipoProducto(TipoProducto tipoProducto){
+    public boolean saveTipoProducto(TipoProducto tipoProducto){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         String consulta =
@@ -82,7 +82,7 @@ public class TipoProductoAdapter {
      * @param tipoProducto Tipo de Producto a eliminar
      * @return Resultado de la operacion
      */
-    protected boolean deleteTipoProducto(TipoProducto tipoProducto){
+    public boolean deleteTipoProducto(TipoProducto tipoProducto){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         String consulta =
@@ -106,7 +106,7 @@ public class TipoProductoAdapter {
      * @param tipoProducto Tipo de Producto a verificar
      * @return Existencia del Tipo de Producto
      */
-    protected boolean exist(TipoProducto tipoProducto){
+    public boolean exist(TipoProducto tipoProducto){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
@@ -135,7 +135,7 @@ public class TipoProductoAdapter {
      * Obtiene una lista de Tipos de Producto desde la base de datos
      * @return Lista de Tipos de Productos
      */
-    protected ArrayList<TipoProducto> getList(){
+    public ArrayList<TipoProducto> getList(){
         ArrayList<TipoProducto> lista = new ArrayList<TipoProducto>();
         Connection conn = DB.getConexion();
         PreparedStatement ps;

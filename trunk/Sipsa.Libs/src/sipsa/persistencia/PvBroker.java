@@ -2,29 +2,31 @@
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa
  */
+
 package sipsa.persistencia;
 
+import sipsa.persistencia.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import sipsa.dominio.Pac;
+import sipsa.dominio.Pv;
 
 /**
- * Capa de abstraccion para adaptar instancia de PAC de dominio a informacion de PAC en en medios de persistencia
+ * Capa de abstraccion para adaptar instancia de PV de dominio a informacion de PV en en medios de persistencia
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class PacAdapter {
+public class PvBroker {
 
     /**
-     * Obtiene una instacia de PAC desde una base de datos
-     * @param cuit Identificador unico de PAC
-     * @return Instancia de PAC
+     * Obtiene un PV desde la base de datos
+     * @param cuit Identificador unico del PV
+     * @return Instancia de PV
      */
-    protected Pac getPac(String cuit){
-        Pac p = new Pac();
+    protected Pv getPv(String cuit){
+        Pv pv = new Pv();
 
         Connection conn = DB.getConexion();
         PreparedStatement ps;
@@ -33,7 +35,7 @@ public class PacAdapter {
                 "SELECT cuit, nombre " +
                 "FROM   Empresas " +
                 "WHERE  cuit = ? " +
-                "   and tipo = 0";
+                "   and tipo = 1";
 
         try {
           ps = conn.prepareStatement(consulta);
@@ -41,32 +43,32 @@ public class PacAdapter {
           rs = ps.executeQuery();
 
           if (rs.next()) {
-            p.setCuit(rs.getString("cuit"));
-            p.setNombre(rs.getString("nombre"));
+            pv.setCuit(rs.getString("cuit"));
+            pv.setNombre(rs.getString("nombre"));
           }
 
           ps.close();
         } catch (SQLException ex) {
           ex.printStackTrace();
         }
-        return p;
+        return pv;
     }
 
     /**
-     * Guarda una instancia de PAC en una base de datos
-     * @param pac Pac a guardar
+     * Guarda un PV en la base de datos
+     * @param pv PV a guardar
      * @return Resultado de la operacion
      */
-    protected boolean savePac(Pac pac){
+    protected boolean savePv(Pv pv){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         String consulta =
             "INSERT INTO Empresas (cuit, nombre, tipo) " +
-            "VALUES (?, ? ,0)";
+            "VALUES (?, ? ,1)";
         try {
           ps = conn.prepareStatement(consulta);
-          ps.setString(1, pac.getCuit());
-          ps.setString(2, pac.getNombre());
+          ps.setString(1, pv.getCuit());
+          ps.setString(2, pv.getNombre());
           ps.execute();
           ps.close();
           return true;
@@ -77,20 +79,20 @@ public class PacAdapter {
     }
 
     /**
-     * Elimina un PAC de una base de datos
-     * @param pac PAC a eliminar
+     * Elimina un PV de la base de datos
+     * @param pv PV a eliminar
      * @return Resultado de la operacion
      */
-    protected boolean deletePac(Pac pac){
+    protected boolean deletePv(Pv pv){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         String consulta =
             "DELETE FROM Empresas " +
             "WHERE  cuit = ? " +
-            "   and tipo = 0";
+            "   and tipo = 1";
         try {
           ps = conn.prepareStatement(consulta);
-          ps.setString(1, pac.getCuit());
+          ps.setString(1, pv.getCuit());
           ps.execute();
           ps.close();
           return true;
@@ -101,11 +103,11 @@ public class PacAdapter {
     }
 
     /**
-     * Verifica la existencia de un pac en una base de datos
-     * @param pac Pac a verificar
-     * @return Resultado de la existencia
+     * Verficia la existencia de un PV en la base de datos
+     * @param pv PV a verificar
+     * @return Existencia del PV
      */
-    protected boolean exist(Pac pac){
+    protected boolean exist(Pv pv){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
@@ -113,11 +115,11 @@ public class PacAdapter {
                 "SELECT cuit " +
                 "FROM   Empresas " +
                 "WHERE  cuit = ? " +
-                "   and tipo = 0";
+                "   and tipo = 1";
         boolean existe = false;
         try {
           ps = conn.prepareStatement(consulta);
-          ps.setString(1, pac.getCuit());
+          ps.setString(1, pv.getCuit());
           rs = ps.executeQuery();
 
           existe = rs.next();
@@ -131,27 +133,27 @@ public class PacAdapter {
     }
 
     /**
-     * Obtiene una lista de PACs desde la base de datos
-     * @return Lista de instancias de PACs
+     * Obtiene una lista de los PV desde la base de datos
+     * @return Lista de PVs
      */
-    protected ArrayList<Pac> getList(){
-        ArrayList<Pac> lista = new ArrayList<Pac>();
+    protected ArrayList<Pv> getList(){
+        ArrayList<Pv> lista = new ArrayList<Pv>();
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
         String consulta =
                 "SELECT cuit " +
                 "FROM   Empresas " +
-                "WHERE  tipo = 0";
+                "WHERE  tipo = 1";
 
         try {
           ps = conn.prepareStatement(consulta);
           rs = ps.executeQuery();
 
           while (rs.next()) {
-            Pac pac = new Pac();
-            pac = getPac(rs.getString("cuit"));
-            lista.add(pac);
+            Pv p = new Pv();
+            p = getPv(rs.getString("cuit"));
+            lista.add(p);
           }
 
           ps.close();

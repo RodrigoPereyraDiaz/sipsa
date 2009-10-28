@@ -1,14 +1,21 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Sistemas de Informacion II 2009
+ * Proyecto Sipsa
  */
 
 package sipsa.presentacion.interfaces;
 
 /**
- *
- * @author elsupergomez
+ * Interface a implementar los metodos necesarios para identificar y autenticar usuarios
+ * @author Claudio Rodrigo Pereyra Diaz
+ * @author Maria Eugenia Sanchez
  */
 public interface ILogin {
-
+    /**
+     * Implementa el comportamiento de validacion de usuario al presionar el boton Ingresar del formulario Login
+     * @param usuario Identificacion
+     * @param password Autenticacion
+     * @return True si se pudo identificar y autenticar satisfactoriamente
+     */
+    public boolean ingresar(String usuario,char[] password);
 }

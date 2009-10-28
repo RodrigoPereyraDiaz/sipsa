@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Sistemas de Informacion II 2009
+ * Proyecto Sipsa
  */
 
 package sipsa.dominio;
@@ -8,8 +8,9 @@ package sipsa.dominio;
 import java.util.Date;
 
 /**
- *
- * @author elsupergomez
+ * Venta
+ * @author Claudio Rodrigo Pereyra Diaz
+ * @author Maria Eugenia Sanchez
  */
 public class Venta {
     private Producto productos;
@@ -73,6 +74,5 @@ public class Venta {
         this.nroFactura = nroFactura;
     }
 
-
-    //TODO
+    //TODO revisar que esten todos los atributos de una venta
 }

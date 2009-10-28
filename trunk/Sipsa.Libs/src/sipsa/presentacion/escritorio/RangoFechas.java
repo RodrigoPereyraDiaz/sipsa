@@ -1,35 +1,36 @@
 /*
- * Sistemas de Informacion II 2009
- * Proyecto Sipsa
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/*
+ * RangoFechas.java
+ *
+ * Created on 25/10/2009, 23:40:00
  */
 
 package sipsa.presentacion.escritorio;
 
-import sipsa.Configuracion;
-import sipsa.presentacion.interfaces.ILogin;
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
- * Formulario generio para indentificar y autenticar usuarios
- * @author Claudio Rodrigo Pereyra Diaz
- * @author Maria Eugenia Sanchez
+ *
+ * @author elsupergomez
  */
-public class Login extends javax.swing.JDialog {
-    private ILogin controlador;
+public class RangoFechas extends javax.swing.JDialog {
     /** A return status code - returned if Cancel button has been pressed */
     public static final int RET_CANCEL = 0;
     /** A return status code - returned if OK button has been pressed */
     public static final int RET_OK = 1;
 
-    /** Creates new form Login
-     * @param controlador del comportamiento del formulacion
-     */
-    public Login(ILogin controlador) {
+    /** Creates new form RangoFechas */
+    public RangoFechas(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        this.jFormattedTextFieldDesde.setText(DateFormat.getDateInstance().toString());
+        this.jFormattedTextFieldHasta.setText(DateFormat.getDateInstance().toString());
         initComponents();
-        this.controlador = controlador;
-        Configuracion configuracion = Configuracion.getInstancia();
-        this.setIconImage(configuracion.getIcono());
-        this.setLocationRelativeTo(null);
-        this.setTitle("Ingreso al Sistema");
     }
 
     /** @return the return status of this dialog - one of RET_OK or RET_CANCEL */
@@ -48,21 +49,20 @@ public class Login extends javax.swing.JDialog {
 
         okButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
-        jTextFieldIdentificacion = new javax.swing.JTextField();
-        jLabelIdentificacion = new javax.swing.JLabel();
-        jLabelAutenticacion = new javax.swing.JLabel();
-        jPasswordFieldAutenticacion = new javax.swing.JPasswordField();
+        jFormattedTextFieldDesde = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldHasta = new javax.swing.JFormattedTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
-        setTitle("Ingreso a Sipsa");
-        setIconImage(null);
+        setTitle("Rango Fechas");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
             }
         });
 
-        okButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/tango-project/tango-icon-theme/16x16/apps/system-users.png"))); // NOI18N
-        okButton.setText("Ingresar");
+        okButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/tango-project/tango-icon-theme/16x16/actions/appointment-new.png"))); // NOI18N
+        okButton.setText("Aceptar");
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
@@ -77,9 +77,13 @@ public class Login extends javax.swing.JDialog {
             }
         });
 
-        jLabelIdentificacion.setText("CUIT");
+        jFormattedTextFieldDesde.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
 
-        jLabelAutenticacion.setText("Usuario");
+        jFormattedTextFieldHasta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+
+        jLabel1.setText("Desde:");
+
+        jLabel2.setText("Hasta:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -87,50 +91,46 @@ public class Login extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelAutenticacion)
-                    .addComponent(jLabelIdentificacion))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(okButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelButton))
-                    .addComponent(jTextFieldIdentificacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                    .addComponent(jPasswordFieldAutenticacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(jLabel2))
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jFormattedTextFieldHasta, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                            .addComponent(jFormattedTextFieldDesde, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))))
                 .addContainerGap())
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cancelButton, okButton});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldIdentificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelIdentificacion))
+                    .addComponent(jFormattedTextFieldDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordFieldAutenticacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelAutenticacion))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jFormattedTextFieldHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(okButton)
-                    .addComponent(cancelButton))
-                .addContainerGap())
+                    .addComponent(cancelButton)
+                    .addComponent(okButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        if (controlador.ingresar(this.jTextFieldIdentificacion.getText(), this.jPasswordFieldAutenticacion.getPassword())){
-            //TODO definir el controlador que implemente la interface ILogin
-            doClose(RET_OK);
-        } else {
-            //TODO informar que no se puedo autenticar el usuario
-        }    
+        doClose(RET_OK);
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -148,12 +148,13 @@ public class Login extends javax.swing.JDialog {
         dispose();
     }
 
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
-    private javax.swing.JLabel jLabelAutenticacion;
-    private javax.swing.JLabel jLabelIdentificacion;
-    private javax.swing.JPasswordField jPasswordFieldAutenticacion;
-    private javax.swing.JTextField jTextFieldIdentificacion;
+    private javax.swing.JFormattedTextField jFormattedTextFieldDesde;
+    private javax.swing.JFormattedTextField jFormattedTextFieldHasta;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton okButton;
     // End of variables declaration//GEN-END:variables
 

@@ -3,12 +3,12 @@
  * and open the template in the editor.
  */
 
-package sipsa.persistencia;
+package sipsa.control.servicios;
 
 /**
  *
  * @author elsupergomez
  */
-public class OTAdapter {
-//TODO
+public interface IReceptorNotificado {
+    public void procesarNotificacion(String notificacion);
 }

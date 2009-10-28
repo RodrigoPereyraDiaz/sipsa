@@ -9,6 +9,6 @@ package sipsa.persistencia;
  *
  * @author elsupergomez
  */
-public class VentaAdapter {
-//TODO
+public class VentaBroker {
+//TODO definir el contenido del adaptador de ventas
 }

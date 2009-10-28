@@ -5,6 +5,7 @@
 
 package sipsa.persistencia;
 
+import sipsa.persistencia.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -24,7 +25,7 @@ import sipsa.dominio.Producto;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class ProductoAdapter {
+public class ProductoBroker {
 
     /**
      * Obtiene una Prdocuto desde el una base de datos
