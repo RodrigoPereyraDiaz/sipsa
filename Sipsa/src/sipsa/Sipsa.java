@@ -5,7 +5,6 @@
 
 package sipsa;
 
-import javax.swing.UIManager;
 import sipsa.control.controladores.MenuSipsaControl;
 
 /**
@@ -20,12 +19,8 @@ public class Sipsa {
      */
     public static void main(String[] args) {
 
-        try {
-            //Indica al UIManager que use el tema nativo del Sistema Operativo
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        Configuracion configuracion = Configuracion.getInstancia();
+        configuracion.setEstiloLocal();
 
         MenuSipsaControl menuSipsaControl = new MenuSipsaControl();
         menuSipsaControl.mostrarMenu();
