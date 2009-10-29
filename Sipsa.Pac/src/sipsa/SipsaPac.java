@@ -7,11 +7,11 @@ package sipsa;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.UIManager;
+import sipsa.control.servicios.Cliente;
 import sipsa.control.servicios.Conexion;
-import sipsa.control.servicios.Mensaje;
 import sipsa.presentacion.escritorio.Login;
 
 /**
@@ -24,28 +24,20 @@ public class SipsaPac {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Configuracion configuracion = Configuracion.getInstancia();
+        configuracion.setEstiloLocal();
         try {
-            //Indica al UIManager que use el tema nativo del Sistema Operativo
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-
-            Socket socket = new Socket("localhost", 1027);
-            Conexion conexion = new Conexion(socket);
-            Mensaje mensaje = new Mensaje();
-            mensaje.setDescriptor("hola servidor");
-            conexion.enviarMensaje(mensaje);
-            Mensaje mensajerespuesta = conexion.recibirMensaje();
-            mensajerespuesta.procesar();
-            mensaje.setDescriptor("hola de nuevo servidor");
-            conexion.enviarMensaje(mensaje);
-            mensaje.setDescriptor("chau servidor");
-            conexion.enviarMensaje(mensaje);
-            conexion.finalizar();
+            Conexion conexion = new Conexion(new Socket("localhost", 1027));
+            Cliente cliente = new Cliente(conexion);
+            Login login = new Login(cliente);
+            login.setVisible(true);
+        } catch (UnknownHostException ex) {
+            Logger.getLogger(SipsaPac.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(1);
         } catch (IOException ex) {
             Logger.getLogger(SipsaPac.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(1);
         }
+        
     }
 }
