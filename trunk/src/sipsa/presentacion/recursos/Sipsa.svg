@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="180"
+   height="180"
+   id="svg2515"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   version="1.0"
+   sodipodi:docname="ESE.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs2517">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective2523" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="350"
+     inkscape:cy="520"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="640"
+     inkscape:window-height="724"
+     inkscape:window-x="0"
+     inkscape:window-y="25" />
+  <metadata
+     id="metadata2520">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-303.29242,-522.87406)">
+    <g
+       id="g22"
+       transform="translate(-946.55357,292.96301)">
+      <path
+         style="fill:#0064e4;stroke:#ffffff;stroke-width:0.21602701"
+         d="M 1308.71,361.921 C 1278.09,362.036 1256.37,353.489 1255.96,339.108 C 1255.64,327.977 1268.16,315.788 1287.89,305.879 C 1288.07,308.672 1288.75,311.506 1289.94,314.38 C 1293.75,323.598 1301.32,328.674 1312.65,329.611 C 1315.27,329.858 1318.53,330.062 1322.44,330.22 C 1326.35,330.38 1330.42,330.394 1334.66,330.271 C 1339.81,330.211 1343.65,330.653 1346.19,331.602 C 1348.73,332.551 1350.57,334.412 1351.72,337.192 C 1353.39,341.231 1353.12,345.149 1350.92,348.944 C 1348.72,352.737 1345.03,355.705 1339.85,357.846 C 1329.5,362.126 1321.81,360.35 1316.8,352.518 C 1315.53,350.526 1314.64,349.267 1314.13,348.741 C 1313.61,348.214 1313.09,347.84 1312.55,347.617 C 1311.56,346.994 1309.92,347.152 1307.65,348.092 L 1302.91,350.05 C 1304.21,352.472 1305.33,354.634 1306.26,356.54 C 1307.2,358.445 1307.95,360.092 1308.53,361.482 C 1308.59,361.623 1308.65,361.769 1308.71,361.921 z"
+         id="path24" />
+      <path
+         style="fill:#4bccff;stroke:#ffffff;stroke-width:0.21602701"
+         d="M 1344.85,288.392 C 1389.72,281.424 1425.76,290.266 1426.29,308.832 C 1426.75,324.884 1400.51,343.13 1364.44,353.575 C 1365.3,352.399 1366.07,351.188 1366.75,349.941 C 1368.76,346.225 1369.9,342.353 1370.16,338.33 C 1370.41,334.303 1369.68,330.208 1367.96,326.038 C 1365.97,321.241 1362.98,317.748 1358.97,315.562 C 1354.96,313.374 1349.37,312.207 1342.22,312.062 L 1331.67,311.765 C 1326.9,311.669 1322.98,311.51 1319.94,311.292 C 1316.89,311.074 1314.44,310.683 1312.58,310.121 C 1310.72,309.559 1309.3,308.813 1308.32,307.886 C 1307.35,306.959 1306.55,305.737 1305.92,304.223 C 1305.13,302.295 1304.8,300.409 1304.94,298.566 C 1313.69,295.362 1323.27,292.609 1333.36,290.489 C 1333.54,290.762 1333.7,291.046 1333.87,291.338 C 1334.25,291.915 1334.57,292.413 1334.82,292.829 C 1335.06,293.247 1335.24,293.579 1335.34,293.831 C 1335.91,294.485 1336.42,295.011 1336.88,295.413 C 1338.19,296.058 1339.91,295.936 1342.06,295.049 L 1346.98,293.012 C 1346.14,291.271 1345.43,289.732 1344.85,288.392 z"
+         id="path26" />
+    </g>
+  </g>
+</svg>
