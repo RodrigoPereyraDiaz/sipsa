@@ -6,9 +6,8 @@
 package sipsa.control.servicios;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import java.net.Socket;
 import sipsa.presentacion.interfaces.ILogin;
 
 /**
@@ -19,29 +18,12 @@ public class Cliente implements ILogin{
 
     private Conexion conexion;
 
-
-    public Cliente(Conexion conexion) throws IOException{
-            this.conexion = conexion;
-            this.saludar();
+    public void conectar(String host, int puerto) throws IOException{
+        conexion = new Conexion(new Socket(host,puerto));
     }
 
     public void ingresar(String usuario, char[] password) {
         throw new UnsupportedOperationException("Not supported yet.");
 
-    }
-
-    @Deprecated
-    private void saludar(){
-        try {
-            Mensaje mensaje = new Mensaje();
-            mensaje.setDescriptor("hola servidor");
-            conexion.enviarMensaje(mensaje);
-            Mensaje mensajerespuesta = conexion.recibirMensaje();
-            mensajerespuesta.procesar();
-            mensaje.setDescriptor("hola de nuevo servidor");
-            conexion.enviarMensaje(mensaje);
-        } catch (IOException ex) {
-            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 }

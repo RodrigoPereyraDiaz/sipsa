@@ -9,6 +9,6 @@ package sipsa.persistencia;
  *
  * @author elsupergomez
  */
-public class VentaBroker {
+class VentaBroker {
 
 }

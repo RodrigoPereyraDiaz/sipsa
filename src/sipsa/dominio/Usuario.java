@@ -3,12 +3,17 @@
  * and open the template in the editor.
  */
 
-package sipsa.persistencia;
+package sipsa.dominio;
 
 /**
  *
  * @author elsupergomez
  */
-class OtBroker {
-//TODO definir
+public class Usuario {
+
+    public boolean isValido(){
+        //TODO
+        return true;
+    }
+
 }

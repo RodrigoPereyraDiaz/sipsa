@@ -3,7 +3,7 @@
  * Proyecto Sipsa
  */
 
-package sipsa.control.controladores;
+package sipsa.control;
 
 import java.io.IOException;
 import java.text.ParseException;

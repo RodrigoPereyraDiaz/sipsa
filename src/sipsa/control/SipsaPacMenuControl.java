@@ -3,9 +3,8 @@
  * and open the template in the editor.
  */
 
-package sipsa.control.controladores;
+package sipsa.control;
 
-import sipsa.presentacion.interfaces.IListarABM;
 import sipsa.presentacion.interfaces.ISipsaPacMenu;
 
 /**

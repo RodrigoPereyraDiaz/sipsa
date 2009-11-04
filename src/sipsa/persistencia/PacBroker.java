@@ -17,7 +17,7 @@ import sipsa.dominio.Pac;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class PacBroker {
+class PacBroker {
 
     /**
      * Obtiene una instacia de PAC desde una base de datos

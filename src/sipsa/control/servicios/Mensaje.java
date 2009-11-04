@@ -5,27 +5,16 @@
 
 package sipsa.control.servicios;
 
-import java.io.Serializable;
-
 /**
  * Mensaje del Protocolo de comunicacion entre el Servidor Sipsa y los Clientes Sipsa
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class Mensaje implements Serializable {
+public abstract class Mensaje {
     private String Descriptor;
     private Object Contenido;
 
-
-    /**
-     * Realiza la accion correspondeiente al tipo de Mensaje
-     */
-    public Mensaje procesar() {
-        //TODO hacer que esto use el patron comando
-        if (this.getDescriptor().equalsIgnoreCase("hola servidor"))
-            this.setDescriptor("hola cliente");
-        return this;
-    }
+    public abstract Mensaje procesar();
 
     /**
      * Descripcion del Mensaje
@@ -39,7 +28,7 @@ public class Mensaje implements Serializable {
      * Establece la descripcion del mensaje
      * @param Descriptor del mensaje
      */
-    public void setDescriptor(String Descriptor) {
+    protected void setDescriptor(String Descriptor) {
         this.Descriptor = Descriptor;
     }
 

@@ -250,4 +250,9 @@ public class Persistencia {
         return productoAdapter.importarProductos(pathFile);
     }
 
+    public boolean saveOrdenDeTrabajo(OrdenDeTrabajo ordenDeTrabajo){
+        //TODO
+        return true;
+    }
+
 }

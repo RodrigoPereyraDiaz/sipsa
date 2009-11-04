@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class DB {
+class DB {
     private static Connection conn;
 
     /**

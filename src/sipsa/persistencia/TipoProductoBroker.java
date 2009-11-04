@@ -17,7 +17,7 @@ import sipsa.dominio.TipoProducto;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class TipoProductoBroker {
+class TipoProductoBroker {
 
     /**
      * Obtiene un Tipo de producto desde la base de datos
