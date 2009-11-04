@@ -24,7 +24,7 @@ import sipsa.dominio.Producto;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class ProductoBroker {
+class ProductoBroker {
 
     /**
      * Obtiene una Prdocuto desde el una base de datos

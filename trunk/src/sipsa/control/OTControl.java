@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package sipsa.control.controladores;
+package sipsa.control;
 
 import javax.swing.table.DefaultTableModel;
 import sipsa.presentacion.escritorio.ListarABM;

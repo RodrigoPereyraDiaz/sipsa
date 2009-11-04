@@ -18,7 +18,7 @@ import sipsa.dominio.Pv;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class PvBroker {
+class PvBroker {
 
     /**
      * Obtiene un PV desde la base de datos

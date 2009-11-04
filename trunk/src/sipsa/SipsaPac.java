@@ -6,13 +6,11 @@
 package sipsa;
 
 import java.io.IOException;
-import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import sipsa.control.servicios.Cliente;
-import sipsa.control.servicios.Conexion;
 import sipsa.presentacion.escritorio.Login;
 
 /**
@@ -28,8 +26,8 @@ public class SipsaPac {
         Configuracion configuracion = Configuracion.getInstancia();
         configuracion.setEstiloLocal();
         try {
-            Conexion conexion = new Conexion(new Socket("localhost", 1027));
-            Cliente cliente = new Cliente(conexion);
+            Cliente cliente = new Cliente();
+            cliente.conectar("localhost", 1027);
             Login login = new Login(cliente);
             login.setVisible(true);
         } catch (UnknownHostException ex) {

@@ -5,6 +5,7 @@
 
 package sipsa.control.servicios;
 
+import sipsa.control.servicios.Mensaje;
 import java.io.IOException;
 
 /**
@@ -12,7 +13,7 @@ import java.io.IOException;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class Sesion extends Thread {
+class Sesion extends Thread {
 
     private Conexion conexion;
     private Servidor servidor;

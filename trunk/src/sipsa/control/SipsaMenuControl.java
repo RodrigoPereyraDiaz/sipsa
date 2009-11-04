@@ -3,7 +3,7 @@
  * Proyecto Sipsa
  */
 
-package sipsa.control.controladores;
+package sipsa.control;
 
 import sipsa.presentacion.escritorio.SipsaMenu;
 import sipsa.presentacion.interfaces.ISipsaMenu;

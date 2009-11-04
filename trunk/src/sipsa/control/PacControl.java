@@ -3,7 +3,7 @@
  * Proyecto Sipsa
  */
 
-package sipsa.control.controladores;
+package sipsa.control;
 
 import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
