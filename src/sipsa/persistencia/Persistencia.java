@@ -34,6 +34,10 @@ public class Persistencia {
 
     private Persistencia(){};
 
+    public Object getOrdenDeTrabajo(Object id) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
     ///Fachada de la persistencia de Pac
 
     /**

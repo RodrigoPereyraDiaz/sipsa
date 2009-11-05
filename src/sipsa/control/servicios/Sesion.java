@@ -5,7 +5,6 @@
 
 package sipsa.control.servicios;
 
-import sipsa.control.servicios.Mensaje;
 import java.io.IOException;
 
 /**

@@ -1,24 +1,44 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package sipsa.control.servicios;
 
-import sipsa.control.servicios.mensajes.*;
-import sipsa.control.servicios.Mensaje;
-
-/**
- *
- * @author elsupergomez
- */
 public class MensajesFabrica {
-
-    public static Mensaje getError(){
+//TODO ver si es correcto usar metodos estaticos o hay que hacer clase singleton
+    public static Mensaje newRespuestaError(){
         return new RespuestaError();
     }
 
-    public static Mensaje getOK(){
+    public static Mensaje newRespuestaOK(){
         return new RespuestaOK();
+    }
+
+    public static Mensaje newRespuestaOrdenDeTrabajo(){
+        return new RespuestaOrdenDeTrabajo();
+    }
+
+    public static Mensaje newRespuestaOrdenesDeTrabajo(){
+        return new RespuestaOrdenesDeTrabajo();
+    }
+
+    public static Mensaje newRespuestaReporte(){
+        return new RespuestaReporte();
+    }
+
+    public static Mensaje newSolicitudLogin(){
+        return new SolicitudLogin();
+    }
+
+    public static Mensaje newSolicitudOrdenDeTrabajo(){
+        return new SolicitudOrdenDeTrabajo();
+    }
+
+    public static Mensaje newSolicitudOrdenesDeTrabajo(){
+        return new SolicitudOrdenesDeTrabajo();
+    }
+
+    public static Mensaje newSolicitudOrdenDeTrabajoGuardar(){
+        return new SolicitudOrdenDeTrabajoGuardar();
+    }
+
+    public static Mensaje newSolicitudReporte(){
+        return new SolicitudReporte();
     }
 }

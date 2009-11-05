@@ -1,21 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package sipsa.control.servicios;
 
-import sipsa.control.servicios.Mensaje;
+import sipsa.persistencia.Persistencia;
 
-/**
- *
- * @author elsupergomez
- */
 class SolicitudOrdenDeTrabajo extends Mensaje{
 
     @Override
     public Mensaje procesar() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Persistencia persistencia = Persistencia.getPersistencia();
+        Mensaje respuesta = MensajesFabrica.newRespuestaOrdenDeTrabajo();
+        respuesta.setContenido(persistencia.getOrdenDeTrabajo(this.getContenido()));
+        return respuesta;
     }
-
 }
