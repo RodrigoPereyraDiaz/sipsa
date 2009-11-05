@@ -5,8 +5,6 @@
 
 package sipsa.control.servicios;
 
-import sipsa.control.servicios.Mensaje;
-import sipsa.control.servicios.MensajesFabrica;
 import java.net.*;
 import java.io.*;
 
@@ -42,13 +40,11 @@ class Conexion {
      * @return Mensaje recibido, Mensaje de Error en caso de no recibir correctamente
      */
     public Mensaje recibirMensaje() throws IOException {
-        Mensaje solicitud = MensajesFabrica.getError();
-
+        Mensaje solicitud = MensajesFabrica.newRespuestaError();
         ObjectInputStream entrada = new ObjectInputStream(socket.getInputStream());
         try {
             solicitud = (Mensaje) entrada.readObject();
         } catch (ClassNotFoundException ex){
-            //TODO definir un mensaje especifico para cuando un mensaje no puede castearse correctamente
             solicitud.setContenido("Error " + ex.getLocalizedMessage());
         } finally {
             return solicitud;

@@ -1,21 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package sipsa.control.servicios;
 
-import sipsa.control.servicios.Mensaje;
+import sipsa.dominio.OrdenDeTrabajo;
 
-/**
- *
- * @author elsupergomez
- */
 class RespuestaOrdenDeTrabajo extends Mensaje{
-
+//TODO ver si es realmente necesario siempre devolver un Mensaje
     @Override
     public Mensaje procesar() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) this.getContenido();
+        Cliente.handleOrdenDeTrabajo(ordenDeTrabajo);
+        return MensajesFabrica.newRespuestaOK();
     }
 
 }
