@@ -23,8 +23,6 @@ public class ProductosControl {
     private Persistencia persistencia = Persistencia.getPersistencia();
     /**Muestra un dialogo de seleccion de archivo para realizar la importacion de Productos
      * Realiza la importar de un archivo y devuelve una lista de productos
-     * @throws IOException 
-     * @throws ParseException
      */
     public void importarProductosDesdeArchivo(){
         //@TODO revisar las exepciones
