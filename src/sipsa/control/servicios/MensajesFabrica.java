@@ -1,7 +1,6 @@
 package sipsa.control.servicios;
 
 public class MensajesFabrica {
-//TODO ver si es correcto usar metodos estaticos o hay que hacer clase singleton
     public static Mensaje newRespuestaError(){
         return new RespuestaError();
     }
