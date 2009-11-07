@@ -1,9 +1,14 @@
 package sipsa.control.servicios;
 
+import sipsa.persistencia.Persistencia;
+
 class SolicitudOrdenesDeTrabajo extends Mensaje{
 
     @Override
     public Mensaje procesar() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Persistencia persistencia = Persistencia.getPersistencia();
+        Mensaje respuesta = MensajesFabrica.newRespuestaOrdenDeTrabajo();
+        respuesta.setContenido(persistencia.getOrdenesDeTrabajo());
+        return respuesta;
     }
 }
