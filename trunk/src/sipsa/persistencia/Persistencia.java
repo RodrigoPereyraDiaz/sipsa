@@ -39,6 +39,11 @@ public class Persistencia {
         return otBroker.getOT(Integer.parseInt(id.toString()));
     }
 
+    public ArrayList<OrdenDeTrabajo> getOrdenesDeTrabajo() {
+        OtBroker otBroker = new OtBroker();
+        return otBroker.getList();
+    }
+
     ///Fachada de la persistencia de Pac
 
     /**

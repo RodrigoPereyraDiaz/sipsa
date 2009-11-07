@@ -30,9 +30,12 @@ class OtBroker {
           ps = conn.prepareStatement(consulta);
           ps.setInt(1, id);
           rs = ps.executeQuery();
-
+          VentaBroker ventaBroker = new VentaBroker();
+          PacBroker pacBroker = new PacBroker();
           if (rs.next()) {
-            //TODO cargar los valores
+              ordenDeTrabajo.setPac(pacBroker.getPac(rs.getString("idpac")));
+              ordenDeTrabajo.setGarantia(ventaBroker.getVenta(rs.getInt("idVenta")));
+              //TODO completar
           }
 
           ps.close();
