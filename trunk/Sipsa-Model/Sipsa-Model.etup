@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMI xmlns:UML="omg.org/UML/1.4" xmi.version="2.0">
+   <XMI.header>
+      <XMI.metamodel xmi.name="UML" xmi.version="1.4"/>
+		<XMI.documentation>
+			<XMI.exporter>
+				Embarcadero's Describe
+			</XMI.exporter>
+			<XMI.exporterVersion>
+				6.0
+			</XMI.exporterVersion>
+		</XMI.documentation>
+   </XMI.header>
+
+   <XMI.content>
+   <UML:Profile xmi.id="DCE.21A2F5A9-125D-B5C8-97D1-35D2B6385842" name="Unnamed" isCloned="true" href="./Sipsa-Model.etup#//*[@xmi.id=&apos;DCE.21A2F5A9-125D-B5C8-97D1-35D2B6385842&apos;]" isDirty="false"><UML:Element.ownedElement>
+<UML:Stereotype xmi.id="DCE.3D36BE3A-75AE-0EEC-B02A-A7CF73E8BD8F" name="interface" owner="__uri_./Sipsa-Model.etup#//*[@xmi.id=&apos;DCE.21A2F5A9-125D-B5C8-97D1-35D2B6385842&apos;]"/></UML:Element.ownedElement></UML:Profile></XMI.content>
+</XMI>
