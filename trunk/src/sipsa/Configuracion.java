@@ -55,11 +55,4 @@ public class Configuracion {
             Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    //TODO definir los mensajes disponibles en el protoco que usan Patron Command
-    //TODO modificar los nombres Adapter por algo mas conveniente
-    //TODO aplicar Patron Singleton para la FachadaPersistencia, renombrar
-    //TODO definir el modelo sql para sqlite y medificar y completar para mysql
-    //TODO modificar la configuracion de la conexion para centralizar en la Configuracion
-    //TODO acomodar convesion de nombres de clases, primero identificador de clase, luego funcion de clase
 }

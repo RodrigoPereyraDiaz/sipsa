@@ -5,7 +5,7 @@
 
 package sipsa;
 
-import sipsa.control.controladores.SipsaMenuControl;
+import sipsa.control.SipsaMenuControl;
 
 /**
  * Punto de inicio del Sistema Sipsa
