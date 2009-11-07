@@ -26,10 +26,6 @@ class DB {
         if (DB.conn == null) {
             try {
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
-
-                //String connectionUrl = "jdbc:mysql://elsupergomez.dyndns.org:3306/sipsa";
-                //String connectionUrl = "jdbc:mysql://192.168.1.101:3306/sipsa";
-                //String connectionUrl = "jdbc:mysql://192.168.1.13:3306/sipsa";
                 String connectionUrl = "jdbc:mysql://localhost:3306/sipsa";
                 DB.conn = DriverManager.getConnection(connectionUrl, "sipsa", "sipsa");
             } catch (InstantiationException ex) {
@@ -43,7 +39,6 @@ class DB {
                 ex.printStackTrace();
             }
         }
-
         return conn;
     }
 }

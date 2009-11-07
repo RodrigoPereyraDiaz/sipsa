@@ -34,8 +34,9 @@ public class Persistencia {
 
     private Persistencia(){};
 
-    public Object getOrdenDeTrabajo(Object id) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public OrdenDeTrabajo getOrdenDeTrabajo(Object id) {
+        OtBroker otBroker = new OtBroker();
+        return otBroker.getOT(Integer.parseInt(id.toString()));
     }
 
     ///Fachada de la persistencia de Pac
@@ -255,8 +256,7 @@ public class Persistencia {
     }
 
     public boolean saveOrdenDeTrabajo(OrdenDeTrabajo ordenDeTrabajo){
-        //TODO
-        return true;
+        OtBroker otBroker = new OtBroker();
+        return otBroker.saveOT(ordenDeTrabajo);
     }
-
 }
