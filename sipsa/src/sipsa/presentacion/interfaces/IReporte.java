@@ -5,28 +5,27 @@
 
 package sipsa.presentacion.interfaces;
 
+import javax.swing.table.TableModel;
+
 /**
  * Interface a implementar los metodos necesarios para generar un Reporte
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
 public interface IReporte {
-    //TODO definir los metodos faltantes para generar reportes
+
+    public TableModel getDatos();
     /**
      * Obiene el nombre del Reporte a mostrar
      * @return
      */
     public String getNombre();
     /**
-     * Accion para getReporte el reporte
-     */
-    public void getReporte();
-    /**
      * Accion para imprimir el reporte
      */
-    public void imprimir();
+    public void imprimir() throws Exception;
     /**
      * Accion para exportar el reporte
      */
-    public void exportar();
+    public void exportar() throws Exception;
 }

@@ -1,5 +1,5 @@
 /*
- * Sistemas de Informacion II 2009
+ * Sistemas de Información II 2009
  * Proyecto Sipsa
  */
 
@@ -15,20 +15,22 @@ import sipsa.presentacion.interfaces.IReporte;
  */
 public class ReporteVisor extends javax.swing.JDialog {
 
-    private IReporte controlador;
+    private IReporte reporte;
 
     /** Creates new form ReporteVisor
      * @param controlador del comportamiento del formulacion
      */
-    public ReporteVisor(IReporte controlador) {
+    public ReporteVisor(IReporte reporte) {
         initComponents();
 
         Configuracion configuracion = Configuracion.getInstancia();
         this.setIconImage(configuracion.getIcono());
-        this.controlador = controlador;
+        this.reporte = reporte;
         this.setLocationRelativeTo(null);
-        this.setTitle(this.controlador.getNombre());
-        //TODO completar el codigo para cargar el reporte en pantalla
+        this.setTitle("Visor de Reporte");
+        this.jLabelNombre.setText(this.reporte.getNombre());
+        this.jTableDatos.setAutoCreateColumnsFromModel(true);
+        this.jTableDatos.setModel(this.reporte.getDatos());
     }
 
     /** This method is called from within the constructor to
@@ -132,11 +134,19 @@ public class ReporteVisor extends javax.swing.JDialog {
 }//GEN-LAST:event_jButtonCerrarActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
-        this.controlador.imprimir();
+        try {
+            this.reporte.imprimir();
+        } catch (Exception ex) {
+            new DialogoMensaje(this,DialogoMensaje.Tipo.Información, ex.getLocalizedMessage());
+        }
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
     private void jButtonExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExportarActionPerformed
-        this.controlador.exportar();
+        try {
+            this.reporte.exportar();
+        } catch (Exception ex) {
+            new DialogoMensaje(this,DialogoMensaje.Tipo.Información, ex.getLocalizedMessage());
+        }
     }//GEN-LAST:event_jButtonExportarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

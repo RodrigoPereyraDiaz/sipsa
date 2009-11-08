@@ -5,7 +5,9 @@
 
 package sipsa.control;
 
+import sipsa.presentacion.escritorio.ReporteVisor;
 import sipsa.presentacion.escritorio.SipsaMenu;
+import sipsa.presentacion.interfaces.IReporte;
 import sipsa.presentacion.interfaces.ISipsaMenu;
 
 /**
@@ -56,14 +58,20 @@ public class SipsaMenuControl implements ISipsaMenu {
     }
 
     public void mostrarReporteOTRealizadas() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        IReporte reporte = ReportesFactoria.getReporteOTRealizadas();
+        ReporteVisor reporteVisor = new ReporteVisor(reporte);
+        reporteVisor.setVisible(true);
     }
 
     public void mostrarReporteOTPendientes() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        IReporte reporte = ReportesFactoria.getReporteOTPendientes();
+        ReporteVisor reporteVisor = new ReporteVisor(reporte);
+        reporteVisor.setVisible(true);
     }
 
     public void mostrarReporteOTVencidas() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        IReporte reporte = ReportesFactoria.getReporteOTVencidas();
+        ReporteVisor reporteVisor = new ReporteVisor(reporte);
+        reporteVisor.setVisible(true);
     }
 }

@@ -1,22 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * RangoFechas.java
- *
- * Created on 25/10/2009, 23:40:00
- */
-
+//TODO verificar que inicializa correctamente, validar el rango de fechas
 package sipsa.presentacion.escritorio;
 
-import java.text.DateFormat;
+import java.util.Date;
 
-/**
- *
- * @author elsupergomez
- */
 public class RangoFechas extends javax.swing.JDialog {
     /** A return status code - returned if Cancel button has been pressed */
     public static final int RET_CANCEL = 0;
@@ -26,8 +12,8 @@ public class RangoFechas extends javax.swing.JDialog {
     /** Creates new form RangoFechas */
     public RangoFechas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.jFormattedTextFieldDesde.setText(DateFormat.getDateInstance().toString());
-        this.jFormattedTextFieldHasta.setText(DateFormat.getDateInstance().toString());
+        this.jFormattedTextFieldDesde.setValue(this.fechaDesde);
+        this.jFormattedTextFieldHasta.setValue(this.fechaHasta);
         initComponents();
     }
 
@@ -128,6 +114,8 @@ public class RangoFechas extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
+        this.fechaDesde = (Date) this.jFormattedTextFieldDesde.getValue();
+        this.fechaHasta = (Date) this.jFormattedTextFieldHasta.getValue();
         doClose(RET_OK);
     }//GEN-LAST:event_okButtonActionPerformed
 
@@ -145,7 +133,6 @@ public class RangoFechas extends javax.swing.JDialog {
         setVisible(false);
         dispose();
     }
-
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
@@ -157,4 +144,20 @@ public class RangoFechas extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private int returnStatus = RET_CANCEL;
+    private Date fechaDesde = new Date(System.currentTimeMillis());
+    private Date fechaHasta = new Date(System.currentTimeMillis());
+
+    /**
+     * @return the fechaDesde
+     */
+    public Date getFechaDesde() {
+        return fechaDesde;
+    }
+
+    /**
+     * @return the fechaHasta
+     */
+    public Date getFechaHasta() {
+        return fechaHasta;
+    }
 }

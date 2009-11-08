@@ -10,12 +10,10 @@ class SolicitudLogin extends Mensaje {
         Usuario usuario = (Usuario) this.getContenido();
         if  (usuario.isValido()){
             mensaje = MensajesFabrica.newRespuestaOK();
-            mensaje.setDescriptor("Ingreso satisfactorio");
-            mensaje.setContenido("Bienvenido al sistema Sipsa");
+            mensaje.setContenido("Ingreso satisfactorio");
         } else {
             mensaje = MensajesFabrica.newRespuestaError();
-            mensaje.setDescriptor("Error de autenticacón");
-            mensaje.setContenido("No se pudo ingresar al sistema, intente nuevamente");
+            mensaje.setContenido("Error de autenticacón");
         }
         return mensaje;
     }

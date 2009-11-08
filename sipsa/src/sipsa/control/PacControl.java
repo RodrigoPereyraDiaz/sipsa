@@ -9,6 +9,7 @@ import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
+import javax.swing.JDialog;
 import sipsa.dominio.Pac;
 import sipsa.presentacion.interfaces.IListarABM;
 import sipsa.presentacion.interfaces.IEmpresaDatos;
@@ -39,16 +40,15 @@ public class PacControl implements IEmpresaDatos, IListarABM {
      * @param nombre Nombre del Punto de Atencion al Cliente
      * @return Resultado de la persistencia
      */
-    public Boolean aceptarDatosEmpresa(String cuit, String nombre) {
+    public void aceptarDatosEmpresa(String cuit, String nombre) throws Exception {
         Pac pac = new Pac();
         pac.setCuit(cuit);
         pac.setNombre(nombre);
 
         if (persistencia.existPac(pac)){
-            ///TODO mensaje de que ya existe o permite modificar
-            return false;
+            throw new Exception("El Punto de Atencion ya exite, imposible agregar");
         } else {
-            return persistencia.savePac(pac);
+            persistencia.savePac(pac);
         }
     }
 
