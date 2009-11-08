@@ -6,16 +6,39 @@
 package sipsa.dominio;
 
 import java.util.Date;
+import sipsa.persistencia.IPersistible;
 
 /**
  * Producto
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class Producto extends TipoProducto {
-    private  String nroSerie;
+public class Producto implements IPersistible {
+    private int id;
+    private Modelo modelo;
+    private String nroSerie;
+    private Fabrica fabrica;
     private Date fechaFabricacion;
-    private String fabrica;
+
+    public Producto() {
+
+    }
+    
+    public Producto(int id) {
+        this.id = id;
+    }
+
+    public int getID() {
+        return this.id;
+    }
+
+    public Modelo getModelo() {
+        return this.modelo;
+    }
+
+    public void setModelo(Modelo modelo) {
+        this.modelo = modelo;
+    }
 
     /**
      * @return the nroSerie
@@ -35,7 +58,7 @@ public class Producto extends TipoProducto {
      * @return the fechaFabricacion
      */
     public Date getFechaFabricacion() {
-        return fechaFabricacion;
+        return this.fechaFabricacion;
     }
 
     /**
@@ -48,15 +71,14 @@ public class Producto extends TipoProducto {
     /**
      * @return the fabrica
      */
-    public String getFabrica() {
-        return fabrica;
+    public Fabrica getFabrica() {
+        return this.fabrica;
     }
 
     /**
      * @param fabrica the fabrica to set
      */
-    public void setFabrica(String fabrica) {
+    public void setFabrica(Fabrica fabrica) {
         this.fabrica = fabrica;
     }
-    
 }

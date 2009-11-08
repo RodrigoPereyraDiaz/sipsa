@@ -11,11 +11,11 @@ package sipsa.presentacion.interfaces;
  * @author Maria Eugenia Sanchez
  */
 public interface ILogin {
+
     /**
      * Implementa el comportamiento de validacion de usuario al presionar el boton Ingresar del formulario Login
      * @param usuario Identificacion
-     * @param password Autenticacion
      * @return True si se pudo identificar y autenticar satisfactoriamente
      */
-    public void ingresar(String usuario,char[] password) throws Exception;
+    public void ingresar(String text);
 }

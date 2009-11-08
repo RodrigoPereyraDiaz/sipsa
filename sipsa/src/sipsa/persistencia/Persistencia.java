@@ -5,9 +5,7 @@
 
 package sipsa.persistencia;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
+import java.util.List;
 import sipsa.dominio.*;
 
 /**
@@ -18,7 +16,7 @@ import sipsa.dominio.*;
 
  */
 public class Persistencia {
-
+    //TODO unificar la logica de los metodos para disminuir la complejidad de uso
     private static Persistencia persistencia;
 
     /**
@@ -39,7 +37,7 @@ public class Persistencia {
         return otBroker.getOT(Integer.parseInt(id.toString()));
     }
 
-    public ArrayList<OrdenDeTrabajo> getOrdenesDeTrabajo() {
+    public List<OrdenDeTrabajo> getOrdenesDeTrabajo() {
         OtBroker otBroker = new OtBroker();
         return otBroker.getList();
     }
@@ -51,7 +49,7 @@ public class Persistencia {
      * @param id identificador unico de PAC
      * @return Instancia del PAC
      */
-    public Pac getPac(String id) {
+    public Pac getPac(int id) {
         PacBroker pacAdapter = new PacBroker();
         return pacAdapter.getPac(id);
     }
@@ -90,7 +88,7 @@ public class Persistencia {
      * Obtiene una lista de los PAC existentes en el medio e persistencia
      * @return Lista de PACs
      */
-    public ArrayList<Pac> getListPac(){
+    public List<Pac> getListPac(){
         PacBroker pacAdapter = new PacBroker();
         return pacAdapter.getList();
     }
@@ -102,7 +100,7 @@ public class Persistencia {
      * @param id Identificador unico de PV
      * @return Instancia de PV
      */
-    public Pv getPV(String id){
+    public Pv getPV(int id){
         PvBroker pvAdapter = new PvBroker();
         return pvAdapter.getPv(id);
     }
@@ -141,7 +139,7 @@ public class Persistencia {
      * Obtiene una lista de PVs del medio de persistencia
      * @return Lista de PVs
      */
-    public ArrayList<Pv> getListPv(){
+    public List<Pv> getListPv(){
         PvBroker pvAdapter = new PvBroker();
         return pvAdapter.getList();
     }
@@ -153,7 +151,7 @@ public class Persistencia {
      * @param id Identificador unico de Producto
      * @return Intancia de Producto
      */
-    public Producto getProducto(String id){
+    public Producto getProducto(int id){
         ProductoBroker productoAdapter = new ProductoBroker();
         return productoAdapter.getProducto(id);
     }
@@ -192,7 +190,7 @@ public class Persistencia {
      * Obtiene una lista de Productos del medio de persistencia
      * @return Lista de Productos
      */
-    public ArrayList<Producto> getListProductos(){
+    public List<Producto> getListProductos(){
         ProductoBroker productoAdapter = new ProductoBroker();
         return productoAdapter.getList();
     }
@@ -204,7 +202,7 @@ public class Persistencia {
      * @param id Identificador unico de Tipo de Producto
      * @return Instancia de Tipo de Producto
      */
-    public TipoProducto getTipoProducto(String id){
+    public TipoProducto getTipoProducto(int id){
         TipoProductoBroker tipoProductoAdapter = new TipoProductoBroker();
         return tipoProductoAdapter.getTipoProducto(id);
     }
@@ -243,21 +241,9 @@ public class Persistencia {
      * Obtiene una lista de Tipos de Producto del medio de persistencia
      * @return Lista de Tipos de Producto
      */
-    public ArrayList<TipoProducto> getListTipoProducto(){
+    public List<TipoProducto> getListTipoProducto(){
         TipoProductoBroker tipoProductoAdapter = new TipoProductoBroker();
         return tipoProductoAdapter.getList();
-    }
-
-    /**
-     * Importa Productos desde un archivo al medio de persistencia
-     * @param pathFile Ruta absulta del archivo con los productos
-     * @return Resultado de la operacion de importacion y persistencia
-     * @throws java.io.IOException
-     * @throws java.text.ParseException
-     */
-    public boolean importProductos(String pathFile) throws IOException, ParseException{
-        ProductoBroker productoAdapter = new ProductoBroker();
-        return productoAdapter.importarProductos(pathFile);
     }
 
     public boolean saveOrdenDeTrabajo(OrdenDeTrabajo ordenDeTrabajo){

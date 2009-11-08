@@ -66,9 +66,9 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
      * @param duracionGarantia Duracion de la garantia en meses del tipo de producto
      * @return Resultado de la persistencia
      */
-    public void aceptarDatosTipoProducto(String modelo, String nombre, int duracionGarantia) throws Exception{
+    public void aceptarDatosTipoProducto(String nombre, int duracionGarantia) throws Exception {
+        //FIXME ver como agregar los modelos
         TipoProducto tp = new TipoProducto();
-        tp.setModelo(modelo);
         tp.setDescripcion(nombre);
         tp.setDuracionGarantia(duracionGarantia);
         if (this.persistencia.existTipoProducto(tp)){
@@ -88,15 +88,15 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
         for (Iterator tpIt = this.getListaTipoProducto().iterator(); tpIt.hasNext();) {
             TipoProducto tipoProducto = (TipoProducto) tpIt.next();
             Object[] datos = new Object[modelo.getColumnCount()];
-            datos[0] = tipoProducto.getModelo();
-            datos[1] = tipoProducto.getDescripcion();
-            datos[2] = tipoProducto.getDuracionGarantia();
+            datos[0] = tipoProducto.getDescripcion();
+            datos[1] = tipoProducto.getDuracionGarantia();
             modelo.addRow(datos);
         }
         return modelo;
     }
 
     public void modificar(int index) {
+        //FIXME manejar la modificacion de los tipos de productos
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -107,4 +107,5 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
         this.listaTipoProducto = persistencia.getListTipoProducto();
         return listaTipoProducto;
     }
+
 }

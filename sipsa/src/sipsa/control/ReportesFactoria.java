@@ -4,7 +4,6 @@ import sipsa.dominio.Pac;
 import sipsa.presentacion.interfaces.IReporte;
 
 class ReportesFactoria {
-
     static IReporte getReporteOTPendientes() {
         OTControl oTControl = new OTControl();
         Reporte reporte = new Reporte();
@@ -33,7 +32,9 @@ class ReportesFactoria {
         OTControl oTControl = new OTControl();
         Reporte reporte = new Reporte();
         reporte.setNombre("Ordenes de Trabajo Pendientes");
-        reporte.setDatos(oTControl.getOTPendientes(pac.getCuit()));
+        //reporte.setDatos(oTControl.getOTPendientes(pac.getCuit()));
+        reporte.setDatos(oTControl.getOTPendientes(new String()));
+
         return reporte;
     }
 
@@ -41,7 +42,9 @@ class ReportesFactoria {
         OTControl oTControl = new OTControl();
         Reporte reporte = new Reporte();
         reporte.setNombre("Ordenes de Trabajo Realizadas");
-        reporte.setDatos(oTControl.getOTRealizadas(pac.getCuit()));
+        //reporte.setDatos(oTControl.getOTRealizadas(pac.getCuit()));
+        reporte.setDatos(oTControl.getOTRealizadas(new String()));
+
         return reporte;
     }
 
@@ -49,7 +52,8 @@ class ReportesFactoria {
         OTControl oTControl = new OTControl();
         Reporte reporte = new Reporte();
         reporte.setNombre("Ordenes de Trabajo Vencidas");
-        reporte.setDatos(oTControl.getOTVencidas(pac.getCuit()));
+        //reporte.setDatos(oTControl.getOTVencidas(pac.getCuit()));
+        reporte.setDatos(oTControl.getOTVencidas(new String()));
         return reporte;
     }
 }

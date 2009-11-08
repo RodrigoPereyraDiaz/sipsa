@@ -1,8 +1,3 @@
-/*
- * Sistemas de Informacion II 2009
- * Proyecto Sipsa
- */
-
 package sipsa.persistencia;
 
 import java.sql.Connection;
@@ -13,75 +8,71 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import sipsa.dominio.TipoProducto;
+import sipsa.dominio.Modelo;
 
-/**
- * Capa de abstraccion para adaptar instancia de Tipo de Producto de dominio a informacion de Tipo de Producto en en medios de persistencia
- * @author Claudio Rodrigo Pereyra Diaz
- * @author Maria Eugenia Sanchez
- */
-class TipoProductoBroker {
+class ModeloBroker {
 
     /**
-     * Obtiene un Tipo de producto desde la base de datos
-     * @param id Identificar unico del Tipo de Producto
-     * @return Instancia del Tipo de Producto
+     * Obtiene un Modelo desde la base de datos
+     * @param id Identificador unico del Modelo
+     * @return Instancia de Modelo
      */
-    protected TipoProducto getTipoProducto(int id){
-        TipoProducto tipoProducto = new TipoProducto(id);
+    protected Modelo getModelo(int id){
+        Modelo modelo = new Modelo(id);
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
         StringBuilder consulta = new StringBuilder();
         consulta.append("SELECT ");
-        consulta.append("descripcion ");
+        consulta.append("idTipoProducto ");
         consulta.append(", ");
-        consulta.append("duracionGarantia ");
+        consulta.append("nombre ");
         consulta.append("FROM ");
-        consulta.append("TiposProducto ");
+        consulta.append("Modelos ");
         consulta.append("WHERE ");
         consulta.append("id = ? ");
         try {
             ps = conn.prepareStatement(consulta.toString());
 
-            ps.setInt(1, tipoProducto.getID());
+            ps.setInt(1, id);
 
             rs = ps.executeQuery();
             if (rs.next()) {
-                tipoProducto.setDescripcion(rs.getString("descripcion"));
-                tipoProducto.setDuracionGarantia(rs.getInt("duracionGarantia"));
+                TipoProductoBroker tipoProductoBroker = new TipoProductoBroker();
+                modelo.setTipoProducto(tipoProductoBroker.getTipoProducto(rs.getInt("id")));
+                modelo.setNombre(rs.getString("nombre"));
             }
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return tipoProducto;
+        return modelo;
     }
 
     /**
-     * Guarda un Tipo de Producto en la base de datos
-     * @param tipoProducto Tipo de Producto a guardar
+     * Guarda un Modelo en la base de datos
+     * @param modelo Modelo a guardar
      * @return Resultado de la operacion
      */
-    protected boolean saveTipoProducto(TipoProducto tipoProducto){
+    protected boolean saveModelo(Modelo modelo){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         StringBuilder consulta = new StringBuilder();
         consulta.append("INSERT ");
         consulta.append("INTO ");
-        consulta.append("TiposProducto ");
+        consulta.append("Modelos ");
         consulta.append("VALUES ( ");
         consulta.append("default "); //id Autoincremental
         consulta.append(", ");
-        consulta.append("? "); //descripcion
+        consulta.append("? "); //idTipoProducto
         consulta.append(", ");
-        consulta.append("? "); //duracionGarantia
+        consulta.append("? "); //nombre
         consulta.append(") ");
         try {
             ps = conn.prepareStatement(consulta.toString());
 
-            ps.setString(1, tipoProducto.getDescripcion());
-            ps.setInt(2, tipoProducto.getDuracionGarantia());
+            ps.setInt(1, modelo.getTipoProducto().getID());
+            ps.setString(2, modelo.getNombre());
 
             ps.execute();
             ps.close();
@@ -93,23 +84,23 @@ class TipoProductoBroker {
     }
 
     /**
-     * Elimina un Tipo de Producto de la base de datos
-     * @param tipoProducto Tipo de Producto a eliminar
+     * Elimina un Modelo de la base de datos
+     * @param modelo pv Modelo a eliminar
      * @return Resultado de la operacion
      */
-    protected boolean deleteTipoProducto(TipoProducto tipoProducto){
+    protected boolean deletePv(Modelo modelo){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         StringBuilder consulta = new StringBuilder();
         consulta.append("DELETE ");
         consulta.append("FROM ");
-        consulta.append("TiposProducto ");
+        consulta.append("Modelos ");
         consulta.append("WHERE ");
         consulta.append("id = ? ");
         try {
             ps = conn.prepareStatement(consulta.toString());
-
-            ps.setInt(1, tipoProducto.getID());
+            
+            ps.setInt(1, modelo.getID());
 
             ps.execute();
             ps.close();
@@ -121,11 +112,11 @@ class TipoProductoBroker {
     }
 
     /**
-     * Verifica la existencia de un Tipo de Producto en la base de datos
-     * @param tipoProducto Tipo de Producto a verificar
-     * @return Existencia del Tipo de Producto
+     * Verficia la existencia de un PV en la base de datos
+     * @param modelo Modelo a verificar
+     * @return Existencia del Modelo
      */
-    protected boolean exist(TipoProducto tipoProducto){
+    protected boolean exist(Modelo modelo){
         boolean existe = false;
         Connection conn = DB.getConexion();
         PreparedStatement ps;
@@ -134,18 +125,20 @@ class TipoProductoBroker {
         consulta.append("SELECT ");
         consulta.append("id ");
         consulta.append("FROM ");
-        consulta.append("TiposProducto ");
+        consulta.append("Modelo ");
         consulta.append("WHERE ");
-        consulta.append("descripcion = ? ");
+        consulta.append("idTipoProducto = ? ");
+        consulta.append("AND ");
+        consulta.append("nombre = ? ");
         try {
             ps = conn.prepareStatement(consulta.toString());
 
-            ps.setString(1, tipoProducto.getDescripcion());
+            ps.setInt(1, modelo.getTipoProducto().getID());
+            ps.setString(2, modelo.getNombre());
 
             rs = ps.executeQuery();
             existe = rs.next();
             ps.close();
-
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -153,11 +146,11 @@ class TipoProductoBroker {
     }
 
     /**
-     * Obtiene una lista de Tipos de Producto desde la base de datos
-     * @return Lista de Tipos de Productos
+     * Obtiene una lista de los Modelos desde la base de datos
+     * @return Lista de Modelos
      */
-    protected List<TipoProducto> getList(){
-        List<TipoProducto> lista = new ArrayList<TipoProducto>();
+    protected List<Modelo> getList(){
+        List<Modelo> lista = new ArrayList<Modelo>();
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
@@ -165,13 +158,13 @@ class TipoProductoBroker {
         consulta.append("SELECT ");
         consulta.append("id ");
         consulta.append("FROM ");
-        consulta.append("TiposProducto ");
+        consulta.append("Modelo ");
         try {
             ps = conn.prepareStatement(consulta.toString());
             rs = ps.executeQuery();
             while (rs.next()) {
-                TipoProducto tipoProducto = getTipoProducto(rs.getInt("id"));
-                lista.add(tipoProducto);
+                Modelo modelo = getModelo(rs.getInt("id"));
+                lista.add(modelo);
             }
             ps.close();
         } catch (SQLException ex) {

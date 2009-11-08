@@ -6,17 +6,27 @@
 package sipsa.dominio;
 
 import java.util.Date;
+import sipsa.persistencia.IPersistible;
 
 /**
  * Venta
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class Venta {
-    private Producto productos;
-    private Date fecha;
+public class Venta implements IPersistible{
+    private int id;
     private Pv empresaVendedora;
+    private Producto productos;
     private String nroFactura;
+    private Date fechaFactura;
+
+    public Venta(int id) {
+        this.id = id;
+    }
+
+    public int getID() {
+        return this.id;
+    }
 
     /**
      * @return the productos
@@ -35,15 +45,15 @@ public class Venta {
     /**
      * @return the fecha
      */
-    public Date getFecha() {
-        return fecha;
+    public Date getFechaFactura() {
+        return fechaFactura;
     }
 
     /**
      * @param fecha the fecha to set
      */
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setFechaFactura(Date fecha) {
+        this.fechaFactura = fecha;
     }
 
     /**

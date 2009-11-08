@@ -5,14 +5,29 @@
 
 package sipsa.dominio;
 
+import sipsa.persistencia.IPersistible;
+
 /**
  * Punto de Atencion al Cliente
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class Pac{
-    private String nombre;
+public class Pac implements IPersistible{
+    private int id;
     private String cuit;
+    private String nombre;
+
+    public Pac() {
+        
+    }
+
+    public Pac(int id) {
+        this.id = id;
+    }
+
+    public int getID() {
+        return this.id;
+    }
 
     /**
      * @return the nombre

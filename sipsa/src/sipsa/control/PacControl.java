@@ -9,7 +9,6 @@ import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
-import javax.swing.JDialog;
 import sipsa.dominio.Pac;
 import sipsa.presentacion.interfaces.IListarABM;
 import sipsa.presentacion.interfaces.IEmpresaDatos;

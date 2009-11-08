@@ -1,21 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package sipsa.control;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
 import sipsa.presentacion.escritorio.ListarABM;
+import sipsa.presentacion.escritorio.OrdenDeTrabajoDatos;
 import sipsa.presentacion.interfaces.IListarABM;
+import sipsa.presentacion.interfaces.IOrdenDeTrabajoDatos;
 
-
-/**
- *
- * @author elsupergomez
- */
-public class OTControl implements IListarABM{
+//TODO revisar los metodos agregar modificar eliminar para que dependan del estado
+public class OTControl implements IListarABM, IOrdenDeTrabajoDatos{
 
      /**
      * Muestra el formulario para administrar Ordenes de Trabajo
@@ -26,46 +20,74 @@ public class OTControl implements IListarABM{
     }
 
     public void agregar() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this);
+        ordenDeTrabajoDatos.setVisible(true);
     }
 
     public void modificar(int index) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this);
+        ordenDeTrabajoDatos.setVisible(true);
     }
 
     public void eliminar(int index) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this);
+        ordenDeTrabajoDatos.setVisible(true);
     }
 
     public String getDescripcion() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return "Orden de Trabajo";
     }
 
     public DefaultTableModel getModelo() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        String[] columnNames = {"Nro de Orden", "Estado", "Nro Serie de Producto"};
+        //TODO completar
+        DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
+        return modelo;
     }
 
     public DefaultTableModel getOTRealizadas() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        String[] columnNames = {"Nro de Orden", "Estado", "Nro Serie de Producto", "PAC"};
+        //TODO completar
+        DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
+        return modelo;
     }
 
     public DefaultTableModel getOTPendientes() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        String[] columnNames = {"Nro de Orden", "Estado", "Nro Serie de Producto", "PAC"};
+        //TODO completar
+        DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
+        return modelo;
     }
 
     public DefaultTableModel getOTPendientes(String cuit) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        String[] columnNames = {"Nro de Orden", "Estado", "Nro Serie de Producto"};
+        //TODO completar
+        DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
+        return modelo;
     }
 
     public DefaultTableModel getOTRealizadas(String cuit) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        String[] columnNames = {"Nro de Orden", "Estado", "Nro Serie de Producto"};
+        //TODO completar
+        DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
+        return modelo;
     }
 
-    TableModel getOTVencidas() {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public TableModel getOTVencidas() {
+        String[] columnNames = {"Nro de Orden", "Estado", "Nro Serie de Producto"};
+        //TODO completar
+        DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
+        return modelo;
     }
 
-    TableModel getOTVencidas(String cuit) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public TableModel getOTVencidas(String cuit) {
+        String[] columnNames = {"Nro de Orden", "Estado", "Nro Serie de Producto"};
+        //TODO completar
+        DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
+        return modelo;
+    }
+
+    public void aceptarDatos() throws Exception {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

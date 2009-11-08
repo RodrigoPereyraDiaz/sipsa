@@ -8,7 +8,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import sipsa.dominio.Pac;
 
@@ -21,36 +23,40 @@ class PacBroker {
 
     /**
      * Obtiene una instacia de PAC desde una base de datos
-     * @param cuit Identificador unico de PAC
+     * @param id Identificador unico de PAC
      * @return Instancia de PAC
      */
-    public Pac getPac(String cuit){
-        Pac p = new Pac();
-
+    protected Pac getPac(int id){
+        Pac pac = new Pac(id);
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
-        String consulta =
-                "SELECT cuit, nombre " +
-                "FROM   Empresas " +
-                "WHERE  cuit = ? " +
-                "   and tipo = 0";
-
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("SELECT ");
+        consulta.append("cuit ");
+        consulta.append(", ");
+        consulta.append("nombre ");
+        consulta.append("FROM ");
+        consulta.append("Empresas ");
+        consulta.append("WHERE ");
+        consulta.append("id = ? ");
+        consulta.append(" AND ");
+        consulta.append("tipo = 0 ");
         try {
-          ps = conn.prepareStatement(consulta);
-          ps.setString(1, cuit);
-          rs = ps.executeQuery();
+            ps = conn.prepareStatement(consulta.toString());
 
-          if (rs.next()) {
-            p.setCuit(rs.getString("cuit"));
-            p.setNombre(rs.getString("nombre"));
-          }
+            ps.setInt(1, id);
 
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                pac.setCuit(rs.getString("cuit"));
+                pac.setNombre(rs.getString("nombre"));
+            }
           ps.close();
         } catch (SQLException ex) {
           ex.printStackTrace();
         }
-        return p;
+        return pac;
     }
 
     /**
@@ -58,22 +64,34 @@ class PacBroker {
      * @param pac Pac a guardar
      * @return Resultado de la operacion
      */
-    public boolean savePac(Pac pac){
+    protected boolean savePac(Pac pac){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
-        String consulta =
-            "INSERT INTO Empresas (cuit, nombre, tipo) " +
-            "VALUES (?, ? ,0)";
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("INSERT ");
+        consulta.append("INTO ");
+        consulta.append("Empresas ");
+        consulta.append("VALUES ( ");
+        consulta.append("default "); //id Autoincremental
+        consulta.append(", ");
+        consulta.append("? "); //cuit
+        consulta.append(", ");
+        consulta.append("? "); //nombre
+        consulta.append(", ");
+        consulta.append("0"); //tipo
+        consulta.append(") ");
         try {
-          ps = conn.prepareStatement(consulta);
-          ps.setString(1, pac.getCuit());
-          ps.setString(2, pac.getNombre());
-          ps.execute();
-          ps.close();
-          return true;
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setString(1, pac.getCuit());
+            ps.setString(2, pac.getNombre());
+
+            ps.execute();
+            ps.close();
+            return true;
         } catch (SQLException ex) {
-          ex.printStackTrace();
-          return false;
+            ex.printStackTrace();
+            return false;
         }
     }
 
@@ -82,22 +100,24 @@ class PacBroker {
      * @param pac PAC a eliminar
      * @return Resultado de la operacion
      */
-    public boolean deletePac(Pac pac){
+    protected boolean deletePac(Pac pac){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
-        String consulta =
-            "DELETE FROM Empresas " +
-            "WHERE  cuit = ? " +
-            "   and tipo = 0";
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("DELETE ");
+        consulta.append("FROM ");
+        consulta.append("Empresas ");
+        consulta.append("WHERE ");
+        consulta.append("id = ? ");
         try {
-          ps = conn.prepareStatement(consulta);
-          ps.setString(1, pac.getCuit());
-          ps.execute();
-          ps.close();
-          return true;
+            ps = conn.prepareStatement(consulta.toString());
+            ps.setInt(1, pac.getID());
+            ps.execute();
+            ps.close();
+            return true;
         } catch (SQLException ex) {
-          ex.printStackTrace();
-          return false;
+            ex.printStackTrace();
+            return false;
         }
     }
 
@@ -106,28 +126,31 @@ class PacBroker {
      * @param pac Pac a verificar
      * @return Resultado de la existencia
      */
-    public boolean exist(Pac pac){
+    protected boolean exist(Pac pac){
+        boolean existe = false;
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
-        String consulta =
-                "SELECT cuit " +
-                "FROM   Empresas " +
-                "WHERE  cuit = ? " +
-                "   and tipo = 0";
-        boolean existe = false;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("SELECT ");
+        consulta.append("id ");
+        consulta.append("FROM ");
+        consulta.append("Empresas ");
+        consulta.append("WHERE ");
+        consulta.append("cuit = ? ");
+        consulta.append("AND ");
+        consulta.append("tipo = 0 ");
         try {
-          ps = conn.prepareStatement(consulta);
-          ps.setString(1, pac.getCuit());
-          rs = ps.executeQuery();
+            ps = conn.prepareStatement(consulta.toString());
 
-          existe = rs.next();
-          ps.close();
+            ps.setString(1, pac.getCuit());
 
+            rs = ps.executeQuery();
+            existe = rs.next();
+            ps.close();
         } catch (SQLException ex) {
-          ex.printStackTrace();
+            ex.printStackTrace();
         }
-
         return existe;
     }
 
@@ -135,29 +158,28 @@ class PacBroker {
      * Obtiene una lista de PACs desde la base de datos
      * @return Lista de instancias de PACs
      */
-    public ArrayList<Pac> getList(){
-        ArrayList<Pac> lista = new ArrayList<Pac>();
+    protected List<Pac> getList(){
+        List<Pac> lista = new ArrayList<Pac>();
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
-        String consulta =
-                "SELECT cuit " +
-                "FROM   Empresas " +
-                "WHERE  tipo = 0";
-
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("SELECT ");
+        consulta.append("id ");
+        consulta.append("FROM ");
+        consulta.append("Empresas ");
+        consulta.append("WHERE ");
+        consulta.append("tipo = 0 ");
         try {
-          ps = conn.prepareStatement(consulta);
-          rs = ps.executeQuery();
-
-          while (rs.next()) {
-            Pac pac = new Pac();
-            pac = getPac(rs.getString("cuit"));
-            lista.add(pac);
-          }
-
-          ps.close();
+            ps = conn.prepareStatement(consulta.toString());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Pac pac = getPac(rs.getInt("id"));
+                lista.add(pac);
+            }
+            ps.close();
         } catch (SQLException ex) {
-          ex.printStackTrace();
+            ex.printStackTrace();
         }
         return lista;
     }

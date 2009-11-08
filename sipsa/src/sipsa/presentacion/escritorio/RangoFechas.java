@@ -2,6 +2,7 @@
 package sipsa.presentacion.escritorio;
 
 import java.util.Date;
+import sipsa.Configuracion;
 
 public class RangoFechas extends javax.swing.JDialog {
     /** A return status code - returned if Cancel button has been pressed */
@@ -10,11 +11,14 @@ public class RangoFechas extends javax.swing.JDialog {
     public static final int RET_OK = 1;
 
     /** Creates new form RangoFechas */
-    public RangoFechas(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public RangoFechas() {
+        initComponents();
+        Configuracion configuracion = Configuracion.getInstancia();
+        this.setIconImage(configuracion.getIcono());
+        this.setLocationRelativeTo(null);
+        this.setTitle("Rango de Fechas");
         this.jFormattedTextFieldDesde.setValue(this.fechaDesde);
         this.jFormattedTextFieldHasta.setValue(this.fechaHasta);
-        initComponents();
     }
 
     /** @return the return status of this dialog - one of RET_OK or RET_CANCEL */
