@@ -12,8 +12,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Sistema Sipsa</title>
+        <link rel="shortcut icon" href="Sipsa.png" type="image/ico" />
+        <link rel="icon" href="Sipsa.png" type="image/png" />
     </head>
     <body>
+        <p align="center"><img width="20%" height="20%" src="Sipsa.png"></p>
         <h1 align="center">La Garantia para el producto se activo con exito</h1>
         <br>
         <p align="center">
