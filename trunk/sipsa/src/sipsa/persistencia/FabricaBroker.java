@@ -1,8 +1,3 @@
-/*
- * Sistemas de Informacion II 2009
- * Proyecto Sipsa
- */
-
 package sipsa.persistencia;
 
 import java.sql.Connection;
@@ -13,75 +8,63 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import sipsa.dominio.TipoProducto;
+import sipsa.dominio.Fabrica;
 
-/**
- * Capa de abstraccion para adaptar instancia de Tipo de Producto de dominio a informacion de Tipo de Producto en en medios de persistencia
- * @author Claudio Rodrigo Pereyra Diaz
- * @author Maria Eugenia Sanchez
- */
-class TipoProductoBroker {
+class FabricaBroker {
 
     /**
-     * Obtiene un Tipo de producto desde la base de datos
-     * @param id Identificar unico del Tipo de Producto
-     * @return Instancia del Tipo de Producto
+     * Obtiene un Fabrica desde la base de datos
+     * @param id Identificador unico del Fabrica
+     * @return Instancia de Fabrica
      */
-    protected TipoProducto getTipoProducto(int id){
-        TipoProducto tipoProducto = new TipoProducto(id);
+    protected Fabrica getFabrica(int id){
+        Fabrica fabrica = new Fabrica(id);
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
         StringBuilder consulta = new StringBuilder();
         consulta.append("SELECT ");
-        consulta.append("descripcion ");
-        consulta.append(", ");
-        consulta.append("duracionGarantia ");
+        consulta.append("nombre ");
         consulta.append("FROM ");
-        consulta.append("TiposProducto ");
+        consulta.append("Fabricas ");
         consulta.append("WHERE ");
         consulta.append("id = ? ");
         try {
             ps = conn.prepareStatement(consulta.toString());
 
-            ps.setInt(1, tipoProducto.getID());
+            ps.setInt(1, id);
 
             rs = ps.executeQuery();
             if (rs.next()) {
-                tipoProducto.setDescripcion(rs.getString("descripcion"));
-                tipoProducto.setDuracionGarantia(rs.getInt("duracionGarantia"));
+                fabrica.setNombre(rs.getString("nombre"));
             }
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return tipoProducto;
+        return fabrica;
     }
 
     /**
-     * Guarda un Tipo de Producto en la base de datos
-     * @param tipoProducto Tipo de Producto a guardar
+     * Guarda un Fabrica en la base de datos
+     * @param fabrica pv Fabrica a guardar
      * @return Resultado de la operacion
      */
-    protected boolean saveTipoProducto(TipoProducto tipoProducto){
+    protected boolean saveFabrica(Fabrica fabrica){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         StringBuilder consulta = new StringBuilder();
         consulta.append("INSERT ");
         consulta.append("INTO ");
-        consulta.append("TiposProducto ");
+        consulta.append("Fabrica ");
         consulta.append("VALUES ( ");
         consulta.append("default "); //id Autoincremental
-        consulta.append(", ");
-        consulta.append("? "); //descripcion
-        consulta.append(", ");
-        consulta.append("? "); //duracionGarantia
+        consulta.append("? "); //nombre
         consulta.append(") ");
         try {
             ps = conn.prepareStatement(consulta.toString());
 
-            ps.setString(1, tipoProducto.getDescripcion());
-            ps.setInt(2, tipoProducto.getDuracionGarantia());
+            ps.setString(2, fabrica.getNombre());
 
             ps.execute();
             ps.close();
@@ -93,23 +76,23 @@ class TipoProductoBroker {
     }
 
     /**
-     * Elimina un Tipo de Producto de la base de datos
-     * @param tipoProducto Tipo de Producto a eliminar
+     * Elimina una Fabrica de la base de datos
+     * @param fabrica  Fabrica a eliminar
      * @return Resultado de la operacion
      */
-    protected boolean deleteTipoProducto(TipoProducto tipoProducto){
+    protected boolean deleteFabrica(Fabrica fabrica){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         StringBuilder consulta = new StringBuilder();
         consulta.append("DELETE ");
         consulta.append("FROM ");
-        consulta.append("TiposProducto ");
+        consulta.append("Fabrica ");
         consulta.append("WHERE ");
         consulta.append("id = ? ");
         try {
             ps = conn.prepareStatement(consulta.toString());
-
-            ps.setInt(1, tipoProducto.getID());
+            
+            ps.setInt(1, fabrica.getID());
 
             ps.execute();
             ps.close();
@@ -121,11 +104,11 @@ class TipoProductoBroker {
     }
 
     /**
-     * Verifica la existencia de un Tipo de Producto en la base de datos
-     * @param tipoProducto Tipo de Producto a verificar
-     * @return Existencia del Tipo de Producto
+     * Verficia la existencia de un Fabrica en la base de datos
+     * @param fabrica Fabrica a verificar
+     * @return Existencia del Fabrica
      */
-    protected boolean exist(TipoProducto tipoProducto){
+    protected boolean exist(Fabrica fabrica){
         boolean existe = false;
         Connection conn = DB.getConexion();
         PreparedStatement ps;
@@ -134,18 +117,17 @@ class TipoProductoBroker {
         consulta.append("SELECT ");
         consulta.append("id ");
         consulta.append("FROM ");
-        consulta.append("TiposProducto ");
+        consulta.append("Fabricas ");
         consulta.append("WHERE ");
-        consulta.append("descripcion = ? ");
+        consulta.append("nombre = ? ");
         try {
             ps = conn.prepareStatement(consulta.toString());
 
-            ps.setString(1, tipoProducto.getDescripcion());
+            ps.setString(1, fabrica.getNombre());
 
             rs = ps.executeQuery();
             existe = rs.next();
             ps.close();
-
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -153,11 +135,11 @@ class TipoProductoBroker {
     }
 
     /**
-     * Obtiene una lista de Tipos de Producto desde la base de datos
-     * @return Lista de Tipos de Productos
+     * Obtiene una lista de los Fabricas desde la base de datos
+     * @return Lista de Fabricas
      */
-    protected List<TipoProducto> getList(){
-        List<TipoProducto> lista = new ArrayList<TipoProducto>();
+    protected List<Fabrica> getList(){
+        List<Fabrica> lista = new ArrayList<Fabrica>();
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
@@ -165,13 +147,13 @@ class TipoProductoBroker {
         consulta.append("SELECT ");
         consulta.append("id ");
         consulta.append("FROM ");
-        consulta.append("TiposProducto ");
+        consulta.append("Fabricas ");
         try {
             ps = conn.prepareStatement(consulta.toString());
             rs = ps.executeQuery();
             while (rs.next()) {
-                TipoProducto tipoProducto = getTipoProducto(rs.getInt("id"));
-                lista.add(tipoProducto);
+                Fabrica fabrica = getFabrica(rs.getInt("id"));
+                lista.add(fabrica);
             }
             ps.close();
         } catch (SQLException ex) {

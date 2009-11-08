@@ -4,30 +4,32 @@
  */
 package sipsa.dominio;
 
+import java.util.ArrayList;
+import java.util.List;
+import sipsa.persistencia.IPersistible;
+
 /**
  * Tipo de Producto
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class TipoProducto{
-    private String modelo;
+public class TipoProducto implements IPersistible{
+    private int id;
     private String descripcion;
     private int duracionGarantia;
+    private List<Modelo> modelos;
 
-    /**
-     * Obtiene el Modelo del tipo de producto
-     * @return the modelo
-     */
-    public String getModelo() {
-        return modelo;
+    public TipoProducto() {
+        
     }
 
-    /**
-     * Establece el Modelo del tipo de producto
-     * @param modelo the modelo to set
-     */
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
+    public TipoProducto(int id) {
+        this.id = id;
+        this.modelos = new ArrayList<Modelo>();
+    }
+
+    public int getID() {
+        return this.id;
     }
 
     /**
@@ -60,5 +62,13 @@ public class TipoProducto{
      */
     public void setDuracionGarantia(int duracionGarantia) {
         this.duracionGarantia = duracionGarantia;
+    }
+
+    public void addModelo(Modelo modelo){
+        this.modelos.add(modelo);
+    }
+
+    public void removeModelo(Modelo modelo){
+        this.modelos.remove(modelo);
     }
 }

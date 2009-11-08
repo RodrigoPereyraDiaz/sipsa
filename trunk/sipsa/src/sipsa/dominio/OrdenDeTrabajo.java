@@ -5,31 +5,51 @@
 
 package sipsa.dominio;
 
+import java.util.Date;
+import sipsa.persistencia.IPersistible;
+
 /**
  * Orden de Trabajo
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class OrdenDeTrabajo {
-    private Venta garantia;
+public class OrdenDeTrabajo implements IPersistible{
+    private int id;
     private Pac pac;
-    //TODO revisar si esta bien usar un enumerado o es mejor el Patron State, falta fecha de entrega
-    private EstadoOT estado;
+    private Venta venta;
     private String observaciones;
+    private EstadoOT estado;
     private String motivoEstado;
+    private Date fechaEntrega;
 
-    /**
-     * @return the garantia
-     */
-    public Venta getGarantia() {
-        return garantia;
+    public OrdenDeTrabajo(int id) {
+        this.id = id;
+    }
+
+    public int getID() {
+        return this.id;
+    }
+
+    public Date getFechaEntrega() {
+        return this.fechaEntrega;
     }
 
     /**
-     * @param garantia the garantia to set
+     * @return the venta
      */
-    public void setGarantia(Venta garantia) {
-        this.garantia = garantia;
+    public Venta getVenta() {
+        return venta;
+    }
+
+    public void setFechaEntrega(Date fechaEntrega) {
+        this.fechaEntrega = fechaEntrega;
+    }
+
+    /**
+     * @param venta the venta to set
+     */
+    public void setVenta(Venta venta) {
+        this.venta = venta;
     }
 
     /**
@@ -86,5 +106,10 @@ public class OrdenDeTrabajo {
      */
     public void setMotivoEstado(String motivoEstado) {
         this.motivoEstado = motivoEstado;
+    }
+
+    public boolean isEnGarantia(){
+        //TODO implementar la validacion de garantia activa
+        return true;
     }
 }

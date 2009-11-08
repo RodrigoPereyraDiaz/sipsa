@@ -9,7 +9,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
+import java.util.List;
+
 import sipsa.dominio.Pv;
 
 /**
@@ -21,34 +24,38 @@ class PvBroker {
 
     /**
      * Obtiene un PV desde la base de datos
-     * @param cuit Identificador unico del PV
+     * @param id Identificador unico del PV
      * @return Instancia de PV
      */
-    protected Pv getPv(String cuit){
-        Pv pv = new Pv();
-
+    protected Pv getPv(int id){
+        Pv pv = new Pv(id);
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
-        String consulta =
-                "SELECT cuit, nombre " +
-                "FROM   Empresas " +
-                "WHERE  cuit = ? " +
-                "   and tipo = 1";
-
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("SELECT ");
+        consulta.append("cuit ");
+        consulta.append(", ");
+        consulta.append("nombre ");
+        consulta.append("FROM ");
+        consulta.append("Empresas ");
+        consulta.append("WHERE ");
+        consulta.append("id = ? ");
+        consulta.append(" AND ");
+        consulta.append("tipo = 1 ");
         try {
-          ps = conn.prepareStatement(consulta);
-          ps.setString(1, cuit);
-          rs = ps.executeQuery();
+            ps = conn.prepareStatement(consulta.toString());
 
-          if (rs.next()) {
-            pv.setCuit(rs.getString("cuit"));
-            pv.setNombre(rs.getString("nombre"));
-          }
+            ps.setInt(1, id);
 
-          ps.close();
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                pv.setCuit(rs.getString("cuit"));
+                pv.setNombre(rs.getString("nombre"));
+            }
+            ps.close();
         } catch (SQLException ex) {
-          ex.printStackTrace();
+            ex.printStackTrace();
         }
         return pv;
     }
@@ -61,19 +68,31 @@ class PvBroker {
     protected boolean savePv(Pv pv){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
-        String consulta =
-            "INSERT INTO Empresas (cuit, nombre, tipo) " +
-            "VALUES (?, ? ,1)";
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("INSERT ");
+        consulta.append("INTO ");
+        consulta.append("Empresas ");
+        consulta.append("VALUES ( ");
+        consulta.append("default "); //id Autoincremental
+        consulta.append(", ");
+        consulta.append("? "); //cuit
+        consulta.append(", ");
+        consulta.append("? "); //nombre
+        consulta.append(", ");
+        consulta.append("1"); //tipo
+        consulta.append(") ");
         try {
-          ps = conn.prepareStatement(consulta);
-          ps.setString(1, pv.getCuit());
-          ps.setString(2, pv.getNombre());
-          ps.execute();
-          ps.close();
-          return true;
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setString(1, pv.getCuit());
+            ps.setString(2, pv.getNombre());
+
+            ps.execute();
+            ps.close();
+            return true;
         } catch (SQLException ex) {
-          ex.printStackTrace();
-          return false;
+            ex.printStackTrace();
+            return false;
         }
     }
 
@@ -85,19 +104,21 @@ class PvBroker {
     protected boolean deletePv(Pv pv){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
-        String consulta =
-            "DELETE FROM Empresas " +
-            "WHERE  cuit = ? " +
-            "   and tipo = 1";
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("DELETE ");
+        consulta.append("FROM ");
+        consulta.append("Empresas ");
+        consulta.append("WHERE ");
+        consulta.append("id = ? ");
         try {
-          ps = conn.prepareStatement(consulta);
-          ps.setString(1, pv.getCuit());
-          ps.execute();
-          ps.close();
-          return true;
+            ps = conn.prepareStatement(consulta.toString());
+            ps.setInt(1, pv.getID());
+            ps.execute();
+            ps.close();
+            return true;
         } catch (SQLException ex) {
-          ex.printStackTrace();
-          return false;
+            ex.printStackTrace();
+            return false;
         }
     }
 
@@ -107,27 +128,30 @@ class PvBroker {
      * @return Existencia del PV
      */
     protected boolean exist(Pv pv){
+        boolean existe = false;
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
-        String consulta =
-                "SELECT cuit " +
-                "FROM   Empresas " +
-                "WHERE  cuit = ? " +
-                "   and tipo = 1";
-        boolean existe = false;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("SELECT ");
+        consulta.append("id ");
+        consulta.append("FROM ");
+        consulta.append("Empresas ");
+        consulta.append("WHERE ");
+        consulta.append("cuit = ? ");
+        consulta.append("AND ");
+        consulta.append("tipo = 1 ");
         try {
-          ps = conn.prepareStatement(consulta);
-          ps.setString(1, pv.getCuit());
-          rs = ps.executeQuery();
+            ps = conn.prepareStatement(consulta.toString());
 
-          existe = rs.next();
-          ps.close();
+            ps.setString(1, pv.getCuit());
 
+            rs = ps.executeQuery();
+            existe = rs.next();
+            ps.close();
         } catch (SQLException ex) {
-          ex.printStackTrace();
+            ex.printStackTrace();
         }
-
         return existe;
     }
 
@@ -135,29 +159,28 @@ class PvBroker {
      * Obtiene una lista de los PV desde la base de datos
      * @return Lista de PVs
      */
-    protected ArrayList<Pv> getList(){
-        ArrayList<Pv> lista = new ArrayList<Pv>();
+    protected List<Pv> getList(){
+        List<Pv> lista = new ArrayList<Pv>();
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
-        String consulta =
-                "SELECT cuit " +
-                "FROM   Empresas " +
-                "WHERE  tipo = 1";
-
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("SELECT ");
+        consulta.append("id ");
+        consulta.append("FROM ");
+        consulta.append("Empresas ");
+        consulta.append("WHERE ");
+        consulta.append("tipo = 1 ");
         try {
-          ps = conn.prepareStatement(consulta);
-          rs = ps.executeQuery();
-
-          while (rs.next()) {
-            Pv p = new Pv();
-            p = getPv(rs.getString("cuit"));
-            lista.add(p);
-          }
-
-          ps.close();
+            ps = conn.prepareStatement(consulta.toString());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Pv pv = getPv(rs.getInt("id"));
+                lista.add(pv);
+            }
+            ps.close();
         } catch (SQLException ex) {
-          ex.printStackTrace();
+            ex.printStackTrace();
         }
         return lista;
     }

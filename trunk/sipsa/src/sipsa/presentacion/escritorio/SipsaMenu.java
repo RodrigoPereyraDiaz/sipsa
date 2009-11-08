@@ -14,7 +14,7 @@ import sipsa.presentacion.interfaces.ISipsaMenu;
  * @author Maria Eugenia Sanchez
  */
 public class SipsaMenu extends javax.swing.JFrame {
-
+    //TODO ver de agregar un administrador de Modelos de Productos
     private ISipsaMenu controlador;
 
     /** Creates new form SipsaMenu
@@ -73,7 +73,7 @@ public class SipsaMenu extends javax.swing.JFrame {
         });
 
         jButtonAdministrarTiposProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sipsa/presentacion/recursos/applications-other.png"))); // NOI18N
-        jButtonAdministrarTiposProductos.setText("Administrar Tipos de Productos");
+        jButtonAdministrarTiposProductos.setText("Administrar Tipos de Producto");
         jButtonAdministrarTiposProductos.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jButtonAdministrarTiposProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

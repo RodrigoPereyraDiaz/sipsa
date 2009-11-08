@@ -5,14 +5,29 @@
 
 package sipsa.dominio;
 
+import sipsa.persistencia.IPersistible;
+
 /**
  * Punto de Venta
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class Pv {
+public class Pv implements IPersistible {
+    private int id;
     private String nombre;
     private String cuit;
+
+    public Pv() {
+        
+    }
+    
+    public Pv(int id) {
+        this.id = id;
+    }
+
+    public int getID() {
+        return this.id;
+    }
 
     /**
      * @return the nombre

@@ -46,7 +46,7 @@ public class SipsaPacMenu extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Sipsa");
+        setTitle("Sipsa - Punto de Atención");
         setIconImages(getIconImages());
         setLocationByPlatform(true);
         setResizable(false);

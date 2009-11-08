@@ -1,7 +1,7 @@
 package sipsa.dominio;
 
-public abstract class Usuario {
-
+public class Usuario {
+    //TODO ver si es realmente necesario y se puede generalizar en una interface para los pac y pv
     private String usuario;
     private char[] password;
 

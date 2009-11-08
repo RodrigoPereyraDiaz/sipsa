@@ -28,7 +28,7 @@
                   <Component id="jLabelNombre" alignment="0" pref="449" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="1" pref="1" max="1" attributes="0"/>
-                      <Component id="jScrollPane1" pref="448" max="32767" attributes="0"/>
+                      <Component id="jScrollPaneDatos" pref="448" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jButtonImprimir" min="-2" max="-2" attributes="0"/>
@@ -48,7 +48,7 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jLabelNombre" min="-2" pref="38" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="315" max="32767" attributes="0"/>
+              <Component id="jScrollPaneDatos" pref="315" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButtonCerrar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -94,7 +94,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonExportarActionPerformed"/>
       </Events>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+    <Container class="javax.swing.JScrollPane" name="jScrollPaneDatos">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -122,7 +122,7 @@
           <Font name="DejaVu Sans" size="24" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Reporte OT Vencidas"/>
+        <Property name="text" type="java.lang.String" value="Reporte OT"/>
       </Properties>
     </Component>
   </SubComponents>

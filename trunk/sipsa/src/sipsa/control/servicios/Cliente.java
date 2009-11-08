@@ -36,8 +36,7 @@ public class Cliente implements ILogin{
         this.conexion = new Conexion(new Socket(host,puerto));
     }
 
-    public void ingresar(String usuario, char[] password) {
+    public void ingresar(String text) {
         throw new UnsupportedOperationException("Not supported yet.");
-
     }
 }

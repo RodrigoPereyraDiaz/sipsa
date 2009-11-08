@@ -5,6 +5,8 @@
 
 package sipsa.control;
 
+import javax.swing.JFrame;
+import sipsa.presentacion.escritorio.RangoFechas;
 import sipsa.presentacion.escritorio.ReporteVisor;
 import sipsa.presentacion.escritorio.SipsaMenu;
 import sipsa.presentacion.interfaces.IReporte;
@@ -58,6 +60,8 @@ public class SipsaMenuControl implements ISipsaMenu {
     }
 
     public void mostrarReporteOTRealizadas() {
+        RangoFechas rangoFechas = new RangoFechas();
+        rangoFechas.setVisible(true);
         IReporte reporte = ReportesFactoria.getReporteOTRealizadas();
         ReporteVisor reporteVisor = new ReporteVisor(reporte);
         reporteVisor.setVisible(true);

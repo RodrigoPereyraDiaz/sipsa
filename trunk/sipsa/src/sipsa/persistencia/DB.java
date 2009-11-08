@@ -22,7 +22,7 @@ class DB {
      * Conexion a la Base de Datos
      * @return Conexion unica a la base de datos
      */
-    public static Connection getConexion() {
+    protected static Connection getConexion() {
         if (DB.conn == null) {
             try {
                 Class.forName("com.mysql.jdbc.Driver").newInstance();

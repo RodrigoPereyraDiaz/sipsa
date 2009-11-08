@@ -45,7 +45,7 @@ public class ReporteVisor extends javax.swing.JDialog {
         jButtonCerrar = new javax.swing.JButton();
         jButtonImprimir = new javax.swing.JButton();
         jButtonExportar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPaneDatos = new javax.swing.JScrollPane();
         jTableDatos = new javax.swing.JTable();
         jLabelNombre = new javax.swing.JLabel();
 
@@ -86,11 +86,11 @@ public class ReporteVisor extends javax.swing.JDialog {
 
             }
         ));
-        jScrollPane1.setViewportView(jTableDatos);
+        jScrollPaneDatos.setViewportView(jTableDatos);
 
-        jLabelNombre.setFont(new java.awt.Font("DejaVu Sans", 1, 24)); // NOI18N
+        jLabelNombre.setFont(new java.awt.Font("DejaVu Sans", 1, 24));
         jLabelNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelNombre.setText("Reporte OT Vencidas");
+        jLabelNombre.setText("Reporte OT");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,7 +102,7 @@ public class ReporteVisor extends javax.swing.JDialog {
                     .addComponent(jLabelNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1, 1, 1)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE))
+                        .addComponent(jScrollPaneDatos, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonImprimir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -117,7 +117,7 @@ public class ReporteVisor extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                .addComponent(jScrollPaneDatos, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCerrar)
@@ -154,7 +154,7 @@ public class ReporteVisor extends javax.swing.JDialog {
     private javax.swing.JButton jButtonExportar;
     private javax.swing.JButton jButtonImprimir;
     private javax.swing.JLabel jLabelNombre;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPaneDatos;
     private javax.swing.JTable jTableDatos;
     // End of variables declaration//GEN-END:variables
 
