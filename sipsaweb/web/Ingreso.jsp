@@ -15,9 +15,12 @@ session.removeAttribute("usuario");
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Sipsa Web</title>
+        <link rel="shortcut icon" href="Sipsa.png" type="image/ico" />
+        <link rel="icon" href="Sipsa.png" type="image/png" />
     </head>
     <body>
-        <h1 align="center">Sistema Sipsa - Punto de Venta</h1>
+        <p align="center"><img width="20%" height="20%" src="Sipsa.png"></p>
+        <h1  align="center">Sistema Sipsa - Punto de Venta</h1>
         <form action="UsuarioServlet" method="post">
             <table align="center">
                 <tr>
@@ -29,7 +32,7 @@ session.removeAttribute("usuario");
                     <td><input type="password" value name="password" size="20"></td>
                 </tr>
                 <tr>
-                    <td><input align="center" type="submit" value="Ingresar" ></td>
+                    <td align="center"><input align="center" type="submit" value="Ingresar" ></td>
                 </tr>
         </table>
     </form>
