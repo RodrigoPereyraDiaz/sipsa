@@ -1,8 +1,9 @@
 /*
- * Sistemas de Informacion II 2009
+ * Sistemas de Información II 2009
  * Proyecto Sipsa
  */
 
+//TODO ver tema de nombre de usuario y contraseña, los Pac y Pv deberian extender a usuario
 package sipsa.presentacion.escritorio;
 
 import sipsa.Configuracion;
@@ -114,13 +115,13 @@ public class EmpresaDatos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        String cuit = this.jTextFieldCUIT.getText();
-        String nombre = this.jTextFieldNombre.getText();
-        Boolean resultado = this.controlador.aceptarDatosEmpresa(cuit, nombre);
-        if (resultado){
+        try {
+            String cuit = this.jTextFieldCUIT.getText();
+            String nombre = this.jTextFieldNombre.getText();
+            this.controlador.aceptarDatosEmpresa(cuit, nombre);
             this.setVisible(false);
-        } else {
-            //TODO informar error en datos
+        } catch (Exception ex) {
+            new DialogoMensaje(this,DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
         }
 }//GEN-LAST:event_jButtonGuardarActionPerformed
 

@@ -1,32 +1,35 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package sipsa.control;
 
+import sipsa.dominio.Pac;
+import sipsa.presentacion.escritorio.ReporteVisor;
+import sipsa.presentacion.interfaces.IReporte;
 import sipsa.presentacion.interfaces.ISipsaPacMenu;
 
-/**
- *
- * @author elsupergomez
- */
 public class SipsaPacMenuControl implements ISipsaPacMenu {
 
-    public void administrarOT() {
+    private Pac pac;
 
+    public void administrarOT() {
+        OTControl oTControl = new OTControl();
+        oTControl.mostrarAdministrar();
     }
 
     public void mostrarReporteOTRealizadas() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        IReporte reporte = ReportesFactoria.getReporteOTRealizadas(this.pac);
+        ReporteVisor reporteVisor = new ReporteVisor(reporte);
+        reporteVisor.setVisible(true);
+
     }
 
     public void mostrarReporteOTPendientes() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        IReporte reporte = ReportesFactoria.getReporteOTPendientes(this.pac);
+        ReporteVisor reporteVisor = new ReporteVisor(reporte);
+        reporteVisor.setVisible(true);
     }
 
     public void mostrarReporteOTVencidas() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        IReporte reporte = ReportesFactoria.getReporteOTVencidas(this.pac);
+        ReporteVisor reporteVisor = new ReporteVisor(reporte);
+        reporteVisor.setVisible(true);
     }
-
 }

@@ -1,5 +1,5 @@
 /*
- * Sistemas de Informacion II 2009
+ * Sistemas de Información II 2009
  * Proyecto Sipsa
  */
 
@@ -134,13 +134,14 @@ public class TipoProductoDatos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        String modelo = this.jTextFieldModelo.getText();
-        String nombre = this.jTextFieldNombreProducto.getText();
-        int duracionGarantia = Integer.parseInt(this.jTextFieldDuracionGarantia.getText());
-        if (this.controlador.aceptarDatosTipoProducto(modelo, nombre, duracionGarantia)){
+        try {
+            String modelo = this.jTextFieldModelo.getText();
+            String nombre = this.jTextFieldNombreProducto.getText();
+            int duracionGarantia = Integer.parseInt(this.jTextFieldDuracionGarantia.getText());
+            this.controlador.aceptarDatosTipoProducto(modelo, nombre, duracionGarantia);
             this.setVisible(false);
-        } else {
-            //TODO informar error en los datos
+        } catch (Exception ex) {
+            new DialogoMensaje(this,DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
         }
 }//GEN-LAST:event_jButtonGuardarActionPerformed
 

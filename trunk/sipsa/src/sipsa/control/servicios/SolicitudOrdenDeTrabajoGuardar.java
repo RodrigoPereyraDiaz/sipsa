@@ -12,12 +12,10 @@ class SolicitudOrdenDeTrabajoGuardar extends Mensaje{
         OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) this.getContenido();
         if  (persistencia.saveOrdenDeTrabajo(ordenDeTrabajo)){
             mensaje = MensajesFabrica.newRespuestaOK();
-            mensaje.setDescriptor("Orden de Trabajo guardada con exito");
-            mensaje.setContenido("");
+            mensaje.setContenido("Orden de Trabajo guardada con exito");
         } else {
             mensaje = MensajesFabrica.newRespuestaError();
-            mensaje.setDescriptor("Error al guardar la Orden de Trabajo");
-            mensaje.setContenido("Verifique que todos los datos sean correctos e intente nuevamente");
+            mensaje.setContenido("Error al guardar la Orden de Trabajo");
         }
         return mensaje;
     }

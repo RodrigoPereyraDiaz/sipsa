@@ -18,7 +18,7 @@ public interface IEmpresaDatos {
      * @param nombre
      * @return Resultado de la persistencia
      */
-    public Boolean aceptarDatosEmpresa(String cuit, String nombre);
+    public void aceptarDatosEmpresa(String cuit, String nombre) throws Exception;
 
     /**
      * Obtiene la descripcion para utilizar en formularios genericos

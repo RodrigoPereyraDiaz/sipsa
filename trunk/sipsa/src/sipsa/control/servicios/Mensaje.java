@@ -11,26 +11,9 @@ package sipsa.control.servicios;
  * @author Maria Eugenia Sanchez
  */
 public abstract class Mensaje {
-    private String Descriptor;
     private Object Contenido;
 
     public abstract Mensaje procesar();
-
-    /**
-     * Descripcion del Mensaje
-     * @return Texto de la descripcion del mensaje
-     */
-    public String getDescriptor() {
-        return Descriptor;
-    }
-
-    /**
-     * Establece la descripcion del mensaje
-     * @param Descriptor del mensaje
-     */
-    protected void setDescriptor(String Descriptor) {
-        this.Descriptor = Descriptor;
-    }
 
     /**
      * Obtiene el contenido del cuerpo del mensaje

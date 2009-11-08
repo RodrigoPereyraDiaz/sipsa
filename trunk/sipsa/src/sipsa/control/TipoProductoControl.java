@@ -47,7 +47,7 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
      * @param id Identificador unico de Tipo de Producto
      */
     public void eliminar(int index) {
-        TipoProducto tipoProducto = this.listaTipoProducto.get(index);
+        TipoProducto tipoProducto = this.getListaTipoProducto().get(index);
         persistencia.deteletTipoProducto(tipoProducto);
     }
 
@@ -66,16 +66,15 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
      * @param duracionGarantia Duracion de la garantia en meses del tipo de producto
      * @return Resultado de la persistencia
      */
-    public Boolean aceptarDatosTipoProducto(String modelo, String nombre, int duracionGarantia){
+    public void aceptarDatosTipoProducto(String modelo, String nombre, int duracionGarantia) throws Exception{
         TipoProducto tp = new TipoProducto();
         tp.setModelo(modelo);
         tp.setDescripcion(nombre);
         tp.setDuracionGarantia(duracionGarantia);
         if (this.persistencia.existTipoProducto(tp)){
-           //TODO informar que ya existe
-           return false;
+           throw new Exception("El tipo de Producto ya existe, imposible agregar");
         } else {
-           return this.persistencia.saveTipoProducto(tp);
+            this.persistencia.saveTipoProducto(tp);
         }
     }
 
@@ -86,8 +85,7 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
     public DefaultTableModel getModelo() {
         String[] columnNames = {"Modelo", "Descripcion", "Duracion Garantia"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
-        this.listaTipoProducto = persistencia.getListTipoProducto();
-        for (Iterator tpIt = this.listaTipoProducto.iterator(); tpIt.hasNext();) {
+        for (Iterator tpIt = this.getListaTipoProducto().iterator(); tpIt.hasNext();) {
             TipoProducto tipoProducto = (TipoProducto) tpIt.next();
             Object[] datos = new Object[modelo.getColumnCount()];
             datos[0] = tipoProducto.getModelo();
@@ -100,5 +98,13 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
 
     public void modificar(int index) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /**
+     * @return the listaTipoProducto
+     */
+    public List<TipoProducto> getListaTipoProducto() {
+        this.listaTipoProducto = persistencia.getListTipoProducto();
+        return listaTipoProducto;
     }
 }

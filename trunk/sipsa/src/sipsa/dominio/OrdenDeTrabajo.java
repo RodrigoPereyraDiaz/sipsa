@@ -13,7 +13,7 @@ package sipsa.dominio;
 public class OrdenDeTrabajo {
     private Venta garantia;
     private Pac pac;
-    //TODO revisar si esta bien usar un enumerado o es mejor el Patron State
+    //TODO revisar si esta bien usar un enumerado o es mejor el Patron State, falta fecha de entrega
     private EstadoOT estado;
     private String observaciones;
     private String motivoEstado;

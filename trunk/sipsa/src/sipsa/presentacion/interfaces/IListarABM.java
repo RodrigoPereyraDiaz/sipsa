@@ -23,7 +23,7 @@ public interface IListarABM {
      * Accion correspondiente al boton Modificar
      * @param index id de la fila seleccionada en el jTable
      */
-    public void modificar(int index);
+    public void modificar(int index) throws Exception;
 
     /**
      * Accion correspondiente al boton Eliminar

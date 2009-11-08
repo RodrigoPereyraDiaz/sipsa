@@ -26,7 +26,7 @@ public class Persistencia {
      * @return Instancia de Persistencia
      */
     public static Persistencia getPersistencia(){
-        if (persistencia.equals(null)){
+        if (persistencia == null){
             persistencia = new Persistencia();
         }
         return persistencia;

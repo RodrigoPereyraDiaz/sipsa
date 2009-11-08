@@ -39,15 +39,14 @@ public class PvControl implements IEmpresaDatos, IListarABM {
      * @param nombre Nombre del Punto de venta
      * @return Resultado de la persistencia
      */
-    public Boolean aceptarDatosEmpresa(String cuit, String nombre) {
+    public void aceptarDatosEmpresa(String cuit, String nombre) throws Exception {
         Pv pv = new Pv();
         pv.setCuit(cuit);
         pv.setNombre(nombre);
         if (this.persistencia.existPv(pv)){
-           //TODO informar que ya existe
-           return false;
+            throw new Exception("El punto de venta ya existe, imposible agregar");
         } else {
-           return this.persistencia.savePv(pv);
+            this.persistencia.savePv(pv);
         }
     }
 

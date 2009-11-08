@@ -3,12 +3,6 @@
  * Proyecto Sipsa
  */
 
-/*
- * SipsaMenu.java
- *
- * Created on 13/06/2009, 17:14:43
- */
-
 package sipsa.presentacion.escritorio;
 
 import sipsa.Configuracion;

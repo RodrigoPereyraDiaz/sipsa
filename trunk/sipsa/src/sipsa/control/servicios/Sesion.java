@@ -36,10 +36,10 @@ class Sesion extends Thread {
         try {
             while (true){
                 Mensaje solicitud = conexion.recibirMensaje();
-                servidor.notificar("<== " + this.conexion.getDireccionRemota() + " - " + solicitud.getDescriptor());
+                servidor.notificar("<== " + this.conexion.getDireccionRemota());
                 Mensaje respuesta = solicitud.procesar();
                 conexion.enviarMensaje(respuesta);
-                servidor.notificar("==> " + this.conexion.getDireccionRemota() + " - " + respuesta.getDescriptor());
+                servidor.notificar("==> " + this.conexion.getDireccionRemota());
             }
         } catch (IOException ex) {
             servidor.notificar("Cliente desde " + this.conexion.getDireccionRemota() + " desconectado");

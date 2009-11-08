@@ -1,5 +1,5 @@
 /*
- * Sistemas de Informacion II 2009
+ * Sistemas de Información II 2009
  * Proyecto Sipsa
  */
 
@@ -137,8 +137,12 @@ public class ListarABM extends javax.swing.JDialog {
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         int indice = this.jTableDatos.getSelectedRow();
-        this.controlador.eliminar(indice);
-        this.refrescarTabla();
+        if (indice == -1){
+            new DialogoMensaje(this, DialogoMensaje.Tipo.Advertencia, "Debe seleccionar un elemento a eliminar");
+        } else {
+            this.controlador.eliminar(indice);
+            this.refrescarTabla();
+        }
 }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
@@ -147,8 +151,16 @@ public class ListarABM extends javax.swing.JDialog {
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
         int indice = this.jTableDatos.getSelectedRow();
-        this.controlador.modificar(indice);
-        this.refrescarTabla();
+        if (indice == -1){
+            new DialogoMensaje(this, DialogoMensaje.Tipo.Advertencia, "Debe seleccionar un elemento a modificar");
+        } else {
+            try {
+                this.controlador.modificar(indice);
+                this.refrescarTabla();
+            } catch (Exception ex) {
+                new DialogoMensaje(this,DialogoMensaje.Tipo.Información, ex.getLocalizedMessage());
+            }
+        }
 }//GEN-LAST:event_jButtonModificarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -41,5 +41,4 @@ public class Pv {
     public void setCuit(String cuit) {
         this.cuit = cuit;
     }
-
 }

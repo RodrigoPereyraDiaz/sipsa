@@ -6,6 +6,7 @@
 package sipsa.control;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import sipsa.presentacion.escritorio.ListarABM;
 import sipsa.presentacion.interfaces.IListarABM;
 
@@ -42,5 +43,29 @@ public class OTControl implements IListarABM{
 
     public DefaultTableModel getModelo() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public DefaultTableModel getOTRealizadas() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public DefaultTableModel getOTPendientes() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public DefaultTableModel getOTPendientes(String cuit) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    public DefaultTableModel getOTRealizadas(String cuit) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    TableModel getOTVencidas() {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+    TableModel getOTVencidas(String cuit) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }
