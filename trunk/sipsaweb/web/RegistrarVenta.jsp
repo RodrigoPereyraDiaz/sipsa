@@ -35,19 +35,26 @@ if (username == null)
         <h1 align="center">Ingrese los datos de la venta para activar la garantia</h1>
         <form action="VentaServlet" method="post" >
           <table align="center">
-              <tr><td>Empresa Vendedora</td><td><input type="text" name="empresa" value="" /></td></tr>
+              <tr><td>Empresa Vendedora</td><td>Ventas y Distribuciones S.A</td></tr>
               <tr><td>Nro Factura </td><td><input type="text" name="nroFactura" value="" /></td></tr>
               <tr><td>Fecha</td><td><input type="text" name="fechaFactura" value="" /></td></tr>
               <tr><td>Tipo de Producto
 <!Iterar para llenar con las opciones>
                       <select name="tipoProducto">
-                           <option value=1>Prod1</option>
-                           <option value=2>Prod2</option>
-                           <option value=3>Prod3</option>
+                           <option value=1>Tipo Producto 1</option>
+                           <option value=2>Tipo Producto 2</option>
+                           <option value=3>Tipo Producto 3</option>
                       </select>
                   </td>
               </tr>
-              <tr><td>Modelo Producto</td><td><input type="text" name="modelo" value="" /></td></tr>
+              <tr><td>Modelo Producto
+                      <select name="modelo">
+                           <option value=1>Modelo Producto 1</option>
+                           <option value=2>Modelo Producto 2</option>
+                           <option value=3>Modelo Producto 3</option>
+                      </select>
+                  </td>
+              </tr>
               <tr><td>Numero de Serie</td><td><input type="text" name="nroSerie" value="" /></td></tr>
               <tr><td><input type="submit" value="Activar Garantia"/></td>
          </table>

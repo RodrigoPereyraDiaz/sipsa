@@ -16,7 +16,7 @@
         <link rel="icon" href="Sipsa.png" type="image/png" />
     </head>
     <body>
-        <p align="center"><img width="20%" height="20%" src="Sipsa.png"></p>
+        <p align="center"><img width="200%" height="20%" src="Sipsa.png"></p>
         <h1 align="center">La informacion ingresada no es validad para activar la garantia</h1>
         <br>
         <p align="center">

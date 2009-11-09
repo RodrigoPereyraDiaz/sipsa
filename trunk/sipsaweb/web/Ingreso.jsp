@@ -21,15 +21,11 @@ session.removeAttribute("usuario");
     <body>
         <p align="center"><img width="20%" height="20%" src="Sipsa.png"></p>
         <h1  align="center">Sistema Sipsa - Punto de Venta</h1>
-        <form action="UsuarioServlet" method="post">
+        <form action="IngresoServlet" method="post">
             <table align="center">
                 <tr>
-                    <td><p>Usuario:</p></td>
-                    <td><input name="usuario" size="20">
-                </tr>
-                <tr>
-                    <td><p>Contraseña:</p></td>
-                    <td><input type="password" value name="password" size="20"></td>
+                    <td><p>CUIT:</p></td>
+                    <td><input name="cuit" size="20">
                 </tr>
                 <tr>
                     <td align="center"><input align="center" type="submit" value="Ingresar" ></td>
