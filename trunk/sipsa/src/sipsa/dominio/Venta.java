@@ -20,6 +20,10 @@ public class Venta implements IPersistible{
     private String nroFactura;
     private Date fechaFactura;
 
+    public Venta() {
+        
+    }
+
     public Venta(int id) {
         this.id = id;
     }
