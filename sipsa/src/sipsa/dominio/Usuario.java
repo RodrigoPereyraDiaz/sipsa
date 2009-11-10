@@ -1,6 +1,8 @@
 package sipsa.dominio;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable{
     //TODO ver si es realmente necesario y se puede generalizar en una interface para los pac y pv
     private String usuario;
     private char[] password;

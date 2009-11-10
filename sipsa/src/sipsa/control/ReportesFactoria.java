@@ -1,59 +1,28 @@
 package sipsa.control;
 
-import sipsa.dominio.Pac;
+import javax.swing.table.TableModel;
 import sipsa.presentacion.interfaces.IReporte;
 
-class ReportesFactoria {
-    static IReporte getReporteOTPendientes() {
-        OTControl oTControl = new OTControl();
+public class ReportesFactoria {
+
+    public static IReporte getReporteOTPendientes(TableModel datos) {
         Reporte reporte = new Reporte();
         reporte.setNombre("Ordenes de Trabajo Pendientes");
-        reporte.setDatos(oTControl.getOTPendientes());
+        reporte.setDatos(datos);
         return reporte;
     }
 
-    static IReporte getReporteOTRealizadas() {
-        OTControl oTControl = new OTControl();
+    public static IReporte getReporteOTRealizadas(TableModel datos) {
         Reporte reporte = new Reporte();
         reporte.setNombre("Ordenes de Trabajo Realizadas");
-        reporte.setDatos(oTControl.getOTRealizadas());
+        reporte.setDatos(datos);
         return reporte;
     }
 
-    static IReporte getReporteOTVencidas() {
-        OTControl oTControl = new OTControl();
+    public static IReporte getReporteOTVencidas(TableModel datos) {
         Reporte reporte = new Reporte();
         reporte.setNombre("Ordenes de Trabajo Vencidas");
-        reporte.setDatos(oTControl.getOTVencidas());
-        return reporte;
-    }
-
-        static IReporte getReporteOTPendientes(Pac pac) {
-        OTControl oTControl = new OTControl();
-        Reporte reporte = new Reporte();
-        reporte.setNombre("Ordenes de Trabajo Pendientes");
-        //reporte.setDatos(oTControl.getOTPendientes(pac.getCuit()));
-        reporte.setDatos(oTControl.getOTPendientes(new String()));
-
-        return reporte;
-    }
-
-    static IReporte getReporteOTRealizadas(Pac pac) {
-        OTControl oTControl = new OTControl();
-        Reporte reporte = new Reporte();
-        reporte.setNombre("Ordenes de Trabajo Realizadas");
-        //reporte.setDatos(oTControl.getOTRealizadas(pac.getCuit()));
-        reporte.setDatos(oTControl.getOTRealizadas(new String()));
-
-        return reporte;
-    }
-
-    static IReporte getReporteOTVencidas(Pac pac) {
-        OTControl oTControl = new OTControl();
-        Reporte reporte = new Reporte();
-        reporte.setNombre("Ordenes de Trabajo Vencidas");
-        //reporte.setDatos(oTControl.getOTVencidas(pac.getCuit()));
-        reporte.setDatos(oTControl.getOTVencidas(new String()));
+        reporte.setDatos(datos);
         return reporte;
     }
 }

@@ -5,7 +5,6 @@
 
 package sipsa.control;
 
-import javax.swing.JFrame;
 import sipsa.presentacion.escritorio.RangoFechas;
 import sipsa.presentacion.escritorio.ReporteVisor;
 import sipsa.presentacion.escritorio.SipsaMenu;
@@ -60,21 +59,31 @@ public class SipsaMenuControl implements ISipsaMenu {
     }
 
     public void mostrarReporteOTRealizadas() {
-        RangoFechas rangoFechas = new RangoFechas();
-        rangoFechas.setVisible(true);
-        IReporte reporte = ReportesFactoria.getReporteOTRealizadas();
+        //TODO filtrar la lista
+        Reporte reporte = new Reporte();
+        reporte.setNombre("Ordenes de Trabajo Realizadas");
+        OTControl oTControl = new OTControl();
+        reporte.setDatos(oTControl.getModelo());
         ReporteVisor reporteVisor = new ReporteVisor(reporte);
         reporteVisor.setVisible(true);
     }
 
     public void mostrarReporteOTPendientes() {
-        IReporte reporte = ReportesFactoria.getReporteOTPendientes();
+        //TODO filtrar la lista
+        Reporte reporte = new Reporte();
+        reporte.setNombre("Ordenes de Trabajo Pendientes");
+        OTControl oTControl = new OTControl();
+        reporte.setDatos(oTControl.getModelo());
         ReporteVisor reporteVisor = new ReporteVisor(reporte);
         reporteVisor.setVisible(true);
     }
 
     public void mostrarReporteOTVencidas() {
-        IReporte reporte = ReportesFactoria.getReporteOTVencidas();
+        //TODO filtrar la lista
+        Reporte reporte = new Reporte();
+        reporte.setNombre("Ordenes de Trabajo Vencidas");
+        OTControl oTControl = new OTControl();
+        reporte.setDatos(oTControl.getModelo());
         ReporteVisor reporteVisor = new ReporteVisor(reporte);
         reporteVisor.setVisible(true);
     }

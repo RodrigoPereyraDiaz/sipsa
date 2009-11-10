@@ -42,6 +42,12 @@ public class Persistencia {
         return otBroker.getList();
     }
 
+    public List<OrdenDeTrabajo> getOrdenesDeTrabajo(Pac pac) {
+        //FIXME poner logica para devolver solo las de un pac
+        return this.getOrdenesDeTrabajo();
+
+    }
+
     ///Fachada de la persistencia de Pac
 
     /**

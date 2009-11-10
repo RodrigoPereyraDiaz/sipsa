@@ -11,6 +11,7 @@ package sipsa.dominio;
  * @author Maria Eugenia Sanchez
  */
 public enum EstadoOT {
+    Nueva,
     /**
      * Orden de Trabajo Activa
      */
@@ -29,17 +30,19 @@ public enum EstadoOT {
     //FIXME ver la otra tecnica para convertir los enumerados y obtenerlos
     public static int toInt(EstadoOT estadoOT) {
 		switch (estadoOT) {
-			case Activa: { return 0; }
-			case Finalizada: { return 1; }
-			case Anulada: { return 2; }
+            case Nueva: { return 0; }
+            case Activa: { return 1; }
+			case Finalizada: { return 2; }
+			case Anulada: { return 3; }
 			default: { return -1; }
 		}
 	}
 	public static EstadoOT fromInt(int numero) {
 		switch (numero) {
-			case 0: { return Activa; }
-			case 1: { return Finalizada; }
-			case 2: { return Anulada; }
+			case 0: { return Nueva; }
+            case 1: { return Activa; }
+			case 2: { return Finalizada; }
+			case 3: { return Anulada; }
 			default: { return null; }
 		}
 	}

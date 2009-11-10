@@ -121,7 +121,7 @@ public class EmpresaDatos extends javax.swing.JDialog {
             this.controlador.aceptarDatosEmpresa(cuit, nombre);
             this.setVisible(false);
         } catch (Exception ex) {
-            new DialogoMensaje(this,DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
+            new DialogoMensaje(DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
         }
 }//GEN-LAST:event_jButtonGuardarActionPerformed
 

@@ -170,7 +170,7 @@ public class TipoProductoDatos extends javax.swing.JDialog {
             this.controlador.aceptarDatosTipoProducto(nombre, duracionGarantia);
             this.setVisible(false);
         } catch (Exception ex) {
-            new DialogoMensaje(this,DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
+            new DialogoMensaje(DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
         }
 }//GEN-LAST:event_jButtonGuardarActionPerformed
 

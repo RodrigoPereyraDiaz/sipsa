@@ -137,7 +137,7 @@ public class ReporteVisor extends javax.swing.JDialog {
         try {
             this.reporte.imprimir();
         } catch (Exception ex) {
-            new DialogoMensaje(this,DialogoMensaje.Tipo.Información, ex.getLocalizedMessage());
+            new DialogoMensaje(DialogoMensaje.Tipo.Información, ex.getLocalizedMessage());
         }
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
@@ -145,7 +145,7 @@ public class ReporteVisor extends javax.swing.JDialog {
         try {
             this.reporte.exportar();
         } catch (Exception ex) {
-            new DialogoMensaje(this,DialogoMensaje.Tipo.Información, ex.getLocalizedMessage());
+            new DialogoMensaje(DialogoMensaje.Tipo.Información, ex.getLocalizedMessage());
         }
     }//GEN-LAST:event_jButtonExportarActionPerformed
 

@@ -22,6 +22,10 @@ public class OrdenDeTrabajo implements IPersistible{
     private String motivoEstado;
     private Date fechaEntrega;
 
+    public OrdenDeTrabajo() {
+        this.estado = EstadoOT.Nueva;
+    }
+
     public OrdenDeTrabajo(int id) {
         this.id = id;
     }

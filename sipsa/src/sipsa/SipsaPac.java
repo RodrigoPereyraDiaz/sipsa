@@ -1,48 +1,35 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package sipsa;
 
-import java.io.IOException;
-import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import sipsa.control.SipsaPacMenuControl;
 import sipsa.control.servicios.Cliente;
-import sipsa.presentacion.escritorio.Login;
 
-/**
- *
- * @author elsupergomez
- */
 public class SipsaPac {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Cliente cliente = Cliente.getCliente();
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].equals("--host")){
+                i++;
+                cliente.setHost(args[i]);
+            } else if (args[i].startsWith("--port")){
+                i++;
+                cliente.setPuerto(Integer.valueOf(args[i].substring(3)));
+            } else {
+                StringBuilder ayuda = new StringBuilder();
+                ayuda.append("Ayuda de parametros del Servidor Sipsa:\n");
+                ayuda.append("  --host <host>   --> Inicia el servidor con interface grafica\n");
+                ayuda.append("  --port <port>   --> Indica en <nro> el puerto escucha del servidor, por defecto p=1027\n");
+                ayuda.append("  --help          --> Muestra este mensaje de ayuda\n");
+                System.out.println(ayuda.toString());
+                System.exit(1);
+            }
+        }
+
         Configuracion configuracion = Configuracion.getInstancia();
         configuracion.setEstiloLocal();
-        //TODO ver como empezar las llamadas
 
-        SipsaPacMenuControl menuPacSipsaControl = new SipsaPacMenuControl();
-        menuPacSipsaControl.mostrarMenu();
-
-        try {
-            Cliente cliente = new Cliente();
-            cliente.conectar("localhost", 1027);
-            Login login = new Login(cliente);
-            login.setVisible(true);
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(SipsaPac.class.getName()).log(Level.SEVERE, null, ex);
-            System.exit(1);
-        } catch (IOException ex) {
-            Logger.getLogger(SipsaPac.class.getName()).log(Level.SEVERE, null, ex);
-            System.exit(1);
-        }
-        
+        cliente.iniciar();
     }
 }

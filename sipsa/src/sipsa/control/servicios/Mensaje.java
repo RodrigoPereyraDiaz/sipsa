@@ -5,15 +5,17 @@
 
 package sipsa.control.servicios;
 
+import java.io.Serializable;
+
 /**
  * Mensaje del Protocolo de comunicacion entre el Servidor Sipsa y los Clientes Sipsa
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public abstract class Mensaje {
+public abstract class Mensaje implements Serializable{
     private Object Contenido;
 
-    public abstract Mensaje procesar();
+    public abstract Mensaje procesar() throws Exception;
 
     /**
      * Obtiene el contenido del cuerpo del mensaje

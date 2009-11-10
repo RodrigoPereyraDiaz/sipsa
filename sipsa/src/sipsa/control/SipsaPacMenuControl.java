@@ -26,21 +26,14 @@ public class SipsaPacMenuControl implements ISipsaPacMenu {
     }
 
     public void mostrarReporteOTRealizadas() {
-        IReporte reporte = ReportesFactoria.getReporteOTRealizadas(this.pac);
-        ReporteVisor reporteVisor = new ReporteVisor(reporte);
-        reporteVisor.setVisible(true);
-
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void mostrarReporteOTPendientes() {
-        IReporte reporte = ReportesFactoria.getReporteOTPendientes(this.pac);
-        ReporteVisor reporteVisor = new ReporteVisor(reporte);
-        reporteVisor.setVisible(true);
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void mostrarReporteOTVencidas() {
-        IReporte reporte = ReportesFactoria.getReporteOTVencidas(this.pac);
-        ReporteVisor reporteVisor = new ReporteVisor(reporte);
-        reporteVisor.setVisible(true);
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

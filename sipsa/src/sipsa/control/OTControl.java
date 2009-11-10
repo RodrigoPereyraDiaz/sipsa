@@ -3,6 +3,7 @@ package sipsa.control;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import sipsa.dominio.OrdenDeTrabajo;
 import sipsa.presentacion.escritorio.ListarABM;
 import sipsa.presentacion.escritorio.OrdenDeTrabajoDatos;
 import sipsa.presentacion.interfaces.IListarABM;
@@ -87,7 +88,7 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos{
         return modelo;
     }
 
-    public void aceptarDatos() throws Exception {
+    public void aceptarDatos(OrdenDeTrabajo ordenDeTrabajo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }
