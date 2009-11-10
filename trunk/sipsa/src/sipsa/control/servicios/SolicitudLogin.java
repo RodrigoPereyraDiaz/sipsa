@@ -1,19 +1,25 @@
 package sipsa.control.servicios;
 
-import sipsa.dominio.Usuario;
+import sipsa.dominio.Pac;
+import sipsa.persistencia.Persistencia;
 
 class SolicitudLogin extends Mensaje {
 
     @Override
     public Mensaje procesar() {
         Mensaje mensaje = null;
-        Usuario usuario = (Usuario) this.getContenido();
-        if  (usuario.isValido()){
+        Persistencia persistencia = Persistencia.getPersistencia();
+        System.out.println("Recibiendo pac");
+        Pac pac = (Pac) this.getContenido();
+        System.out.println("Verificando existencia pac");
+        if  (persistencia.existPac(pac)){
+        //if  (true){
+
             mensaje = MensajesFabrica.newRespuestaOK();
             mensaje.setContenido("Ingreso satisfactorio");
         } else {
             mensaje = MensajesFabrica.newRespuestaError();
-            mensaje.setContenido("Error de autenticacón");
+            mensaje.setContenido(new Exception("Error de autenticación"));
         }
         return mensaje;
     }

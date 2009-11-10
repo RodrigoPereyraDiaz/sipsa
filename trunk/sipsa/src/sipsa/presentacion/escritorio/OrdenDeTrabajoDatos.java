@@ -2,6 +2,7 @@
 package sipsa.presentacion.escritorio;
 
 import sipsa.Configuracion;
+import sipsa.dominio.OrdenDeTrabajo;
 import sipsa.presentacion.interfaces.IOrdenDeTrabajoDatos;
 
 public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
@@ -16,6 +17,17 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
         this.setIconImage(configuracion.getIcono());
         this.setLocationRelativeTo(null);
         this.setTitle("Orden de Trabajo");
+    }
+
+    public void setOT(OrdenDeTrabajo ordenDeTrabajo) {
+        switch (ordenDeTrabajo.getEstado()){
+            case Nueva: this.jPanelVenta.setEnabled(true);
+            case Activa: this.jPanelVenta.setEnabled(false);
+            case Finalizada: this.jPanelVenta.setEnabled(false);
+            case Anulada: this.jPanelVenta.setEnabled(false);
+        }
+        
+        //TODO rellena con los datos de una OT de acuerdo al estado
     }
 
     /** This method is called from within the constructor to
@@ -52,6 +64,8 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
         jFormattedTextFieldFechaEntrega = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocationByPlatform(true);
+        setModal(true);
 
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sipsa/presentacion/recursos/document-save.png"))); // NOI18N
         jButtonGuardar.setText("Guardar");
@@ -77,7 +91,7 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
 
         jLabelEstaado.setText("Estado:");
 
-        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Activa", "Finalizada", "Anulada" }));
+        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nueva", "Activa", "Finalizada", "Anulada" }));
 
         jPanelVenta.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -232,7 +246,7 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        throw new UnsupportedOperationException("Not supported yet.");
+        new DialogoMensaje(DialogoMensaje.Tipo.Información,"No soportado todavia");
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed

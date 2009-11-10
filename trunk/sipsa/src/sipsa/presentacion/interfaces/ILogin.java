@@ -17,5 +17,5 @@ public interface ILogin {
      * @param usuario Identificacion
      * @return True si se pudo identificar y autenticar satisfactoriamente
      */
-    public void ingresar(String text);
+    public void ingresar(String text) throws Exception;
 }

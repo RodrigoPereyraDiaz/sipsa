@@ -147,6 +147,7 @@ public class SipsaPacMenu extends javax.swing.JFrame {
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         this.setVisible(false);
+        System.exit(0);
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jButtonReporteOTRealizadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReporteOTRealizadasActionPerformed

@@ -5,6 +5,7 @@
 
 package sipsa.dominio;
 
+import java.io.Serializable;
 import sipsa.persistencia.IPersistible;
 
 /**
@@ -12,7 +13,7 @@ import sipsa.persistencia.IPersistible;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class Pac implements IPersistible{
+public class Pac implements IPersistible, Serializable{
     private int id;
     private String cuit;
     private String nombre;
@@ -54,6 +55,7 @@ public class Pac implements IPersistible{
      * @param cuit the cuit to set
      */
     public void setCuit(String cuit) {
+        System.out.println("Pac set cuit");
         this.cuit = cuit;
     }
 }

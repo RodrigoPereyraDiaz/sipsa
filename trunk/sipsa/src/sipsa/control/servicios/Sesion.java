@@ -6,6 +6,8 @@
 package sipsa.control.servicios;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Sesion de Cliente conectado al Servidor
@@ -43,6 +45,8 @@ class Sesion extends Thread {
             }
         } catch (IOException ex) {
             servidor.notificar("Cliente desde " + this.conexion.getDireccionRemota() + " desconectado");
+        } catch (Exception ex) {
+            Logger.getLogger(Sesion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

@@ -4,7 +4,7 @@ class RespuestaOK extends Mensaje{
 
     @Override
     public Mensaje procesar() {
-        Cliente.handelOK(this);
+        Cliente.getCliente().handelOK(this.getContenido().toString());
         return null;
     }
 

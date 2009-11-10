@@ -20,7 +20,7 @@ public class SipsaServidor {
     public static void main(String[] args) {
         Configuracion configuracion = Configuracion.getInstancia();
         configuracion.setEstiloLocal();
-
+        
         Servidor servidor = new Servidor();
         for (int i = 0; i < args.length; i++) {
             String string = args[i];

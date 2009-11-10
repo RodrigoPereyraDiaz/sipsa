@@ -3,7 +3,7 @@ package sipsa.control;
 import javax.swing.table.TableModel;
 import sipsa.presentacion.interfaces.IReporte;
 
-class Reporte implements IReporte{
+public class Reporte implements IReporte{
     private TableModel tableModel;
     private String nombre;
 

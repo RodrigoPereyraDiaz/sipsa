@@ -5,7 +5,7 @@
 
 package sipsa.presentacion.interfaces;
 
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  * Interface a implementar para controlar el fomulario ListarAgregarEliminar
@@ -41,5 +41,5 @@ public interface IListarABM {
      * Obtiene el modelo para llenar un jTable con el contenido y estrutura definido
      * @return TableModel de la Clase de Dominio
      */
-    public DefaultTableModel getModelo();
+    public TableModel getModelo();
 }
