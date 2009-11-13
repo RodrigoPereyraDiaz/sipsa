@@ -5,8 +5,6 @@ import sipsa.Configuracion;
 public class DialogoMensaje extends javax.swing.JDialog {
     public enum Tipo {Error, Advertencia, Información}
 
-
-
     /** Creates new form DialogoMensaje */
     public DialogoMensaje(Tipo tipo, String mensaje) {
         Configuracion configuracion = Configuracion.getInstancia();
@@ -39,7 +37,7 @@ public class DialogoMensaje extends javax.swing.JDialog {
     private void initComponents() {
 
         jButtonAceptar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPaneInformacion = new javax.swing.JScrollPane();
         jLabelInformacion = new javax.swing.JTextArea();
         jLabelIcono = new javax.swing.JLabel();
 
@@ -59,7 +57,7 @@ public class DialogoMensaje extends javax.swing.JDialog {
         jLabelInformacion.setColumns(20);
         jLabelInformacion.setEditable(false);
         jLabelInformacion.setRows(5);
-        jScrollPane1.setViewportView(jLabelInformacion);
+        jScrollPaneInformacion.setViewportView(jLabelInformacion);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,7 +69,7 @@ public class DialogoMensaje extends javax.swing.JDialog {
                         .addContainerGap()
                         .addComponent(jLabelIcono, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE))
+                        .addComponent(jScrollPaneInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(150, 150, 150)
                         .addComponent(jButtonAceptar)))
@@ -83,7 +81,7 @@ public class DialogoMensaje extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                        .addComponent(jScrollPaneInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonAceptar))
                     .addGroup(layout.createSequentialGroup()
@@ -103,7 +101,7 @@ public class DialogoMensaje extends javax.swing.JDialog {
     private javax.swing.JButton jButtonAceptar;
     private javax.swing.JLabel jLabelIcono;
     private javax.swing.JTextArea jLabelInformacion;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPaneInformacion;
     // End of variables declaration//GEN-END:variables
 
 }

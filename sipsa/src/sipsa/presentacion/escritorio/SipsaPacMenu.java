@@ -43,7 +43,7 @@ public class SipsaPacMenu extends javax.swing.JFrame {
         jButtonReporteOTRealizadas = new javax.swing.JButton();
         jButtonReporteOTPendientes = new javax.swing.JButton();
         jButtonReporteOTVencidas = new javax.swing.JButton();
-        jSeparator3 = new javax.swing.JSeparator();
+        jSeparatorBotones = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sipsa - Punto de Atención");
@@ -101,7 +101,7 @@ public class SipsaPacMenu extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSeparator3, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
+                .addComponent(jSeparatorBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -109,7 +109,7 @@ public class SipsaPacMenu extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButtonReporteOTPendientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonReporteOTPendientes, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -126,7 +126,7 @@ public class SipsaPacMenu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jButtonABTiposProductos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparatorBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonReporteOTRealizadas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -168,7 +168,7 @@ public class SipsaPacMenu extends javax.swing.JFrame {
     private javax.swing.JButton jButtonReporteOTRealizadas;
     private javax.swing.JButton jButtonReporteOTVencidas;
     private javax.swing.JButton jButtonSalir;
-    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparatorBotones;
     // End of variables declaration//GEN-END:variables
 
 }

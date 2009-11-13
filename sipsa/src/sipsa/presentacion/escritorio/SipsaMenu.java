@@ -14,7 +14,6 @@ import sipsa.presentacion.interfaces.ISipsaMenu;
  * @author Maria Eugenia Sanchez
  */
 public class SipsaMenu extends javax.swing.JFrame {
-    //TODO ver de agregar un administrador de Modelos de Productos
     private ISipsaMenu controlador;
 
     /** Creates new form SipsaMenu
@@ -46,7 +45,7 @@ public class SipsaMenu extends javax.swing.JFrame {
         jButtonReporteOTRealizadas = new javax.swing.JButton();
         jButtonReporteOTPendientes = new javax.swing.JButton();
         jButtonReporteOTVencidas = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
+        jSeparatorBotones = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sipsa");
@@ -149,7 +148,7 @@ public class SipsaMenu extends javax.swing.JFrame {
                 .addGap(14, 14, 14))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
+                .addComponent(jSeparatorBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -168,7 +167,7 @@ public class SipsaMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonImportarProductosVenta)
                 .addGap(5, 5, 5)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparatorBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(jButtonReporteOTRealizadas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -201,6 +200,7 @@ public class SipsaMenu extends javax.swing.JFrame {
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         this.setVisible(false);
+        System.exit(0);
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jButtonReporteOTRealizadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReporteOTRealizadasActionPerformed
@@ -224,7 +224,7 @@ public class SipsaMenu extends javax.swing.JFrame {
     private javax.swing.JButton jButtonReporteOTRealizadas;
     private javax.swing.JButton jButtonReporteOTVencidas;
     private javax.swing.JButton jButtonSalir;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparatorBotones;
     // End of variables declaration//GEN-END:variables
 
 }

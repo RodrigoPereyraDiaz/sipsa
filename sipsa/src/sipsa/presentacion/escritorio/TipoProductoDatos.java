@@ -1,3 +1,5 @@
+//TODO agregar la logica para poblar el formulario y para agregar y eliminar modelos
+
 /*
  * Sistemas de Información II 2009
  * Proyecto Sipsa
@@ -6,6 +8,7 @@
 package sipsa.presentacion.escritorio;
 
 import sipsa.Configuracion;
+import sipsa.dominio.TipoProducto;
 import sipsa.presentacion.interfaces.ITipoProductoDatos;
 
 /**
@@ -14,20 +17,23 @@ import sipsa.presentacion.interfaces.ITipoProductoDatos;
  * @author Maria Eugenia Sanchez
  */
 public class TipoProductoDatos extends javax.swing.JDialog {
-    //TODO agregar la logica para poblar el formulario y para agregar y eliminar modelos
     private ITipoProductoDatos controlador;
+    private TipoProducto tipoProducto;
 
     /** Creates new form TipoProductoDatos
      * @param controlador Controlador del formulario
      */
-    public TipoProductoDatos(ITipoProductoDatos controlador) {
+    public TipoProductoDatos(ITipoProductoDatos controlador, TipoProducto tipoProducto) {
         initComponents();
         
         Configuracion configuracion = Configuracion.getInstancia();
         this.setIconImage(configuracion.getIcono());
         this.setLocationRelativeTo(null);
-        this.controlador = controlador;
         this.setTitle("Tipo de Producto");
+
+        this.controlador = controlador;
+        this.tipoProducto = tipoProducto;
+        this.poblarFormulario();
     }
 
     /** This method is called from within the constructor to
@@ -50,8 +56,8 @@ public class TipoProductoDatos extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jListModelos = new javax.swing.JList();
         jTextFieldModelo = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonEliminarModelo = new javax.swing.JButton();
+        jButtonAgregarModelo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setIconImage(null);
@@ -81,20 +87,31 @@ public class TipoProductoDatos extends javax.swing.JDialog {
 
         jLabelMeses.setText("Meses");
 
-        jLabelModelos.setText("Modelos:");
+        jLabelModelos.setText("Modelo:");
 
         jListModelos.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Modelo 1", "Modelo 2", "Modelo 3", "Modelo 4", "Modelo 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        jListModelos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jListModelos);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sipsa/presentacion/recursos/list-remove.png"))); // NOI18N
-        jButton1.setToolTipText("Eliminar Modelo");
+        jButtonEliminarModelo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sipsa/presentacion/recursos/list-remove.png"))); // NOI18N
+        jButtonEliminarModelo.setToolTipText("Eliminar Modelo");
+        jButtonEliminarModelo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarModeloActionPerformed(evt);
+            }
+        });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sipsa/presentacion/recursos/list-add.png"))); // NOI18N
-        jButton2.setToolTipText("Agregar Modelo");
+        jButtonAgregarModelo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sipsa/presentacion/recursos/list-add.png"))); // NOI18N
+        jButtonAgregarModelo.setToolTipText("Agregar Modelo");
+        jButtonAgregarModelo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAgregarModeloActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,7 +130,7 @@ public class TipoProductoDatos extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelNombreProducto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
+                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -121,11 +138,11 @@ public class TipoProductoDatos extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabelModelos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                        .addComponent(jTextFieldModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(jButtonAgregarModelo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                        .addComponent(jButtonEliminarModelo)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -145,13 +162,13 @@ public class TipoProductoDatos extends javax.swing.JDialog {
                         .addGap(5, 5, 5)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelModelos)
-                            .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
-                            .addComponent(jButton1))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonAgregarModelo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonEliminarModelo))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -164,10 +181,11 @@ public class TipoProductoDatos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        this.tipoProducto.setDescripcion(this.jTextFieldNombre.getText());
+        this.tipoProducto.setDuracionGarantia(Integer.valueOf(this.jSpinnerDuracionGarantia.getValue().toString()));
+        //TODO agregar los modelos desde la lista
         try {
-            String nombre = this.jTextFieldNombre.getText();
-            int duracionGarantia = Integer.valueOf(this.jSpinnerDuracionGarantia.getValue().toString());
-            this.controlador.aceptarDatosTipoProducto(nombre, duracionGarantia);
+            this.controlador.guardarTipoProducto(this.tipoProducto);
             this.setVisible(false);
         } catch (Exception ex) {
             new DialogoMensaje(DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
@@ -178,10 +196,18 @@ public class TipoProductoDatos extends javax.swing.JDialog {
         this.setVisible(false);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
+    private void jButtonAgregarModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarModeloActionPerformed
+        //TODO agregar modelo a la lista de modelos
+}//GEN-LAST:event_jButtonAgregarModeloActionPerformed
+
+    private void jButtonEliminarModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarModeloActionPerformed
+        // TODO eliminar modelo de la lista de modelos
+    }//GEN-LAST:event_jButtonEliminarModeloActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonAgregarModelo;
     private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonEliminarModelo;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JLabel jLabelDuracionGarantia;
     private javax.swing.JLabel jLabelMeses;
@@ -194,4 +220,14 @@ public class TipoProductoDatos extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
 
+    private void poblarFormulario(){
+        this.jTextFieldNombre.setText(this.tipoProducto.getDescripcion());
+        this.jSpinnerDuracionGarantia.setValue(this.tipoProducto.getDuracionGarantia());
+        this.jTextFieldModelo.setText("");
+        this.poblarModelos();
+    }
+
+    private void poblarModelos(){
+        //TODO llenar la lista de modelos
+    }
 }

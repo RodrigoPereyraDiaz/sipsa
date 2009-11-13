@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -16,6 +17,7 @@ import sipsa.control.Reporte;
 import sipsa.dominio.EstadoOT;
 import sipsa.dominio.OrdenDeTrabajo;
 import sipsa.dominio.Pac;
+import sipsa.dominio.TipoProducto;
 import sipsa.presentacion.escritorio.DialogoMensaje;
 import sipsa.presentacion.escritorio.ListarABM;
 import sipsa.presentacion.escritorio.Login;
@@ -135,22 +137,21 @@ public class Cliente implements ILogin, ISipsaPacMenu, IOrdenDeTrabajoDatos, ILi
     }
 
     public void agregar() {
-        OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this);
-        ordenDeTrabajoDatos.setOT(new OrdenDeTrabajo());
+        OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this, new OrdenDeTrabajo());
         ordenDeTrabajoDatos.setVisible(true);
     }
 
-    public void modificar(int index) throws Exception {
-        OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this);
-        ordenDeTrabajoDatos.setOT(lista.get(index));
+    public void modificar(int index) {
+        OrdenDeTrabajo ordenDeTrabajo = lista.get(index);
+        ordenDeTrabajo.setEstado(EstadoOT.Activa);
+        OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this, ordenDeTrabajo);
         ordenDeTrabajoDatos.setVisible(true);
     }
 
     public void eliminar(int index) {
-        OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this);
         OrdenDeTrabajo ordenDeTrabajo = lista.get(index);
         ordenDeTrabajo.setEstado(EstadoOT.Anulada);
-        ordenDeTrabajoDatos.setOT(ordenDeTrabajo);
+        OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this, ordenDeTrabajo);
         ordenDeTrabajoDatos.setVisible(true);
     }
 
@@ -205,5 +206,21 @@ public class Cliente implements ILogin, ISipsaPacMenu, IOrdenDeTrabajoDatos, ILi
      */
     public void setPuerto(int puerto) {
         this.puerto = puerto;
+    }
+
+    public void guardarOrdenDeTrabajo(OrdenDeTrabajo ordenDeTrabajo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public ComboBoxModel getListaPuntosDeVenta() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public ComboBoxModel getListaTiposProducto() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public ComboBoxModel getListaModelos(TipoProducto tipoProducto) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

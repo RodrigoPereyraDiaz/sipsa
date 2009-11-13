@@ -34,10 +34,10 @@
                       <EmptySpace min="12" pref="12" max="12" attributes="0"/>
                       <Component id="jLabelIdentificacion" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextFieldIdentificacion" pref="171" max="32767" attributes="1"/>
+                      <Component id="jTextFieldIdentificacion" pref="181" max="32767" attributes="1"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="29" max="32767" attributes="0"/>
+                      <EmptySpace pref="46" max="32767" attributes="0"/>
                       <Component id="okButton" min="-2" pref="96" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cancelButton" min="-2" max="-2" attributes="0"/>

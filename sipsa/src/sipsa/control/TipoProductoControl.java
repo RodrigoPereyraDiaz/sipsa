@@ -10,9 +10,9 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 import sipsa.dominio.TipoProducto;
-import sipsa.presentacion.interfaces.ITipoProductoDatos;
 import sipsa.presentacion.interfaces.IListarABM;
 import sipsa.presentacion.escritorio.ListarABM;
+import sipsa.presentacion.interfaces.ITipoProductoDatos;
 import sipsa.presentacion.escritorio.TipoProductoDatos;
 import sipsa.persistencia.Persistencia;
 
@@ -38,7 +38,7 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
      * Muestra el formulario para agregar un nuevo Tipo de Producto
      */
     public void agregar() {
-        TipoProductoDatos tipoProductoDatos = new TipoProductoDatos(this);
+        TipoProductoDatos tipoProductoDatos = new TipoProductoDatos(this, new TipoProducto());
         tipoProductoDatos.setVisible(true);
     }
 
@@ -49,6 +49,7 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
     public void eliminar(int index) {
         TipoProducto tipoProducto = this.getListaTipoProducto().get(index);
         persistencia.deteletTipoProducto(tipoProducto);
+        this.listaTipoProducto.remove(tipoProducto);
     }
 
     /**
@@ -57,25 +58,6 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
      */
     public String getDescripcion() {
         return "Tipo de Producto";
-    }
-
-    /**
-     * Guardar en el medio de persistencia el nuevo Tipo de Producto
-     * @param modelo Modelo del Tipo de Producto
-     * @param nombre Nombre del Tipo de Producto
-     * @param duracionGarantia Duracion de la garantia en meses del tipo de producto
-     * @return Resultado de la persistencia
-     */
-    public void aceptarDatosTipoProducto(String nombre, int duracionGarantia) throws Exception {
-        //FIXME ver como agregar los modelos
-        TipoProducto tp = new TipoProducto();
-        tp.setDescripcion(nombre);
-        tp.setDuracionGarantia(duracionGarantia);
-        if (this.persistencia.existTipoProducto(tp)){
-           throw new Exception("El tipo de Producto ya existe, imposible agregar");
-        } else {
-            this.persistencia.saveTipoProducto(tp);
-        }
     }
 
     /**
@@ -108,4 +90,11 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
         return listaTipoProducto;
     }
 
+    public void guardarTipoProducto(TipoProducto tipoProducto) throws Exception {
+        if (this.persistencia.existTipoProducto(tipoProducto)){
+           throw new Exception("El tipo de Producto ya existe, imposible agregar");
+        } else {
+            this.persistencia.saveTipoProducto(tipoProducto);
+        }
+    }
 }

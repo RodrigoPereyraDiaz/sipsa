@@ -24,30 +24,34 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jScrollPaneObservaciones" alignment="0" pref="587" max="32767" attributes="0"/>
-                  <Component id="jPanelVenta" alignment="1" max="32767" attributes="0"/>
-                  <Component id="jLabelObservaciones" alignment="0" min="-2" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="358" max="-2" attributes="0"/>
-                      <Component id="jButtonGuardar" pref="108" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonCancelar" pref="115" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabelEstaado" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jComboBoxEstado" alignment="0" max="32767" attributes="1"/>
-                          <Component id="jLabelFechaEntrega" alignment="0" max="32767" attributes="1"/>
-                          <Component id="jFormattedTextFieldFechaEntrega" alignment="0" max="32767" attributes="1"/>
-                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabelMotivoEstado" min="-2" max="-2" attributes="0"/>
-                          <Component id="jScrollPaneMotivoEstado" alignment="0" min="-2" pref="437" max="-2" attributes="1"/>
+                          <Component id="jScrollPaneObservaciones" alignment="0" pref="513" max="32767" attributes="1"/>
+                          <Component id="jLabelObservaciones" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jLabelEstaado" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxEstado" alignment="0" max="32767" attributes="1"/>
+                                  <Component id="jLabelFechaEntrega" alignment="0" max="32767" attributes="1"/>
+                                  <Component id="jFormattedTextFieldFechaEntrega" alignment="0" max="32767" attributes="1"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jScrollPaneMotivoEstado" pref="396" max="32767" attributes="1"/>
+                                  <Component id="jLabelMotivoEstado" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="jPanelVenta" alignment="0" max="32767" attributes="1"/>
                       </Group>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" pref="358" max="-2" attributes="0"/>
+                      <Component id="jButtonGuardar" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonCancelar" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -62,7 +66,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabelObservaciones" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPaneObservaciones" pref="99" max="32767" attributes="0"/>
+              <Component id="jScrollPaneObservaciones" pref="102" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabelEstaado" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -72,17 +76,14 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="jComboBoxEstado" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="8" max="32767" attributes="0"/>
+                      <EmptySpace pref="11" max="32767" attributes="0"/>
                       <Component id="jLabelFechaEntrega" min="-2" pref="17" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jFormattedTextFieldFechaEntrega" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="jScrollPaneMotivoEstado" min="-2" max="-2" attributes="1"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jScrollPaneMotivoEstado" pref="80" max="32767" attributes="1"/>
               </Group>
+              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jButtonGuardar" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonCancelar" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -175,11 +176,11 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jTextFieldNroFactura" alignment="0" pref="413" max="32767" attributes="0"/>
-                      <Component id="jTextFieldNroSerie" alignment="0" pref="413" max="32767" attributes="0"/>
-                      <Component id="jComboBoxPv" alignment="0" pref="413" max="32767" attributes="0"/>
-                      <Component id="jComboBoxTipoProducto" alignment="0" pref="413" max="32767" attributes="0"/>
-                      <Component id="jComboBoxModelo" alignment="0" pref="413" max="32767" attributes="0"/>
+                      <Component id="jTextFieldNroFactura" alignment="0" pref="375" max="32767" attributes="0"/>
+                      <Component id="jTextFieldNroSerie" alignment="0" pref="375" max="32767" attributes="0"/>
+                      <Component id="jComboBoxPv" alignment="0" pref="375" max="32767" attributes="0"/>
+                      <Component id="jComboBoxTipoProducto" alignment="0" pref="375" max="32767" attributes="0"/>
+                      <Component id="jComboBoxModelo" alignment="0" pref="375" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>

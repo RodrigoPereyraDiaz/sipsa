@@ -1,9 +1,12 @@
 package sipsa.control;
 
+import java.util.ArrayList;
+import javax.swing.ComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import sipsa.dominio.OrdenDeTrabajo;
+import sipsa.dominio.TipoProducto;
 import sipsa.presentacion.escritorio.ListarABM;
 import sipsa.presentacion.escritorio.OrdenDeTrabajoDatos;
 import sipsa.presentacion.interfaces.IListarABM;
@@ -12,6 +15,7 @@ import sipsa.presentacion.interfaces.IOrdenDeTrabajoDatos;
 //TODO revisar los metodos agregar modificar eliminar para que dependan del estado
 public class OTControl implements IListarABM, IOrdenDeTrabajoDatos{
 
+    private ArrayList<OrdenDeTrabajo> lista;
      /**
      * Muestra el formulario para administrar Ordenes de Trabajo
      */
@@ -21,17 +25,19 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos{
     }
 
     public void agregar() {
-        OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this);
+        OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this, new OrdenDeTrabajo());
         ordenDeTrabajoDatos.setVisible(true);
     }
 
     public void modificar(int index) {
-        OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this);
+        OrdenDeTrabajo ordenDeTrabajo = lista.get(index);
+        OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this, ordenDeTrabajo);
         ordenDeTrabajoDatos.setVisible(true);
     }
 
     public void eliminar(int index) {
-        OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this);
+        OrdenDeTrabajo ordenDeTrabajo = lista.get(index);
+        OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this, ordenDeTrabajo);
         ordenDeTrabajoDatos.setVisible(true);
     }
 
@@ -89,6 +95,22 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos{
     }
 
     public void aceptarDatos(OrdenDeTrabajo ordenDeTrabajo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void guardarOrdenDeTrabajo(OrdenDeTrabajo ordenDeTrabajo) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public ComboBoxModel getListaPuntosDeVenta() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public ComboBoxModel getListaTiposProducto() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public ComboBoxModel getListaModelos(TipoProducto tipoProducto) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }
