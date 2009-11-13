@@ -5,6 +5,8 @@
 
 package sipsa.presentacion.interfaces;
 
+import sipsa.dominio.TipoProducto;
+
 /**
  * Interface a implementar para controlar el fomulario TipoProductoDatos
  * @author Claudio Rodrigo Pereyra Diaz
@@ -12,11 +14,5 @@ package sipsa.presentacion.interfaces;
  */
 public interface ITipoProductoDatos {
 
-    /**
-     * Guarda en el medio de persistencia
-     * @param nombre
-     * @param duracionGarantia
-     * @return Resultado de la Persistencia
-     */
-    public void aceptarDatosTipoProducto(String nombre, int duracionGarantia) throws Exception;
+    public void guardarTipoProducto(TipoProducto tipoProducto) throws Exception;
 }

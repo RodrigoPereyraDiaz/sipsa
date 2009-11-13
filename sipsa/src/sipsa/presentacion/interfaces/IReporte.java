@@ -14,6 +14,7 @@ import javax.swing.table.TableModel;
  */
 public interface IReporte {
 
+    //TODO ver si esta bien usar un TableModel
     public TableModel getDatos();
     /**
      * Obiene el nombre del Reporte a mostrar
