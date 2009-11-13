@@ -65,10 +65,18 @@ public class TipoProducto implements IPersistible{
     }
 
     public void addModelo(Modelo modelo){
-        this.modelos.add(modelo);
+        this.getModelos().add(modelo);
     }
 
     public void removeModelo(Modelo modelo){
-        this.modelos.remove(modelo);
+        this.getModelos().remove(modelo);
+    }
+
+    /**
+     * Obtiene la lista de modelos del tipo de producto
+     * @return lista de modelos
+     */
+    public List<Modelo> getModelos() {
+        return modelos;
     }
 }

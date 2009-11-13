@@ -8,26 +8,18 @@ import sipsa.presentacion.interfaces.IOrdenDeTrabajoDatos;
 public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
 
     IOrdenDeTrabajoDatos controlador;
+    OrdenDeTrabajo ordenDeTrabajo;
 
     /** Creates new form OrdenDeTrabajoDatos */
-    public OrdenDeTrabajoDatos(IOrdenDeTrabajoDatos controlador) {
+    public OrdenDeTrabajoDatos(IOrdenDeTrabajoDatos controlador, OrdenDeTrabajo ordenDeTrabajo) {
         initComponents();
         Configuracion configuracion = Configuracion.getInstancia();
-        this.controlador = controlador;
         this.setIconImage(configuracion.getIcono());
         this.setLocationRelativeTo(null);
         this.setTitle("Orden de Trabajo");
-    }
-
-    public void setOT(OrdenDeTrabajo ordenDeTrabajo) {
-        switch (ordenDeTrabajo.getEstado()){
-            case Nueva: this.jPanelVenta.setEnabled(true);
-            case Activa: this.jPanelVenta.setEnabled(false);
-            case Finalizada: this.jPanelVenta.setEnabled(false);
-            case Anulada: this.jPanelVenta.setEnabled(false);
-        }
-        
-        //TODO rellena con los datos de una OT de acuerdo al estado
+        this.controlador = controlador;
+        this.ordenDeTrabajo = ordenDeTrabajo;
+        this.poblarFormulario();
     }
 
     /** This method is called from within the constructor to
@@ -141,11 +133,11 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
                     .addComponent(jLabelNroFactura))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldNroFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
-                    .addComponent(jTextFieldNroSerie, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
-                    .addComponent(jComboBoxPv, 0, 413, Short.MAX_VALUE)
-                    .addComponent(jComboBoxTipoProducto, 0, 413, Short.MAX_VALUE)
-                    .addComponent(jComboBoxModelo, 0, 413, Short.MAX_VALUE))
+                    .addComponent(jTextFieldNroFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                    .addComponent(jTextFieldNroSerie, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                    .addComponent(jComboBoxPv, 0, 375, Short.MAX_VALUE)
+                    .addComponent(jComboBoxTipoProducto, 0, 375, Short.MAX_VALUE)
+                    .addComponent(jComboBoxModelo, 0, 375, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanelVentaLayout.setVerticalGroup(
@@ -188,27 +180,29 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPaneObservaciones, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
-                    .addComponent(jPanelVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelObservaciones, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(358, 358, 358)
-                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabelEstaado)
-                            .addComponent(jComboBoxEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabelFechaEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jFormattedTextFieldFechaEntrega))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelMotivoEstado)
-                            .addComponent(jScrollPaneMotivoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPaneObservaciones, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+                            .addComponent(jLabelObservaciones)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabelEstaado)
+                                    .addComponent(jComboBoxEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabelFechaEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jFormattedTextFieldFechaEntrega))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPaneMotivoEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
+                                    .addComponent(jLabelMotivoEstado)))
+                            .addComponent(jPanelVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(358, 358, 358)
+                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -219,7 +213,7 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelObservaciones)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPaneObservaciones, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                .addComponent(jScrollPaneObservaciones, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelEstaado)
@@ -228,14 +222,12 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                         .addComponent(jLabelFechaEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextFieldFechaEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPaneMotivoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(jFormattedTextFieldFechaEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPaneMotivoEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButtonGuardar)
                     .addComponent(jButtonCancelar))
@@ -246,7 +238,13 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        new DialogoMensaje(DialogoMensaje.Tipo.Información,"No soportado todavia");
+        //TODO rellenar la orden de trabajo
+        try {
+            this.controlador.guardarOrdenDeTrabajo(this.ordenDeTrabajo);
+            this.setVisible(false);
+        } catch (Exception ex) {
+            new DialogoMensaje(DialogoMensaje.Tipo.Error,ex.getLocalizedMessage());
+        }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -290,5 +288,21 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldNroFactura;
     private javax.swing.JTextField jTextFieldNroSerie;
     // End of variables declaration//GEN-END:variables
+
+    private void poblarFormulario() {
+        switch (ordenDeTrabajo.getEstado()){
+            case Nueva: {
+                //TODO cuando es una nueva orden de trabajo poblar los combox para que puda seleccionar las opciones
+                this.jPanelVenta.setEnabled(true);
+                this.controlador.getListaPuntosDeVenta();
+                this.controlador.getListaTiposProducto();
+                break;
+            }
+            case Activa: this.jPanelVenta.setEnabled(false);
+            case Finalizada: this.jPanelVenta.setEnabled(false);
+            case Anulada: this.jPanelVenta.setEnabled(false);
+        }
+        //TODO rellena con los datos de una OT de acuerdo al estado
+    }
 
 }

@@ -1,3 +1,5 @@
+//TODO cambiar para que cargue el objecto Empresa y hacer que los Pac y Pv sean extensiones de Empresa
+
 /*
  * Sistemas de Información II 2009
  * Proyecto Sipsa
