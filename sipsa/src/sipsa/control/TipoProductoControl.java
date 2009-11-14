@@ -53,6 +53,7 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
      * Elimina del medio de persistencia el Tipo de Producto identificado
      * @param id Identificador unico de Tipo de Producto
      */
+
     public void eliminar(int index) {
         TipoProducto tipoProducto = this.getListaTipoProducto().get(index);
         persistencia.deteletTipoProducto(tipoProducto);
@@ -92,6 +93,11 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
         return listaTipoProducto;
     }
 
+    /**
+     * Guarda el Tipo de Producto en el sistema Sipsa
+     * @param tipoProducto
+     * @throws java.lang.Exception
+     */
     public void guardarTipoProducto(TipoProducto tipoProducto) throws Exception {
         //TODO validar la garantia sea mayor a 0 meses
         if (this.persistencia.existTipoProducto(tipoProducto)){
