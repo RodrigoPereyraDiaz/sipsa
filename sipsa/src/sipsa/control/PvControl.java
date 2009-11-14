@@ -26,6 +26,11 @@ public class PvControl implements IEmpresaDatos, IListarABM {
 
     private Persistencia persistencia = Persistencia.getPersistencia();
     private List<Pv> listaPv;
+
+    public Pv existePv(Pv pv) throws Exception{
+        //TODO devolver el pv si existe, tirar excepcion si no existe
+        return new Pv();
+    }
     /**
      * Muestra el formulacion para Administrar Puntos de Venta
      */

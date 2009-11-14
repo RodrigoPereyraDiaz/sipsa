@@ -93,6 +93,7 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
     }
 
     public void guardarTipoProducto(TipoProducto tipoProducto) throws Exception {
+        //TODO validar la garantia sea mayor a 0 meses
         if (this.persistencia.existTipoProducto(tipoProducto)){
            throw new Exception("El tipo de Producto ya existe, imposible agregar");
         } else {
