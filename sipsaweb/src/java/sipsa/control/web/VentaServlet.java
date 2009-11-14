@@ -10,8 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import sipsa.control.VentaControl;
-import sipsa.dominio.Venta;
 
 /**
  *
@@ -29,16 +27,15 @@ public class VentaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        Venta venta = new Venta();
-        VentaControl ventaControl = new VentaControl();
-        venta.setNroFactura(request.getParameter("nroFactura"));
-        if (ventaControl.activarGarantia(venta)){
+        try {
+            //guardarGarantia
             response.sendRedirect("ActivacionOk.jsp");
-        } else {
+        } catch (Exception ex) {
+            //TODO agregar el motivo del error a la pagina de error
             response.sendRedirect("ActivacionError.jsp");
         }
-    } 
-
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.

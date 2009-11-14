@@ -1,5 +1,5 @@
 <%-- 
-    Document   : index
+    Document   : Ingreso
     Created on : 07/11/2009, 12:21:00
     Author     : Maria Eugenia Sanchez
     Author     : Claudio Rodrigo Pereyra Diaz
@@ -8,14 +8,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
-<%
-session.removeAttribute("usuario");
-%>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Sipsa Web</title>
-        <link rel="shortcut icon" href="Sipsa.png" type="image/ico" />
         <link rel="icon" href="Sipsa.png" type="image/png" />
     </head>
     <body>
@@ -24,13 +21,11 @@ session.removeAttribute("usuario");
         <form action="IngresoServlet" method="post">
             <table align="center">
                 <tr>
-                    <td><p>CUIT:</p></td>
-                    <td><input name="cuit" size="20">
+                    <td>CUIT:</td>
+                    <td><input name="cuit" size="20"></td>
+                    <td><input type="submit" value="Ingresar" ></td>
                 </tr>
-                <tr>
-                    <td align="center"><input align="center" type="submit" value="Ingresar" ></td>
-                </tr>
-        </table>
-    </form>
+            </table>
+        </form>
     </body>
 </html>
