@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
+import sipsa.dominio.Empresa;
 import sipsa.dominio.Pv;
 import sipsa.persistencia.Persistencia;
 import sipsa.presentacion.interfaces.IListarABM;
@@ -29,25 +30,9 @@ public class PvControl implements IEmpresaDatos, IListarABM {
      * Muestra el formulacion para Administrar Puntos de Venta
      */
     public void mostrarAdministrar(){
+        this.listaPv = persistencia.getListPv();
         ListarABM listarABMPv = new ListarABM(this);
         listarABMPv.setVisible(true);
-    }
-
-    /**
-     * Guarda en el medio de persistencia el nuevo Punto de Venta
-     * @param cuit CUIT del Punto de Venta
-     * @param nombre Nombre del Punto de venta
-     * @return Resultado de la persistencia
-     */
-    public void aceptarDatosEmpresa(String cuit, String nombre) throws Exception {
-        Pv pv = new Pv();
-        pv.setCuit(cuit);
-        pv.setNombre(nombre);
-        if (this.persistencia.existPv(pv)){
-            throw new Exception("El punto de venta ya existe, imposible agregar");
-        } else {
-            this.persistencia.savePv(pv);
-        }
     }
 
     /**
@@ -62,7 +47,12 @@ public class PvControl implements IEmpresaDatos, IListarABM {
      * Muestra el formulario para agregar un nuevo Punto de Venta
      */
     public void agregar() {
-        EmpresaDatos formulario = new EmpresaDatos(this);
+        EmpresaDatos formulario = new EmpresaDatos(this, new Pv());
+        formulario.setVisible(true);
+    }
+
+    public void modificar(int index) {
+        EmpresaDatos formulario = new EmpresaDatos(this, this.listaPv.get(index));
         formulario.setVisible(true);
     }
 
@@ -73,6 +63,7 @@ public class PvControl implements IEmpresaDatos, IListarABM {
     public void eliminar(int index) {
         Pv pv = this.listaPv.get(index);
         this.persistencia.deletePv(pv);
+        this.listaPv.remove(pv);
     }
 
     /**
@@ -82,7 +73,6 @@ public class PvControl implements IEmpresaDatos, IListarABM {
     public DefaultTableModel getModelo() {
         String[] columnNames = {"Cuit", "Nombre"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
-        this.listaPv = persistencia.getListPv();
         for (Iterator PvIt = this.listaPv.iterator(); PvIt.hasNext();) {
             Pv pv = (Pv) PvIt.next();
             Object[] datos = new Object[modelo.getColumnCount()];
@@ -93,7 +83,14 @@ public class PvControl implements IEmpresaDatos, IListarABM {
         return modelo;
     }
 
-    public void modificar(int index) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void guardarEmpresa(Empresa empresa) throws Exception {
+        Pv pv = (Pv) empresa;
+        //TODO Validaciones
+        if (this.persistencia.existPv(pv)){
+            throw new Exception("El punto de venta ya existe, imposible agregar");
+        } else {
+            this.persistencia.savePv(pv);
+            this.listaPv.add(pv);
+        }
     }
 }

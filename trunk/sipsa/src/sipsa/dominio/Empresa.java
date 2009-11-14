@@ -1,14 +1,34 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package sipsa.dominio;
 
-/**
- *
- * @author cpereyra
- */
-public class Empresa {
+public abstract class Empresa {
+    private String nombre;
+    private String cuit;
 
+     /**
+     * @return the nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    /**
+     * @return the cuit
+     */
+    public String getCuit() {
+        return cuit;
+    }
+
+    /**
+     * @param cuit the cuit to set
+     */
+    public void setCuit(String cuit) {
+        this.cuit = cuit;
+    }
 }

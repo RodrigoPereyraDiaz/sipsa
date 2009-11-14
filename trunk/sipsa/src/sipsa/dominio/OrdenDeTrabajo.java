@@ -5,6 +5,7 @@
 
 package sipsa.dominio;
 
+import java.io.Serializable;
 import java.util.Date;
 import sipsa.persistencia.IPersistible;
 
@@ -13,7 +14,7 @@ import sipsa.persistencia.IPersistible;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class OrdenDeTrabajo implements IPersistible{
+public class OrdenDeTrabajo implements IPersistible, Serializable{
     private int id;
     private Pac pac;
     private Venta venta;

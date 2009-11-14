@@ -42,6 +42,13 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
         tipoProductoDatos.setVisible(true);
     }
 
+
+    public void modificar(int index) {
+        TipoProducto tipoProducto = this.getListaTipoProducto().get(index);
+        TipoProductoDatos tipoProductoDatos = new TipoProductoDatos(this, tipoProducto);
+        tipoProductoDatos.setVisible(true);
+    }
+
     /**
      * Elimina del medio de persistencia el Tipo de Producto identificado
      * @param id Identificador unico de Tipo de Producto
@@ -77,11 +84,6 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
         return modelo;
     }
 
-    public void modificar(int index) {
-        //FIXME manejar la modificacion de los tipos de productos
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     /**
      * @return the listaTipoProducto
      */
@@ -95,6 +97,7 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
            throw new Exception("El tipo de Producto ya existe, imposible agregar");
         } else {
             this.persistencia.saveTipoProducto(tipoProducto);
+            this.listaTipoProducto.remove(tipoProducto);
         }
     }
 }

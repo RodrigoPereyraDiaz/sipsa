@@ -93,11 +93,6 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos{
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
         return modelo;
     }
-
-    public void aceptarDatos(OrdenDeTrabajo ordenDeTrabajo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     public void guardarOrdenDeTrabajo(OrdenDeTrabajo ordenDeTrabajo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }

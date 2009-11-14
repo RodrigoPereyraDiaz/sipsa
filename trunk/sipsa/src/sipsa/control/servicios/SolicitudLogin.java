@@ -13,8 +13,6 @@ class SolicitudLogin extends Mensaje {
         Pac pac = (Pac) this.getContenido();
         System.out.println("Verificando existencia pac");
         if  (persistencia.existPac(pac)){
-        //if  (true){
-
             mensaje = MensajesFabrica.newRespuestaOK();
             mensaje.setContenido("Ingreso satisfactorio");
         } else {

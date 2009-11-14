@@ -1,5 +1,3 @@
-//TODO cambiar para que cargue el objecto Empresa y hacer que los Pac y Pv sean extensiones de Empresa
-
 /*
  * Sistemas de Información II 2009
  * Proyecto Sipsa
@@ -8,6 +6,7 @@
 package sipsa.presentacion.escritorio;
 
 import sipsa.Configuracion;
+import sipsa.dominio.Empresa;
 import sipsa.presentacion.interfaces.IEmpresaDatos;
 
 /**
@@ -18,18 +17,20 @@ import sipsa.presentacion.interfaces.IEmpresaDatos;
 public class EmpresaDatos extends javax.swing.JDialog {
 
     private IEmpresaDatos controlador;
+    private Empresa empresa;
 
     /** Creates new form EmpresaDatos
      * @param controlador Controlador del formulario
      */
-    public EmpresaDatos(IEmpresaDatos controlador) {
+    public EmpresaDatos(IEmpresaDatos controlador, Empresa empresa) {
         initComponents();
-
         Configuracion configuracion = Configuracion.getInstancia();
         this.controlador = controlador;
+        this.empresa = empresa;
         this.setIconImage(configuracion.getIcono());
         this.setLocationRelativeTo(null);
         this.setTitle(this.controlador.getDescripcion());
+        this.poblarFormulario();
     }
 
     /** This method is called from within the constructor to
@@ -49,6 +50,7 @@ public class EmpresaDatos extends javax.swing.JDialog {
         jButtonCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setIconImage(null);
         setLocationByPlatform(true);
         setModal(true);
         setResizable(false);
@@ -80,7 +82,7 @@ public class EmpresaDatos extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(174, Short.MAX_VALUE)
+                        .addContainerGap(189, Short.MAX_VALUE)
                         .addComponent(jButtonGuardar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonCancelar))
@@ -117,10 +119,10 @@ public class EmpresaDatos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        String cuit = this.jTextFieldCUIT.getText();
-        String nombre = this.jTextFieldNombre.getText();
+        empresa.setCuit(this.jTextFieldCUIT.getText());
+        empresa.setNombre(this.jTextFieldNombre.getText());
         try {
-            this.controlador.aceptarDatosEmpresa(cuit, nombre);
+            this.controlador.guardarEmpresa(empresa);
             this.setVisible(false);
         } catch (Exception ex) {
             new DialogoMensaje(DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
@@ -140,4 +142,8 @@ public class EmpresaDatos extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
 
+    private void poblarFormulario() {
+        this.jLabelNombre.setText(this.empresa.getCuit());
+        this.jTextFieldCUIT.setText(this.empresa.getCuit());
+    }
 }

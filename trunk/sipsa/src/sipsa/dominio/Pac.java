@@ -13,13 +13,12 @@ import sipsa.persistencia.IPersistible;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class Pac implements IPersistible, Serializable{
+public class Pac extends Empresa implements IPersistible, Serializable{
     private int id;
-    private String cuit;
-    private String nombre;
 
     public Pac() {
-        
+        this.setCuit("");
+        this.setNombre("");
     }
 
     public Pac(int id) {
@@ -28,34 +27,5 @@ public class Pac implements IPersistible, Serializable{
 
     public int getID() {
         return this.id;
-    }
-
-    /**
-     * @return the nombre
-     */
-    public String getNombre() {
-        return nombre;
-    }
-
-    /**
-     * @param nombre the nombre to set
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    /**
-     * @return the cuit
-     */
-    public String getCuit() {
-        return cuit;
-    }
-
-    /**
-     * @param cuit the cuit to set
-     */
-    public void setCuit(String cuit) {
-        System.out.println("Pac set cuit");
-        this.cuit = cuit;
     }
 }

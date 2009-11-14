@@ -1,4 +1,3 @@
-//TODO completar el codigo para poblar el formulario y para guardar la OT de acuerdo al estado
 package sipsa.presentacion.escritorio;
 
 import sipsa.Configuracion;
@@ -14,11 +13,11 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
     public OrdenDeTrabajoDatos(IOrdenDeTrabajoDatos controlador, OrdenDeTrabajo ordenDeTrabajo) {
         initComponents();
         Configuracion configuracion = Configuracion.getInstancia();
+        this.controlador = controlador;
+        this.ordenDeTrabajo = ordenDeTrabajo;
         this.setIconImage(configuracion.getIcono());
         this.setLocationRelativeTo(null);
         this.setTitle("Orden de Trabajo");
-        this.controlador = controlador;
-        this.ordenDeTrabajo = ordenDeTrabajo;
         this.poblarFormulario();
     }
 

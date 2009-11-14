@@ -5,10 +5,8 @@
 
 package sipsa.control;
 
-import sipsa.presentacion.escritorio.RangoFechas;
 import sipsa.presentacion.escritorio.ReporteVisor;
 import sipsa.presentacion.escritorio.SipsaMenu;
-import sipsa.presentacion.interfaces.IReporte;
 import sipsa.presentacion.interfaces.ISipsaMenu;
 
 /**
@@ -22,7 +20,7 @@ public class SipsaMenuControl implements ISipsaMenu {
      * Muestra el formulario Menu Sipsa
      */
     public void mostrarMenu(){
-        SipsaMenu  sipsaMenu = new SipsaMenu(this);
+        SipsaMenu sipsaMenu = new SipsaMenu(this);
         sipsaMenu.setVisible(true);
     }
 
