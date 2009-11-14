@@ -26,6 +26,9 @@ public class PacControl implements IEmpresaDatos, IListarABM {
     private Persistencia persistencia = Persistencia.getPersistencia();
     private List<Pac> listaPac;
 
+    /**
+     *Muestra el formulario para Administrar Puntos de Atención al Cliente
+     */
     public void mostrarAdministrar() {
         this.listaPac = persistencia.getListPac();
         ListarABM listarABM = new ListarABM(this);

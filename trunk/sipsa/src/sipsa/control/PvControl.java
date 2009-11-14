@@ -27,12 +27,19 @@ public class PvControl implements IEmpresaDatos, IListarABM {
     private Persistencia persistencia = Persistencia.getPersistencia();
     private List<Pv> listaPv;
 
+    /**
+     * Verifica la existencia del Punto de Venta
+     * @param pv
+     * @return devuelve el Punto de Venta si existe, sino muestra una excepción
+     * @throws java.lang.Exception
+     */
+    
     public Pv existePv(Pv pv) throws Exception{
         //TODO devolver el pv si existe, tirar excepcion si no existe
         return new Pv();
     }
     /**
-     * Muestra el formulacion para Administrar Puntos de Venta
+     * Muestra el formulario para Administrar Puntos de Venta
      */
     public void mostrarAdministrar(){
         this.listaPv = persistencia.getListPv();
@@ -63,7 +70,6 @@ public class PvControl implements IEmpresaDatos, IListarABM {
 
     /**
      * eliminar del medio de persistencia el Punto de Venta identificado
-     * @param id Identificador unico del Punto de Venta
      */
     public void eliminar(int index) {
         Pv pv = this.listaPv.get(index);

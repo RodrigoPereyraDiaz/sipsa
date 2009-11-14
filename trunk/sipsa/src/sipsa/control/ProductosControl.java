@@ -91,6 +91,12 @@ public class ProductosControl {
        return ok;
     }
 
+    /**
+     * Verifica que el Producto especificado este en garantía
+     * @param producto
+     * @return devuelve verdadero si el producto esta en garantía, sino devuelve
+     * falso
+     */
     public boolean isEnGarantia(Producto producto){
         //TODO agregar la validacion de si se encuentra en garantia
         return true;
