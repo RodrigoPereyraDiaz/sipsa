@@ -143,7 +143,10 @@ public class EmpresaDatos extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void poblarFormulario() {
-        this.jLabelNombre.setText(this.empresa.getCuit());
-        this.jTextFieldCUIT.setText(this.empresa.getCuit());
+        if (this.empresa.getCuit() != null) {
+            this.jTextFieldNombre.setText(this.empresa.getNombre());
+            this.jTextFieldCUIT.setText(this.empresa.getCuit());
+            this.jTextFieldCUIT.setEnabled(false);
+        }
     }
 }

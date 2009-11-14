@@ -44,8 +44,8 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTextFieldCUIT" pref="289" max="32767" attributes="2"/>
-                          <Component id="jTextFieldNombre" alignment="0" pref="289" max="32767" attributes="2"/>
+                          <Component id="jTextFieldCUIT" pref="304" max="32767" attributes="2"/>
+                          <Component id="jTextFieldNombre" alignment="0" pref="304" max="32767" attributes="2"/>
                       </Group>
                   </Group>
               </Group>

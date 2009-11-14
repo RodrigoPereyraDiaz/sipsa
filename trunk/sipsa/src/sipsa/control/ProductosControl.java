@@ -90,4 +90,9 @@ public class ProductosControl {
         }
        return ok;
     }
+
+    public boolean isEnGarantia(Producto producto){
+        //TODO agregar la validacion de si se encuentra en garantia
+        return true;
+    }
 }

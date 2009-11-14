@@ -295,6 +295,7 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
                 this.jPanelVenta.setEnabled(true);
                 this.controlador.getListaPuntosDeVenta();
                 this.controlador.getListaTiposProducto();
+                //TODO cargar modelos del tipo de producto
                 break;
             }
             case Activa: this.jPanelVenta.setEnabled(false);
