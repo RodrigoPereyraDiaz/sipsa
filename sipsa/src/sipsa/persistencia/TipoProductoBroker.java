@@ -34,7 +34,7 @@ class TipoProductoBroker {
         ResultSet rs;
         StringBuilder consulta = new StringBuilder();
         consulta.append("SELECT ");
-        consulta.append("descripcion ");
+        consulta.append("nombre ");
         consulta.append(", ");
         consulta.append("duracionGarantia ");
         consulta.append("FROM ");
@@ -48,8 +48,10 @@ class TipoProductoBroker {
 
             rs = ps.executeQuery();
             if (rs.next()) {
-                tipoProducto.setDescripcion(rs.getString("descripcion"));
+                tipoProducto.setDescripcion(rs.getString("nombre"));
                 tipoProducto.setDuracionGarantia(rs.getInt("duracionGarantia"));
+                ModeloBroker modeloBroker = new ModeloBroker();
+                tipoProducto.setModelos(modeloBroker.getList());
             }
             ps.close();
         } catch (SQLException ex) {

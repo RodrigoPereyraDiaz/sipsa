@@ -80,4 +80,8 @@ public class TipoProducto implements IPersistible, Serializable{
     public List<Modelo> getModelos() {
         return modelos;
     }
+
+    public void setModelos(List<Modelo> listaModelos) {
+        this.modelos = listaModelos;
+    }
 }

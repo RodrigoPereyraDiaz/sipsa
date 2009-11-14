@@ -73,7 +73,7 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
      * @return TableModel de Tipos de Productos
      */
     public DefaultTableModel getModelo() {
-        String[] columnNames = {"Modelo", "Descripcion", "Duracion Garantia"};
+        String[] columnNames = {"Descripcion", "Duracion Garantia"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
         for (Iterator tpIt = this.getListaTipoProducto().iterator(); tpIt.hasNext();) {
             TipoProducto tipoProducto = (TipoProducto) tpIt.next();
