@@ -159,6 +159,9 @@ class ModeloBroker {
         consulta.append("id ");
         consulta.append("FROM ");
         consulta.append("Modelo ");
+        consulta.append("WHERE ");
+        //TODO arreglar para que sea dependiente de un tipo de producto
+        consulta.append("idTipoProducto = 1 ");
         try {
             ps = conn.prepareStatement(consulta.toString());
             rs = ps.executeQuery();
