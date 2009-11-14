@@ -6,12 +6,16 @@
 package sipsa.control.web;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import sipsa.dominio.Usuario;
+
+import sipsa.control.PvControl;
+import sipsa.control.Reporte;
+import sipsa.dominio.Pv;
 
 /**
  *
@@ -29,13 +33,15 @@ public class IngresoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession(false);
-        Usuario usuario = new Usuario();
-        usuario.setUsuario(request.getParameter("cuit"));
-        if (usuario.isValido()) {
-            session.setAttribute("usuario",usuario.getUsuario());
+        HttpSession session = request.getSession();
+        PvControl pvControl = new PvControl();
+        Pv pv = new Pv();
+        pv.setCuit(request.getParameter("cuit"));
+        try {
+            pv = pvControl.existePv(pv);
+            session.setAttribute("usuario",pv);
             response.sendRedirect("RegistrarVenta.jsp");
-        } else {
+        } catch (Exception ex) {
             session.removeAttribute("usuario");
             response.sendRedirect("Ingreso.jsp");
         }
@@ -76,5 +82,4 @@ public class IngresoServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
