@@ -23,8 +23,8 @@ public class Reporte implements IReporte{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void setDatos(TableModel oTRealizadas) {
-        this.tableModel = oTRealizadas;
+    public void setDatos(TableModel datos) {
+        this.tableModel = datos;
     }
 
     public void setNombre(String nombre) {

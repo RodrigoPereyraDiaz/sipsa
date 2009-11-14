@@ -25,7 +25,6 @@ public class Login extends javax.swing.JDialog {
      */
     public Login(ILogin controlador) {
         initComponents();
-
         Configuracion configuracion = Configuracion.getInstancia();
         this.controlador = controlador;
         this.setIconImage(configuracion.getIcono());

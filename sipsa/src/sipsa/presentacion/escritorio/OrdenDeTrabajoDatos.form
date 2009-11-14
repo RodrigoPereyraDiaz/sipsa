@@ -29,7 +29,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPaneObservaciones" alignment="0" pref="513" max="32767" attributes="1"/>
+                          <Component id="jScrollPaneObservaciones" alignment="0" pref="522" max="32767" attributes="1"/>
                           <Component id="jLabelObservaciones" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -40,7 +40,7 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPaneMotivoEstado" pref="396" max="32767" attributes="1"/>
+                                  <Component id="jScrollPaneMotivoEstado" pref="399" max="32767" attributes="1"/>
                                   <Component id="jLabelMotivoEstado" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -49,9 +49,9 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="358" max="-2" attributes="0"/>
-                      <Component id="jButtonGuardar" max="32767" attributes="0"/>
+                      <Component id="jButtonGuardar" pref="83" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonCancelar" max="32767" attributes="0"/>
+                      <Component id="jButtonCancelar" pref="87" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -81,7 +81,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jFormattedTextFieldFechaEntrega" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPaneMotivoEstado" pref="80" max="32767" attributes="1"/>
+                  <Component id="jScrollPaneMotivoEstado" pref="82" max="32767" attributes="1"/>
               </Group>
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">

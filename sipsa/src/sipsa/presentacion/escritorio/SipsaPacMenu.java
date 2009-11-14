@@ -22,11 +22,10 @@ public class SipsaPacMenu extends javax.swing.JFrame {
      */
     public SipsaPacMenu(ISipsaPacMenu controlador) {
         initComponents();
-        
         Configuracion configuracion = Configuracion.getInstancia();
+        this.controlador = controlador;
         this.setIconImage(configuracion.getIcono());
         this.setLocationRelativeTo(null);
-        this.controlador = controlador;
     }
 
     /** This method is called from within the constructor to

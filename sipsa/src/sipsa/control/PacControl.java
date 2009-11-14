@@ -9,6 +9,7 @@ import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
+import sipsa.dominio.Empresa;
 import sipsa.dominio.Pac;
 import sipsa.presentacion.interfaces.IListarABM;
 import sipsa.presentacion.interfaces.IEmpresaDatos;
@@ -25,32 +26,12 @@ public class PacControl implements IEmpresaDatos, IListarABM {
     private Persistencia persistencia = Persistencia.getPersistencia();
     private List<Pac> listaPac;
 
-    /**
-     * Muestra el formulario para administrar Puntos de Atencion al Cliente
-     */
-    public void mostrarAdministrar(){
+    public void mostrarAdministrar() {
+        this.listaPac = persistencia.getListPac();
         ListarABM listarABM = new ListarABM(this);
         listarABM.setVisible(true);
     }
-
-    /**
-     * Guarda en el medio de persistencia el nuevo Punto de Atencion al Cliente
-     * @param cuit CUIT del Punto de Atencion al Cliente
-     * @param nombre Nombre del Punto de Atencion al Cliente
-     * @return Resultado de la persistencia
-     */
-    public void aceptarDatosEmpresa(String cuit, String nombre) throws Exception {
-        Pac pac = new Pac();
-        pac.setCuit(cuit);
-        pac.setNombre(nombre);
-
-        if (persistencia.existPac(pac)){
-            throw new Exception("El Punto de Atencion ya exite, imposible agregar");
-        } else {
-            persistencia.savePac(pac);
-        }
-    }
-
+    
     /**
      * Obtiene la descripcion para utilizar en formularios genericos
      * @return Titulo para el jFrame
@@ -63,7 +44,12 @@ public class PacControl implements IEmpresaDatos, IListarABM {
      * Muestra el formulario para agregar un nuevo Punto de Atencion al Cliente
      */
     public void agregar() {
-        EmpresaDatos empresaDatos = new EmpresaDatos(this);
+        EmpresaDatos empresaDatos = new EmpresaDatos(this, new Pac());
+        empresaDatos.setVisible(true);
+    }
+
+    public void modificar(int index) {
+        EmpresaDatos empresaDatos = new EmpresaDatos(this, this.listaPac.get(index));
         empresaDatos.setVisible(true);
     }
 
@@ -74,6 +60,7 @@ public class PacControl implements IEmpresaDatos, IListarABM {
     public void eliminar(int index) {
         Pac pac = this.listaPac.get(index);
         this.persistencia.deletePac(pac);
+        this.listaPac.remove(pac);
     }
 
     /**
@@ -83,7 +70,6 @@ public class PacControl implements IEmpresaDatos, IListarABM {
     public DefaultTableModel getModelo() {
         String[] columnNames = {"Cuit", "Nombre"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
-        this.listaPac = persistencia.getListPac();
         for (Iterator PacIt = this.listaPac.iterator(); PacIt.hasNext();) {
             Pac pac = (Pac) PacIt.next();
             Object[] datos = new Object[modelo.getColumnCount()];
@@ -94,7 +80,16 @@ public class PacControl implements IEmpresaDatos, IListarABM {
         return modelo;
     }
 
-    public void modificar(int index) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void guardarEmpresa(Empresa empresa) throws Exception {
+        Pac pac = (Pac) empresa;
+        //TODO Validar CUIT
+        if (persistencia.existPac(pac)){
+            throw new Exception("El Punto de Atencion ya exite, imposible agregar");
+        } else {
+            persistencia.savePac(pac);
+            this.listaPac.add(pac);
+        }
     }
+
+
 }

@@ -23,12 +23,11 @@ public class ServidorGUI extends javax.swing.JFrame implements IReceptorNotifica
      */
     public ServidorGUI(INotificador servidor) {
         initComponents();
-
         Configuracion configuracion = Configuracion.getInstancia();
-        this.setIconImage(configuracion.getIcono());
-        this.setLocationRelativeTo(null);
         this.servidor = servidor;
         this.servidor.addReceptorNotificado(this);
+        this.setIconImage(configuracion.getIcono());
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
 
@@ -89,7 +88,6 @@ public class ServidorGUI extends javax.swing.JFrame implements IReceptorNotifica
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         this.servidor.removeReceptorNotificado(this);
         this.setVisible(false);
-        //TODO la opcion de cerrar el visor sin finalizar el servidor
         System.exit(0);
 }//GEN-LAST:event_jButtonSalirActionPerformed
 

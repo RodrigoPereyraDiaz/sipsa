@@ -1,8 +1,9 @@
 package sipsa.dominio;
 
+import java.io.Serializable;
 import sipsa.persistencia.IPersistible;
 
-public class Modelo implements IPersistible{
+public class Modelo implements IPersistible, Serializable{
 
     private int id;
     private TipoProducto tipoProducto;

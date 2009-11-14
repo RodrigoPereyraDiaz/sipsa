@@ -25,14 +25,12 @@ public class TipoProductoDatos extends javax.swing.JDialog {
      */
     public TipoProductoDatos(ITipoProductoDatos controlador, TipoProducto tipoProducto) {
         initComponents();
-        
         Configuracion configuracion = Configuracion.getInstancia();
+        this.controlador = controlador;
+        this.tipoProducto = tipoProducto;
         this.setIconImage(configuracion.getIcono());
         this.setLocationRelativeTo(null);
         this.setTitle("Tipo de Producto");
-
-        this.controlador = controlador;
-        this.tipoProducto = tipoProducto;
         this.poblarFormulario();
     }
 
@@ -53,7 +51,7 @@ public class TipoProductoDatos extends javax.swing.JDialog {
         jLabelMeses = new javax.swing.JLabel();
         jSpinnerDuracionGarantia = new javax.swing.JSpinner();
         jLabelModelos = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPaneModelos = new javax.swing.JScrollPane();
         jListModelos = new javax.swing.JList();
         jTextFieldModelo = new javax.swing.JTextField();
         jButtonEliminarModelo = new javax.swing.JButton();
@@ -95,7 +93,7 @@ public class TipoProductoDatos extends javax.swing.JDialog {
             public Object getElementAt(int i) { return strings[i]; }
         });
         jListModelos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(jListModelos);
+        jScrollPaneModelos.setViewportView(jListModelos);
 
         jButtonEliminarModelo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sipsa/presentacion/recursos/list-remove.png"))); // NOI18N
         jButtonEliminarModelo.setToolTipText("Eliminar Modelo");
@@ -120,7 +118,7 @@ public class TipoProductoDatos extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                    .addComponent(jScrollPaneModelos, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelDuracionGarantia)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -130,7 +128,7 @@ public class TipoProductoDatos extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelNombreProducto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE))
+                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -169,7 +167,7 @@ public class TipoProductoDatos extends javax.swing.JDialog {
                             .addComponent(jButtonAgregarModelo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButtonEliminarModelo))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPaneModelos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButtonGuardar)
@@ -201,7 +199,7 @@ public class TipoProductoDatos extends javax.swing.JDialog {
 }//GEN-LAST:event_jButtonAgregarModeloActionPerformed
 
     private void jButtonEliminarModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarModeloActionPerformed
-        // TODO eliminar modelo de la lista de modelos
+        //TODO eliminar modelo de la lista de modelos
     }//GEN-LAST:event_jButtonEliminarModeloActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -214,7 +212,7 @@ public class TipoProductoDatos extends javax.swing.JDialog {
     private javax.swing.JLabel jLabelModelos;
     private javax.swing.JLabel jLabelNombreProducto;
     private javax.swing.JList jListModelos;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPaneModelos;
     private javax.swing.JSpinner jSpinnerDuracionGarantia;
     private javax.swing.JTextField jTextFieldModelo;
     private javax.swing.JTextField jTextFieldNombre;
@@ -224,10 +222,6 @@ public class TipoProductoDatos extends javax.swing.JDialog {
         this.jTextFieldNombre.setText(this.tipoProducto.getDescripcion());
         this.jSpinnerDuracionGarantia.setValue(this.tipoProducto.getDuracionGarantia());
         this.jTextFieldModelo.setText("");
-        this.poblarModelos();
-    }
-
-    private void poblarModelos(){
         //TODO llenar la lista de modelos
     }
 }

@@ -5,6 +5,7 @@
 
 package sipsa.dominio;
 
+import java.io.Serializable;
 import sipsa.persistencia.IPersistible;
 
 /**
@@ -12,13 +13,12 @@ import sipsa.persistencia.IPersistible;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class Pv implements IPersistible {
+public class Pv extends Empresa implements IPersistible, Serializable {
     private int id;
-    private String nombre;
-    private String cuit;
 
     public Pv() {
-        
+        this.setCuit("");
+        this.setNombre("");
     }
     
     public Pv(int id) {
@@ -27,33 +27,5 @@ public class Pv implements IPersistible {
 
     public int getID() {
         return this.id;
-    }
-
-    /**
-     * @return the nombre
-     */
-    public String getNombre() {
-        return nombre;
-    }
-
-    /**
-     * @param nombre the nombre to set
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    /**
-     * @return the cuit
-     */
-    public String getCuit() {
-        return cuit;
-    }
-
-    /**
-     * @param cuit the cuit to set
-     */
-    public void setCuit(String cuit) {
-        this.cuit = cuit;
     }
 }

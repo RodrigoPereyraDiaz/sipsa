@@ -22,7 +22,6 @@ public class ListarABM extends javax.swing.JDialog {
      */
     public ListarABM(IListarABM controlador) {
         initComponents();
-        
         Configuracion configuracion = Configuracion.getInstancia();
         this.controlador = controlador;
         this.setIconImage(configuracion.getIcono());

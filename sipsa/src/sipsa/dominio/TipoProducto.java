@@ -4,6 +4,7 @@
  */
 package sipsa.dominio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import sipsa.persistencia.IPersistible;
@@ -13,7 +14,7 @@ import sipsa.persistencia.IPersistible;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class TipoProducto implements IPersistible{
+public class TipoProducto implements IPersistible, Serializable{
     private int id;
     private String descripcion;
     private int duracionGarantia;

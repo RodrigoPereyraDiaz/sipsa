@@ -21,16 +21,6 @@ public interface IEmpresaDatos {
      */
     public void guardarEmpresa(Empresa empresa) throws Exception;
 
-    //FIXME eliminar metodo
-    /**
-     * Guarda en el medio de persistencia
-     * @param cuit
-     * @param nombre
-     * @return Resultado de la persistencia
-     */
-    @Deprecated
-    public void aceptarDatosEmpresa(String cuit, String nombre) throws Exception;
-
     /**
      * Obtiene la descripcion para utilizar en formularios genericos
      * @return Titulo para el jFrame

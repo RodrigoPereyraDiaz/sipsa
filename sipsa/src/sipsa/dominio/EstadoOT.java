@@ -5,12 +5,17 @@
 
 package sipsa.dominio;
 
+import java.io.Serializable;
+
 /**
  * Enumerado de Estados de Orden de Trabajo
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public enum EstadoOT {
+public enum EstadoOT implements Serializable {
+    /**
+     * Orden de Trabajo Nueva
+     */
     Nueva,
     /**
      * Orden de Trabajo Activa
@@ -37,6 +42,7 @@ public enum EstadoOT {
 			default: { return -1; }
 		}
 	}
+
 	public static EstadoOT fromInt(int numero) {
 		switch (numero) {
 			case 0: { return Nueva; }

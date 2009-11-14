@@ -1,3 +1,6 @@
+//TODO generalizar para que se usen pocos metodos
+//TODO hacer que el save sera un insert si no existe, y un update si ya existe
+
 /*
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa

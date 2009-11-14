@@ -22,10 +22,9 @@ public class ReporteVisor extends javax.swing.JDialog {
      */
     public ReporteVisor(IReporte reporte) {
         initComponents();
-
         Configuracion configuracion = Configuracion.getInstancia();
-        this.setIconImage(configuracion.getIcono());
         this.reporte = reporte;
+        this.setIconImage(configuracion.getIcono());
         this.setLocationRelativeTo(null);
         this.setTitle("Visor de Reporte");
         this.jLabelNombre.setText(this.reporte.getNombre());
