@@ -21,6 +21,7 @@ public class EmpresaDatos extends javax.swing.JDialog {
 
     /** Creates new form EmpresaDatos
      * @param controlador Controlador del formulario
+     * @param empresa 
      */
     public EmpresaDatos(IEmpresaDatos controlador, Empresa empresa) {
         initComponents();

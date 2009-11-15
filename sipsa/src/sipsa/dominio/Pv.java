@@ -30,6 +30,10 @@ public class Pv extends Empresa implements IPersistible, Serializable {
         this.id = id;
     }
 
+    /**
+     * Obtiene el identificador del PV
+     * @return devuelve el identificador del PV
+     */
     public int getID() {
         return this.id;
     }

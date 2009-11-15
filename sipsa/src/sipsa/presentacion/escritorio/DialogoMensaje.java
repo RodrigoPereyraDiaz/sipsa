@@ -15,7 +15,7 @@ public class DialogoMensaje extends javax.swing.JDialog {
         /**
          * Enumerado de tipos de mensajes disponibles
          */
-        Error, Advertencia, Información
+        Error, Advertencia,Información
     }
 
     /** Constructor para crear un nuevo dialogo de mensaje

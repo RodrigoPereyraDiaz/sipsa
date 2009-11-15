@@ -21,14 +21,25 @@ public class Venta implements IPersistible, Serializable{
     private String nroFactura;
     private Date fechaFactura;
 
+    /**
+     * Construye un nuevo objeto Venta
+    */
     public Venta() {
         
     }
 
+    /**
+     * Construye un nuevo objeto Venta
+     * @param id
+     */
     public Venta(int id) {
         this.id = id;
     }
 
+    /**
+     * Obtiene el identificador de la Venta
+     * @return devuelve el identificador de la Venta
+     */
     public int getID() {
         return this.id;
     }

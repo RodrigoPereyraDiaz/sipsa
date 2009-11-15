@@ -50,6 +50,10 @@ public class MensajesFabrica {
         return new SolicitudOrdenesDeTrabajo();
     }
 
+    /**
+     *
+     * @return
+     */
     public static Mensaje newSolicitudOrdenDeTrabajoGuardar(){
         return new SolicitudOrdenDeTrabajoGuardar();
     }
