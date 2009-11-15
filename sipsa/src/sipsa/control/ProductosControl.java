@@ -101,4 +101,8 @@ public class ProductosControl {
         //TODO agregar la validacion de si se encuentra en garantia
         return true;
     }
+
+    public Producto existe(Producto producto) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 }

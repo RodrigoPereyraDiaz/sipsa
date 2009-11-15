@@ -35,8 +35,12 @@ public class PvControl implements IEmpresaDatos, IListarABM {
      */
     
     public Pv existePv(Pv pv) throws Exception{
-        //TODO devolver el pv si existe, tirar excepcion si no existe
-        return new Pv();
+        pv = persistencia.existPv(pv);
+        if (pv.getID() > 0){
+            return pv;
+        } else {
+            throw new Exception("Pv no existe");
+        }
     }
     /**
      * Muestra el formulario para Administrar Puntos de Venta
@@ -97,11 +101,11 @@ public class PvControl implements IEmpresaDatos, IListarABM {
     public void guardarEmpresa(Empresa empresa) throws Exception {
         Pv pv = (Pv) empresa;
         //TODO Validaciones
-        if (this.persistencia.existPv(pv)){
-            throw new Exception("El punto de venta ya existe, imposible agregar");
-        } else {
+        if (this.persistencia.existPv(pv).equals(pv)){
             this.persistencia.savePv(pv);
             this.listaPv.add(pv);
+        } else {
+            throw new Exception("El punto de venta ya existe, imposible agregar");
         }
     }
 }

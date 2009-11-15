@@ -20,8 +20,6 @@ public class Pv extends Empresa implements IPersistible, Serializable {
      * Construye un nuevo objeto PV
      */
     public Pv() {
-        this.setCuit("");
-        this.setNombre("");
     }
     
     /**

@@ -24,7 +24,7 @@ public class TipoProducto implements IPersistible, Serializable{
      * Construye un nuevo objeto Tipo de Producto
      */
     public TipoProducto() {
-        
+        this.modelos = new ArrayList<Modelo>();
     }
 
     /**
@@ -33,7 +33,6 @@ public class TipoProducto implements IPersistible, Serializable{
      */
     public TipoProducto(int id) {
         this.id = id;
-        this.modelos = new ArrayList<Modelo>();
     }
 
     /**

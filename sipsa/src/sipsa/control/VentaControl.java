@@ -1,6 +1,7 @@
 package sipsa.control;
 
 import java.util.Date;
+import sipsa.dominio.Modelo;
 import sipsa.dominio.Producto;
 import sipsa.dominio.Pv;
 import sipsa.dominio.Venta;
@@ -28,17 +29,13 @@ public class VentaControl {
         }
     }
 
-    /**
-     * Activa la garantía para una nueva Venta
-     * @param pv
-     * @param fechaFactura
-     * @param nroFactura
-     * @throws java.lang.Exception
-     */
-    public void activarGarantia(Pv pv,Date fechaFactura,String nroFactura) throws Exception {
+    public void activarGarantia(Pv pv, Date fechaFactura, String nroFactura, int idTipoProducto, int idModelo, String nroSerie) throws Exception {
         Venta venta = new Venta();
         ProductosControl productosControl = new ProductosControl();
         Producto producto = new Producto();
+        producto.setNroSerie(nroSerie);
+        producto.setModelo(new Modelo(idModelo));
+        producto = productosControl.existe(producto);
         if (producto == null){
             throw new Exception("El el producto no se encuentra disponible para activacion de garantia");
         }
