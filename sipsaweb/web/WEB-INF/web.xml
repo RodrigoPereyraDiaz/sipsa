@@ -9,6 +9,10 @@
         <servlet-name>IngresoServlet</servlet-name>
         <servlet-class>sipsa.control.web.IngresoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ModelosServlet</servlet-name>
+        <servlet-class>sipsa.control.web.ModelosServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>VentaServlet</servlet-name>
         <url-pattern>/VentaServlet</url-pattern>
@@ -16,6 +20,10 @@
     <servlet-mapping>
         <servlet-name>IngresoServlet</servlet-name>
         <url-pattern>/IngresoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModelosServlet</servlet-name>
+        <url-pattern>/ModelosServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

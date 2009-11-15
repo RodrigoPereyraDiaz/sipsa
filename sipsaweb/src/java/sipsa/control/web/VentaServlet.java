@@ -1,20 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package sipsa.control.web;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author elsupergomez
- */
+import sipsa.control.VentaControl;
+import sipsa.dominio.Pv;
+
 public class VentaServlet extends HttpServlet {
    
     /** 
@@ -27,12 +24,19 @@ public class VentaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        VentaControl ventaControl = new VentaControl();
         try {
-            //guardarGarantia
+            Pv pv = (Pv) session.getAttribute("pv");
+            Date fechaFactura = DateFormat.getDateInstance().parse(request.getParameter("fechaFactura"));
+            String nroFactura = request.getParameter("nroFactura");
+            int tipoProducto = Integer.parseInt(request.getParameter("tipoProducto"));
+            int modelo = Integer.parseInt(request.getParameter("modelo"));
+            String nroSerie = request.getParameter("cuit");
+            ventaControl.activarGarantia(pv, fechaFactura, nroFactura, tipoProducto, modelo, nroSerie);
             response.sendRedirect("ActivacionOk.jsp");
         } catch (Exception ex) {
-            //TODO agregar el motivo del error a la pagina de error
-            response.sendRedirect("ActivacionError.jsp");
+            response.sendRedirect("ActivacionError.jsp?textoError="+ex.getLocalizedMessage());
         }
     }
     
