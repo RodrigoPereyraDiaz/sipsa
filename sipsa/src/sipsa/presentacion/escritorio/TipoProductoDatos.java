@@ -20,8 +20,9 @@ public class TipoProductoDatos extends javax.swing.JDialog {
     private ITipoProductoDatos controlador;
     private TipoProducto tipoProducto;
 
-    /** Creates new form TipoProductoDatos
+    /** Construye el formulario de Tipos de Producto
      * @param controlador Controlador del formulario
+     * @param tipoProducto
      */
     public TipoProductoDatos(ITipoProductoDatos controlador, TipoProducto tipoProducto) {
         initComponents();

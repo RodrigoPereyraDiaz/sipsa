@@ -225,6 +225,11 @@ public class Cliente implements ILogin, ISipsaPacMenu, IOrdenDeTrabajoDatos, ILi
         this.puerto = puerto;
     }
 
+    /**
+     * 
+     * @param ordenDeTrabajo
+     * @throws java.lang.Exception
+     */
     public void guardarOrdenDeTrabajo(OrdenDeTrabajo ordenDeTrabajo) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }

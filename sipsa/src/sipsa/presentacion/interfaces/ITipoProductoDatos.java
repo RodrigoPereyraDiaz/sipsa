@@ -14,5 +14,10 @@ import sipsa.dominio.TipoProducto;
  */
 public interface ITipoProductoDatos {
 
+    /**
+     * Acción para guardar el Tipo de producto
+     * @param tipoProducto
+     * @throws java.lang.Exception
+     */
     public void guardarTipoProducto(TipoProducto tipoProducto) throws Exception;
 }
