@@ -58,7 +58,7 @@ public class PacControl implements IEmpresaDatos, IListarABM {
 
     /**
      * Elimina del medio de persistencia el Punto de Atencion al Cliente especificado
-     * @param id Identificador unico de Punto de Atencion al Cliente
+     * @param index
      */
     public void eliminar(int index) {
         Pac pac = this.listaPac.get(index);

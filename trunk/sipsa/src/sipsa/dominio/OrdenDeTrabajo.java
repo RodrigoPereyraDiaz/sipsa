@@ -23,29 +23,48 @@ public class OrdenDeTrabajo implements IPersistible, Serializable{
     private String motivoEstado;
     private Date fechaEntrega;
 
+    /**
+     * Construye un nuevo objeto Orden de Trabajo con estado Nueva
+     */
     public OrdenDeTrabajo() {
         this.estado = EstadoOT.Nueva;
     }
 
+    /**
+     * Construye un nuevo objeto Orden de trabajo
+     * @param id
+     */
     public OrdenDeTrabajo(int id) {
         this.id = id;
     }
 
+    /**
+     * Obtiene el identificador de la orden de Trabajo
+     * @return el identificador de la orden de Trabajo
+     */
     public int getID() {
         return this.id;
     }
 
+    /**
+     * Obtiene la fecha de entrega de la orden de trabajo
+     * @return devuelve la fecha de entrega
+     */
     public Date getFechaEntrega() {
         return this.fechaEntrega;
     }
 
-    /**
-     * @return the venta
+    /** Obtiene la venta
+     * @return la venta
      */
     public Venta getVenta() {
         return venta;
     }
 
+    /**
+     * Setea la fecha de entrega
+     * @param fechaEntrega
+     */
     public void setFechaEntrega(Date fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
     }
@@ -100,19 +119,25 @@ public class OrdenDeTrabajo implements IPersistible, Serializable{
     }
 
     /**
-     * @return the motivoEstado
+     * Obtiene el motivo del estado
+     * @return devuelve el estado del motivo
      */
     public String getMotivoEstado() {
         return motivoEstado;
     }
 
     /**
-     * @param motivoEstado the motivoEstado to set
+     * Setea el motivo del estado
+     * @param motivoEstado 
      */
     public void setMotivoEstado(String motivoEstado) {
         this.motivoEstado = motivoEstado;
     }
 
+    /**
+     * Verifica si la garantía esta vigente
+     * @return devuelva verdadero si esta en garantía sino falso
+     */
     public boolean isEnGarantia(){
         //TODO implementar la validacion de garantia activa
         return true;

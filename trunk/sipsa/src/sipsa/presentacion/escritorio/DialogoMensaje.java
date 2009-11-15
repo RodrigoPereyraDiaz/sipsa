@@ -2,10 +2,26 @@ package sipsa.presentacion.escritorio;
 
 import sipsa.Configuracion;
 
+/**
+ * Dialogo para mostrar mensajes
+ * @author Maria Eugenia Sanchez
+ * @author Administrador
+ */
 public class DialogoMensaje extends javax.swing.JDialog {
-    public enum Tipo {Error, Advertencia, Información}
+    /**
+     */
+    public enum Tipo {
 
-    /** Creates new form DialogoMensaje */
+        /**
+         * Enumerado de tipos de mensajes disponibles
+         */
+        Error, Advertencia, Información
+    }
+
+    /** Constructor para crear un nuevo dialogo de mensaje
+     * @param tipo
+     * @param mensaje
+     */
     public DialogoMensaje(Tipo tipo, String mensaje) {
         Configuracion configuracion = Configuracion.getInstancia();
         this.setIconImage(configuracion.getIcono());

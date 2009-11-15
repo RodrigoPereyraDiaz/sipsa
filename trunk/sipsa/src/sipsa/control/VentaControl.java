@@ -5,8 +5,20 @@ import sipsa.dominio.Producto;
 import sipsa.dominio.Pv;
 import sipsa.dominio.Venta;
 
+/**
+ * Controlador de Ventas
+ * @author Claudio Rodrigo Pereyra Diaz
+ * @author Maria Eugenia Sanchez
+ */
 public class VentaControl {
 
+    /**
+     * Valida los datos de la venta y activa la garantía
+     * @param venta
+     * @return devuelve verdadero si pudo activar la garantía sino devuelve una
+     * excepción
+     * @throws java.lang.Exception
+     */
     public boolean activarGarantia(Venta venta) throws Exception {
         //TODO validar los datos de la venta guardar en caso positivo, excepcion en caso negativo
         if (venta.getNroFactura().equals("1")){
@@ -16,6 +28,13 @@ public class VentaControl {
         }
     }
 
+    /**
+     * Activa la garantía para una nueva Venta
+     * @param pv
+     * @param fechaFactura
+     * @param nroFactura
+     * @throws java.lang.Exception
+     */
     public void activarGarantia(Pv pv,Date fechaFactura,String nroFactura) throws Exception {
         Venta venta = new Venta();
         ProductosControl productosControl = new ProductosControl();
@@ -33,6 +52,10 @@ public class VentaControl {
         this.guardarVenta(venta);
     }
 
+    /**
+     * Guarda la Venta en el sistema Sipsa
+     * @param venta
+     */
     public void guardarVenta(Venta venta) {
         throw new UnsupportedOperationException("Not yet implemented");
     }

@@ -30,6 +30,11 @@ import sipsa.presentacion.interfaces.ILogin;
 import sipsa.presentacion.interfaces.IOrdenDeTrabajoDatos;
 import sipsa.presentacion.interfaces.ISipsaPacMenu;
 
+/**
+ * Controlador del lado del cliente Pac
+ * @author Claudio Rodrigo Pereyra Diaz
+ * @author Maria Eugenia Sanchez
+ */
 public class Cliente implements ILogin, ISipsaPacMenu, IOrdenDeTrabajoDatos, IListarABM{
 
     private String host = "localhost";
@@ -39,6 +44,10 @@ public class Cliente implements ILogin, ISipsaPacMenu, IOrdenDeTrabajoDatos, ILi
 
     private Cliente(){}
 
+    /**
+     * Obtiene el Cliente
+     * @return devuelve un objeto de tipo Cliente
+     */
     public static Cliente getCliente(){
         if (cliente == null)
             cliente = new Cliente();
@@ -62,6 +71,9 @@ public class Cliente implements ILogin, ISipsaPacMenu, IOrdenDeTrabajoDatos, ILi
     private List<OrdenDeTrabajo> lista;
     private Pac pac;
 
+    /**
+     * Muestra la pantalla de Login
+     */
     public void iniciar() {
             Login login = new Login(cliente);
             login.setVisible(true);
@@ -128,6 +140,11 @@ public class Cliente implements ILogin, ISipsaPacMenu, IOrdenDeTrabajoDatos, ILi
         reporteVisor.setVisible(true);
     }
 
+    /**
+     *
+     * @param ordenDeTrabajo
+     * @throws java.lang.Exception
+     */
     public void aceptarDatos(OrdenDeTrabajo ordenDeTrabajo) throws Exception {
         Mensaje solicitud = MensajesFabrica.newSolicitudOrdenDeTrabajoGuardar();
         solicitud.setContenido(ordenDeTrabajo);

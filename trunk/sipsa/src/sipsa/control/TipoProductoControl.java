@@ -51,7 +51,7 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
 
     /**
      * Elimina del medio de persistencia el Tipo de Producto identificado
-     * @param id Identificador unico de Tipo de Producto
+     * @param index
      */
 
     public void eliminar(int index) {

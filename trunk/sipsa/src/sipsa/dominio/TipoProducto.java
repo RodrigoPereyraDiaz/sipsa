@@ -20,15 +20,26 @@ public class TipoProducto implements IPersistible, Serializable{
     private int duracionGarantia;
     private List<Modelo> modelos;
 
+    /**
+     * Construye un nuevo objeto Tipo de Producto
+     */
     public TipoProducto() {
         
     }
 
+    /**
+     * Construye un nuevo objeto Tipo de Producto
+     * @param id
+     */
     public TipoProducto(int id) {
         this.id = id;
         this.modelos = new ArrayList<Modelo>();
     }
 
+    /**
+     * Obtiene el identificador del Tipo de Producto
+     * @return devuelve el identificador de Tipo de Producto
+     */
     public int getID() {
         return this.id;
     }
@@ -65,10 +76,18 @@ public class TipoProducto implements IPersistible, Serializable{
         this.duracionGarantia = duracionGarantia;
     }
 
+    /**
+     * Agrega un modelo
+     * @param modelo
+     */
     public void addModelo(Modelo modelo){
         this.getModelos().add(modelo);
     }
 
+    /**
+     * remueve un modelo
+     * @param modelo
+     */
     public void removeModelo(Modelo modelo){
         this.getModelos().remove(modelo);
     }
@@ -81,6 +100,10 @@ public class TipoProducto implements IPersistible, Serializable{
         return modelos;
     }
 
+    /**
+     * Setea un modelo
+     * @param listaModelos
+     */
     public void setModelos(List<Modelo> listaModelos) {
         this.modelos = listaModelos;
     }

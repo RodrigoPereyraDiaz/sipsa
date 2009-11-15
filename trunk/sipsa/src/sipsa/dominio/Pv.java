@@ -16,11 +16,18 @@ import sipsa.persistencia.IPersistible;
 public class Pv extends Empresa implements IPersistible, Serializable {
     private int id;
 
+    /**
+     * Construye un nuevo objeto PV
+     */
     public Pv() {
         this.setCuit("");
         this.setNombre("");
     }
     
+    /**
+     * Construye un nuevo objeto PV
+     * @param id
+     */
     public Pv(int id) {
         this.id = id;
     }

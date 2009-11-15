@@ -35,16 +35,30 @@ public class Persistencia {
 
     private Persistencia(){};
 
+    /**
+     * Obtiene una orden de trabajo
+     * @param id
+     * @return devuelve un objeto orden de Trabajo
+     */
     public OrdenDeTrabajo getOrdenDeTrabajo(Object id) {
         OtBroker otBroker = new OtBroker();
         return otBroker.getOT(Integer.parseInt(id.toString()));
     }
 
+    /**
+     * Obtiene una lista de ordenes de trabajo
+     * @return devuelve una lista de ordenes de Trabajo
+     */
     public List<OrdenDeTrabajo> getOrdenesDeTrabajo() {
         OtBroker otBroker = new OtBroker();
         return otBroker.getList();
     }
 
+    /**
+     * Obtiene la lista de ordenes de Trabajo para un pac especifico
+     * @param pac
+     * @return devuelve la lista de ordenes de Trabajo para un pac específico
+     */
     public List<OrdenDeTrabajo> getOrdenesDeTrabajo(Pac pac) {
         //FIXME poner logica para devolver solo las de un pac
         return this.getOrdenesDeTrabajo();
@@ -255,6 +269,11 @@ public class Persistencia {
         return tipoProductoAdapter.getList();
     }
 
+    /**
+     * Guarda una orden de trabajo
+     * @param ordenDeTrabajo
+     * @return devuelve verdadero si se guardo correctamente sino devuelve falso
+     */
     public boolean saveOrdenDeTrabajo(OrdenDeTrabajo ordenDeTrabajo){
         OtBroker otBroker = new OtBroker();
         return otBroker.saveOT(ordenDeTrabajo);
