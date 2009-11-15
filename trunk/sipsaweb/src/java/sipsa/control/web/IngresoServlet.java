@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import sipsa.control.PvControl;
-import sipsa.control.Reporte;
 import sipsa.dominio.Pv;
 
 /**
@@ -39,7 +38,8 @@ public class IngresoServlet extends HttpServlet {
         pv.setCuit(request.getParameter("cuit"));
         try {
             pv = pvControl.existePv(pv);
-            session.setAttribute("usuario",pv);
+            session.setAttribute("usuario",pv.getNombre());
+            session.setAttribute("pv",pv);
             response.sendRedirect("RegistrarVenta.jsp");
         } catch (Exception ex) {
             session.removeAttribute("usuario");
