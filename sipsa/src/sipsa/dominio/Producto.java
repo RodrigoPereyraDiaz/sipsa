@@ -21,22 +21,41 @@ public class Producto implements IPersistible, Serializable {
     private Fabrica fabrica;
     private Date fechaFabricacion;
 
+    /**
+     * Construye un nuevo objeto Producto
+     */
     public Producto() {
 
     }
     
+    /**
+     * Construye un nuevo objeto Producto
+     * @param id
+     */
     public Producto(int id) {
         this.id = id;
     }
 
+    /**
+     * Obtiene el identificador del Producto
+     * @return devuelve el identificador de Producto
+     */
     public int getID() {
         return this.id;
     }
 
+    /**
+     * Obtiene el modelo
+     * @return devuelve el modelo
+     */
     public Modelo getModelo() {
         return this.modelo;
     }
 
+    /**
+     * Setea el modelo
+     * @param modelo
+     */
     public void setModelo(Modelo modelo) {
         this.modelo = modelo;
     }

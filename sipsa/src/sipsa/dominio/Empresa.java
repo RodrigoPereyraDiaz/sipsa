@@ -1,5 +1,10 @@
 package sipsa.dominio;
 
+/**
+ * Empresa Pac o Empresa PV
+ * @author Claudio Rodrigo Pereyra Diaz
+ * @author Maria Eugenia Sanchez
+ */
 public abstract class Empresa {
     private String nombre;
     private String cuit;
