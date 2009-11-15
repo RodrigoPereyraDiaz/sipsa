@@ -127,8 +127,7 @@ class PvBroker {
      * @param pv PV a verificar
      * @return Existencia del PV
      */
-    protected boolean exist(Pv pv){
-        boolean existe = false;
+    protected Pv exist(Pv pv){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
@@ -147,12 +146,14 @@ class PvBroker {
             ps.setString(1, pv.getCuit());
 
             rs = ps.executeQuery();
-            existe = rs.next();
+            while (rs.next()) {
+                pv = getPv(rs.getInt("id"));
+            }
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return existe;
+        return pv;
     }
 
     /**

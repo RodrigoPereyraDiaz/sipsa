@@ -153,7 +153,7 @@ public class Persistencia {
      * @param pv PV a verificar existencia
      * @return Existencia del PV
      */
-    public boolean existPv(Pv pv){
+    public Pv existPv(Pv pv){
         PvBroker pvAdapter = new PvBroker();
         return pvAdapter.exist(pv);
     }

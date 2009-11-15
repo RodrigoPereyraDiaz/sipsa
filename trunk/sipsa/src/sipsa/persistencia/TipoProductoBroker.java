@@ -51,7 +51,7 @@ class TipoProductoBroker {
                 tipoProducto.setDescripcion(rs.getString("nombre"));
                 tipoProducto.setDuracionGarantia(rs.getInt("duracionGarantia"));
                 ModeloBroker modeloBroker = new ModeloBroker();
-                tipoProducto.setModelos(modeloBroker.getList());
+                tipoProducto.setModelos(modeloBroker.getList(id));
             }
             ps.close();
         } catch (SQLException ex) {

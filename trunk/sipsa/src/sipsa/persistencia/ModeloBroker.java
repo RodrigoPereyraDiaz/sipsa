@@ -24,8 +24,6 @@ class ModeloBroker {
         ResultSet rs;
         StringBuilder consulta = new StringBuilder();
         consulta.append("SELECT ");
-        consulta.append("idTipoProducto ");
-        consulta.append(", ");
         consulta.append("nombre ");
         consulta.append("FROM ");
         consulta.append("Modelos ");
@@ -38,8 +36,6 @@ class ModeloBroker {
 
             rs = ps.executeQuery();
             if (rs.next()) {
-                TipoProductoBroker tipoProductoBroker = new TipoProductoBroker();
-                modelo.setTipoProducto(tipoProductoBroker.getTipoProducto(rs.getInt("id")));
                 modelo.setNombre(rs.getString("nombre"));
             }
             ps.close();
@@ -125,7 +121,7 @@ class ModeloBroker {
         consulta.append("SELECT ");
         consulta.append("id ");
         consulta.append("FROM ");
-        consulta.append("Modelo ");
+        consulta.append("Modelos ");
         consulta.append("WHERE ");
         consulta.append("idTipoProducto = ? ");
         consulta.append("AND ");
@@ -149,7 +145,7 @@ class ModeloBroker {
      * Obtiene una lista de los Modelos desde la base de datos
      * @return Lista de Modelos
      */
-    protected List<Modelo> getList(){
+    protected List<Modelo> getList(int idTipoProducto){
         List<Modelo> lista = new ArrayList<Modelo>();
         Connection conn = DB.getConexion();
         PreparedStatement ps;
@@ -158,13 +154,15 @@ class ModeloBroker {
         consulta.append("SELECT ");
         consulta.append("id ");
         consulta.append("FROM ");
-        consulta.append("Modelo ");
-        consulta.append("WHERE ");
-        //TODO arreglar para que sea dependiente de un tipo de producto
-        consulta.append("idTipoProducto = 1 ");
+        consulta.append("Modelos ");
+        //consulta.append("WHERE ");
+        //consulta.append("idTipoProducto = ? ");
         try {
             ps = conn.prepareStatement(consulta.toString());
             rs = ps.executeQuery();
+
+            //ps.setInt(1, idTipoProducto);
+
             while (rs.next()) {
                 Modelo modelo = getModelo(rs.getInt("id"));
                 lista.add(modelo);
