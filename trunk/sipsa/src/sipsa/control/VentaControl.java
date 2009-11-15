@@ -29,6 +29,16 @@ public class VentaControl {
         }
     }
 
+    /**
+     * Activa una garantía para una nueva venta
+     * @param pv
+     * @param fechaFactura
+     * @param nroFactura
+     * @param idTipoProducto
+     * @param idModelo
+     * @param nroSerie
+     * @throws java.lang.Exception
+     */
     public void activarGarantia(Pv pv, Date fechaFactura, String nroFactura, int idTipoProducto, int idModelo, String nroSerie) throws Exception {
         Venta venta = new Venta();
         ProductosControl productosControl = new ProductosControl();

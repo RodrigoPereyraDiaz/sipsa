@@ -7,6 +7,8 @@ package sipsa.persistencia;
  */
 public interface IPersistible {
     /**
+     * obtiene el identificador de la clase que lo implemente
+     * @return devuelve el identificador
      */
     public int getID();
 }

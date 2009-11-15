@@ -102,6 +102,11 @@ public class ProductosControl {
         return true;
     }
 
+    /**
+     * Verifica que el producto exista
+     * @param producto
+     * @return devuelve un Producto si existe sino devuelve una excepción
+     */
     public Producto existe(Producto producto) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
