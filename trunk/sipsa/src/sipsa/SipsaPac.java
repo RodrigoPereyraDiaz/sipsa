@@ -2,6 +2,11 @@ package sipsa;
 
 import sipsa.control.servicios.Cliente;
 
+/**
+ * Punto de Inicio al sistema PAC
+ * @author Claudio Rodrigo Pereyra Diaz
+ * @author Maria Eugenia Sanchez
+ */
 public class SipsaPac {
 
     /**

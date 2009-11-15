@@ -9,7 +9,7 @@ import sipsa.Configuracion;
 import sipsa.presentacion.interfaces.IListarABM;
 
 /**
- * Formulario generio para listar objectos y permiter agregar, modificar y eliminar
+ * Formulario genérico para listar objectos y permiter agregar, modificar y eliminar
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */

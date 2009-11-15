@@ -4,6 +4,11 @@ package sipsa.presentacion.escritorio;
 import java.util.Date;
 import sipsa.Configuracion;
 
+/**
+ * Dialogo para ingresar rango de fechas
+ * * @author Claudio Rodrigo Pereyra Diaz
+ * @author Maria Eugenia Sanchez
+ */
 public class RangoFechas extends javax.swing.JDialog {
     /** A return status code - returned if Cancel button has been pressed */
     public static final int RET_CANCEL = 0;

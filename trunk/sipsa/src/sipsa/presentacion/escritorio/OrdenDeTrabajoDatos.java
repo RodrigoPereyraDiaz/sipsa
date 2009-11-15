@@ -4,12 +4,20 @@ import sipsa.Configuracion;
 import sipsa.dominio.OrdenDeTrabajo;
 import sipsa.presentacion.interfaces.IOrdenDeTrabajoDatos;
 
+/**
+ * Formulario para crear, modificar u eliminar Ordenes de Trabajo
+ * @author Claudio Rodrigo Pereyra Diaz
+ * @author Maria Eugenia Sanchez
+ */
 public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
 
     IOrdenDeTrabajoDatos controlador;
     OrdenDeTrabajo ordenDeTrabajo;
 
-    /** Creates new form OrdenDeTrabajoDatos */
+    /** Construye una interface Orden de Trabajo y la llena con los datos
+     * @param controlador
+     * @param ordenDeTrabajo
+     */
     public OrdenDeTrabajoDatos(IOrdenDeTrabajoDatos controlador, OrdenDeTrabajo ordenDeTrabajo) {
         initComponents();
         Configuracion configuracion = Configuracion.getInstancia();

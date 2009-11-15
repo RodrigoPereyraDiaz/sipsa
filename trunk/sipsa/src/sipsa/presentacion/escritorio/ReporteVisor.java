@@ -17,8 +17,8 @@ public class ReporteVisor extends javax.swing.JDialog {
 
     private IReporte reporte;
 
-    /** Creates new form ReporteVisor
-     * @param controlador del comportamiento del formulacion
+    /** Construye un nuevo reporte
+     * @param reporte
      */
     public ReporteVisor(IReporte reporte) {
         initComponents();
