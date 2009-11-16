@@ -137,8 +137,7 @@ class ProductoBroker {
      * @param producto Producto a verificar
      * @return Existencia del Producto
      */
-    protected boolean exist(Producto producto){
-        boolean existe = false;
+    protected Producto exist(Producto producto){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
@@ -158,12 +157,16 @@ class ProductoBroker {
             ps.setString(2, producto.getNroSerie());
 
             rs = ps.executeQuery();
-            existe = rs.next();
+            if (rs.next()){
+                producto = getProducto(rs.getInt("id"));
+            } else {
+                producto = null;
+            }
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return existe;
+        return producto;
     }
 
     /**

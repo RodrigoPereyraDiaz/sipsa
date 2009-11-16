@@ -35,6 +35,11 @@ public class Persistencia {
 
     private Persistencia(){};
 
+    public Venta existVenta(Venta venta) {
+        VentaBroker ventaBroker = new VentaBroker();
+        return ventaBroker.exist(venta);
+    }
+
     /**
      * Obtiene una orden de trabajo
      * @param id
@@ -204,7 +209,7 @@ public class Persistencia {
      * @param producto Producto a verificar
      * @return Existencia del producto
      */
-    public boolean existProducto(Producto producto){
+    public Producto existProducto(Producto producto){
         ProductoBroker productoAdapter = new ProductoBroker();
         return productoAdapter.exist(producto);
     }
@@ -277,5 +282,15 @@ public class Persistencia {
     public boolean saveOrdenDeTrabajo(OrdenDeTrabajo ordenDeTrabajo){
         OtBroker otBroker = new OtBroker();
         return otBroker.saveOT(ordenDeTrabajo);
+    }
+
+    /**
+     * Guarda una venta en el medio de persistencia
+     * @param venta Venta a guardar
+     * @return Resultado de la operacion de persistencia
+     */
+    public boolean savePv(Venta venta){
+        VentaBroker ventaBroker = new VentaBroker();
+        return ventaBroker.saveVenta(venta);
     }
 }

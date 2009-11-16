@@ -223,6 +223,7 @@ public class TipoProductoDatos extends javax.swing.JDialog {
         this.jTextFieldNombre.setText(this.tipoProducto.getDescripcion());
         this.jSpinnerDuracionGarantia.setValue(this.tipoProducto.getDuracionGarantia());
         this.jTextFieldModelo.setText("");
+
         //TODO llenar la lista de modelos
     }
 }
