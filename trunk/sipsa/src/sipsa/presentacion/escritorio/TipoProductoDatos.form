@@ -31,7 +31,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPaneModelos" alignment="0" pref="383" max="32767" attributes="0"/>
+                  <Component id="jScrollPaneModelos" alignment="0" pref="397" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabelDuracionGarantia" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -52,7 +52,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabelModelos" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextFieldModelo" pref="254" max="32767" attributes="0"/>
+                      <Component id="jTextFieldModelo" pref="257" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonAgregarModelo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>

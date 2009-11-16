@@ -245,7 +245,6 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        //TODO rellenar la orden de trabajo
         try {
             this.controlador.guardarOrdenDeTrabajo(this.ordenDeTrabajo);
             this.setVisible(false);
@@ -263,7 +262,7 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
 }//GEN-LAST:event_jTextFieldNroSerieActionPerformed
 
     private void jComboBoxTipoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoProductoActionPerformed
-        // TODO add your handling code here:
+            // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxTipoProductoActionPerformed
 
     private void jComboBoxTipoProductoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTipoProductoItemStateChanged
@@ -301,8 +300,8 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
             case Nueva: {
                 //TODO cuando es una nueva orden de trabajo poblar los combox para que puda seleccionar las opciones
                 this.jPanelVenta.setEnabled(true);
-                this.controlador.getListaPuntosDeVenta();
-                this.controlador.getListaTiposProducto();
+                this.jComboBoxPv.setModel(this.controlador.getListaPuntosDeVenta());
+                this.jComboBoxTipoProducto.setModel(this.controlador.getListaTiposProducto());
                 //TODO cargar modelos del tipo de producto
                 break;
             }

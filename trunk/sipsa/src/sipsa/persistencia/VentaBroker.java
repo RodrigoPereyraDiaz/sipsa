@@ -78,7 +78,7 @@ class VentaBroker {
             ps.setInt(1, venta.getEmpresaVendedora().getID());
             ps.setInt(2, venta.getProductos().getID());
             ps.setString(3, venta.getNroFactura());
-            ps.setDate(4,(Date) venta.getFechaFactura());
+            ps.setDate(4,Date.valueOf(venta.getFechaFactura().toString()));
 
             ps.execute();
             ps.close();
@@ -112,8 +112,7 @@ class VentaBroker {
         }
     }
 
-    protected boolean exist(Venta venta){
-        boolean existe = false;
+    protected Venta exist(Venta venta){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
@@ -130,12 +129,17 @@ class VentaBroker {
             ps.setInt(1, venta.getProductos().getID());
 
             rs = ps.executeQuery();
-            existe = rs.next();
+            if (rs.next()){
+                venta = this.getVenta(rs.getInt("id"));
+            } else {
+                venta = null;
+            }
+
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return existe;
+        return venta;
     }
 
     protected List<Venta> getList(){

@@ -108,6 +108,6 @@ public class ProductosControl {
      * @return devuelve un Producto si existe sino devuelve una excepción
      */
     public Producto existe(Producto producto) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return persistencia.existProducto(producto);
     }
 }
