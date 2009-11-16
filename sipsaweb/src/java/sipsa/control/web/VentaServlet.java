@@ -1,8 +1,6 @@
 package sipsa.control.web;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +26,7 @@ public class VentaServlet extends HttpServlet {
         VentaControl ventaControl = new VentaControl();
         try {
             Pv pv = (Pv) session.getAttribute("pv");
-            Date fechaFactura = DateFormat.getDateInstance().parse(request.getParameter("fechaFactura"));
+            String fechaFactura = request.getParameter("fechaFactura");
             String nroFactura = request.getParameter("nroFactura");
             int tipoProducto = Integer.parseInt(request.getParameter("tipoProducto"));
             int modelo = Integer.parseInt(request.getParameter("modelo"));
