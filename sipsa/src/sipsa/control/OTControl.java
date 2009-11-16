@@ -112,7 +112,7 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos{
     public TableModel getOTVencidas() {
         String[] columnNames = {"Nro de Orden", "Estado", "Nro Serie de Producto"};
         //TODO completar
-        DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
+        TableModel modelo = new DefaultTableModel(columnNames, 0);
         return modelo;
     }
 

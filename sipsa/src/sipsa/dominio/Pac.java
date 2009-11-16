@@ -20,8 +20,6 @@ public class Pac extends Empresa implements IPersistible, Serializable{
      * Construye un nuevo objeto Pac
      */
     public Pac() {
-        this.setCuit("");
-        this.setNombre("");
     }
 
     /**

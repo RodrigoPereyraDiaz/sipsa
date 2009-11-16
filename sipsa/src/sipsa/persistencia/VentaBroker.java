@@ -9,9 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import sipsa.SipsaExcepcion;
 import sipsa.dominio.Venta;
 
-class VentaBroker {
+class VentaBroker implements ISipsaBroker{
 
     protected Venta getVenta(int id){
         Venta venta = new Venta(id);
@@ -162,6 +163,51 @@ class VentaBroker {
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }
+        return lista;
+    }
+
+    public IPersistible existe(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean actualizar(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean guardar(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean eliminar(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public IPersistible recuperar(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<IPersistible> recuperarLista() throws SipsaExcepcion {
+        List<IPersistible> lista = new ArrayList<IPersistible>();
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        ResultSet rs;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("SELECT ");
+        consulta.append("id ");
+        consulta.append("FROM ");
+        consulta.append("Ventas ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+            Venta venta = getVenta(rs.getInt("id"));
+            lista.add(venta);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new SipsaExcepcion("Error al recuperar la lista de Ventas");
         }
         return lista;
     }

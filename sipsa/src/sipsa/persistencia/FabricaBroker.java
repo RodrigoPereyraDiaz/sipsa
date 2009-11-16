@@ -8,9 +8,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import sipsa.SipsaExcepcion;
 import sipsa.dominio.Fabrica;
 
-class FabricaBroker {
+class FabricaBroker implements ISipsaBroker{
 
     /**
      * Obtiene un Fabrica desde la base de datos
@@ -160,5 +161,29 @@ class FabricaBroker {
             ex.printStackTrace();
         }
         return lista;
+    }
+
+    public IPersistible existe(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean actualizar(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean guardar(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean eliminar(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<IPersistible> recuperarLista() throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public IPersistible recuperar(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

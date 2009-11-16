@@ -9,6 +9,7 @@
 package sipsa.persistencia;
 
 import java.util.List;
+import sipsa.SipsaExcepcion;
 import sipsa.dominio.*;
 
 /**
@@ -70,55 +71,15 @@ public class Persistencia {
 
     }
 
-    ///Fachada de la persistencia de Pac
-
-    /**
-     * Obtiene del medio de persistencia el PAC identificado
-     * @param id identificador unico de PAC
-     * @return Instancia del PAC
-     */
-    public Pac getPac(int id) {
-        PacBroker pacAdapter = new PacBroker();
-        return pacAdapter.getPac(id);
-    }
-
-    /**
-     * Guarda el PAC en el medio de persistencia
-     * @param pac PAC a guardar
-     * @return Resultado de la operacion persistencia
-     */
-    public boolean savePac(Pac pac){
-        PacBroker pacAdapter = new PacBroker();
-        return pacAdapter.savePac(pac);
-    }
-    
-    /**
-     * Elimina un PAC del medio de persistencia
-     * @param pac PAC a eliminar
-     * @return Resultado de la operacion de persistencia
-     */
-    public boolean deletePac(Pac pac){
-        PacBroker pacAdapter = new PacBroker();
-        return pacAdapter.deletePac(pac);
-    }
-
     /**
      * Verifica la existencia de un PAC en el medio de persistencia
      * @param pac PAC a verificar
      * @return Existencia del PAC
      */
+    @Deprecated
     public boolean existPac(Pac pac){
         PacBroker pacAdapter = new PacBroker();
         return pacAdapter.exist(pac);
-    }
-
-    /**
-     * Obtiene una lista de los PAC existentes en el medio e persistencia
-     * @return Lista de PACs
-     */
-    public List<Pac> getListPac(){
-        PacBroker pacAdapter = new PacBroker();
-        return pacAdapter.getList();
     }
 
     ///Fachada de la persistencia de Pv
@@ -292,5 +253,35 @@ public class Persistencia {
     public boolean savePv(Venta venta){
         VentaBroker ventaBroker = new VentaBroker();
         return ventaBroker.saveVenta(venta);
+    }
+
+    public IPersistible existe(IPersistible o) throws SipsaExcepcion {
+        ISipsaBroker broker = BrokerFabrica.getBroker(o.getClass());
+        return broker.existe(o);
+    }
+
+    public boolean actualizar(IPersistible o) throws SipsaExcepcion {
+        ISipsaBroker broker = BrokerFabrica.getBroker(o.getClass());
+        return broker.actualizar(o);
+    }
+
+    public boolean guardar(IPersistible o) throws SipsaExcepcion {
+        ISipsaBroker broker = BrokerFabrica.getBroker(o.getClass());
+        return broker.guardar(o);
+    }
+
+    public boolean eliminar(IPersistible o) throws SipsaExcepcion {
+        ISipsaBroker broker = BrokerFabrica.getBroker(o.getClass());
+        return broker.eliminar(o);
+    }
+
+    public IPersistible recuperar(IPersistible o) throws SipsaExcepcion {
+        ISipsaBroker broker = BrokerFabrica.getBroker(o.getClass());
+        return broker.recuperar(o);
+    }
+
+    public List<IPersistible> recuperarLista(Class clase) throws SipsaExcepcion {
+        ISipsaBroker broker = BrokerFabrica.getBroker(clase);
+        return broker.recuperarLista();
     }
 }

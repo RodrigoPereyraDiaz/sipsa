@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 
+import sipsa.SipsaExcepcion;
 import sipsa.dominio.Producto;
 
 /**
@@ -21,7 +22,7 @@ import sipsa.dominio.Producto;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-class ProductoBroker {
+class ProductoBroker implements ISipsaBroker{
 
     /**
      * Obtiene una Prdocuto desde el una base de datos
@@ -195,5 +196,29 @@ class ProductoBroker {
             ex.printStackTrace();
         }
         return lista;
+    }
+
+    public IPersistible existe(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean actualizar(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean guardar(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean eliminar(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<IPersistible> recuperarLista() throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public IPersistible recuperar(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
