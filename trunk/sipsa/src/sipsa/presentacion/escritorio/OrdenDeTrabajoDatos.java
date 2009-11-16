@@ -11,8 +11,9 @@ import sipsa.presentacion.interfaces.IOrdenDeTrabajoDatos;
  */
 public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
 
-    IOrdenDeTrabajoDatos controlador;
-    OrdenDeTrabajo ordenDeTrabajo;
+    private IOrdenDeTrabajoDatos controlador;
+    private OrdenDeTrabajo ordenDeTrabajo;
+    private boolean sinCambio = true;
 
     /** Construye una interface Orden de Trabajo y la llena con los datos
      * @param controlador
@@ -27,6 +28,10 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         this.setTitle("Orden de Trabajo");
         this.poblarFormulario();
+    }
+
+    public boolean isSinCambio() {
+        return this.sinCambio;
     }
 
     /** This method is called from within the constructor to
@@ -247,6 +252,7 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         try {
             this.controlador.guardarOrdenDeTrabajo(this.ordenDeTrabajo);
+            this.sinCambio = false;
             this.setVisible(false);
         } catch (Exception ex) {
             new DialogoMensaje(DialogoMensaje.Tipo.Error,ex.getLocalizedMessage());
