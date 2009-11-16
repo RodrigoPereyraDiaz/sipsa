@@ -44,7 +44,6 @@ public class PacControl implements IEmpresaDatos, IListarABM {
         }
     }
 
-
     /**
      *Muestra el formulario para Administrar Puntos de Atención al Cliente
      */
