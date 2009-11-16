@@ -1,11 +1,13 @@
 package sipsa.dominio;
 
+import java.io.Serializable;
+
 /**
  * Empresa Pac o Empresa PV
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public abstract class Empresa {
+public abstract class Empresa implements Serializable{
     private String nombre;
     private String cuit;
 
