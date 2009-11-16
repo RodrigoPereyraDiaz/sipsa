@@ -3,17 +3,21 @@ package sipsa.control.servicios;
 import java.io.IOException;
 
 import java.net.Socket;
-import java.net.UnknownHostException;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import sipsa.SipsaExcepcion;
 import sipsa.control.OTControl;
+import sipsa.control.PvControl;
 import sipsa.control.Reporte;
+import sipsa.control.TipoProductoControl;
 import sipsa.dominio.OrdenDeTrabajo;
 import sipsa.dominio.Pac;
 import sipsa.dominio.TipoProducto;
@@ -53,21 +57,24 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
         return cliente;
     }
 
-    void handelError(Exception exception) throws Exception {
+    void handelError(SipsaExcepcion exception) throws SipsaExcepcion {
         throw exception;
     }
 
-    void handelOK(String mensaje) {
-        new DialogoMensaje(DialogoMensaje.Tipo.Información, mensaje);
+    void handelOK(Object respuesta) {
+        if (respuesta.getClass().equals(Pac.class))
+            this.pac = (Pac) respuesta;
+        if (respuesta.getClass().equals(String.class))
+            new DialogoMensaje(DialogoMensaje.Tipo.Información, respuesta.toString());
+        //TODO otras respuestas
     }
 
-    void handleOrdenesDeTrabajo(List<OrdenDeTrabajo> list) {
-        this.lista = list;
+    void handleOrdenesDeTrabajo(List<OrdenDeTrabajo> lista) {
+        this.listaOdts = lista;
     }
 
 //TODO Completar la clase cliente que es controlador del cliente pac
     private Conexion conexion;
-    private List<OrdenDeTrabajo> lista;
     private Pac pac;
 
     /**
@@ -78,7 +85,7 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
         login.setVisible(true);
     }
 
-    public void ingresar(String cuit) throws Exception {
+    public void ingresar(String cuit) throws SipsaExcepcion {
         Mensaje login = MensajesFabrica.newSolicitudLogin();
         Pac pacLogin = new Pac();
         pacLogin.setCuit(cuit);
@@ -88,22 +95,26 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
             conexion.enviarMensaje(login);
             Mensaje respuesta = conexion.recibirMensaje();
             respuesta.procesar();
+            recuperarLista();
             SipsaPacMenu sipsaPacMenu = new SipsaPacMenu(this);
             sipsaPacMenu.setVisible(true);
-        } catch (UnknownHostException ex) {
-            new DialogoMensaje(DialogoMensaje.Tipo.Error, "Imposible conectar a: " + this.getHost() + "\n" + ex.getLocalizedMessage());
         } catch (IOException ex) {
-            new DialogoMensaje(DialogoMensaje.Tipo.Error, "Imposible conectar a: " + this.getHost() + "\n" + ex.getLocalizedMessage());
+            throw new SipsaExcepcion("Imposible conectar a: " + this.getHost() + "\n" + ex.getLocalizedMessage());
         }
     }
 
-    public void getListaOT() throws IOException, Exception {
-        if (this.lista == null) {
-            Mensaje solicitud = MensajesFabrica.newSolicitudOrdenesDeTrabajo();
-            solicitud.setContenido(this.pac);
-            conexion.enviarMensaje(solicitud);
-            Mensaje respuesta = conexion.recibirMensaje();
-            respuesta.procesar();
+    @Override
+    protected void recuperarLista() {
+        if (this.listaOdts == null) {
+            try {
+                Mensaje solicitud = MensajesFabrica.newSolicitudOrdenesDeTrabajo();
+                solicitud.setContenido(this.pac);
+                conexion.enviarMensaje(solicitud);
+                Mensaje respuesta = conexion.recibirMensaje();
+                respuesta.procesar();
+            } catch (Exception ex) {
+                new DialogoMensaje(DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
+            }
         }
     }
 
@@ -116,7 +127,7 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
         //TODO filtrar la lista
         Reporte reporte = new Reporte();
         reporte.setNombre("Ordenes de Trabajo Realizadas");
-        reporte.setDatos(this.getModelo());
+        reporte.setDatos(this.getOTRealizadas());
         ReporteVisor reporteVisor = new ReporteVisor(reporte);
         reporteVisor.setVisible(true);
     }
@@ -125,7 +136,7 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
         //TODO filtrar la lista
         Reporte reporte = new Reporte();
         reporte.setNombre("Ordenes de Trabajo Pendientes");
-        reporte.setDatos(this.getModelo());
+        reporte.setDatos(this.getOTPendientes());
         ReporteVisor reporteVisor = new ReporteVisor(reporte);
         reporteVisor.setVisible(true);
     }
@@ -134,7 +145,7 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
         //TODO filtrar la lista
         Reporte reporte = new Reporte();
         reporte.setNombre("Ordenes de Trabajo Vencidas");
-        reporte.setDatos(this.getModelo());
+        reporte.setDatos(this.getOTVencidas());
         ReporteVisor reporteVisor = new ReporteVisor(reporte);
         reporteVisor.setVisible(true);
     }
@@ -191,18 +202,116 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
         }
     }
 
+    /**
+     * Obtiene una lista de Puntos de Venta
+     * @return devuelve una lista de PV para cargar el ComboBOx
+     */
     @Override
     public ComboBoxModel getListaPuntosDeVenta() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        PvControl pvControl = new PvControl();
+        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(pvControl.getListaPvs().toArray());
+        return comboBoxModel;
     }
 
+    /**
+     * Obtiene la lista de Tipos de Productos
+     * @return devuelve una lista de Tipos de Productos para cargar el ComboBox
+     */
     @Override
     public ComboBoxModel getListaTiposProducto() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        TipoProductoControl tipoProductoControl = new TipoProductoControl();
+        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(tipoProductoControl.getListaTipoProducto().toArray());
+        return comboBoxModel;
+    }
+
+    /**
+     * Obtiene la lista de Modelos para un Tipo de Producto específico
+     * @param tipoProducto
+     * @return devuelve una lista de Modelos para un Tipo de Prod específico,
+     * para cargar el ComboBOx
+     */
+    @Override
+    public ComboBoxModel getListaModelos(Object tipoProducto) {
+        TipoProducto tp = (TipoProducto) tipoProducto;
+        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(tp.getModelos().toArray());
+        return comboBoxModel;
     }
 
     @Override
-    public ComboBoxModel getListaModelos(Object tipoProducto) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public TableModel getModelo() {
+        String[] columnNames = {"Nro de Orden", "Estado"};
+        DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
+        for (Iterator it = listaOdts.iterator(); it.hasNext();) {
+            OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
+            Object[] fila = new Object[modelo.getColumnCount()];
+            fila[0] = ordenDeTrabajo.getID();
+            fila[1] = ordenDeTrabajo.getEstado();
+            modelo.addRow(fila);
+        }
+        return modelo;
+}
+        /**
+     * Obtiene la lista de Ordenes de Trabajo realizadas
+     * @return devuelve una lista de ordenes de Trabajo realizadas para mostrar en la tabla
+     */
+    @Override
+    public TableModel getOTRealizadas() {
+        //TODO completar con todos los datos de la orden para visualizar en el reporte
+        String[] columnNames = {"Nro de Orden", "Estado"};
+        DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
+        //TODO filtrar solo las ordenes de trabajo realizadas
+        List<OrdenDeTrabajo> lista = new ArrayList<OrdenDeTrabajo>();
+        for (Iterator it = lista.iterator(); it.hasNext();) {
+            OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
+            Object[] fila = new Object[modelo.getColumnCount()];
+            fila[0] = ordenDeTrabajo.getID();
+            fila[1] = ordenDeTrabajo.getEstado();
+            fila[2] = ordenDeTrabajo.getPac().getNombre();
+            modelo.addRow(fila);
+        }
+        return modelo;
     }
+
+    /**
+     * Obtiene la lista de Ordenes de Trabajo Pendientes
+     * @return devuelve una lista de ordenes de trabajo pendientes para mostrar en la tabla
+     */
+    @Override
+    public TableModel getOTPendientes() {
+        //TODO completar con todos los datos de la orden para visualizar en el reporte
+        String[] columnNames = {"Nro de Orden", "Estado"};
+        DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
+        //TODO filtrar solo las ordenes de trabajo Pendientes
+        List<OrdenDeTrabajo> lista = new ArrayList<OrdenDeTrabajo>();
+        for (Iterator it = lista.iterator(); it.hasNext();) {
+            OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
+            Object[] fila = new Object[modelo.getColumnCount()];
+            fila[0] = ordenDeTrabajo.getID();
+            fila[1] = ordenDeTrabajo.getEstado();
+            modelo.addRow(fila);
+        }
+        return modelo;
+    }
+
+    /**
+     * Obtiene la lista de Ordenes de Trabajo Vencidas
+     * @return devuelve una lista de Ordenes de Trabajo vencidas
+     */
+     @Override
+    public TableModel getOTVencidas() {
+        //TODO completar con todos los datos de la orden para visualizar en el reporte
+        String[] columnNames = {"Nro de Orden", "Estado"};
+        DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
+        //TODO filtrar solo las ordenes de trabajo vencidas
+        List<OrdenDeTrabajo> lista = new ArrayList<OrdenDeTrabajo>();
+        for (Iterator it = lista.iterator(); it.hasNext();) {
+            OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
+            Object[] fila = new Object[modelo.getColumnCount()];
+            fila[0] = ordenDeTrabajo.getID();
+            fila[1] = ordenDeTrabajo.getEstado();
+            modelo.addRow(fila);
+        }
+        return modelo;
+    }
+
 }

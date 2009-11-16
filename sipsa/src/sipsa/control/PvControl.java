@@ -29,7 +29,7 @@ import sipsa.presentacion.escritorio.ListarABM;
 public class PvControl implements IEmpresaDatos, IListarABM {
 
     private Persistencia persistencia = Persistencia.getPersistencia();
-    private List<Pv> listaPvs;
+    private List<Pv> listaPvs = null;
 
     private void recuperarLista(){
         if (getListaPvs() == null)
@@ -131,6 +131,8 @@ public class PvControl implements IEmpresaDatos, IListarABM {
      * @return the listaPvs
      */
     public List<Pv> getListaPvs() {
+        if (listaPvs == null)
+            this.recuperarLista();
         return listaPvs;
     }
 }

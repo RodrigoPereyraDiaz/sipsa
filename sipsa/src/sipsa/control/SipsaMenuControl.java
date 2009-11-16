@@ -65,7 +65,7 @@ public class SipsaMenuControl implements ISipsaMenu {
         Reporte reporte = new Reporte();
         reporte.setNombre("Ordenes de Trabajo Realizadas");
         OTControl oTControl = new OTControl();
-        reporte.setDatos(oTControl.getModelo());
+        reporte.setDatos(oTControl.getOTRealizadas());
         ReporteVisor reporteVisor = new ReporteVisor(reporte);
         reporteVisor.setVisible(true);
     }
@@ -75,7 +75,7 @@ public class SipsaMenuControl implements ISipsaMenu {
         Reporte reporte = new Reporte();
         reporte.setNombre("Ordenes de Trabajo Pendientes");
         OTControl oTControl = new OTControl();
-        reporte.setDatos(oTControl.getModelo());
+        reporte.setDatos(oTControl.getOTPendientes());
         ReporteVisor reporteVisor = new ReporteVisor(reporte);
         reporteVisor.setVisible(true);
     }
@@ -85,7 +85,7 @@ public class SipsaMenuControl implements ISipsaMenu {
         Reporte reporte = new Reporte();
         reporte.setNombre("Ordenes de Trabajo Vencidas");
         OTControl oTControl = new OTControl();
-        reporte.setDatos(oTControl.getModelo());
+        reporte.setDatos(oTControl.getOTVencidas());
         ReporteVisor reporteVisor = new ReporteVisor(reporte);
         reporteVisor.setVisible(true);
     }

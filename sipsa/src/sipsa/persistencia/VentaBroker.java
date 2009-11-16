@@ -170,7 +170,7 @@ class VentaBroker implements ISipsaBroker{
             ps.execute();
             ps.close();
             return true;
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             throw new SipsaExcepcion("Error al guardar la venta");
         }

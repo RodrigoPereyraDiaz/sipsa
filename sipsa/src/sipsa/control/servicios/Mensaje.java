@@ -6,6 +6,7 @@
 package sipsa.control.servicios;
 
 import java.io.Serializable;
+import sipsa.SipsaExcepcion;
 
 /**
  * Mensaje del Protocolo de comunicación entre el Servidor Sipsa y los Clientes Sipsa
@@ -20,7 +21,7 @@ public abstract class Mensaje implements Serializable{
      * @return
      * @throws java.lang.Exception
      */
-    public abstract Mensaje procesar() throws Exception;
+    public abstract Mensaje procesar() throws SipsaExcepcion;
 
     /**
      * Obtiene el contenido del cuerpo del mensaje

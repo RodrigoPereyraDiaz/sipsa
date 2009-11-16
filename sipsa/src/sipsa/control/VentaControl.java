@@ -53,9 +53,9 @@ public class VentaControl {
             throw new SipsaExcepcion("La fecha de factura NO puede ser mayor a la fecha actual");
         }
         venta.setFechaFactura(fechaFacturaRegistro);
-        if (nroFactura.equals("")){
-            throw new SipsaExcepcion("Debe ingresar el numero de factura de la venta");
-        }
+        /*if (nroFactura.equals("")){
+        throw new SipsaExcepcion("Debe ingresar el numero de factura de la venta");
+        }*/
         venta.setNroFactura(nroFactura);
         venta.setEmpresaVendedora(pv);
         this.guardarVenta(venta);

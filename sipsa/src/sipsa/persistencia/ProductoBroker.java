@@ -150,7 +150,7 @@ class ProductoBroker implements ISipsaBroker{
         consulta.append("WHERE ");
         consulta.append("idModelo = ? ");
         consulta.append("AND ");
-        consulta.append("nroSerie = 1 ");
+        consulta.append("nroSerie = ? ");
         try {
             ps = conn.prepareStatement(consulta.toString());
 
@@ -199,7 +199,37 @@ class ProductoBroker implements ISipsaBroker{
     }
 
     public IPersistible existe(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Producto producto = (Producto) o;
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        ResultSet rs;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("SELECT ");
+        consulta.append("id ");
+        consulta.append("FROM ");
+        consulta.append("Productos ");
+        consulta.append("WHERE ");
+        consulta.append("idModelo = ? ");
+        consulta.append("AND ");
+        consulta.append("nroSerie = ? ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setInt(1, producto.getModelo().getID());
+            ps.setString(2, producto.getNroSerie());
+
+            rs = ps.executeQuery();
+            if (rs.next()){
+                producto = getProducto(rs.getInt("id"));
+            } else {
+                producto = null;
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new SipsaExcepcion("No se pudo determinar la existencia del Punto de Atención al Cliente");
+        }
+        return producto;
     }
 
     public boolean actualizar(IPersistible o) throws SipsaExcepcion {

@@ -204,7 +204,29 @@ class PvBroker implements ISipsaBroker {
     }
 
     public List<IPersistible> recuperarLista() throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<IPersistible> lista = new ArrayList<IPersistible>();
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        ResultSet rs;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("SELECT ");
+        consulta.append("id ");
+        consulta.append("FROM ");
+        consulta.append("Empresas ");
+        consulta.append("WHERE ");
+        consulta.append("tipo = 1 ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Pv pv = getPv(rs.getInt("id"));
+                lista.add(pv);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return lista;
     }
 
     public IPersistible recuperar(IPersistible o) throws SipsaExcepcion {

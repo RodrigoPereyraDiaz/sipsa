@@ -126,7 +126,8 @@ public class Login extends javax.swing.JDialog {
             controlador.ingresar(this.jTextFieldIdentificacion.getText());
             doClose(RET_OK);
         } catch (Exception ex) {
-            this.jLabelInfo.setText(ex.getLocalizedMessage());
+            ex.printStackTrace();
+            this.jLabelInfo.setText("Error de autenticacion");
             this.jTextFieldIdentificacion.setText(null);
         }
     }//GEN-LAST:event_okButtonActionPerformed

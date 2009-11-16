@@ -1,5 +1,6 @@
 package sipsa.control;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -30,7 +31,7 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
     private Persistencia persistencia = Persistencia.getPersistencia();
     protected List<OrdenDeTrabajo> listaOdts;
 
-    private void recuperarLista() {
+    protected void recuperarLista() {
         try {
             List<IPersistible> lista = persistencia.recuperarLista(OrdenDeTrabajo.class);
             for (Iterator iterator = lista.iterator(); iterator.hasNext();) {
@@ -86,7 +87,7 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
     public TableModel getModelo() {
         String[] columnNames = {"Nro de Orden", "Estado", "Pac"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
-        for (Iterator it = this.listaOdts.iterator(); it.hasNext();) {
+        for (Iterator it = listaOdts.iterator(); it.hasNext();) {
             OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
             Object[] fila = new Object[modelo.getColumnCount()];
             fila[0] = ordenDeTrabajo.getID();
@@ -106,7 +107,8 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
         String[] columnNames = {"Nro de Orden", "Estado", "Pac"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
         //TODO filtrar solo las ordenes de trabajo realizadas
-        for (Iterator it = this.listaOdts.iterator(); it.hasNext();) {
+        List<OrdenDeTrabajo> lista = new ArrayList<OrdenDeTrabajo>();
+        for (Iterator it = lista.iterator(); it.hasNext();) {
             OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
             Object[] fila = new Object[modelo.getColumnCount()];
             fila[0] = ordenDeTrabajo.getID();
@@ -126,7 +128,8 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
         String[] columnNames = {"Nro de Orden", "Estado", "Pac"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
         //TODO filtrar solo las ordenes de trabajo Pendientes
-        for (Iterator it = this.listaOdts.iterator(); it.hasNext();) {
+        List<OrdenDeTrabajo> lista = new ArrayList<OrdenDeTrabajo>();
+        for (Iterator it = lista.iterator(); it.hasNext();) {
             OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
             Object[] fila = new Object[modelo.getColumnCount()];
             fila[0] = ordenDeTrabajo.getID();
@@ -146,7 +149,8 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
         String[] columnNames = {"Nro de Orden", "Estado", "Pac"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
         //TODO filtrar solo las ordenes de trabajo vencidas
-        for (Iterator it = this.listaOdts.iterator(); it.hasNext();) {
+        List<OrdenDeTrabajo> lista = new ArrayList<OrdenDeTrabajo>();
+        for (Iterator it = lista.iterator(); it.hasNext();) {
             OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
             Object[] fila = new Object[modelo.getColumnCount()];
             fila[0] = ordenDeTrabajo.getID();
