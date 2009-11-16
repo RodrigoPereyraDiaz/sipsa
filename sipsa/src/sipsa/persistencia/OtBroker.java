@@ -19,6 +19,7 @@ class OtBroker implements ISipsaBroker {
      * @param id Identificador unico de OT
      * @return Instancia de OT
      */
+    @Deprecated
     protected OrdenDeTrabajo getOT(int id){
         OrdenDeTrabajo ordenDeTrabajo = new OrdenDeTrabajo(id);
         Connection conn = DB.getConexion();
@@ -65,56 +66,11 @@ class OtBroker implements ISipsaBroker {
     }
 
     /**
-     * Guarda una instancia de OT en una base de datos
-     * @param ordenDeTrabajo OT a guardar
-     * @return Resultado de la operacion
-     */
-    protected boolean saveOT(OrdenDeTrabajo ordenDeTrabajo){
-        Connection conn = DB.getConexion();
-        PreparedStatement ps;
-        StringBuilder consulta = new StringBuilder();
-        consulta.append("INSERT ");
-        consulta.append("INTO ");
-        consulta.append("OrdenesDeTrabajo ");
-        consulta.append("VALUES ( ");
-        consulta.append("default "); //id Autoincremental
-        consulta.append(", ");
-        consulta.append("? "); //idPac
-        consulta.append(", ");
-        consulta.append("? "); //idVenta
-        consulta.append(", ");
-        consulta.append("? "); //observaciones
-        consulta.append(", ");
-        consulta.append("? "); //idEstado
-        consulta.append(", ");
-        consulta.append("? "); //motivoEstado
-        consulta.append(", ");
-        consulta.append("? "); //fechaEntrega
-        consulta.append(") ");
-        try {
-            ps = conn.prepareStatement(consulta.toString());
-
-            ps.setInt(1, ordenDeTrabajo.getPac().getID());
-            ps.setInt(2, ordenDeTrabajo.getVenta().getID());
-            ps.setString(3, ordenDeTrabajo.getObservaciones());
-            ps.setInt(4, EstadoOT.toInt(ordenDeTrabajo.getEstado()));
-            ps.setString(5, ordenDeTrabajo.getMotivoEstado());
-            ps.setDate(6,(Date) ordenDeTrabajo.getFechaEntrega());
-
-            ps.execute();
-            ps.close();
-            return true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
      * Elimina un OT de una base de datos
      * @param ordenDeTrabajo OT a eliminar
      * @return Resultado de la operacion
      */
+    @Deprecated
     protected boolean deleteOT(OrdenDeTrabajo ordenDeTrabajo){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
@@ -173,6 +129,7 @@ class OtBroker implements ISipsaBroker {
      * Obtiene una lista de OTs desde la base de datos
      * @return Lista de instancias de OTs
      */
+    @Deprecated
     protected List<OrdenDeTrabajo> getList(){
         List<OrdenDeTrabajo> lista = new ArrayList<OrdenDeTrabajo>();
         Connection conn = DB.getConexion();
@@ -206,7 +163,45 @@ class OtBroker implements ISipsaBroker {
     }
 
     public boolean guardar(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
+        OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) o;
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("INSERT ");
+        consulta.append("INTO ");
+        consulta.append("OrdenesDeTrabajo ");
+        consulta.append("VALUES ( ");
+        consulta.append("default "); //id Autoincremental
+        consulta.append(", ");
+        consulta.append("? "); //idPac
+        consulta.append(", ");
+        consulta.append("? "); //idVenta
+        consulta.append(", ");
+        consulta.append("? "); //observaciones
+        consulta.append(", ");
+        consulta.append("? "); //idEstado
+        consulta.append(", ");
+        consulta.append("? "); //motivoEstado
+        consulta.append(", ");
+        consulta.append("? "); //fechaEntrega
+        consulta.append(") ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setInt(1, ordenDeTrabajo.getPac().getID());
+            ps.setInt(2, ordenDeTrabajo.getVenta().getID());
+            ps.setString(3, ordenDeTrabajo.getObservaciones());
+            ps.setInt(4, EstadoOT.toInt(ordenDeTrabajo.getEstado()));
+            ps.setString(5, ordenDeTrabajo.getMotivoEstado());
+            ps.setDate(6,(Date) ordenDeTrabajo.getFechaEntrega());
+
+            ps.execute();
+            ps.close();
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new SipsaExcepcion("Error al guardar la orden de trabajo");
+        }
     }
 
     public boolean eliminar(IPersistible o) throws SipsaExcepcion {
@@ -214,10 +209,73 @@ class OtBroker implements ISipsaBroker {
     }
 
     public IPersistible recuperar(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
+        OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) o;
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        ResultSet rs;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("SELECT ");
+        consulta.append("idPac ");
+        consulta.append(", ");
+        consulta.append("idVenta ");
+        consulta.append(", ");
+        consulta.append("observacion ");
+        consulta.append(", ");
+        consulta.append("idEstado ");
+        consulta.append(", ");
+        consulta.append("motivoEstado ");
+        consulta.append(", ");
+        consulta.append("fechaEntrega ");
+        consulta.append("FROM ");
+        consulta.append("OrdenesDeTrabajo ");
+        consulta.append("WHERE ");
+        consulta.append("id = ? ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setInt(1, o.getID());
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                PacBroker pacBroker = new PacBroker();
+                ordenDeTrabajo.setPac(pacBroker.getPac(rs.getInt("id")));
+                VentaBroker ventaBroker = new VentaBroker();
+                ordenDeTrabajo.setVenta(ventaBroker.getVenta(rs.getInt("idVenta")));
+                ordenDeTrabajo.setObservaciones(rs.getString("observaciones"));
+                ordenDeTrabajo.setEstado(EstadoOT.fromInt(rs.getInt("idEstado")));
+                ordenDeTrabajo.setMotivoEstado(rs.getString("motivoEstado"));
+                ordenDeTrabajo.setFechaEntrega(rs.getDate("fechaEntrega"));
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new SipsaExcepcion("Error al recuperar la orden de trabajo");
+        }
+        return ordenDeTrabajo;
     }
 
     public List<IPersistible> recuperarLista() throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<IPersistible> lista = new ArrayList<IPersistible>();
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        ResultSet rs;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("SELECT ");
+        consulta.append("id ");
+        consulta.append("FROM ");
+        consulta.append("OrdenesDeTrabajo ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                OrdenDeTrabajo ordenDeTrabajo = getOT(rs.getInt("id"));
+                lista.add(ordenDeTrabajo);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new SipsaExcepcion("Error al recuperar la lista de ordenes de trabajo");
+        }
+        return lista;
     }
 }

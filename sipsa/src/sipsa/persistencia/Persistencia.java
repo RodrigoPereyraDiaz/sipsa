@@ -235,26 +235,6 @@ public class Persistencia {
         return tipoProductoAdapter.getList();
     }
 
-    /**
-     * Guarda una orden de trabajo
-     * @param ordenDeTrabajo
-     * @return devuelve verdadero si se guardo correctamente sino devuelve falso
-     */
-    public boolean saveOrdenDeTrabajo(OrdenDeTrabajo ordenDeTrabajo){
-        OtBroker otBroker = new OtBroker();
-        return otBroker.saveOT(ordenDeTrabajo);
-    }
-
-    /**
-     * Guarda una venta en el medio de persistencia
-     * @param venta Venta a guardar
-     * @return Resultado de la operacion de persistencia
-     */
-    public boolean savePv(Venta venta){
-        VentaBroker ventaBroker = new VentaBroker();
-        return ventaBroker.saveVenta(venta);
-    }
-
     public IPersistible existe(IPersistible o) throws SipsaExcepcion {
         ISipsaBroker broker = BrokerFabrica.getBroker(o.getClass());
         return broker.existe(o);

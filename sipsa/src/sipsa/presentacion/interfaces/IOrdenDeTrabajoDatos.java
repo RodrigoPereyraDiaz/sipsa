@@ -2,7 +2,6 @@ package sipsa.presentacion.interfaces;
 
 import javax.swing.ComboBoxModel;
 import sipsa.dominio.OrdenDeTrabajo;
-import sipsa.dominio.TipoProducto;
 
 /**
  * Interface a implementar para controlar el fomulario OrdendeTrabajodatos
@@ -11,7 +10,7 @@ import sipsa.dominio.TipoProducto;
  */
 public interface IOrdenDeTrabajoDatos {
 
-    /**
+     /**
      * Acción correspondiente al botón guardar ordenes de trabajo
      * @param ordenDeTrabajo
      * @throws java.lang.Exception
@@ -32,5 +31,5 @@ public interface IOrdenDeTrabajoDatos {
      * @param tipoProducto
      * @return devuelve la lista de Modelos
      */
-    public ComboBoxModel getListaModelos(TipoProducto tipoProducto);
+    public ComboBoxModel getListaModelos(Object tipoProducto);
 }

@@ -7,9 +7,7 @@ package sipsa.persistencia;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import sipsa.SipsaExcepcion;
 /**
  * Punto de conexion con base de datos
  * @author Claudio Rodrigo Pereyra Diaz
@@ -26,17 +24,13 @@ class DB {
         if (DB.conn == null) {
             try {
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
+                //TODO parametrizar la cadena de conexion
                 String connectionUrl = "jdbc:mysql://localhost:3306/sipsa";
                 DB.conn = DriverManager.getConnection(connectionUrl, "sipsa", "sipsa");
-            } catch (InstantiationException ex) {
-                Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IllegalAccessException ex) {
-                Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                System.err.println("Error al conectarse a la base de datos");
+            } catch (Exception ex) {
                 ex.printStackTrace();
+                //TODO hacer que lance una SipsaExcepcion
+                //throw new SipsaExcepcion("Error al conectarse a la base de datos");
             }
         }
         return conn;

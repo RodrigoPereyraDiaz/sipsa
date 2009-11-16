@@ -3,17 +3,14 @@ package sipsa.control;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import sipsa.SipsaExcepcion;
+import sipsa.dominio.EstadoOT;
 import sipsa.dominio.OrdenDeTrabajo;
-import sipsa.dominio.Pv;
 import sipsa.dominio.TipoProducto;
 import sipsa.persistencia.IPersistible;
 import sipsa.persistencia.Persistencia;
@@ -31,7 +28,7 @@ import sipsa.presentacion.interfaces.IOrdenDeTrabajoDatos;
 public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
 
     private Persistencia persistencia = Persistencia.getPersistencia();
-    private List<OrdenDeTrabajo> listaOdts;
+    protected List<OrdenDeTrabajo> listaOdts;
 
     private void recuperarLista() {
         try {
@@ -73,9 +70,11 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
     public void eliminar(int index) {
         OrdenDeTrabajo ordenDeTrabajo = listaOdts.get(index);
         this.listaOdts.remove(ordenDeTrabajo);
+        ordenDeTrabajo.setEstado(EstadoOT.Anulada);
         OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this, ordenDeTrabajo);
         ordenDeTrabajoDatos.setVisible(true);
         if (ordenDeTrabajoDatos.isSinCambio()){
+            ordenDeTrabajo.setEstado(EstadoOT.Activa);
             this.listaOdts.add(ordenDeTrabajo);
         }
     }
@@ -164,7 +163,7 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
      * @throws java.lang.Exception Lanza una excepción si no se puede guardar
      * la orden de Trabajo
      */
-    public void guardarOrdenDeTrabajo(OrdenDeTrabajo ordenDeTrabajo) throws Exception {
+    public void guardarOrdenDeTrabajo(OrdenDeTrabajo ordenDeTrabajo) throws SipsaExcepcion {
         //TODO Validar Datos correctos segun el estado de la orden
         if (ordenDeTrabajo.getFechaEntrega().before(new Date(System.currentTimeMillis()))){
             throw new SipsaExcepcion("La fecha de entrega no puede ser anterior a al dia de hoy");
@@ -208,8 +207,9 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
      * @return devuelve una lista de Modelos para un Tipo de Prod específico,
      * para cargar el ComboBOx
      */
-    public ComboBoxModel getListaModelos(TipoProducto tipoProducto) {
-        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(tipoProducto.getModelos().toArray());
+    public ComboBoxModel getListaModelos(Object tipoProducto) {
+        TipoProducto tp = (TipoProducto) tipoProducto;
+        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(tp.getModelos().toArray());
         return comboBoxModel;
     }
 }

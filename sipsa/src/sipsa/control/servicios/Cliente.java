@@ -5,23 +5,21 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import java.util.Iterator;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
+import sipsa.SipsaExcepcion;
+import sipsa.control.OTControl;
 import sipsa.control.Reporte;
-import sipsa.dominio.EstadoOT;
 import sipsa.dominio.OrdenDeTrabajo;
 import sipsa.dominio.Pac;
 import sipsa.dominio.TipoProducto;
 import sipsa.presentacion.escritorio.DialogoMensaje;
 import sipsa.presentacion.escritorio.ListarABM;
 import sipsa.presentacion.escritorio.Login;
-import sipsa.presentacion.escritorio.OrdenDeTrabajoDatos;
 import sipsa.presentacion.escritorio.ReporteVisor;
 import sipsa.presentacion.escritorio.SipsaPacMenu;
 
@@ -35,22 +33,23 @@ import sipsa.presentacion.interfaces.ISipsaPacMenu;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class Cliente implements ILogin, ISipsaPacMenu, IOrdenDeTrabajoDatos, IListarABM{
+public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenDeTrabajoDatos, IListarABM {
 
     private String host = "localhost";
     private int puerto = 1027;
-
     private static Cliente cliente;
 
-    private Cliente(){}
+    private Cliente() {
+    }
 
     /**
      * Obtiene el Cliente
      * @return devuelve un objeto de tipo Cliente
      */
-    public static Cliente getCliente(){
-        if (cliente == null)
+    public static Cliente getCliente() {
+        if (cliente == null) {
             cliente = new Cliente();
+        }
         return cliente;
     }
 
@@ -59,7 +58,7 @@ public class Cliente implements ILogin, ISipsaPacMenu, IOrdenDeTrabajoDatos, ILi
     }
 
     void handelOK(String mensaje) {
-        System.out.println(mensaje);
+        new DialogoMensaje(DialogoMensaje.Tipo.Información, mensaje);
     }
 
     void handleOrdenesDeTrabajo(List<OrdenDeTrabajo> list) {
@@ -75,8 +74,8 @@ public class Cliente implements ILogin, ISipsaPacMenu, IOrdenDeTrabajoDatos, ILi
      * Muestra la pantalla de Login
      */
     public void iniciar() {
-            Login login = new Login(cliente);
-            login.setVisible(true);
+        Login login = new Login(cliente);
+        login.setVisible(true);
     }
 
     public void ingresar(String cuit) throws Exception {
@@ -98,8 +97,8 @@ public class Cliente implements ILogin, ISipsaPacMenu, IOrdenDeTrabajoDatos, ILi
         }
     }
 
-    private void getListaOT() throws IOException, Exception{
-        if (this.lista == null){
+    public void getListaOT() throws IOException, Exception {
+        if (this.lista == null) {
             Mensaje solicitud = MensajesFabrica.newSolicitudOrdenesDeTrabajo();
             solicitud.setContenido(this.pac);
             conexion.enviarMensaje(solicitud);
@@ -141,63 +140,6 @@ public class Cliente implements ILogin, ISipsaPacMenu, IOrdenDeTrabajoDatos, ILi
     }
 
     /**
-     *
-     * @param ordenDeTrabajo
-     * @throws java.lang.Exception
-     */
-    public void aceptarDatos(OrdenDeTrabajo ordenDeTrabajo) throws Exception {
-        Mensaje solicitud = MensajesFabrica.newSolicitudOrdenDeTrabajoGuardar();
-        solicitud.setContenido(ordenDeTrabajo);
-        conexion.enviarMensaje(solicitud);
-        Mensaje respuesta = conexion.recibirMensaje();
-        respuesta.procesar();
-    }
-
-    public void agregar() {
-        OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this, new OrdenDeTrabajo());
-        ordenDeTrabajoDatos.setVisible(true);
-    }
-
-    public void modificar(int index) {
-        OrdenDeTrabajo ordenDeTrabajo = lista.get(index);
-        ordenDeTrabajo.setEstado(EstadoOT.Activa);
-        OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this, ordenDeTrabajo);
-        ordenDeTrabajoDatos.setVisible(true);
-    }
-
-    public void eliminar(int index) {
-        OrdenDeTrabajo ordenDeTrabajo = lista.get(index);
-        ordenDeTrabajo.setEstado(EstadoOT.Anulada);
-        OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this, ordenDeTrabajo);
-        ordenDeTrabajoDatos.setVisible(true);
-    }
-
-    public String getDescripcion() {
-        return "Administrar Ordenes de Trabajo";
-    }
-
-    public TableModel getModelo() {
-        try {
-            this.getListaOT();
-        } catch (IOException ex) {
-            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String[] columnNames = {"Nro de Orden", "Estado", "Nro Serie de Producto"};
-        DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
-        for (Iterator otIt = this.lista.iterator(); otIt.hasNext();) {
-            OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) otIt.next();
-            Object[] datos = new Object[modelo.getColumnCount()];
-            datos[0] = ordenDeTrabajo.getID();
-            datos[1] = ordenDeTrabajo.getEstado().toString();
-            datos[1] = ordenDeTrabajo.getVenta().getProductos().getNroSerie();
-            modelo.addRow(datos);
-        }
-        return modelo;
-    }
-
-    /**
      * @return the host
      */
     public String getHost() {
@@ -230,19 +172,37 @@ public class Cliente implements ILogin, ISipsaPacMenu, IOrdenDeTrabajoDatos, ILi
      * @param ordenDeTrabajo
      * @throws java.lang.Exception
      */
-    public void guardarOrdenDeTrabajo(OrdenDeTrabajo ordenDeTrabajo) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet.");
+    @Override
+    public void guardarOrdenDeTrabajo(OrdenDeTrabajo ordenDeTrabajo) throws SipsaExcepcion {
+        //TODO Validar Datos correctos segun el estado de la orden
+        if (ordenDeTrabajo.getFechaEntrega().before(new Date(System.currentTimeMillis()))) {
+            throw new SipsaExcepcion("La fecha de entrega no puede ser anterior a al dia de hoy");
+        }
+        Mensaje solicitud = MensajesFabrica.newSolicitudOrdenDeTrabajoGuardar();
+        solicitud.setContenido(ordenDeTrabajo);
+        try {
+            conexion.enviarMensaje(solicitud);
+            Mensaje respuesta = conexion.recibirMensaje();
+            respuesta.procesar();
+            this.listaOdts.add(ordenDeTrabajo);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new SipsaExcepcion("Error solicitando al servidor que guarde la orden de trabajo");
+        }
     }
 
+    @Override
     public ComboBoxModel getListaPuntosDeVenta() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public ComboBoxModel getListaTiposProducto() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public ComboBoxModel getListaModelos(TipoProducto tipoProducto) {
+    @Override
+    public ComboBoxModel getListaModelos(Object tipoProducto) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

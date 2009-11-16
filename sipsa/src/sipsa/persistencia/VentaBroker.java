@@ -55,41 +55,6 @@ class VentaBroker implements ISipsaBroker{
         return venta;
     }
 
-    protected boolean saveVenta(Venta venta){
-        Connection conn = DB.getConexion();
-        PreparedStatement ps;
-        StringBuilder consulta = new StringBuilder();
-        consulta.append("INSERT ");
-        consulta.append("INTO ");
-        consulta.append("Ventas ");
-        consulta.append("VALUES ( ");
-        consulta.append("default "); //id Autoincremental
-        consulta.append(", ");
-        consulta.append("? "); //idPv
-        consulta.append(", ");
-        consulta.append("? "); //idProducto
-        consulta.append(", ");
-        consulta.append("? "); //nroFactura
-        consulta.append(", ");
-        consulta.append("? "); //FechaFactura
-        consulta.append(") ");
-        try {
-            ps = conn.prepareStatement(consulta.toString());
-
-            ps.setInt(1, venta.getEmpresaVendedora().getID());
-            ps.setInt(2, venta.getProductos().getID());
-            ps.setString(3, venta.getNroFactura());
-            ps.setDate(4,Date.valueOf(venta.getFechaFactura().toString()));
-
-            ps.execute();
-            ps.close();
-            return true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return false;
-        }
-    }
-
     protected boolean deleteVenta(Venta venta){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
@@ -176,7 +141,39 @@ class VentaBroker implements ISipsaBroker{
     }
 
     public boolean guardar(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Venta venta = (Venta) o;
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("INSERT ");
+        consulta.append("INTO ");
+        consulta.append("Ventas ");
+        consulta.append("VALUES ( ");
+        consulta.append("default "); //id Autoincremental
+        consulta.append(", ");
+        consulta.append("? "); //idPv
+        consulta.append(", ");
+        consulta.append("? "); //idProducto
+        consulta.append(", ");
+        consulta.append("? "); //nroFactura
+        consulta.append(", ");
+        consulta.append("? "); //FechaFactura
+        consulta.append(") ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setInt(1, venta.getEmpresaVendedora().getID());
+            ps.setInt(2, venta.getProductos().getID());
+            ps.setString(3, venta.getNroFactura());
+            ps.setDate(4,Date.valueOf(venta.getFechaFactura().toString()));
+
+            ps.execute();
+            ps.close();
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new SipsaExcepcion("Error al guardar la venta");
+        }
     }
 
     public boolean eliminar(IPersistible o) throws SipsaExcepcion {
