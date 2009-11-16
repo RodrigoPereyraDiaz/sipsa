@@ -19,22 +19,6 @@ public class VentaControl {
     private Persistencia persistencia = Persistencia.getPersistencia();
 
     /**
-     * Valida los datos de la venta y activa la garantía
-     * @param venta
-     * @return devuelve verdadero si pudo activar la garantía sino devuelve una
-     * excepción
-     * @throws java.lang.Exception
-     */
-    public boolean activarGarantia(Venta venta) throws Exception {
-        //TODO validar los datos de la venta guardar en caso positivo, excepcion en caso negativo
-        if (venta.getNroFactura().equals("1")){
-            return true;  
-        } else {
-            return false;
-        }
-    }
-
-    /**
      * Activa una garantía para una nueva venta
      * @param pv
      * @param fechaFactura
@@ -44,7 +28,7 @@ public class VentaControl {
      * @param nroSerie
      * @throws java.lang.Exception
      */
-    public void activarGarantia(Pv pv, String fechaFactura, String nroFactura, int idTipoProducto, int idModelo, String nroSerie) throws Exception {
+    public void activarGarantia(Pv pv, String fechaFactura, String nroFactura, int idTipoProducto, int idModelo, String nroSerie) throws SipsaExcepcion {
         Venta venta = new Venta();
         ProductosControl productosControl = new ProductosControl();
         Producto producto = new Producto();
@@ -81,8 +65,8 @@ public class VentaControl {
      * Guarda la Venta en el sistema Sipsa
      * @param venta
      */
-    public void guardarVenta(Venta venta) {
-        persistencia.savePv(venta);
+    public void guardarVenta(Venta venta) throws SipsaExcepcion {
+        persistencia.guardar(venta);
     }
 
     private boolean productoRegistrado(Venta venta){

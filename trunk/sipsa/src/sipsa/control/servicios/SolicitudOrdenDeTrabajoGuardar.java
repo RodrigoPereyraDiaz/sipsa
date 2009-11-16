@@ -1,21 +1,23 @@
 package sipsa.control.servicios;
 
+import sipsa.SipsaExcepcion;
+import sipsa.control.OTControl;
 import sipsa.dominio.OrdenDeTrabajo;
-import sipsa.persistencia.Persistencia;
 
-class SolicitudOrdenDeTrabajoGuardar extends Mensaje{
+class SolicitudOrdenDeTrabajoGuardar extends Mensaje {
 
     @Override
     public Mensaje procesar() {
         Mensaje mensaje = null;
-        Persistencia persistencia = Persistencia.getPersistencia();
+        OTControl oTControl = new OTControl();
         OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) this.getContenido();
-        if  (persistencia.saveOrdenDeTrabajo(ordenDeTrabajo)){
+        try {
+            oTControl.guardarOrdenDeTrabajo(ordenDeTrabajo);
             mensaje = MensajesFabrica.newRespuestaOK();
             mensaje.setContenido("Orden de Trabajo guardada con exito");
-        } else {
+        } catch (SipsaExcepcion ex) {
             mensaje = MensajesFabrica.newRespuestaError();
-            mensaje.setContenido("Error al guardar la Orden de Trabajo");
+            mensaje.setContenido(ex);
         }
         return mensaje;
     }

@@ -308,7 +308,7 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
                 this.jPanelVenta.setEnabled(true);
                 this.jComboBoxPv.setModel(this.controlador.getListaPuntosDeVenta());
                 this.jComboBoxTipoProducto.setModel(this.controlador.getListaTiposProducto());
-                //TODO cargar modelos del tipo de producto
+                this.jComboBoxModelo.setModel(this.controlador.getListaModelos(jComboBoxTipoProducto.getSelectedItem()));
                 break;
             }
             case Activa: this.jPanelVenta.setEnabled(false);
