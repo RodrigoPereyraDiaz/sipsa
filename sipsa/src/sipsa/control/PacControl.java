@@ -30,9 +30,11 @@ import sipsa.presentacion.escritorio.DialogoMensaje;
  */
 public class PacControl implements IEmpresaDatos, IListarABM {
     private Persistencia persistencia = Persistencia.getPersistencia();
-    private List<Pac> listaPacs = new ArrayList<Pac>();
+    private List<Pac> listaPacs = null;
 
     private void recuperarLista(){
+        if (listaPacs == null)
+            listaPacs = new ArrayList<Pac>();
         try {
             List<IPersistible> lista = persistencia.recuperarLista(Pac.class);
             for (Iterator iterator = lista.iterator(); iterator.hasNext();) {

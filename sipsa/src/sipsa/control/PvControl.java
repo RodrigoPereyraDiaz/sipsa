@@ -5,13 +5,17 @@
 
 package sipsa.control;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
+import sipsa.SipsaExcepcion;
 import sipsa.dominio.Empresa;
 import sipsa.dominio.Pv;
+import sipsa.persistencia.IPersistible;
 import sipsa.persistencia.Persistencia;
+import sipsa.presentacion.escritorio.DialogoMensaje;
 import sipsa.presentacion.interfaces.IListarABM;
 import sipsa.presentacion.interfaces.IEmpresaDatos;
 import sipsa.presentacion.escritorio.EmpresaDatos;
@@ -25,7 +29,21 @@ import sipsa.presentacion.escritorio.ListarABM;
 public class PvControl implements IEmpresaDatos, IListarABM {
 
     private Persistencia persistencia = Persistencia.getPersistencia();
-    private List<Pv> listaPv;
+    private List<Pv> listaPvs;
+
+    private void recuperarLista(){
+        if (getListaPvs() == null)
+            listaPvs = new ArrayList<Pv>();
+        try {
+            List<IPersistible> lista = persistencia.recuperarLista(Pv.class);
+            for (Iterator iterator = lista.iterator(); iterator.hasNext();) {
+                Pv pv = (Pv) iterator.next();
+                getListaPvs().add(pv);
+            }
+        } catch (SipsaExcepcion ex) {
+            new DialogoMensaje(DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
+        }
+    }
 
     /**
      * Verifica la existencia del Punto de Venta
@@ -46,7 +64,7 @@ public class PvControl implements IEmpresaDatos, IListarABM {
      * Muestra el formulario para Administrar Puntos de Venta
      */
     public void mostrarAdministrar(){
-        this.listaPv = persistencia.getListPv();
+        this.recuperarLista();
         ListarABM listarABMPv = new ListarABM(this);
         listarABMPv.setVisible(true);
     }
@@ -68,7 +86,7 @@ public class PvControl implements IEmpresaDatos, IListarABM {
     }
 
     public void modificar(int index) {
-        EmpresaDatos formulario = new EmpresaDatos(this, this.listaPv.get(index));
+        EmpresaDatos formulario = new EmpresaDatos(this, this.getListaPvs().get(index));
         formulario.setVisible(true);
     }
 
@@ -76,9 +94,9 @@ public class PvControl implements IEmpresaDatos, IListarABM {
      * eliminar del medio de persistencia el Punto de Venta identificado
      */
     public void eliminar(int index) {
-        Pv pv = this.listaPv.get(index);
+        Pv pv = this.getListaPvs().get(index);
         this.persistencia.deletePv(pv);
-        this.listaPv.remove(pv);
+        this.getListaPvs().remove(pv);
     }
 
     /**
@@ -88,7 +106,7 @@ public class PvControl implements IEmpresaDatos, IListarABM {
     public DefaultTableModel getModelo() {
         String[] columnNames = {"Cuit", "Nombre"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
-        for (Iterator PvIt = this.listaPv.iterator(); PvIt.hasNext();) {
+        for (Iterator PvIt = this.getListaPvs().iterator(); PvIt.hasNext();) {
             Pv pv = (Pv) PvIt.next();
             Object[] datos = new Object[modelo.getColumnCount()];
             datos[0] = pv.getCuit();
@@ -103,9 +121,16 @@ public class PvControl implements IEmpresaDatos, IListarABM {
         //TODO Validaciones
         if (this.persistencia.existPv(pv).equals(pv)){
             this.persistencia.savePv(pv);
-            this.listaPv.add(pv);
+            this.getListaPvs().add(pv);
         } else {
             throw new Exception("El punto de venta ya existe, imposible agregar");
         }
+    }
+
+    /**
+     * @return the listaPvs
+     */
+    public List<Pv> getListaPvs() {
+        return listaPvs;
     }
 }
