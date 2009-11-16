@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
 
+import sipsa.SipsaExcepcion;
 import sipsa.dominio.Fabrica;
 import sipsa.dominio.Modelo;
 import sipsa.dominio.Producto;
@@ -107,7 +108,7 @@ public class ProductosControl {
      * @param producto
      * @return devuelve un Producto si existe sino devuelve una excepción
      */
-    public Producto existe(Producto producto) {
-        return persistencia.existProducto(producto);
+    public Producto existe(Producto producto) throws SipsaExcepcion {
+        return (Producto) persistencia.existe(producto);
     }
 }
