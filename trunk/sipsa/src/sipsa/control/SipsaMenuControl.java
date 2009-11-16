@@ -5,6 +5,10 @@
 
 package sipsa.control;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import sipsa.SipsaExcepcion;
+import sipsa.presentacion.escritorio.DialogoMensaje;
 import sipsa.presentacion.escritorio.ReporteVisor;
 import sipsa.presentacion.escritorio.SipsaMenu;
 import sipsa.presentacion.interfaces.ISipsaMenu;

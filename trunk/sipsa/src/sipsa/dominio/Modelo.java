@@ -39,14 +39,6 @@ public class Modelo implements IPersistible, Serializable{
     }
 
     /**
-     * Setea el Tipo de Producto
-     * @param tipoProducto
-     */
-    public void setTipoProducto(TipoProducto tipoProducto) {
-        this.tipoProducto = tipoProducto;
-    }
-
-    /**
      * Obtiene el nombre del modelo
      * @return devuelve el nombre del Modelo
      */

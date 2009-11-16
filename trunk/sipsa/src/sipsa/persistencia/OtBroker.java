@@ -9,10 +9,11 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 
+import sipsa.SipsaExcepcion;
 import sipsa.dominio.EstadoOT;
 import sipsa.dominio.OrdenDeTrabajo;
 
-class OtBroker {
+class OtBroker implements ISipsaBroker {
        /**
      * Obtiene una instacia de OT desde una base de datos
      * @param id Identificador unico de OT
@@ -194,5 +195,29 @@ class OtBroker {
             ex.printStackTrace();
         }
         return lista;
+    }
+
+    public IPersistible existe(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean actualizar(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean guardar(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean eliminar(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public IPersistible recuperar(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<IPersistible> recuperarLista() throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
