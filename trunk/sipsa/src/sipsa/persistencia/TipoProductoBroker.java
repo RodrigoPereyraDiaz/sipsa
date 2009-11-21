@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,47 +21,8 @@ import sipsa.dominio.TipoProducto;
  */
 class TipoProductoBroker implements ISipsaBroker {
 
-    /**
-     * Obtiene un Tipo de producto desde la base de datos
-     * @param id Identificar unico del Tipo de Producto
-     * @return Instancia del Tipo de Producto
-     */
-    protected TipoProducto getTipoProducto(int id) {
-    }
-
-    /**
-     * Guarda un Tipo de Producto en la base de datos
-     * @param tipoProducto Tipo de Producto a guardar
-     * @return Resultado de la operacion
-     */
-    protected boolean saveTipoProducto(TipoProducto tipoProducto) {
-    }
-
-    /**
-     * Elimina un Tipo de Producto de la base de datos
-     * @param tipoProducto Tipo de Producto a eliminar
-     * @return Resultado de la operacion
-     */
-    protected boolean deleteTipoProducto(TipoProducto tipoProducto) {
-    }
-
-    /**
-     * Verifica la existencia de un Tipo de Producto en la base de datos
-     * @param tipoProducto Tipo de Producto a verificar
-     * @return Existencia del Tipo de Producto
-     */
-    protected boolean exist(TipoProducto tipoProducto) {
-    }
-
-    /**
-     * Obtiene una lista de Tipos de Producto desde la base de datos
-     * @return Lista de Tipos de Productos
-     */
-    protected List<TipoProducto> getList() {
-    }
-
     public IPersistible existe(IPersistible o) throws SipsaExcepcion {
-        boolean existe = false;
+        TipoProducto tipoProducto = (TipoProducto) o;
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
@@ -79,20 +39,28 @@ class TipoProductoBroker implements ISipsaBroker {
             ps.setString(1, tipoProducto.getDescripcion());
 
             rs = ps.executeQuery();
-            existe = rs.next();
+            if (rs.next()) {
+                tipoProducto = new TipoProducto(rs.getInt("id"));
+                tipoProducto = (TipoProducto) recuperar(tipoProducto);
+            } else {
+                tipoProducto = null;
+            }
             ps.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
+            throw new SipsaExcepcion("Error al verificar la existencia del Tipo de Producto");
         }
-        return existe;
+        return tipoProducto;
     }
 
     public void actualizar(IPersistible o) throws SipsaExcepcion {
+        //TODO definiar actualizacion de Tipo de Producto
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void guardar(IPersistible o) throws SipsaExcepcion {
+        TipoProducto tipoProducto = (TipoProducto) o;
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         StringBuilder consulta = new StringBuilder();
@@ -114,14 +82,14 @@ class TipoProductoBroker implements ISipsaBroker {
 
             ps.execute();
             ps.close();
-            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
+            throw new SipsaExcepcion("Error al guardar el Tipo de Producto");
         }
     }
 
     public void eliminar(IPersistible o) throws SipsaExcepcion {
+        TipoProducto tipoProducto = (TipoProducto) o;
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         StringBuilder consulta = new StringBuilder();
@@ -137,15 +105,14 @@ class TipoProductoBroker implements ISipsaBroker {
 
             ps.execute();
             ps.close();
-            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
+            throw new SipsaExcepcion("Error al eliminar el Tipo de Producto id: " + o.getID());
         }
     }
 
     public IPersistible recuperar(IPersistible o) throws SipsaExcepcion {
-        TipoProducto tipoProducto = new TipoProducto(id);
+        TipoProducto tipoProducto = (TipoProducto) o;
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
@@ -168,7 +135,7 @@ class TipoProductoBroker implements ISipsaBroker {
                 tipoProducto.setDescripcion(rs.getString("nombre"));
                 tipoProducto.setDuracionGarantia(rs.getInt("duracionGarantia"));
                 ModeloBroker modeloBroker = new ModeloBroker();
-                tipoProducto.setModelos(modeloBroker.getList(tipoProducto.getID()));
+                tipoProducto.setModelos(modeloBroker.recuperarLista(tipoProducto));
             }
             ps.close();
         } catch (SQLException ex) {
@@ -199,7 +166,7 @@ class TipoProductoBroker implements ISipsaBroker {
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
-
+            throw new SipsaExcepcion("Error al recuperar la lista de Tipos de Producto");
         }
         return lista;
     }

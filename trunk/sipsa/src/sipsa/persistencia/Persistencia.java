@@ -5,6 +5,7 @@
 package sipsa.persistencia;
 
 import java.util.List;
+
 import sipsa.SipsaExcepcion;
 
 /**
@@ -13,6 +14,7 @@ import sipsa.SipsaExcepcion;
  * @author Maria Eugenia Sanchez
  */
 public class Persistencia {
+    //TODO paquete revisar las consultas Existe, revisar JavaDoc, modificar los Eliminar para que sean bajas logicas
 
     private static Persistencia persistencia;
 
@@ -35,19 +37,19 @@ public class Persistencia {
         return broker.existe(o);
     }
 
-    public boolean actualizar(IPersistible o) throws SipsaExcepcion {
+    public void actualizar(IPersistible o) throws SipsaExcepcion {
         ISipsaBroker broker = BrokerFabrica.getBroker(o.getClass());
-        return broker.actualizar(o);
+        broker.actualizar(o);
     }
 
-    public boolean guardar(IPersistible o) throws SipsaExcepcion {
+    public void guardar(IPersistible o) throws SipsaExcepcion {
         ISipsaBroker broker = BrokerFabrica.getBroker(o.getClass());
-        return broker.guardar(o);
+        broker.guardar(o);
     }
 
-    public boolean eliminar(IPersistible o) throws SipsaExcepcion {
+    public void eliminar(IPersistible o) throws SipsaExcepcion {
         ISipsaBroker broker = BrokerFabrica.getBroker(o.getClass());
-        return broker.eliminar(o);
+        broker.eliminar(o);
     }
 
     public IPersistible recuperar(IPersistible o) throws SipsaExcepcion {

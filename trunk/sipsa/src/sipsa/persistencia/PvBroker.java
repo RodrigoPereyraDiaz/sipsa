@@ -2,14 +2,12 @@
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa
  */
-
 package sipsa.persistencia;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,50 +21,47 @@ import sipsa.dominio.Pv;
  */
 class PvBroker implements ISipsaBroker {
 
-    /**
-     * Obtiene un PV desde la base de datos
-     * @param id Identificador unico del PV
-     * @return Instancia de PV
-     */
-    protected Pv getPv(int id){
-        Pv pv = new Pv(id);
+    public IPersistible existe(IPersistible o) throws SipsaExcepcion {
+        Pv pv = (Pv) o;
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
         StringBuilder consulta = new StringBuilder();
         consulta.append("SELECT ");
-        consulta.append("cuit ");
-        consulta.append(", ");
-        consulta.append("nombre ");
+        consulta.append("id ");
         consulta.append("FROM ");
         consulta.append("Empresas ");
         consulta.append("WHERE ");
-        consulta.append("id = ? ");
-        consulta.append(" AND ");
+        consulta.append("cuit = ? ");
+        consulta.append("AND ");
         consulta.append("tipo = 1 ");
         try {
             ps = conn.prepareStatement(consulta.toString());
 
-            ps.setInt(1, id);
+            ps.setString(1, pv.getCuit());
 
             rs = ps.executeQuery();
             if (rs.next()) {
-                pv.setCuit(rs.getString("cuit"));
-                pv.setNombre(rs.getString("nombre"));
+                pv = new Pv(rs.getInt("id"));
+                pv = (Pv) recuperar(pv);
+            } else {
+                pv = null;
             }
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            throw new SipsaExcepcion("Error al verificar la existencia del Punto de Venta");
         }
         return pv;
     }
 
-    /**
-     * Guarda un PV en la base de datos
-     * @param pv PV a guardar
-     * @return Resultado de la operacion
-     */
-    protected boolean savePv(Pv pv){
+    public void actualizar(IPersistible o) throws SipsaExcepcion {
+        //TODO definir actualizacion de Punto de Venta
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void guardar(IPersistible o) throws SipsaExcepcion {
+        Pv pv = (Pv) o;
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         StringBuilder consulta = new StringBuilder();
@@ -90,19 +85,13 @@ class PvBroker implements ISipsaBroker {
 
             ps.execute();
             ps.close();
-            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
+            throw new SipsaExcepcion("Error al guardar el Punto de Venta");
         }
     }
 
-    /**
-     * Elimina un PV de la base de datos
-     * @param pv PV a eliminar
-     * @return Resultado de la operacion
-     */
-    protected boolean deletePv(Pv pv){
+    public void eliminar(IPersistible o) throws SipsaExcepcion {
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         StringBuilder consulta = new StringBuilder();
@@ -113,94 +102,13 @@ class PvBroker implements ISipsaBroker {
         consulta.append("id = ? ");
         try {
             ps = conn.prepareStatement(consulta.toString());
-            ps.setInt(1, pv.getID());
+            ps.setInt(1, o.getID());
             ps.execute();
             ps.close();
-            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
+            throw new SipsaExcepcion("Error al eliminar el Tipo de Producto id: " + o.getID());
         }
-    }
-
-    /**
-     * Verficia la existencia de un PV en la base de datos
-     * @param pv PV a verificar
-     * @return Existencia del PV
-     */
-    protected Pv exist(Pv pv){
-        Connection conn = DB.getConexion();
-        PreparedStatement ps;
-        ResultSet rs;
-        StringBuilder consulta = new StringBuilder();
-        consulta.append("SELECT ");
-        consulta.append("id ");
-        consulta.append("FROM ");
-        consulta.append("Empresas ");
-        consulta.append("WHERE ");
-        consulta.append("cuit = ? ");
-        consulta.append("AND ");
-        consulta.append("tipo = 1 ");
-        try {
-            ps = conn.prepareStatement(consulta.toString());
-
-            ps.setString(1, pv.getCuit());
-
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                pv = getPv(rs.getInt("id"));
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return pv;
-    }
-
-    /**
-     * Obtiene una lista de los PV desde la base de datos
-     * @return Lista de PVs
-     */
-    protected List<Pv> getList(){
-        List<Pv> lista = new ArrayList<Pv>();
-        Connection conn = DB.getConexion();
-        PreparedStatement ps;
-        ResultSet rs;
-        StringBuilder consulta = new StringBuilder();
-        consulta.append("SELECT ");
-        consulta.append("id ");
-        consulta.append("FROM ");
-        consulta.append("Empresas ");
-        consulta.append("WHERE ");
-        consulta.append("tipo = 1 ");
-        try {
-            ps = conn.prepareStatement(consulta.toString());
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Pv pv = getPv(rs.getInt("id"));
-                lista.add(pv);
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return lista;
-    }
-
-    public IPersistible existe(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public boolean actualizar(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public boolean guardar(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public boolean eliminar(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public List<IPersistible> recuperarLista() throws SipsaExcepcion {
@@ -219,17 +127,49 @@ class PvBroker implements ISipsaBroker {
             ps = conn.prepareStatement(consulta.toString());
             rs = ps.executeQuery();
             while (rs.next()) {
-                Pv pv = getPv(rs.getInt("id"));
+                Pv pv = new Pv(rs.getInt("id"));
+                pv = (Pv) recuperar(pv);
                 lista.add(pv);
             }
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            throw new SipsaExcepcion("Error al recuperar la lista de Puntos de Venta");
         }
         return lista;
     }
 
     public IPersistible recuperar(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Pv pv = (Pv) o;
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        ResultSet rs;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("SELECT ");
+        consulta.append("cuit ");
+        consulta.append(", ");
+        consulta.append("nombre ");
+        consulta.append("FROM ");
+        consulta.append("Empresas ");
+        consulta.append("WHERE ");
+        consulta.append("id = ? ");
+        consulta.append(" AND ");
+        consulta.append("tipo = 1 ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setInt(1, pv.getID());
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                pv.setCuit(rs.getString("cuit"));
+                pv.setNombre(rs.getString("nombre"));
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new SipsaExcepcion("Error al recuperar el Punto de Venta id: " + o.getID());
+        }
+        return pv;
     }
 }

@@ -1,3 +1,7 @@
+/*
+ * Sistemas de Informacion II 2009
+ * Proyecto Sipsa
+ */
 package sipsa.persistencia;
 
 import java.sql.Connection;
@@ -5,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Date;
 import java.sql.SQLException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +38,8 @@ class VentaBroker implements ISipsaBroker {
 
             rs = ps.executeQuery();
             if (rs.next()) {
-                venta = (Venta) this.recuperar(venta);
+                venta = new Venta(rs.getInt("id"));
+                venta = (Venta) recuperar(venta);
             } else {
                 venta = null;
             }
@@ -48,7 +52,7 @@ class VentaBroker implements ISipsaBroker {
     }
 
     public void actualizar(IPersistible o) throws SipsaExcepcion {
-        //TODO
+        //TODO definir actualizacion de Venta
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

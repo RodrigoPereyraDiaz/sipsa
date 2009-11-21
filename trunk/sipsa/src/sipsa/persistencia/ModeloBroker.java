@@ -1,69 +1,24 @@
+/*
+ * Sistemas de Informacion II 2009
+ * Proyecto Sipsa
+ */
 package sipsa.persistencia;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import sipsa.SipsaExcepcion;
 import sipsa.dominio.Modelo;
+import sipsa.dominio.TipoProducto;
 
 class ModeloBroker implements ISipsaBroker {
 
-    /**
-     * Obtiene un Modelo desde la base de datos
-     * @param id Identificador unico del Modelo
-     * @return Instancia de Modelo
-     */
-    @Deprecated
-    protected Modelo getModelo(int id){
-
-    }
-
-    /**
-     * Guarda un Modelo en la base de datos
-     * @param modelo Modelo a guardar
-     * @return Resultado de la operacion
-     */
-    @Deprecated
-    protected boolean saveModelo(Modelo modelo){
-
-    }
-
-    /**
-     * Elimina un Modelo de la base de datos
-     * @param modelo pv Modelo a eliminar
-     * @return Resultado de la operacion
-     */
-    @Deprecated
-    protected boolean deletePv(Modelo modelo){
-
-    }
-
-    /**
-     * Verficia la existencia de un PV en la base de datos
-     * @param modelo Modelo a verificar
-     * @return Existencia del Modelo
-     */
-    @Deprecated
-    protected boolean exist(Modelo modelo){
-
-    }
-
-    /**
-     * Obtiene una lista de los Modelos desde la base de datos
-     * @return Lista de Modelos
-     */
-    @Deprecated
-    protected List<Modelo> getList(int idTipoProducto){
-
-    }
-
     public IPersistible existe(IPersistible o) throws SipsaExcepcion {
-                boolean existe = false;
+        Modelo modelo = (Modelo) o;
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
@@ -83,20 +38,28 @@ class ModeloBroker implements ISipsaBroker {
             ps.setString(2, modelo.getNombre());
 
             rs = ps.executeQuery();
-            existe = rs.next();
+            if (rs.next()) {
+                modelo = new Modelo(rs.getInt("id"));
+                modelo = (Modelo) recuperar(modelo);
+            } else {
+                modelo = null;
+            }
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            throw new SipsaExcepcion("Error al verificar la existencia del Modelo");
         }
-        return existe;
+        return modelo;
     }
 
-    public boolean actualizar(IPersistible o) throws SipsaExcepcion {
+    public void actualizar(IPersistible o) throws SipsaExcepcion {
+        //TODO definir actualizacion de Modelo
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public boolean guardar(IPersistible o) throws SipsaExcepcion {
-                Connection conn = DB.getConexion();
+    public void guardar(IPersistible o) throws SipsaExcepcion {
+        Modelo modelo = (Modelo) o;
+        Connection conn = DB.getConexion();
         PreparedStatement ps;
         StringBuilder consulta = new StringBuilder();
         consulta.append("INSERT ");
@@ -117,15 +80,14 @@ class ModeloBroker implements ISipsaBroker {
 
             ps.execute();
             ps.close();
-            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
+            throw new SipsaExcepcion("Error al guardar el Modelo");
         }
     }
 
-    public boolean eliminar(IPersistible o) throws SipsaExcepcion {
-                Connection conn = DB.getConexion();
+    public void eliminar(IPersistible o) throws SipsaExcepcion {
+        Connection conn = DB.getConexion();
         PreparedStatement ps;
         StringBuilder consulta = new StringBuilder();
         consulta.append("DELETE ");
@@ -136,19 +98,18 @@ class ModeloBroker implements ISipsaBroker {
         try {
             ps = conn.prepareStatement(consulta.toString());
 
-            ps.setInt(1, modelo.getID());
+            ps.setInt(1, o.getID());
 
             ps.execute();
             ps.close();
-            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
+            throw new SipsaExcepcion("Error al eliminar el Modelo id: " + o.getID());
         }
     }
 
     public IPersistible recuperar(IPersistible o) throws SipsaExcepcion {
-                Modelo modelo = new Modelo(id);
+        Modelo modelo = (Modelo) o;
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
@@ -162,7 +123,7 @@ class ModeloBroker implements ISipsaBroker {
         try {
             ps = conn.prepareStatement(consulta.toString());
 
-            ps.setInt(1, id);
+            ps.setInt(1, modelo.getID());
 
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -171,11 +132,39 @@ class ModeloBroker implements ISipsaBroker {
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            throw new SipsaExcepcion("Error al recuperar el Modelo id: " + o.getID());
         }
         return modelo;
     }
 
     public List<IPersistible> recuperarLista() throws SipsaExcepcion {
+        List<IPersistible> lista = new ArrayList<IPersistible>();
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        ResultSet rs;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("SELECT ");
+        consulta.append("id ");
+        consulta.append("FROM ");
+        consulta.append("Modelos ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Modelo modelo = new Modelo(rs.getInt("id"));
+                modelo = (Modelo) recuperar(modelo);
+                lista.add(modelo);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new SipsaExcepcion("Error al recuperar la lista de Modelos");
+        }
+        return lista;
+    }
+
+    public List<Modelo> recuperarLista(TipoProducto tipoProducto) throws SipsaExcepcion {
         List<Modelo> lista = new ArrayList<Modelo>();
         Connection conn = DB.getConexion();
         PreparedStatement ps;
@@ -185,21 +174,23 @@ class ModeloBroker implements ISipsaBroker {
         consulta.append("id ");
         consulta.append("FROM ");
         consulta.append("Modelos ");
-        //consulta.append("WHERE ");
-        //consulta.append("idTipoProducto = ? ");
+        consulta.append("WHERE ");
+        consulta.append("idTipoProducto = ? ");
         try {
             ps = conn.prepareStatement(consulta.toString());
             rs = ps.executeQuery();
 
-            //ps.setInt(1, idTipoProducto);
+            ps.setInt(1, tipoProducto.getID());
 
             while (rs.next()) {
-                Modelo modelo = getModelo(rs.getInt("id"));
+                Modelo modelo = new Modelo(rs.getInt("id"));
+                modelo = (Modelo) recuperar(modelo);
                 lista.add(modelo);
             }
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            throw new SipsaExcepcion("Error al recuperar la lista de Modelos del Tipo de Producto id: " + tipoProducto.getID());
         }
         return lista;
     }
