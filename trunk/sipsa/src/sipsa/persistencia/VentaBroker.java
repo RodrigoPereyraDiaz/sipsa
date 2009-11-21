@@ -12,37 +12,10 @@ import java.util.List;
 import sipsa.SipsaExcepcion;
 import sipsa.dominio.Venta;
 
-class VentaBroker implements ISipsaBroker{
+class VentaBroker implements ISipsaBroker {
 
-
-    protected Venta getVenta(int id){
-
-    }
-
-    protected boolean deleteVenta(Venta venta){
-        Connection conn = DB.getConexion();
-        PreparedStatement ps;
-        StringBuilder consulta = new StringBuilder();
-        consulta.append("DELETE ");
-        consulta.append("FROM ");
-        consulta.append("Ventas ");
-        consulta.append("WHERE ");
-        consulta.append("id = ? ");
-        try {
-            ps = conn.prepareStatement(consulta.toString());
-
-            ps.setInt(1, venta.getID());
-
-            ps.execute();
-            ps.close();
-            return true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return false;
-        }
-    }
-
-    protected Venta exist(Venta venta){
+    public IPersistible existe(IPersistible o) throws SipsaExcepcion {
+        Venta venta = (Venta) o;
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
@@ -59,8 +32,8 @@ class VentaBroker implements ISipsaBroker{
             ps.setInt(1, venta.getProductos().getID());
 
             rs = ps.executeQuery();
-            if (rs.next()){
-                venta = this.getVenta(rs.getInt("id"));
+            if (rs.next()) {
+                venta = (Venta) this.recuperar(venta);
             } else {
                 venta = null;
             }
@@ -68,36 +41,9 @@ class VentaBroker implements ISipsaBroker{
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            throw new SipsaExcepcion("Error al verificar la existencia de la venta");
         }
         return venta;
-    }
-
-    protected List<Venta> getList(){
-        List<Venta> lista = new ArrayList<Venta>();
-        Connection conn = DB.getConexion();
-        PreparedStatement ps;
-        ResultSet rs;
-        StringBuilder consulta = new StringBuilder();
-        consulta.append("SELECT ");
-        consulta.append("id ");
-        consulta.append("FROM ");
-        consulta.append("Ventas ");
-        try {
-            ps = conn.prepareStatement(consulta.toString());
-            rs = ps.executeQuery();
-            while (rs.next()) {
-            Venta venta = getVenta(rs.getInt("id"));
-            lista.add(venta);
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return lista;
-    }
-
-    public IPersistible existe(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public boolean actualizar(IPersistible o) throws SipsaExcepcion {
@@ -129,7 +75,7 @@ class VentaBroker implements ISipsaBroker{
             ps.setInt(1, venta.getEmpresaVendedora().getID());
             ps.setInt(2, venta.getProductos().getID());
             ps.setString(3, venta.getNroFactura());
-            ps.setDate(4,Date.valueOf(venta.getFechaFactura().toString()));
+            ps.setDate(4, Date.valueOf(venta.getFechaFactura().toString()));
 
             ps.execute();
             ps.close();
@@ -141,11 +87,30 @@ class VentaBroker implements ISipsaBroker{
     }
 
     public boolean eliminar(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("DELETE ");
+        consulta.append("FROM ");
+        consulta.append("Ventas ");
+        consulta.append("WHERE ");
+        consulta.append("id = ? ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setInt(1, o.getID());
+
+            ps.execute();
+            ps.close();
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new SipsaExcepcion("Error al eliminar la venta id: " + o.getID());
+        }
     }
 
     public IPersistible recuperar(IPersistible o) throws SipsaExcepcion {
-        Venta venta = o;
+        Venta venta = (Venta) o;
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
@@ -181,6 +146,7 @@ class VentaBroker implements ISipsaBroker{
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            throw new SipsaExcepcion("Error al recuperar la venta id: " + o.getID());
         }
         return venta;
     }
@@ -199,8 +165,9 @@ class VentaBroker implements ISipsaBroker{
             ps = conn.prepareStatement(consulta.toString());
             rs = ps.executeQuery();
             while (rs.next()) {
-            Venta venta = getVenta(rs.getInt("id"));
-            lista.add(venta);
+                Venta venta = new Venta(rs.getInt("id"));
+                venta = (Venta) recuperar(venta);
+                lista.add(venta);
             }
             ps.close();
         } catch (SQLException ex) {
