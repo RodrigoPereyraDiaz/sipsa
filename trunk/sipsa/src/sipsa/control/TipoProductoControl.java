@@ -2,17 +2,16 @@
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa
  */
-
 package sipsa.control;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 import sipsa.SipsaExcepcion;
 import sipsa.dominio.TipoProducto;
+import sipsa.persistencia.IPersistible;
 import sipsa.presentacion.interfaces.IListarABM;
 import sipsa.presentacion.escritorio.ListarABM;
 import sipsa.presentacion.interfaces.ITipoProductoDatos;
@@ -25,15 +24,30 @@ import sipsa.presentacion.escritorio.DialogoMensaje;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
+public class TipoProductoControl implements IListarABM, ITipoProductoDatos {
 
     private Persistencia persistencia = Persistencia.getPersistencia();
     private List<TipoProducto> listaTipoProducto;
 
+    private void recuperarLista() {
+        if (listaTipoProducto == null) {
+            listaTipoProducto = new ArrayList<TipoProducto>();
+        }
+        try {
+            List<IPersistible> lista = persistencia.recuperarLista(TipoProducto.class);
+            for (Iterator iterator = lista.iterator(); iterator.hasNext();) {
+                TipoProducto tipoProducto = (TipoProducto) iterator.next();
+                listaTipoProducto.add(tipoProducto);
+            }
+        } catch (SipsaExcepcion ex) {
+            new DialogoMensaje(DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
+        }
+    }
+
     /**
      * Muestra el administrador de Tipos de Productos
      */
-    public void mostrarAdministrar(){
+    public void mostrarAdministrar() {
         ListarABM listarControl = new ListarABM(this);
         listarControl.setVisible(true);
     }
@@ -46,7 +60,6 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
         tipoProductoDatos.setVisible(true);
     }
 
-
     public void modificar(int index) {
         TipoProducto tipoProducto = this.getListaTipoProducto().get(index);
         TipoProductoDatos tipoProductoDatos = new TipoProductoDatos(this, tipoProducto);
@@ -57,7 +70,6 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
      * Elimina del medio de persistencia el Tipo de Producto identificado
      * @param index
      */
-
     public void eliminar(int index) {
         TipoProducto tipoProducto = this.getListaTipoProducto().get(index);
         try {
@@ -97,7 +109,9 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
      * @return the listaTipoProducto
      */
     public List<TipoProducto> getListaTipoProducto() {
-        this.listaTipoProducto = persistencia.recuperarLista(TipoProducto.class);
+        if (listaTipoProducto == null) {
+            recuperarLista();
+        }
         return listaTipoProducto;
     }
 
