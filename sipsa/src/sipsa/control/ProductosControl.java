@@ -25,6 +25,7 @@ import sipsa.dominio.Fabrica;
 import sipsa.dominio.Modelo;
 import sipsa.dominio.Producto;
 import sipsa.persistencia.Persistencia;
+import sipsa.presentacion.escritorio.DialogoMensaje;
 
 /**
  * Controlador de Productos
@@ -82,10 +83,12 @@ public class ProductosControl {
             }
             for (Iterator ProdIt = lista.iterator(); ProdIt.hasNext();) {
                 Producto producto = (Producto) ProdIt.next();
-                persistencia.saveProducto(producto);
+                persistencia.guardar(producto);
             }
             entrada.close();
             ok = true;
+        } catch (SipsaExcepcion ex) {
+            new DialogoMensaje(DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -12,6 +12,7 @@ import javax.swing.table.TableModel;
 import sipsa.SipsaExcepcion;
 import sipsa.dominio.EstadoOT;
 import sipsa.dominio.OrdenDeTrabajo;
+import sipsa.dominio.Pac;
 import sipsa.dominio.TipoProducto;
 import sipsa.persistencia.IPersistible;
 import sipsa.persistencia.Persistencia;
@@ -215,5 +216,10 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
         TipoProducto tp = (TipoProducto) tipoProducto;
         DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(tp.getModelos().toArray());
         return comboBoxModel;
+    }
+
+    public List<OrdenDeTrabajo> getListaOT(Pac pac){
+      //TODO completar
+        return this.listaOdts;
     }
 }

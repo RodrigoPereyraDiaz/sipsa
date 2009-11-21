@@ -69,7 +69,7 @@ public class VentaControl {
         persistencia.guardar(venta);
     }
 
-    private boolean productoRegistrado(Venta venta){
-        return (persistencia.existVenta(venta) != null);
+    private boolean productoRegistrado(Venta venta) throws SipsaExcepcion{
+        return (persistencia.existe(venta) != null);
     }
 }
