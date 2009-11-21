@@ -38,7 +38,7 @@ public class VentaControl {
         if (producto == null){
             throw new SipsaExcepcion("El el producto no se encuentra disponible para activacion de garantia, verifique el tipo, modelo y número de serie");
         }
-        venta.setProductos(producto);
+        venta.setProducto(producto);
         if (this.productoRegistrado(venta)){
             throw new SipsaExcepcion("El el producto ya fue registrado anteriormente, la garantia ya se encuentra activada");
         }

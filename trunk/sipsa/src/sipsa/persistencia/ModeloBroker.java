@@ -20,31 +20,7 @@ class ModeloBroker implements ISipsaBroker {
      */
     @Deprecated
     protected Modelo getModelo(int id){
-        Modelo modelo = new Modelo(id);
-        Connection conn = DB.getConexion();
-        PreparedStatement ps;
-        ResultSet rs;
-        StringBuilder consulta = new StringBuilder();
-        consulta.append("SELECT ");
-        consulta.append("nombre ");
-        consulta.append("FROM ");
-        consulta.append("Modelos ");
-        consulta.append("WHERE ");
-        consulta.append("id = ? ");
-        try {
-            ps = conn.prepareStatement(consulta.toString());
 
-            ps.setInt(1, id);
-
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                modelo.setNombre(rs.getString("nombre"));
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return modelo;
     }
 
     /**
@@ -54,32 +30,7 @@ class ModeloBroker implements ISipsaBroker {
      */
     @Deprecated
     protected boolean saveModelo(Modelo modelo){
-        Connection conn = DB.getConexion();
-        PreparedStatement ps;
-        StringBuilder consulta = new StringBuilder();
-        consulta.append("INSERT ");
-        consulta.append("INTO ");
-        consulta.append("Modelos ");
-        consulta.append("VALUES ( ");
-        consulta.append("default "); //id Autoincremental
-        consulta.append(", ");
-        consulta.append("? "); //idTipoProducto
-        consulta.append(", ");
-        consulta.append("? "); //nombre
-        consulta.append(") ");
-        try {
-            ps = conn.prepareStatement(consulta.toString());
 
-            ps.setInt(1, modelo.getTipoProducto().getID());
-            ps.setString(2, modelo.getNombre());
-
-            ps.execute();
-            ps.close();
-            return true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return false;
-        }
     }
 
     /**
@@ -89,26 +40,7 @@ class ModeloBroker implements ISipsaBroker {
      */
     @Deprecated
     protected boolean deletePv(Modelo modelo){
-        Connection conn = DB.getConexion();
-        PreparedStatement ps;
-        StringBuilder consulta = new StringBuilder();
-        consulta.append("DELETE ");
-        consulta.append("FROM ");
-        consulta.append("Modelos ");
-        consulta.append("WHERE ");
-        consulta.append("id = ? ");
-        try {
-            ps = conn.prepareStatement(consulta.toString());
-            
-            ps.setInt(1, modelo.getID());
 
-            ps.execute();
-            ps.close();
-            return true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return false;
-        }
     }
 
     /**
@@ -118,7 +50,20 @@ class ModeloBroker implements ISipsaBroker {
      */
     @Deprecated
     protected boolean exist(Modelo modelo){
-        boolean existe = false;
+
+    }
+
+    /**
+     * Obtiene una lista de los Modelos desde la base de datos
+     * @return Lista de Modelos
+     */
+    @Deprecated
+    protected List<Modelo> getList(int idTipoProducto){
+
+    }
+
+    public IPersistible existe(IPersistible o) throws SipsaExcepcion {
+                boolean existe = false;
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
@@ -146,12 +91,91 @@ class ModeloBroker implements ISipsaBroker {
         return existe;
     }
 
-    /**
-     * Obtiene una lista de los Modelos desde la base de datos
-     * @return Lista de Modelos
-     */
-    @Deprecated
-    protected List<Modelo> getList(int idTipoProducto){
+    public boolean actualizar(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public boolean guardar(IPersistible o) throws SipsaExcepcion {
+                Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("INSERT ");
+        consulta.append("INTO ");
+        consulta.append("Modelos ");
+        consulta.append("VALUES ( ");
+        consulta.append("default "); //id Autoincremental
+        consulta.append(", ");
+        consulta.append("? "); //idTipoProducto
+        consulta.append(", ");
+        consulta.append("? "); //nombre
+        consulta.append(") ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setInt(1, modelo.getTipoProducto().getID());
+            ps.setString(2, modelo.getNombre());
+
+            ps.execute();
+            ps.close();
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean eliminar(IPersistible o) throws SipsaExcepcion {
+                Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("DELETE ");
+        consulta.append("FROM ");
+        consulta.append("Modelos ");
+        consulta.append("WHERE ");
+        consulta.append("id = ? ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setInt(1, modelo.getID());
+
+            ps.execute();
+            ps.close();
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    public IPersistible recuperar(IPersistible o) throws SipsaExcepcion {
+                Modelo modelo = new Modelo(id);
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        ResultSet rs;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("SELECT ");
+        consulta.append("nombre ");
+        consulta.append("FROM ");
+        consulta.append("Modelos ");
+        consulta.append("WHERE ");
+        consulta.append("id = ? ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setInt(1, id);
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                modelo.setNombre(rs.getString("nombre"));
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return modelo;
+    }
+
+    public List<IPersistible> recuperarLista() throws SipsaExcepcion {
         List<Modelo> lista = new ArrayList<Modelo>();
         Connection conn = DB.getConexion();
         PreparedStatement ps;
@@ -178,29 +202,5 @@ class ModeloBroker implements ISipsaBroker {
             ex.printStackTrace();
         }
         return lista;
-    }
-
-    public IPersistible existe(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public boolean actualizar(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public boolean guardar(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public boolean eliminar(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public IPersistible recuperar(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public List<IPersistible> recuperarLista() throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

@@ -17,7 +17,7 @@ import sipsa.persistencia.IPersistible;
 public class Venta implements IPersistible, Serializable{
     private int id;
     private Pv empresaVendedora;
-    private Producto productos;
+    private Producto producto;
     private String nroFactura;
     private Date fechaFactura;
 
@@ -47,15 +47,15 @@ public class Venta implements IPersistible, Serializable{
     /**
      * @return the productos
      */
-    public Producto getProductos() {
-        return productos;
+    public Producto getProducto() {
+        return producto;
     }
 
     /**
      * @param productos the productos to set
      */
-    public void setProductos(Producto productos) {
-        this.productos = productos;
+    public void setProducto(Producto productos) {
+        this.producto = productos;
     }
 
     /**
