@@ -18,6 +18,7 @@ class FabricaBroker implements ISipsaBroker{
      * @param id Identificador unico del Fabrica
      * @return Instancia de Fabrica
      */
+    @Deprecated
     protected Fabrica getFabrica(int id){
         Fabrica fabrica = new Fabrica(id);
         Connection conn = DB.getConexion();
@@ -51,6 +52,7 @@ class FabricaBroker implements ISipsaBroker{
      * @param fabrica pv Fabrica a guardar
      * @return Resultado de la operacion
      */
+    @Deprecated
     protected boolean saveFabrica(Fabrica fabrica){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
@@ -81,6 +83,7 @@ class FabricaBroker implements ISipsaBroker{
      * @param fabrica  Fabrica a eliminar
      * @return Resultado de la operacion
      */
+    @Deprecated
     protected boolean deleteFabrica(Fabrica fabrica){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
@@ -109,6 +112,7 @@ class FabricaBroker implements ISipsaBroker{
      * @param fabrica Fabrica a verificar
      * @return Existencia del Fabrica
      */
+    @Deprecated
     protected boolean exist(Fabrica fabrica){
         boolean existe = false;
         Connection conn = DB.getConexion();
@@ -139,6 +143,7 @@ class FabricaBroker implements ISipsaBroker{
      * Obtiene una lista de los Fabricas desde la base de datos
      * @return Lista de Fabricas
      */
+    @Deprecated
     protected List<Fabrica> getList(){
         List<Fabrica> lista = new ArrayList<Fabrica>();
         Connection conn = DB.getConexion();
@@ -180,10 +185,54 @@ class FabricaBroker implements ISipsaBroker{
     }
 
     public List<IPersistible> recuperarLista() throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
+        List<IPersistible> lista = new ArrayList<IPersistible>();
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        ResultSet rs;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("SELECT ");
+        consulta.append("id ");
+        consulta.append("FROM ");
+        consulta.append("Fabricas ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Fabrica fabrica = (Fabrica) recuperar(new Fabrica(rs.getInt("id")));
+                lista.add(fabrica);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return lista;
     }
 
     public IPersistible recuperar(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Fabrica fabrica = (Fabrica) o;
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        ResultSet rs;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("SELECT ");
+        consulta.append("nombre ");
+        consulta.append("FROM ");
+        consulta.append("Fabricas ");
+        consulta.append("WHERE ");
+        consulta.append("id = ? ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setInt(1, o.getID());
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                fabrica.setNombre(rs.getString("nombre"));
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return fabrica;
     }
 }

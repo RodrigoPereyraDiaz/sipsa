@@ -18,6 +18,7 @@ class ModeloBroker implements ISipsaBroker {
      * @param id Identificador unico del Modelo
      * @return Instancia de Modelo
      */
+    @Deprecated
     protected Modelo getModelo(int id){
         Modelo modelo = new Modelo(id);
         Connection conn = DB.getConexion();
@@ -51,6 +52,7 @@ class ModeloBroker implements ISipsaBroker {
      * @param modelo Modelo a guardar
      * @return Resultado de la operacion
      */
+    @Deprecated
     protected boolean saveModelo(Modelo modelo){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
@@ -85,6 +87,7 @@ class ModeloBroker implements ISipsaBroker {
      * @param modelo pv Modelo a eliminar
      * @return Resultado de la operacion
      */
+    @Deprecated
     protected boolean deletePv(Modelo modelo){
         Connection conn = DB.getConexion();
         PreparedStatement ps;
@@ -113,6 +116,7 @@ class ModeloBroker implements ISipsaBroker {
      * @param modelo Modelo a verificar
      * @return Existencia del Modelo
      */
+    @Deprecated
     protected boolean exist(Modelo modelo){
         boolean existe = false;
         Connection conn = DB.getConexion();
@@ -146,6 +150,7 @@ class ModeloBroker implements ISipsaBroker {
      * Obtiene una lista de los Modelos desde la base de datos
      * @return Lista de Modelos
      */
+    @Deprecated
     protected List<Modelo> getList(int idTipoProducto){
         List<Modelo> lista = new ArrayList<Modelo>();
         Connection conn = DB.getConexion();

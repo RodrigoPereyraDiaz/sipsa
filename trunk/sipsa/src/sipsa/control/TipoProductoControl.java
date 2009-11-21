@@ -7,14 +7,18 @@ package sipsa.control;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
+import sipsa.SipsaExcepcion;
 import sipsa.dominio.TipoProducto;
 import sipsa.presentacion.interfaces.IListarABM;
 import sipsa.presentacion.escritorio.ListarABM;
 import sipsa.presentacion.interfaces.ITipoProductoDatos;
 import sipsa.presentacion.escritorio.TipoProductoDatos;
 import sipsa.persistencia.Persistencia;
+import sipsa.presentacion.escritorio.DialogoMensaje;
 
 /**
  * Controlador de Tipo de Producto
@@ -56,7 +60,11 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
 
     public void eliminar(int index) {
         TipoProducto tipoProducto = this.getListaTipoProducto().get(index);
-        persistencia.deteletTipoProducto(tipoProducto);
+        try {
+            persistencia.eliminar(tipoProducto);
+        } catch (SipsaExcepcion ex) {
+            new DialogoMensaje(DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
+        }
         this.listaTipoProducto.remove(tipoProducto);
     }
 
@@ -89,7 +97,7 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
      * @return the listaTipoProducto
      */
     public List<TipoProducto> getListaTipoProducto() {
-        this.listaTipoProducto = persistencia.getListTipoProducto();
+        this.listaTipoProducto = persistencia.recuperarLista(TipoProducto.class);
         return listaTipoProducto;
     }
 
@@ -100,11 +108,8 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos{
      */
     public void guardarTipoProducto(TipoProducto tipoProducto) throws Exception {
         //TODO validar la garantia sea mayor a 0 meses
-        if (this.persistencia.existTipoProducto(tipoProducto)){
-           throw new Exception("El tipo de Producto ya existe, imposible agregar");
-        } else {
-            this.persistencia.saveTipoProducto(tipoProducto);
-            this.listaTipoProducto.remove(tipoProducto);
-        }
+        this.persistencia.existe(tipoProducto);
+        this.persistencia.guardar(tipoProducto);
+        this.listaTipoProducto.add(tipoProducto);
     }
 }

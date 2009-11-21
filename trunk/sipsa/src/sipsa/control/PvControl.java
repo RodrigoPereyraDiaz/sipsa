@@ -8,6 +8,8 @@ package sipsa.control;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 import sipsa.SipsaExcepcion;
@@ -53,7 +55,7 @@ public class PvControl implements IEmpresaDatos, IListarABM {
      */
     
     public Pv existePv(Pv pv) throws Exception{
-        pv = persistencia.existPv(pv);
+        pv = (Pv) persistencia.existe(pv);
         if (pv.getID() > 0){
             return pv;
         } else {
@@ -95,7 +97,11 @@ public class PvControl implements IEmpresaDatos, IListarABM {
      */
     public void eliminar(int index) {
         Pv pv = this.getListaPvs().get(index);
-        this.persistencia.deletePv(pv);
+        try {
+            this.persistencia.eliminar(pv);
+        } catch (SipsaExcepcion ex) {
+            new DialogoMensaje(DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
+        }
         this.getListaPvs().remove(pv);
     }
 
@@ -119,8 +125,8 @@ public class PvControl implements IEmpresaDatos, IListarABM {
     public void guardarEmpresa(Empresa empresa) throws Exception {
         Pv pv = (Pv) empresa;
         //TODO Validaciones
-        if (this.persistencia.existPv(pv).equals(pv)){
-            this.persistencia.savePv(pv);
+        if (this.persistencia.existe(pv).equals(pv)){
+            this.persistencia.guardar(pv);
             this.getListaPvs().add(pv);
         } else {
             throw new Exception("El punto de venta ya existe, imposible agregar");

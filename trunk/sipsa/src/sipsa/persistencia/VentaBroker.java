@@ -14,45 +14,9 @@ import sipsa.dominio.Venta;
 
 class VentaBroker implements ISipsaBroker{
 
+
     protected Venta getVenta(int id){
-        Venta venta = new Venta(id);
-        Connection conn = DB.getConexion();
-        PreparedStatement ps;
-        ResultSet rs;
-        StringBuilder consulta = new StringBuilder();
-        consulta.append("SELECT ");
-        consulta.append("id ");
-        consulta.append(", ");
-        consulta.append("idPv ");
-        consulta.append(", ");
-        consulta.append("idProducto ");
-        consulta.append(", ");
-        consulta.append("nroFactura ");
-        consulta.append(", ");
-        consulta.append("fechaFactura ");
-        consulta.append("FROM ");
-        consulta.append("Ventas ");
-        consulta.append("WHERE ");
-        consulta.append("id = ? ");
-        try {
-            ps = conn.prepareStatement(consulta.toString());
 
-            ps.setInt(1, venta.getID());
-
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                PvBroker pvBroker = new PvBroker();
-                venta.setEmpresaVendedora(pvBroker.getPv(rs.getInt("idPv")));
-                ProductoBroker productoBroker = new ProductoBroker();
-                venta.setProductos(productoBroker.getProducto(rs.getInt("idProducto")));
-                venta.setNroFactura(rs.getString("nroFactura"));
-                venta.setFechaFactura(rs.getDate("fechaFactura"));
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return venta;
     }
 
     protected boolean deleteVenta(Venta venta){
@@ -181,7 +145,44 @@ class VentaBroker implements ISipsaBroker{
     }
 
     public IPersistible recuperar(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Venta venta = o;
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        ResultSet rs;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("SELECT ");
+        consulta.append("id ");
+        consulta.append(", ");
+        consulta.append("idPv ");
+        consulta.append(", ");
+        consulta.append("idProducto ");
+        consulta.append(", ");
+        consulta.append("nroFactura ");
+        consulta.append(", ");
+        consulta.append("fechaFactura ");
+        consulta.append("FROM ");
+        consulta.append("Ventas ");
+        consulta.append("WHERE ");
+        consulta.append("id = ? ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setInt(1, venta.getID());
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                PvBroker pvBroker = new PvBroker();
+                venta.setEmpresaVendedora(pvBroker.getPv(rs.getInt("idPv")));
+                ProductoBroker productoBroker = new ProductoBroker();
+                venta.setProductos(productoBroker.getProducto(rs.getInt("idProducto")));
+                venta.setNroFactura(rs.getString("nroFactura"));
+                venta.setFechaFactura(rs.getDate("fechaFactura"));
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return venta;
     }
 
     public List<IPersistible> recuperarLista() throws SipsaExcepcion {

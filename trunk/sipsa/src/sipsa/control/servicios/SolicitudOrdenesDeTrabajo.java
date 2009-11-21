@@ -1,16 +1,16 @@
 package sipsa.control.servicios;
 
+import sipsa.control.OTControl;
 import sipsa.dominio.Pac;
-import sipsa.persistencia.Persistencia;
 
 class SolicitudOrdenesDeTrabajo extends Mensaje{
 
     @Override
     public Mensaje procesar() {
-        Persistencia persistencia = Persistencia.getPersistencia();
+        OTControl oTControl = new OTControl();
         Mensaje respuesta = MensajesFabrica.newRespuestaOrdenesDeTrabajo();
         Pac pac = (Pac) this.getContenido();
-        respuesta.setContenido(persistencia.getOrdenesDeTrabajo(pac));
+        respuesta.setContenido(oTControl.getListaOT(pac));
         return respuesta;
     }
 }
