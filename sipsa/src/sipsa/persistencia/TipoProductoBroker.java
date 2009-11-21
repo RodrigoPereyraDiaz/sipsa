@@ -2,7 +2,6 @@
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa
  */
-
 package sipsa.persistencia;
 
 import java.sql.Connection;
@@ -28,37 +27,7 @@ class TipoProductoBroker implements ISipsaBroker {
      * @param id Identificar unico del Tipo de Producto
      * @return Instancia del Tipo de Producto
      */
-    protected TipoProducto getTipoProducto(int id){
-        TipoProducto tipoProducto = new TipoProducto(id);
-        Connection conn = DB.getConexion();
-        PreparedStatement ps;
-        ResultSet rs;
-        StringBuilder consulta = new StringBuilder();
-        consulta.append("SELECT ");
-        consulta.append("nombre ");
-        consulta.append(", ");
-        consulta.append("duracionGarantia ");
-        consulta.append("FROM ");
-        consulta.append("TiposProducto ");
-        consulta.append("WHERE ");
-        consulta.append("id = ? ");
-        try {
-            ps = conn.prepareStatement(consulta.toString());
-
-            ps.setInt(1, tipoProducto.getID());
-
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                tipoProducto.setDescripcion(rs.getString("nombre"));
-                tipoProducto.setDuracionGarantia(rs.getInt("duracionGarantia"));
-                ModeloBroker modeloBroker = new ModeloBroker();
-                tipoProducto.setModelos(modeloBroker.getList(id));
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return tipoProducto;
+    protected TipoProducto getTipoProducto(int id) {
     }
 
     /**
@@ -66,7 +35,64 @@ class TipoProductoBroker implements ISipsaBroker {
      * @param tipoProducto Tipo de Producto a guardar
      * @return Resultado de la operacion
      */
-    protected boolean saveTipoProducto(TipoProducto tipoProducto){
+    protected boolean saveTipoProducto(TipoProducto tipoProducto) {
+    }
+
+    /**
+     * Elimina un Tipo de Producto de la base de datos
+     * @param tipoProducto Tipo de Producto a eliminar
+     * @return Resultado de la operacion
+     */
+    protected boolean deleteTipoProducto(TipoProducto tipoProducto) {
+    }
+
+    /**
+     * Verifica la existencia de un Tipo de Producto en la base de datos
+     * @param tipoProducto Tipo de Producto a verificar
+     * @return Existencia del Tipo de Producto
+     */
+    protected boolean exist(TipoProducto tipoProducto) {
+    }
+
+    /**
+     * Obtiene una lista de Tipos de Producto desde la base de datos
+     * @return Lista de Tipos de Productos
+     */
+    protected List<TipoProducto> getList() {
+    }
+
+    public IPersistible existe(IPersistible o) throws SipsaExcepcion {
+        boolean existe = false;
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        ResultSet rs;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("SELECT ");
+        consulta.append("id ");
+        consulta.append("FROM ");
+        consulta.append("TiposProducto ");
+        consulta.append("WHERE ");
+        consulta.append("descripcion = ? ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setString(1, tipoProducto.getDescripcion());
+
+            rs = ps.executeQuery();
+            existe = rs.next();
+            ps.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return existe;
+    }
+
+    public void actualizar(IPersistible o) throws SipsaExcepcion {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void guardar(IPersistible o) throws SipsaExcepcion {
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         StringBuilder consulta = new StringBuilder();
@@ -95,12 +121,7 @@ class TipoProductoBroker implements ISipsaBroker {
         }
     }
 
-    /**
-     * Elimina un Tipo de Producto de la base de datos
-     * @param tipoProducto Tipo de Producto a eliminar
-     * @return Resultado de la operacion
-     */
-    protected boolean deleteTipoProducto(TipoProducto tipoProducto){
+    public void eliminar(IPersistible o) throws SipsaExcepcion {
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         StringBuilder consulta = new StringBuilder();
@@ -123,44 +144,42 @@ class TipoProductoBroker implements ISipsaBroker {
         }
     }
 
-    /**
-     * Verifica la existencia de un Tipo de Producto en la base de datos
-     * @param tipoProducto Tipo de Producto a verificar
-     * @return Existencia del Tipo de Producto
-     */
-    protected boolean exist(TipoProducto tipoProducto){
-        boolean existe = false;
+    public IPersistible recuperar(IPersistible o) throws SipsaExcepcion {
+        TipoProducto tipoProducto = new TipoProducto(id);
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
         StringBuilder consulta = new StringBuilder();
         consulta.append("SELECT ");
-        consulta.append("id ");
+        consulta.append("nombre ");
+        consulta.append(", ");
+        consulta.append("duracionGarantia ");
         consulta.append("FROM ");
         consulta.append("TiposProducto ");
         consulta.append("WHERE ");
-        consulta.append("descripcion = ? ");
+        consulta.append("id = ? ");
         try {
             ps = conn.prepareStatement(consulta.toString());
 
-            ps.setString(1, tipoProducto.getDescripcion());
+            ps.setInt(1, tipoProducto.getID());
 
             rs = ps.executeQuery();
-            existe = rs.next();
+            if (rs.next()) {
+                tipoProducto.setDescripcion(rs.getString("nombre"));
+                tipoProducto.setDuracionGarantia(rs.getInt("duracionGarantia"));
+                ModeloBroker modeloBroker = new ModeloBroker();
+                tipoProducto.setModelos(modeloBroker.getList(tipoProducto.getID()));
+            }
             ps.close();
-
         } catch (SQLException ex) {
             ex.printStackTrace();
+            throw new SipsaExcepcion("Error al recuperar el Tipo de Producto id: " + o.getID());
         }
-        return existe;
+        return tipoProducto;
     }
 
-    /**
-     * Obtiene una lista de Tipos de Producto desde la base de datos
-     * @return Lista de Tipos de Productos
-     */
-    protected List<TipoProducto> getList(){
-        List<TipoProducto> lista = new ArrayList<TipoProducto>();
+    public List<IPersistible> recuperarLista() throws SipsaExcepcion {
+        List<IPersistible> lista = new ArrayList<IPersistible>();
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
@@ -173,37 +192,15 @@ class TipoProductoBroker implements ISipsaBroker {
             ps = conn.prepareStatement(consulta.toString());
             rs = ps.executeQuery();
             while (rs.next()) {
-                TipoProducto tipoProducto = getTipoProducto(rs.getInt("id"));
+                TipoProducto tipoProducto = new TipoProducto(rs.getInt("id"));
+                tipoProducto = (TipoProducto) recuperar(tipoProducto);
                 lista.add(tipoProducto);
             }
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+
         }
         return lista;
-    }
-
-    public IPersistible existe(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public boolean actualizar(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public boolean guardar(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public boolean eliminar(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public IPersistible recuperar(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public List<IPersistible> recuperarLista() throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

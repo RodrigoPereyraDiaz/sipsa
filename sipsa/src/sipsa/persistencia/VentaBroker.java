@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sipsa.SipsaExcepcion;
+import sipsa.dominio.Producto;
+import sipsa.dominio.Pv;
 import sipsa.dominio.Venta;
 
 class VentaBroker implements ISipsaBroker {
@@ -29,7 +31,7 @@ class VentaBroker implements ISipsaBroker {
         try {
             ps = conn.prepareStatement(consulta.toString());
 
-            ps.setInt(1, venta.getProductos().getID());
+            ps.setInt(1, venta.getProducto().getID());
 
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -37,20 +39,20 @@ class VentaBroker implements ISipsaBroker {
             } else {
                 venta = null;
             }
-
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
-            throw new SipsaExcepcion("Error al verificar la existencia de la venta");
+            throw new SipsaExcepcion("Error al verificar la existencia de la Venta");
         }
         return venta;
     }
 
-    public boolean actualizar(IPersistible o) throws SipsaExcepcion {
+    public void actualizar(IPersistible o) throws SipsaExcepcion {
+        //TODO
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public boolean guardar(IPersistible o) throws SipsaExcepcion {
+    public void guardar(IPersistible o) throws SipsaExcepcion {
         Venta venta = (Venta) o;
         Connection conn = DB.getConexion();
         PreparedStatement ps;
@@ -73,20 +75,19 @@ class VentaBroker implements ISipsaBroker {
             ps = conn.prepareStatement(consulta.toString());
 
             ps.setInt(1, venta.getEmpresaVendedora().getID());
-            ps.setInt(2, venta.getProductos().getID());
+            ps.setInt(2, venta.getProducto().getID());
             ps.setString(3, venta.getNroFactura());
             ps.setDate(4, Date.valueOf(venta.getFechaFactura().toString()));
 
             ps.execute();
             ps.close();
-            return true;
         } catch (Exception ex) {
             ex.printStackTrace();
-            throw new SipsaExcepcion("Error al guardar la venta");
+            throw new SipsaExcepcion("Error al guardar la Venta");
         }
     }
 
-    public boolean eliminar(IPersistible o) throws SipsaExcepcion {
+    public void eliminar(IPersistible o) throws SipsaExcepcion {
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         StringBuilder consulta = new StringBuilder();
@@ -102,10 +103,9 @@ class VentaBroker implements ISipsaBroker {
 
             ps.execute();
             ps.close();
-            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
-            throw new SipsaExcepcion("Error al eliminar la venta id: " + o.getID());
+            throw new SipsaExcepcion("Error al eliminar la Venta id: " + o.getID());
         }
     }
 
@@ -137,16 +137,20 @@ class VentaBroker implements ISipsaBroker {
             rs = ps.executeQuery();
             if (rs.next()) {
                 PvBroker pvBroker = new PvBroker();
-                venta.setEmpresaVendedora(pvBroker.getPv(rs.getInt("idPv")));
+                Pv pv = new Pv(rs.getInt("idPv"));
+                pv = (Pv) pvBroker.recuperar(pv);
+                venta.setEmpresaVendedora(pv);
                 ProductoBroker productoBroker = new ProductoBroker();
-                venta.setProductos(productoBroker.getProducto(rs.getInt("idProducto")));
+                Producto producto = new Producto(rs.getInt("idProducto"));
+                producto = (Producto) productoBroker.recuperar(producto);
+                venta.setProducto(producto);
                 venta.setNroFactura(rs.getString("nroFactura"));
                 venta.setFechaFactura(rs.getDate("fechaFactura"));
             }
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
-            throw new SipsaExcepcion("Error al recuperar la venta id: " + o.getID());
+            throw new SipsaExcepcion("Error al recuperar la Venta id: " + o.getID());
         }
         return venta;
     }
