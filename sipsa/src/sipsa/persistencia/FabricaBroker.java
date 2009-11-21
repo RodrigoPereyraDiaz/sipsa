@@ -1,10 +1,13 @@
+/*
+ * Sistemas de Informacion II 2009
+ * Proyecto Sipsa
+ */
 package sipsa.persistencia;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,47 +16,45 @@ import sipsa.dominio.Fabrica;
 
 class FabricaBroker implements ISipsaBroker{
 
-    /**
-     * Obtiene un Fabrica desde la base de datos
-     * @param id Identificador unico del Fabrica
-     * @return Instancia de Fabrica
-     */
-    @Deprecated
-    protected Fabrica getFabrica(int id){
-        Fabrica fabrica = new Fabrica(id);
+    public IPersistible existe(IPersistible o) throws SipsaExcepcion {
+                Fabrica fabrica = (Fabrica) o;
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
         StringBuilder consulta = new StringBuilder();
         consulta.append("SELECT ");
-        consulta.append("nombre ");
+        consulta.append("id ");
         consulta.append("FROM ");
         consulta.append("Fabricas ");
         consulta.append("WHERE ");
-        consulta.append("id = ? ");
+        consulta.append("nombre = ? ");
         try {
             ps = conn.prepareStatement(consulta.toString());
 
-            ps.setInt(1, id);
+            ps.setString(1, fabrica.getNombre());
 
             rs = ps.executeQuery();
-            if (rs.next()) {
-                fabrica.setNombre(rs.getString("nombre"));
+            if (rs.next()){
+                fabrica = new Fabrica(rs.getInt("id"));
+                fabrica = (Fabrica) recuperar(fabrica);
+            } else {
+                fabrica = null;
             }
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            throw new SipsaExcepcion("Error al verificar la existencia de la Fabrica");
         }
         return fabrica;
     }
 
-    /**
-     * Guarda un Fabrica en la base de datos
-     * @param fabrica pv Fabrica a guardar
-     * @return Resultado de la operacion
-     */
-    @Deprecated
-    protected boolean saveFabrica(Fabrica fabrica){
+    public void actualizar(IPersistible o) throws SipsaExcepcion {
+        //TODO definir actualizacion de Fabrica
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void guardar(IPersistible o) throws SipsaExcepcion {
+        Fabrica fabrica = (Fabrica) o;
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         StringBuilder consulta = new StringBuilder();
@@ -71,21 +72,14 @@ class FabricaBroker implements ISipsaBroker{
 
             ps.execute();
             ps.close();
-            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
+        throw new SipsaExcepcion("Error al guardar la Fabrica");
         }
     }
 
-    /**
-     * Elimina una Fabrica de la base de datos
-     * @param fabrica  Fabrica a eliminar
-     * @return Resultado de la operacion
-     */
-    @Deprecated
-    protected boolean deleteFabrica(Fabrica fabrica){
-        Connection conn = DB.getConexion();
+    public void eliminar(IPersistible o) throws SipsaExcepcion {
+                Connection conn = DB.getConexion();
         PreparedStatement ps;
         StringBuilder consulta = new StringBuilder();
         consulta.append("DELETE ");
@@ -95,93 +89,15 @@ class FabricaBroker implements ISipsaBroker{
         consulta.append("id = ? ");
         try {
             ps = conn.prepareStatement(consulta.toString());
-            
-            ps.setInt(1, fabrica.getID());
+
+            ps.setInt(1, o.getID());
 
             ps.execute();
             ps.close();
-            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
+            throw new SipsaExcepcion("Error al eliminar la Fabrica id: " + o.getID());
         }
-    }
-
-    /**
-     * Verficia la existencia de un Fabrica en la base de datos
-     * @param fabrica Fabrica a verificar
-     * @return Existencia del Fabrica
-     */
-    @Deprecated
-    protected boolean exist(Fabrica fabrica){
-        boolean existe = false;
-        Connection conn = DB.getConexion();
-        PreparedStatement ps;
-        ResultSet rs;
-        StringBuilder consulta = new StringBuilder();
-        consulta.append("SELECT ");
-        consulta.append("id ");
-        consulta.append("FROM ");
-        consulta.append("Fabricas ");
-        consulta.append("WHERE ");
-        consulta.append("nombre = ? ");
-        try {
-            ps = conn.prepareStatement(consulta.toString());
-
-            ps.setString(1, fabrica.getNombre());
-
-            rs = ps.executeQuery();
-            existe = rs.next();
-            ps.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return existe;
-    }
-
-    /**
-     * Obtiene una lista de los Fabricas desde la base de datos
-     * @return Lista de Fabricas
-     */
-    @Deprecated
-    protected List<Fabrica> getList(){
-        List<Fabrica> lista = new ArrayList<Fabrica>();
-        Connection conn = DB.getConexion();
-        PreparedStatement ps;
-        ResultSet rs;
-        StringBuilder consulta = new StringBuilder();
-        consulta.append("SELECT ");
-        consulta.append("id ");
-        consulta.append("FROM ");
-        consulta.append("Fabricas ");
-        try {
-            ps = conn.prepareStatement(consulta.toString());
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Fabrica fabrica = getFabrica(rs.getInt("id"));
-                lista.add(fabrica);
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return lista;
-    }
-
-    public IPersistible existe(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public boolean actualizar(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public boolean guardar(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public boolean eliminar(IPersistible o) throws SipsaExcepcion {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public List<IPersistible> recuperarLista() throws SipsaExcepcion {
@@ -204,6 +120,7 @@ class FabricaBroker implements ISipsaBroker{
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            throw new SipsaExcepcion("Error al recuperar la lista de Fabricas");
         }
         return lista;
     }
@@ -232,6 +149,7 @@ class FabricaBroker implements ISipsaBroker{
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            throw new SipsaExcepcion("Error al recuperar la Fabrica id: " + o.getID());
         }
         return fabrica;
     }

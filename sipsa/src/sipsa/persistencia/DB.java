@@ -2,7 +2,6 @@
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa
  */
-
 package sipsa.persistencia;
 
 import java.sql.Connection;
@@ -20,7 +19,7 @@ class DB {
      * Conexion a la Base de Datos
      * @return Conexion unica a la base de datos
      */
-    public static Connection getConexion() {
+    public static Connection getConexion() throws SipsaExcepcion {
         if (DB.conn == null) {
             try {
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -29,8 +28,7 @@ class DB {
                 DB.conn = DriverManager.getConnection(connectionUrl, "sipsa", "sipsa");
             } catch (Exception ex) {
                 ex.printStackTrace();
-                //TODO hacer que lance una SipsaExcepcion
-                //throw new SipsaExcepcion("Error al conectarse a la base de datos");
+                throw new SipsaExcepcion("Error al conectarse a la base de datos de Sipsa");
             }
         }
         return conn;
