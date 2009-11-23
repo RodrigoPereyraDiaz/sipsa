@@ -2,7 +2,6 @@
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa
  */
-
 package sipsa.control;
 
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import javax.swing.table.DefaultTableModel;
 import sipsa.SipsaExcepcion;
 import sipsa.dominio.Empresa;
 import sipsa.dominio.Pv;
-import sipsa.persistencia.IPersistible;
 import sipsa.persistencia.Persistencia;
 import sipsa.presentacion.escritorio.DialogoMensaje;
 import sipsa.presentacion.interfaces.IListarABM;
@@ -29,16 +27,14 @@ import sipsa.presentacion.escritorio.ListarABM;
 public class PvControl implements IEmpresaDatos, IListarABM {
 
     private Persistencia persistencia = Persistencia.getPersistencia();
-    private List<Pv> listaPvs = null;
+    private List<Pv> lista;
 
-    private void recuperarLista(){
-        if (getListaPvs() == null)
-            listaPvs = new ArrayList<Pv>();
+    private void recuperarLista() {
+        lista = new ArrayList<Pv>();
         try {
-            List<IPersistible> lista = persistencia.recuperarLista(Pv.class);
-            for (Iterator iterator = lista.iterator(); iterator.hasNext();) {
+            for (Iterator iterator = persistencia.recuperarLista(Pv.class).iterator(); iterator.hasNext();) {
                 Pv pv = (Pv) iterator.next();
-                getListaPvs().add(pv);
+                lista.add(pv);
             }
         } catch (SipsaExcepcion ex) {
             new DialogoMensaje(DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
@@ -46,24 +42,9 @@ public class PvControl implements IEmpresaDatos, IListarABM {
     }
 
     /**
-     * Verifica la existencia del Punto de Venta
-     * @param pv
-     * @return devuelve el Punto de Venta si existe, sino muestra una excepción
-     * @throws java.lang.Exception
-     */
-    
-    public Pv existePv(Pv pv) throws Exception{
-        pv = (Pv) persistencia.existe(pv);
-        if (pv.getID() > 0){
-            return pv;
-        } else {
-            throw new Exception("Pv no existe");
-        }
-    }
-    /**
      * Muestra el formulario para Administrar Puntos de Venta
      */
-    public void mostrarAdministrar(){
+    public void mostrarAdministrar() {
         this.recuperarLista();
         ListarABM listarABMPv = new ListarABM(this);
         listarABMPv.setVisible(true);
@@ -123,7 +104,7 @@ public class PvControl implements IEmpresaDatos, IListarABM {
     public void guardarEmpresa(Empresa empresa) throws Exception {
         Pv pv = (Pv) empresa;
         //TODO Validaciones
-        if (this.persistencia.existe(pv).equals(pv)){
+        if (this.persistencia.existe(pv).equals(pv)) {
             this.persistencia.guardar(pv);
             this.getListaPvs().add(pv);
         } else {
@@ -135,8 +116,22 @@ public class PvControl implements IEmpresaDatos, IListarABM {
      * @return the listaPvs
      */
     public List<Pv> getListaPvs() {
-        if (listaPvs == null)
-            this.recuperarLista();
-        return listaPvs;
+        recuperarLista();
+        return lista;
+    }
+
+    /**
+     * Verifica la existencia del Punto de Venta
+     * @param pv
+     * @return devuelve el Punto de Venta si existe, sino muestra una excepción
+     * @throws java.lang.Exception
+     */
+    public Pv existePv(Pv pv) throws Exception {
+        pv = (Pv) persistencia.existe(pv);
+        if (pv == null) {
+            throw new Exception("El Punto de Venta no existe");
+        } else {
+            return pv;
+        }
     }
 }

@@ -3,6 +3,7 @@ package sipsa.control;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
+
 import sipsa.SipsaExcepcion;
 import sipsa.dominio.Modelo;
 import sipsa.dominio.Producto;
@@ -39,7 +40,7 @@ public class VentaControl {
             throw new SipsaExcepcion("El el producto no se encuentra disponible para activacion de garantia, verifique el tipo, modelo y número de serie");
         }
         venta.setProducto(producto);
-        if (this.productoRegistrado(venta)){
+        if (this.isProductoRegistrado(venta)){
             throw new SipsaExcepcion("El el producto ya fue registrado anteriormente, la garantia ya se encuentra activada");
         }
         Date fechaFacturaRegistro;
@@ -53,9 +54,9 @@ public class VentaControl {
             throw new SipsaExcepcion("La fecha de factura NO puede ser mayor a la fecha actual");
         }
         venta.setFechaFactura(fechaFacturaRegistro);
-        /*if (nroFactura.equals("")){
-        throw new SipsaExcepcion("Debe ingresar el numero de factura de la venta");
-        }*/
+        if (nroFactura.equals("")){
+            throw new SipsaExcepcion("Debe ingresar el numero de factura de la venta");
+        }
         venta.setNroFactura(nroFactura);
         venta.setEmpresaVendedora(pv);
         this.guardarVenta(venta);
@@ -69,7 +70,7 @@ public class VentaControl {
         persistencia.guardar(venta);
     }
 
-    private boolean productoRegistrado(Venta venta) throws SipsaExcepcion{
+    private boolean isProductoRegistrado(Venta venta) throws SipsaExcepcion{
         return (persistencia.existe(venta) != null);
     }
 }
