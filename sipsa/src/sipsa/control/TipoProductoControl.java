@@ -11,7 +11,6 @@ import javax.swing.table.DefaultTableModel;
 
 import sipsa.SipsaExcepcion;
 import sipsa.dominio.TipoProducto;
-import sipsa.persistencia.IPersistible;
 import sipsa.presentacion.interfaces.IListarABM;
 import sipsa.presentacion.escritorio.ListarABM;
 import sipsa.presentacion.interfaces.ITipoProductoDatos;
@@ -27,17 +26,14 @@ import sipsa.presentacion.escritorio.DialogoMensaje;
 public class TipoProductoControl implements IListarABM, ITipoProductoDatos {
 
     private Persistencia persistencia = Persistencia.getPersistencia();
-    private List<TipoProducto> listaTipoProducto;
+    private List<TipoProducto> lista;
 
     private void recuperarLista() {
-        if (listaTipoProducto == null) {
-            listaTipoProducto = new ArrayList<TipoProducto>();
-        }
+        lista = new ArrayList<TipoProducto>();
         try {
-            List<IPersistible> lista = persistencia.recuperarLista(TipoProducto.class);
-            for (Iterator iterator = lista.iterator(); iterator.hasNext();) {
+            for (Iterator iterator = persistencia.recuperarLista(TipoProducto.class).iterator(); iterator.hasNext();) {
                 TipoProducto tipoProducto = (TipoProducto) iterator.next();
-                listaTipoProducto.add(tipoProducto);
+                lista.add(tipoProducto);
             }
         } catch (SipsaExcepcion ex) {
             new DialogoMensaje(DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
@@ -58,12 +54,14 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos {
     public void agregar() {
         TipoProductoDatos tipoProductoDatos = new TipoProductoDatos(this, new TipoProducto());
         tipoProductoDatos.setVisible(true);
+        recuperarLista();
     }
 
     public void modificar(int index) {
         TipoProducto tipoProducto = this.getListaTipoProducto().get(index);
         TipoProductoDatos tipoProductoDatos = new TipoProductoDatos(this, tipoProducto);
         tipoProductoDatos.setVisible(true);
+        recuperarLista();
     }
 
     /**
@@ -74,10 +72,10 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos {
         TipoProducto tipoProducto = this.getListaTipoProducto().get(index);
         try {
             persistencia.eliminar(tipoProducto);
+            recuperarLista();
         } catch (SipsaExcepcion ex) {
             new DialogoMensaje(DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
         }
-        this.listaTipoProducto.remove(tipoProducto);
     }
 
     /**
@@ -95,7 +93,8 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos {
     public DefaultTableModel getModelo() {
         String[] columnNames = {"Descripcion", "Duracion Garantia"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
-        for (Iterator tpIt = this.getListaTipoProducto().iterator(); tpIt.hasNext();) {
+        recuperarLista();
+        for (Iterator tpIt = lista.iterator(); tpIt.hasNext();) {
             TipoProducto tipoProducto = (TipoProducto) tpIt.next();
             Object[] datos = new Object[modelo.getColumnCount()];
             datos[0] = tipoProducto.getDescripcion();
@@ -109,10 +108,8 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos {
      * @return the listaTipoProducto
      */
     public List<TipoProducto> getListaTipoProducto() {
-        if (listaTipoProducto == null) {
-            recuperarLista();
-        }
-        return listaTipoProducto;
+        recuperarLista();
+        return lista;
     }
 
     /**
@@ -120,10 +117,25 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos {
      * @param tipoProducto
      * @throws java.lang.Exception
      */
-    public void guardarTipoProducto(TipoProducto tipoProducto) throws Exception {
-        //TODO validar la garantia sea mayor a 0 meses
-        this.persistencia.existe(tipoProducto);
-        this.persistencia.guardar(tipoProducto);
-        this.listaTipoProducto.add(tipoProducto);
+    public void guardarTipoProducto(TipoProducto tipoProducto) throws SipsaExcepcion {
+        if (tipoProducto.getDescripcion().equals("")) {
+            throw new SipsaExcepcion("Debe completar todos los datos solicitados");
+        }
+        if (tipoProducto.getDuracionGarantia() <= 0) {
+            throw new SipsaExcepcion("La duración de la garantia debe ser mayor a 0 meses");
+        }
+        if (tipoProducto.getModelos().isEmpty()) {
+            throw new SipsaExcepcion("Debe definir por lo menos un Modelo del Tipo de Producto");
+        }
+        if (tipoProducto.getID() > 0) {
+            persistencia.actualizar(tipoProducto);
+        } else {
+            if (persistencia.existe(tipoProducto) == null) {
+                persistencia.guardar(tipoProducto);
+            } else {
+                throw new SipsaExcepcion("El Punto de Atencion ya exite, imposible agregar");
+            }
+        }
+        recuperarLista();
     }
 }

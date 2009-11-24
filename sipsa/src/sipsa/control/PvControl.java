@@ -45,7 +45,7 @@ public class PvControl implements IEmpresaDatos, IListarABM {
      * Muestra el formulario para Administrar Puntos de Venta
      */
     public void mostrarAdministrar() {
-        this.recuperarLista();
+        recuperarLista();
         ListarABM listarABMPv = new ListarABM(this);
         listarABMPv.setVisible(true);
     }
@@ -64,11 +64,13 @@ public class PvControl implements IEmpresaDatos, IListarABM {
     public void agregar() {
         EmpresaDatos formulario = new EmpresaDatos(this, new Pv());
         formulario.setVisible(true);
+        recuperarLista();
     }
 
     public void modificar(int index) {
         EmpresaDatos formulario = new EmpresaDatos(this, this.getListaPvs().get(index));
         formulario.setVisible(true);
+        recuperarLista();
     }
 
     /**
@@ -78,10 +80,10 @@ public class PvControl implements IEmpresaDatos, IListarABM {
         Pv pv = this.getListaPvs().get(index);
         try {
             this.persistencia.eliminar(pv);
+            recuperarLista();
         } catch (SipsaExcepcion ex) {
             new DialogoMensaje(DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
         }
-        this.getListaPvs().remove(pv);
     }
 
     /**
@@ -91,6 +93,7 @@ public class PvControl implements IEmpresaDatos, IListarABM {
     public DefaultTableModel getModelo() {
         String[] columnNames = {"Cuit", "Nombre"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
+        recuperarLista();
         for (Iterator PvIt = this.getListaPvs().iterator(); PvIt.hasNext();) {
             Pv pv = (Pv) PvIt.next();
             Object[] datos = new Object[modelo.getColumnCount()];
@@ -103,13 +106,20 @@ public class PvControl implements IEmpresaDatos, IListarABM {
 
     public void guardarEmpresa(Empresa empresa) throws Exception {
         Pv pv = (Pv) empresa;
-        //TODO Validaciones
-        if (this.persistencia.existe(pv).equals(pv)) {
-            this.persistencia.guardar(pv);
-            this.getListaPvs().add(pv);
-        } else {
-            throw new Exception("El punto de venta ya existe, imposible agregar");
+        //TODO Validar CUIT
+        if (pv.getCuit().equals("") || pv.getNombre().equals("")) {
+            throw new SipsaExcepcion("Debe completar todos los datos solicitados");
         }
+        if (pv.getID() > 0) {
+            persistencia.actualizar(pv);
+        } else {
+            if (persistencia.existe(pv) == null) {
+                persistencia.guardar(pv);
+            } else {
+                throw new SipsaExcepcion("El Punto de Venta ya exite. Imposible agregar");
+            }
+        }
+        recuperarLista();
     }
 
     /**

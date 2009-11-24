@@ -70,7 +70,7 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
     }
 
     void handleOrdenesDeTrabajo(List<OrdenDeTrabajo> lista) {
-        this.listaOdts = lista;
+        this.lista = lista;
     }
 
 //TODO Completar la clase cliente que es controlador del cliente pac
@@ -105,7 +105,7 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
 
     @Override
     protected void recuperarLista() {
-        if (this.listaOdts == null) {
+        if (this.lista == null) {
             try {
                 Mensaje solicitud = MensajesFabrica.newSolicitudOrdenesDeTrabajo();
                 solicitud.setContenido(this.pac);
@@ -195,7 +195,7 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
             conexion.enviarMensaje(solicitud);
             Mensaje respuesta = conexion.recibirMensaje();
             respuesta.procesar();
-            this.listaOdts.add(ordenDeTrabajo);
+            this.lista.add(ordenDeTrabajo);
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new SipsaExcepcion("Error solicitando al servidor que guarde la orden de trabajo");
@@ -241,7 +241,7 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
     public TableModel getModelo() {
         String[] columnNames = {"Nro de Orden", "Estado"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
-        for (Iterator it = listaOdts.iterator(); it.hasNext();) {
+        for (Iterator it = lista.iterator(); it.hasNext();) {
             OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
             Object[] fila = new Object[modelo.getColumnCount()];
             fila[0] = ordenDeTrabajo.getID();
