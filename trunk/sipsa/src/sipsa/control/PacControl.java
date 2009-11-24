@@ -120,7 +120,7 @@ public class PacControl implements IEmpresaDatos, IListarABM {
             if (persistencia.existe(pac) == null) {
                 persistencia.guardar(pac);
             } else {
-                throw new SipsaExcepcion("El Punto de Atencion ya exite, imposible agregar");
+                throw new SipsaExcepcion("El Punto de Atenció al Cliente ya exite, Imposible agregar");
             }
         }
         recuperarLista();

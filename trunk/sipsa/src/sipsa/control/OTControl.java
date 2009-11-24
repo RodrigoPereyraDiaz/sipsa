@@ -14,7 +14,6 @@ import sipsa.dominio.EstadoOT;
 import sipsa.dominio.OrdenDeTrabajo;
 import sipsa.dominio.Pac;
 import sipsa.dominio.TipoProducto;
-import sipsa.persistencia.IPersistible;
 import sipsa.persistencia.Persistencia;
 import sipsa.presentacion.escritorio.DialogoMensaje;
 import sipsa.presentacion.escritorio.ListarABM;
@@ -30,12 +29,12 @@ import sipsa.presentacion.interfaces.IOrdenDeTrabajoDatos;
 public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
 
     private Persistencia persistencia = Persistencia.getPersistencia();
-    protected List<OrdenDeTrabajo> listaOdts;
+    protected List<OrdenDeTrabajo> lista;
 
     protected void recuperarLista() {
+        lista = new ArrayList<OrdenDeTrabajo>();
         try {
-            List<IPersistible> lista = persistencia.recuperarLista(OrdenDeTrabajo.class);
-            for (Iterator iterator = lista.iterator(); iterator.hasNext();) {
+            for (Iterator iterator = persistencia.recuperarLista(OrdenDeTrabajo.class).iterator(); iterator.hasNext();) {
                 OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) iterator.next();
                 lista.add(ordenDeTrabajo);
             }
@@ -48,37 +47,31 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
      * Muestra el formulario para administrar Ordenes de Trabajo
      */
     public void mostrarAdministrar() {
-        this.recuperarLista();
+        recuperarLista();
         ListarABM listarABM = new ListarABM(this);
         listarABM.setVisible(true);
     }
 
     public void agregar() {
         OrdenDeTrabajo ordenDeTrabajo = new OrdenDeTrabajo();
-        OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this,ordenDeTrabajo);
+        OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this, ordenDeTrabajo);
         ordenDeTrabajoDatos.setVisible(true);
+        recuperarLista();
     }
 
     public void modificar(int index) {
-        OrdenDeTrabajo ordenDeTrabajo = listaOdts.get(index);
-        this.listaOdts.remove(ordenDeTrabajo);
+        OrdenDeTrabajo ordenDeTrabajo = lista.get(index);
         OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this, ordenDeTrabajo);
         ordenDeTrabajoDatos.setVisible(true);
-        if (ordenDeTrabajoDatos.isSinCambio()){
-            this.listaOdts.add(ordenDeTrabajo);
-        }
+        recuperarLista();
     }
 
     public void eliminar(int index) {
-        OrdenDeTrabajo ordenDeTrabajo = listaOdts.get(index);
-        this.listaOdts.remove(ordenDeTrabajo);
+        OrdenDeTrabajo ordenDeTrabajo = lista.get(index);
         ordenDeTrabajo.setEstado(EstadoOT.Anulada);
         OrdenDeTrabajoDatos ordenDeTrabajoDatos = new OrdenDeTrabajoDatos(this, ordenDeTrabajo);
         ordenDeTrabajoDatos.setVisible(true);
-        if (ordenDeTrabajoDatos.isSinCambio()){
-            ordenDeTrabajo.setEstado(EstadoOT.Activa);
-            this.listaOdts.add(ordenDeTrabajo);
-        }
+        recuperarLista();
     }
 
     public String getDescripcion() {
@@ -88,7 +81,8 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
     public TableModel getModelo() {
         String[] columnNames = {"Nro de Orden", "Estado", "Pac"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
-        for (Iterator it = listaOdts.iterator(); it.hasNext();) {
+        recuperarLista();
+        for (Iterator it = lista.iterator(); it.hasNext();) {
             OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
             Object[] fila = new Object[modelo.getColumnCount()];
             fila[0] = ordenDeTrabajo.getID();
@@ -108,7 +102,7 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
         String[] columnNames = {"Nro de Orden", "Estado", "Pac"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
         //TODO filtrar solo las ordenes de trabajo realizadas
-        List<OrdenDeTrabajo> lista = new ArrayList<OrdenDeTrabajo>();
+        recuperarLista();
         for (Iterator it = lista.iterator(); it.hasNext();) {
             OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
             Object[] fila = new Object[modelo.getColumnCount()];
@@ -129,7 +123,7 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
         String[] columnNames = {"Nro de Orden", "Estado", "Pac"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
         //TODO filtrar solo las ordenes de trabajo Pendientes
-        List<OrdenDeTrabajo> lista = new ArrayList<OrdenDeTrabajo>();
+        recuperarLista();
         for (Iterator it = lista.iterator(); it.hasNext();) {
             OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
             Object[] fila = new Object[modelo.getColumnCount()];
@@ -150,7 +144,7 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
         String[] columnNames = {"Nro de Orden", "Estado", "Pac"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
         //TODO filtrar solo las ordenes de trabajo vencidas
-        List<OrdenDeTrabajo> lista = new ArrayList<OrdenDeTrabajo>();
+        recuperarLista();
         for (Iterator it = lista.iterator(); it.hasNext();) {
             OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
             Object[] fila = new Object[modelo.getColumnCount()];
@@ -170,10 +164,10 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
      */
     public void guardarOrdenDeTrabajo(OrdenDeTrabajo ordenDeTrabajo) throws SipsaExcepcion {
         //TODO Validar Datos correctos segun el estado de la orden
-        if (ordenDeTrabajo.getFechaEntrega().before(new Date(System.currentTimeMillis()))){
+        if (ordenDeTrabajo.getFechaEntrega().before(new Date(System.currentTimeMillis()))) {
             throw new SipsaExcepcion("La fecha de entrega no puede ser anterior a al dia de hoy");
         }
-        switch (ordenDeTrabajo.getEstado()){
+        switch (ordenDeTrabajo.getEstado()) {
             case Nueva:
                 persistencia.guardar(ordenDeTrabajo);
             case Activa:
@@ -183,7 +177,7 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
             case Anulada:
                 persistencia.actualizar(ordenDeTrabajo);
         }
-        this.listaOdts.add(ordenDeTrabajo);
+        recuperarLista();
     }
 
     /**
@@ -218,8 +212,8 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
         return comboBoxModel;
     }
 
-    public List<OrdenDeTrabajo> getListaOT(Pac pac){
-      //TODO completar
-        return this.listaOdts;
+    public List<OrdenDeTrabajo> getListaOT(Pac pac) {
+        recuperarLista();
+        return lista;
     }
 }
