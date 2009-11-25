@@ -28,13 +28,13 @@ public class DialogoMensaje extends javax.swing.JDialog {
         initComponents();
         switch (tipo) {
             case Información:
-                jLabelIcono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sipsa/presentacion/recursos/dialog-information.png")));
+                jLabelInformacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sipsa/presentacion/recursos/dialog-information.png")));
                 break;
             case Advertencia:
-                jLabelIcono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sipsa/presentacion/recursos/dialog-warning.png")));
+                jLabelInformacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sipsa/presentacion/recursos/dialog-warning.png")));
                 break;
             case Error:
-                jLabelIcono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sipsa/presentacion/recursos/dialog-error.png")));
+                jLabelInformacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sipsa/presentacion/recursos/dialog-error.png")));
                 break;
         }
         this.setTitle(tipo.toString());
@@ -53,9 +53,7 @@ public class DialogoMensaje extends javax.swing.JDialog {
     private void initComponents() {
 
         jButtonAceptar = new javax.swing.JButton();
-        jScrollPaneInformacion = new javax.swing.JScrollPane();
-        jLabelInformacion = new javax.swing.JTextArea();
-        jLabelIcono = new javax.swing.JLabel();
+        jLabelInformacion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationByPlatform(true);
@@ -70,39 +68,27 @@ public class DialogoMensaje extends javax.swing.JDialog {
             }
         });
 
-        jLabelInformacion.setColumns(20);
-        jLabelInformacion.setEditable(false);
-        jLabelInformacion.setRows(5);
-        jScrollPaneInformacion.setViewportView(jLabelInformacion);
+        jLabelInformacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sipsa/presentacion/recursos/dialog-information.png"))); // NOI18N
+        jLabelInformacion.setMaximumSize(new java.awt.Dimension(32, 150));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabelIcono, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPaneInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(150, 150, 150)
-                        .addComponent(jButtonAceptar)))
-                .addContainerGap())
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER, false)
+                    .addComponent(jButtonAceptar)
+                    .addComponent(jLabelInformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPaneInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonAceptar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jLabelIcono, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelInformacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonAceptar)
                 .addContainerGap())
         );
 
@@ -115,9 +101,7 @@ public class DialogoMensaje extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAceptar;
-    private javax.swing.JLabel jLabelIcono;
-    private javax.swing.JTextArea jLabelInformacion;
-    private javax.swing.JScrollPane jScrollPaneInformacion;
+    private javax.swing.JLabel jLabelInformacion;
     // End of variables declaration//GEN-END:variables
 
 }

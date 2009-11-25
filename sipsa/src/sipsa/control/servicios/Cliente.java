@@ -24,6 +24,7 @@ import sipsa.dominio.TipoProducto;
 import sipsa.presentacion.escritorio.DialogoMensaje;
 import sipsa.presentacion.escritorio.ListarABM;
 import sipsa.presentacion.escritorio.Login;
+import sipsa.presentacion.escritorio.RangoFechas;
 import sipsa.presentacion.escritorio.ReporteVisor;
 import sipsa.presentacion.escritorio.SipsaPacMenu;
 
@@ -62,11 +63,13 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
     }
 
     void handelOK(Object respuesta) {
-        if (respuesta.getClass().equals(Pac.class))
+        if (respuesta.getClass().equals(Pac.class)) {
             this.pac = (Pac) respuesta;
-        if (respuesta.getClass().equals(String.class))
+        }
+        if (respuesta.getClass().equals(String.class)) {
             new DialogoMensaje(DialogoMensaje.Tipo.Información, respuesta.toString());
-        //TODO otras respuestas
+        }
+    //TODO otras respuestas
     }
 
     void handleOrdenesDeTrabajo(List<OrdenDeTrabajo> lista) {
@@ -124,12 +127,15 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
     }
 
     public void mostrarReporteOTRealizadas() {
-        //TODO filtrar la lista
-        Reporte reporte = new Reporte();
-        reporte.setNombre("Ordenes de Trabajo Realizadas");
-        reporte.setDatos(this.getOTRealizadas());
-        ReporteVisor reporteVisor = new ReporteVisor(reporte);
-        reporteVisor.setVisible(true);
+        RangoFechas rangoFechas = new RangoFechas();
+        rangoFechas.setVisible(true);
+        if (rangoFechas.getReturnStatus() == RangoFechas.RET_OK) {
+            Reporte reporte = new Reporte();
+            reporte.setNombre("Ordenes de Trabajo Realizadas");
+            reporte.setDatos(this.getOTRealizadas(rangoFechas.getFechaDesde(), rangoFechas.getFechaHasta()));
+            ReporteVisor reporteVisor = new ReporteVisor(reporte);
+            reporteVisor.setVisible(true);
+        }
     }
 
     public void mostrarReporteOTPendientes() {
@@ -249,13 +255,14 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
             modelo.addRow(fila);
         }
         return modelo;
-}
-        /**
+    }
+
+    /**
      * Obtiene la lista de Ordenes de Trabajo realizadas
      * @return devuelve una lista de ordenes de Trabajo realizadas para mostrar en la tabla
      */
     @Override
-    public TableModel getOTRealizadas() {
+    public TableModel getOTRealizadas(Date fechaDesde, Date fechaHasta) {
         //TODO completar con todos los datos de la orden para visualizar en el reporte
         String[] columnNames = {"Nro de Orden", "Estado"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
@@ -297,7 +304,7 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
      * Obtiene la lista de Ordenes de Trabajo Vencidas
      * @return devuelve una lista de Ordenes de Trabajo vencidas
      */
-     @Override
+    @Override
     public TableModel getOTVencidas() {
         //TODO completar con todos los datos de la orden para visualizar en el reporte
         String[] columnNames = {"Nro de Orden", "Estado"};
@@ -313,5 +320,4 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
         }
         return modelo;
     }
-
 }

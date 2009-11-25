@@ -186,14 +186,14 @@ class OtBroker implements ISipsaBroker {
             rs = ps.executeQuery();
             if (rs.next()) {
                 PacBroker pacBroker = new PacBroker();
-                Pac pac = new Pac(rs.getInt("id"));
+                Pac pac = new Pac(rs.getInt("idPac"));
                 pac = (Pac) pacBroker.recuperar(pac);
                 ordenDeTrabajo.setPac(pac);
                 VentaBroker ventaBroker = new VentaBroker();
                 Venta venta = new Venta(rs.getInt("idVenta"));
                 venta = (Venta) ventaBroker.recuperar(venta);
                 ordenDeTrabajo.setVenta(venta);
-                ordenDeTrabajo.setObservaciones(rs.getString("observaciones"));
+                ordenDeTrabajo.setObservaciones(rs.getString("observacion"));
                 ordenDeTrabajo.setEstado(EstadoOT.fromInt(rs.getInt("idEstado")));
                 ordenDeTrabajo.setMotivoEstado(rs.getString("motivoEstado"));
                 ordenDeTrabajo.setFechaEntrega(rs.getDate("fechaEntrega"));

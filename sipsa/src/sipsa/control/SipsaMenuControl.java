@@ -2,13 +2,9 @@
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa
  */
-
 package sipsa.control;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import sipsa.SipsaExcepcion;
-import sipsa.presentacion.escritorio.DialogoMensaje;
+import sipsa.presentacion.escritorio.RangoFechas;
 import sipsa.presentacion.escritorio.ReporteVisor;
 import sipsa.presentacion.escritorio.SipsaMenu;
 import sipsa.presentacion.interfaces.ISipsaMenu;
@@ -23,7 +19,7 @@ public class SipsaMenuControl implements ISipsaMenu {
     /**
      * Muestra el formulario Menu Sipsa
      */
-    public void mostrarMenu(){
+    public void mostrarMenu() {
         SipsaMenu sipsaMenu = new SipsaMenu(this);
         sipsaMenu.setVisible(true);
     }
@@ -61,17 +57,19 @@ public class SipsaMenuControl implements ISipsaMenu {
     }
 
     public void mostrarReporteOTRealizadas() {
-        //TODO filtrar la lista
-        Reporte reporte = new Reporte();
-        reporte.setNombre("Ordenes de Trabajo Realizadas");
-        OTControl oTControl = new OTControl();
-        reporte.setDatos(oTControl.getOTRealizadas());
-        ReporteVisor reporteVisor = new ReporteVisor(reporte);
-        reporteVisor.setVisible(true);
+        RangoFechas rangoFechas = new RangoFechas();
+        rangoFechas.setVisible(true);
+        if (rangoFechas.getReturnStatus() == RangoFechas.RET_OK) {
+            Reporte reporte = new Reporte();
+            reporte.setNombre("Ordenes de Trabajo Realizadas");
+            OTControl oTControl = new OTControl();
+            reporte.setDatos(oTControl.getOTRealizadas(rangoFechas.getFechaDesde(), rangoFechas.getFechaHasta()));
+            ReporteVisor reporteVisor = new ReporteVisor(reporte);
+            reporteVisor.setVisible(true);
+        }
     }
 
     public void mostrarReporteOTPendientes() {
-        //TODO filtrar la lista
         Reporte reporte = new Reporte();
         reporte.setNombre("Ordenes de Trabajo Pendientes");
         OTControl oTControl = new OTControl();
@@ -81,7 +79,6 @@ public class SipsaMenuControl implements ISipsaMenu {
     }
 
     public void mostrarReporteOTVencidas() {
-        //TODO filtrar la lista
         Reporte reporte = new Reporte();
         reporte.setNombre("Ordenes de Trabajo Vencidas");
         OTControl oTControl = new OTControl();
