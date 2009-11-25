@@ -60,8 +60,36 @@ class ProductoBroker implements ISipsaBroker {
     }
 
     public void actualizar(IPersistible o) throws SipsaExcepcion {
-        //TODO definir actualizacion de Producto
-        throw new UnsupportedOperationException("Not supported yet.");
+        Producto producto = (Producto) o;
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("UPDATE ");
+        consulta.append("Productos ");
+        consulta.append("SET ");
+        consulta.append("nroSerie = ? "); //nroSerie
+        consulta.append(", ");
+        consulta.append("idModelo = ? "); //idModelo
+        consulta.append(", ");
+        consulta.append("idFabrica = ? "); //idFabrica
+        consulta.append(", ");
+        consulta.append("fechaFabricacion = ?"); //fechaFabricacion
+        consulta.append("WHERE ");
+        consulta.append("id = ? ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setString(1, producto.getNroSerie());
+            ps.setInt(2, producto.getModelo().getID());
+            ps.setInt(3, producto.getFabrica().getID());
+            ps.setDate(4, (Date) producto.getFechaFabricacion());
+            ps.setInt(5, producto.getID());
+            ps.execute();
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new SipsaExcepcion("Error al actualizar el Producto");
+        }
     }
 
     public void guardar(IPersistible o) throws SipsaExcepcion {
@@ -81,7 +109,7 @@ class ProductoBroker implements ISipsaBroker {
         consulta.append(", ");
         consulta.append("? "); //idFabrica
         consulta.append(", ");
-        consulta.append("1"); //fechaFabricacion
+        consulta.append("?"); //fechaFabricacion
         consulta.append(") ");
         try {
             ps = conn.prepareStatement(consulta.toString());

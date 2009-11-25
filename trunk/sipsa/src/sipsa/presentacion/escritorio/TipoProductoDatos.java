@@ -1,11 +1,13 @@
-//TODO agregar la logica para poblar el formulario y para agregar y eliminar modelos
-
 /*
  * Sistemas de Información II 2009
  * Proyecto Sipsa
  */
-
 package sipsa.presentacion.escritorio;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.AbstractListModel;
+import javax.swing.ListModel;
 
 import sipsa.Configuracion;
 import sipsa.dominio.TipoProducto;
@@ -17,6 +19,7 @@ import sipsa.presentacion.interfaces.ITipoProductoDatos;
  * @author Maria Eugenia Sanchez
  */
 public class TipoProductoDatos extends javax.swing.JDialog {
+
     private ITipoProductoDatos controlador;
     private TipoProducto tipoProducto;
 
@@ -55,7 +58,6 @@ public class TipoProductoDatos extends javax.swing.JDialog {
         jScrollPaneModelos = new javax.swing.JScrollPane();
         jListModelos = new javax.swing.JList();
         jTextFieldModelo = new javax.swing.JTextField();
-        jButtonEliminarModelo = new javax.swing.JButton();
         jButtonAgregarModelo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -91,14 +93,6 @@ public class TipoProductoDatos extends javax.swing.JDialog {
         jListModelos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPaneModelos.setViewportView(jListModelos);
 
-        jButtonEliminarModelo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sipsa/presentacion/recursos/list-remove.png"))); // NOI18N
-        jButtonEliminarModelo.setToolTipText("Eliminar Modelo");
-        jButtonEliminarModelo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEliminarModeloActionPerformed(evt);
-            }
-        });
-
         jButtonAgregarModelo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sipsa/presentacion/recursos/list-add.png"))); // NOI18N
         jButtonAgregarModelo.setToolTipText("Agregar Modelo");
         jButtonAgregarModelo.addActionListener(new java.awt.event.ActionListener() {
@@ -114,7 +108,10 @@ public class TipoProductoDatos extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPaneModelos, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelNombreProducto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelDuracionGarantia)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -122,21 +119,19 @@ public class TipoProductoDatos extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelMeses))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelNombreProducto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabelModelos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldModelo, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPaneModelos, javax.swing.GroupLayout.Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+                            .addComponent(jTextFieldModelo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonAgregarModelo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonEliminarModelo)))
+                        .addComponent(jButtonAgregarModelo)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(101, Short.MAX_VALUE)
+                .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -146,22 +141,17 @@ public class TipoProductoDatos extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelNombreProducto))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelDuracionGarantia)
                     .addComponent(jSpinnerDuracionGarantia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelMeses))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelModelos)
-                            .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonAgregarModelo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonEliminarModelo))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabelModelos)
+                        .addComponent(jTextFieldModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonAgregarModelo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPaneModelos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -177,11 +167,11 @@ public class TipoProductoDatos extends javax.swing.JDialog {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         this.tipoProducto.setDescripcion(this.jTextFieldNombre.getText());
         this.tipoProducto.setDuracionGarantia(Integer.valueOf(this.jSpinnerDuracionGarantia.getValue().toString()));
-        //TODO agregar los modelos desde la lista
         try {
             this.controlador.guardarTipoProducto(this.tipoProducto);
             this.setVisible(false);
         } catch (Exception ex) {
+            ex.printStackTrace();
             new DialogoMensaje(DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
         }
 }//GEN-LAST:event_jButtonGuardarActionPerformed
@@ -191,17 +181,17 @@ public class TipoProductoDatos extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonAgregarModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarModeloActionPerformed
-        //TODO agregar modelo a la lista de modelos
+        if (jTextFieldModelo.getText().equals("")) {
+            new DialogoMensaje(DialogoMensaje.Tipo.Advertencia, "Debe indicar el nombre del nuevo Modelo");
+        } else {
+            tipoProducto.addModelo(jTextFieldModelo.getText());
+            this.poblarModelos();
+        }
 }//GEN-LAST:event_jButtonAgregarModeloActionPerformed
-
-    private void jButtonEliminarModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarModeloActionPerformed
-        //TODO eliminar modelo de la lista de modelos
-    }//GEN-LAST:event_jButtonEliminarModeloActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAgregarModelo;
     private javax.swing.JButton jButtonCancelar;
-    private javax.swing.JButton jButtonEliminarModelo;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JLabel jLabelDuracionGarantia;
     private javax.swing.JLabel jLabelMeses;
@@ -214,11 +204,24 @@ public class TipoProductoDatos extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
 
-    private void poblarFormulario(){
+    private void poblarFormulario() {
         this.jTextFieldNombre.setText(this.tipoProducto.getDescripcion());
         this.jSpinnerDuracionGarantia.setValue(this.tipoProducto.getDuracionGarantia());
         this.jTextFieldModelo.setText("");
+        this.poblarModelos();
+    }
 
-        //TODO llenar la lista de modelos
+    private void poblarModelos() {
+        ListModel modelo = new AbstractListModel() {
+
+            public int getSize() {
+                return tipoProducto.getModelos().size();
+            }
+
+            public Object getElementAt(int index) {
+                return tipoProducto.getModelos().get(index).getNombre();
+            }
+        };
+        jListModelos.setModel(modelo);
     }
 }

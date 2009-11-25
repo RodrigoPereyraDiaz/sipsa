@@ -56,8 +56,28 @@ class PvBroker implements ISipsaBroker {
     }
 
     public void actualizar(IPersistible o) throws SipsaExcepcion {
-        //TODO definir actualizacion de Punto de Venta
-        throw new UnsupportedOperationException("Not supported yet.");
+        Pv pv = (Pv) o;
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("UPDATE ");
+        consulta.append("Empresas ");
+        consulta.append("SET ");
+        consulta.append("nombre = ? "); //nombre
+        consulta.append("WHERE "); //id Autoincremental
+        consulta.append("id = ? ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setString(1, pv.getNombre());
+            ps.setInt(2, pv.getID());
+
+            ps.execute();
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new SipsaExcepcion("Error al actualizar el Punto de Venta");
+        }
     }
 
     public void guardar(IPersistible o) throws SipsaExcepcion {

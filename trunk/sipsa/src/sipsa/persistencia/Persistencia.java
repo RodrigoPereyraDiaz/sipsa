@@ -14,7 +14,6 @@ import sipsa.SipsaExcepcion;
  * @author Maria Eugenia Sanchez
  */
 public class Persistencia {
-    //TODO paquete revisar las consultas Existe, revisar JavaDoc, modificar los Eliminar para que sean bajas logicas
 
     private static Persistencia persistencia;
 

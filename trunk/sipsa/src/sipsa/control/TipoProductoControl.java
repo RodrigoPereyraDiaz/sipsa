@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 import sipsa.SipsaExcepcion;
+import sipsa.dominio.Modelo;
 import sipsa.dominio.TipoProducto;
 import sipsa.presentacion.interfaces.IListarABM;
 import sipsa.presentacion.escritorio.ListarABM;
@@ -115,7 +116,7 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos {
     /**
      * Guarda el Tipo de Producto en el sistema Sipsa
      * @param tipoProducto
-     * @throws java.lang.Exception
+     * @throws SipsaExcepcion
      */
     public void guardarTipoProducto(TipoProducto tipoProducto) throws SipsaExcepcion {
         if (tipoProducto.getDescripcion().equals("")) {
@@ -134,6 +135,16 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos {
                 persistencia.guardar(tipoProducto);
             } else {
                 throw new SipsaExcepcion("El Punto de Atencion ya exite, imposible agregar");
+            }
+        }
+        //TODO ver de hacer que guarde bien los modelos
+        tipoProducto = (TipoProducto) persistencia.existe(tipoProducto);
+        for (Modelo modelo : tipoProducto.getModelos()) {
+            if (persistencia.existe(modelo) == null) {
+                modelo.setTipoProducto(tipoProducto);
+                persistencia.guardar(modelo);
+            } else {
+                persistencia.actualizar(modelo);
             }
         }
         recuperarLista();

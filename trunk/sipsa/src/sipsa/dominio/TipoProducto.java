@@ -82,6 +82,16 @@ public class TipoProducto implements IPersistible, Serializable{
     public void addModelo(Modelo modelo){
         this.getModelos().add(modelo);
     }
+    
+    /**
+     * Agrega un modelo
+     * @param nombre nombre del nuevo modelo
+     */
+    public void addModelo(String nombre){
+        Modelo modelo = new Modelo(id);
+        modelo.setNombre(nombre);
+        this.getModelos().add(modelo);
+    }
 
     /**
      * remueve un modelo

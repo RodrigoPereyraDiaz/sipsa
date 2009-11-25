@@ -53,8 +53,32 @@ class ModeloBroker implements ISipsaBroker {
     }
 
     public void actualizar(IPersistible o) throws SipsaExcepcion {
-        //TODO definir actualizacion de Modelo
-        throw new UnsupportedOperationException("Not supported yet.");
+        Modelo modelo = (Modelo) o;
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("UPDATE ");
+        consulta.append("Modelos ");
+        consulta.append("SET ");
+        consulta.append("idTipoProducto = ? "); //idTipoProducto
+        consulta.append(", ");
+        consulta.append("nombre = ? "); //nombre
+        consulta.append("WHERE ");
+        consulta.append("id = ? ");
+
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setInt(1, modelo.getTipoProducto().getID());
+            ps.setString(2, modelo.getNombre());
+            ps.setInt(3, modelo.getID());
+
+            ps.execute();
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new SipsaExcepcion("Error al actualizar el Modelo");
+        }
     }
 
     public void guardar(IPersistible o) throws SipsaExcepcion {
@@ -178,10 +202,10 @@ class ModeloBroker implements ISipsaBroker {
         consulta.append("idTipoProducto = ? ");
         try {
             ps = conn.prepareStatement(consulta.toString());
-            rs = ps.executeQuery();
 
             ps.setInt(1, tipoProducto.getID());
 
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Modelo modelo = new Modelo(rs.getInt("id"));
                 modelo = (Modelo) recuperar(modelo);
