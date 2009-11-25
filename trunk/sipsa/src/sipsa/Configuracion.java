@@ -60,6 +60,7 @@ public class Configuracion {
     }
 
     public String getDBCadenaConexion(){
-        return "jdbc:mysql://localhost:3306/sipsa";
+        //return "jdbc:mysql://localhost:3306/sipsa";
+        return "jdbc:mysql://elsupergomez.homelinux.com:3306/sipsa";
     }
 }
