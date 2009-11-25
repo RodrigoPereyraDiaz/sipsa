@@ -45,8 +45,10 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos {
      * Muestra el administrador de Tipos de Productos
      */
     public void mostrarAdministrar() {
+        new DialogoMensaje(DialogoMensaje.Tipo.Información, "Probando un texto que sea muy pero muy muy muy largo cosa de verificar que el cuadro de dialogo modifique su tamaño correctamente para ajustarse al texto");
         ListarABM listarControl = new ListarABM(this);
         listarControl.setVisible(true);
+
     }
 
     /**

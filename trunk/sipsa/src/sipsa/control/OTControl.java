@@ -84,11 +84,13 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
         recuperarLista();
         for (Iterator it = lista.iterator(); it.hasNext();) {
             OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
-            Object[] fila = new Object[modelo.getColumnCount()];
-            fila[0] = ordenDeTrabajo.getID();
-            fila[1] = ordenDeTrabajo.getEstado();
-            fila[2] = ordenDeTrabajo.getPac().getNombre();
-            modelo.addRow(fila);
+            if (ordenDeTrabajo.getEstado().equals(EstadoOT.Activa)) {
+                Object[] fila = new Object[modelo.getColumnCount()];
+                fila[0] = ordenDeTrabajo.getID();
+                fila[1] = ordenDeTrabajo.getEstado();
+                fila[2] = ordenDeTrabajo.getPac().getNombre();
+                modelo.addRow(fila);
+            }
         }
         return modelo;
     }
@@ -97,19 +99,21 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
      * Obtiene la lista de Ordenes de Trabajo realizadas
      * @return devuelve una lista de ordenes de Trabajo realizadas para mostrar en la tabla
      */
-    public TableModel getOTRealizadas() {
+    public TableModel getOTRealizadas(Date fechaDesde, Date fechaHasta) {
         //TODO completar con todos los datos de la orden para visualizar en el reporte
-        String[] columnNames = {"Nro de Orden", "Estado", "Pac"};
+        String[] columnNames = {"Nro de Orden", "Estado", "Pac", "Fecha Entregado"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
-        //TODO filtrar solo las ordenes de trabajo realizadas
         recuperarLista();
         for (Iterator it = lista.iterator(); it.hasNext();) {
             OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
-            Object[] fila = new Object[modelo.getColumnCount()];
-            fila[0] = ordenDeTrabajo.getID();
-            fila[1] = ordenDeTrabajo.getEstado();
-            fila[2] = ordenDeTrabajo.getPac().getNombre();
-            modelo.addRow(fila);
+            if (ordenDeTrabajo.getEstado().equals(EstadoOT.Finalizada) && ordenDeTrabajo.getFechaEntrega().after(fechaDesde) && ordenDeTrabajo.getFechaEntrega().before(fechaHasta)) {
+                Object[] fila = new Object[modelo.getColumnCount()];
+                fila[0] = ordenDeTrabajo.getID();
+                fila[1] = ordenDeTrabajo.getEstado();
+                fila[2] = ordenDeTrabajo.getPac().getNombre();
+                fila[3] = ordenDeTrabajo.getFechaEntrega().toString();
+                modelo.addRow(fila);
+            }
         }
         return modelo;
     }
@@ -120,17 +124,21 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
      */
     public TableModel getOTPendientes() {
         //TODO completar con todos los datos de la orden para visualizar en el reporte
-        String[] columnNames = {"Nro de Orden", "Estado", "Pac"};
+        String[] columnNames = {"Nro de Orden", "Estado", "Pac", "Fecha a Entregar"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
-        //TODO filtrar solo las ordenes de trabajo Pendientes
         recuperarLista();
+
         for (Iterator it = lista.iterator(); it.hasNext();) {
             OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
-            Object[] fila = new Object[modelo.getColumnCount()];
-            fila[0] = ordenDeTrabajo.getID();
-            fila[1] = ordenDeTrabajo.getEstado();
-            fila[2] = ordenDeTrabajo.getPac().getNombre();
-            modelo.addRow(fila);
+            if (ordenDeTrabajo.getEstado().equals(EstadoOT.Activa)) {
+                Object[] fila = new Object[modelo.getColumnCount()];
+                fila[0] = ordenDeTrabajo.getID();
+                fila[1] = ordenDeTrabajo.getEstado();
+                fila[2] = ordenDeTrabajo.getPac().getNombre();
+                fila[3] = ordenDeTrabajo.getFechaEntrega().toString();
+                modelo.addRow(fila);
+            }
+
         }
         return modelo;
     }
@@ -141,17 +149,21 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
      */
     public TableModel getOTVencidas() {
         //TODO completar con todos los datos de la orden para visualizar en el reporte
-        String[] columnNames = {"Nro de Orden", "Estado", "Pac"};
+        String[] columnNames = {"Nro de Orden", "Estado", "Pac", "Dias Vencida"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
-        //TODO filtrar solo las ordenes de trabajo vencidas
         recuperarLista();
         for (Iterator it = lista.iterator(); it.hasNext();) {
             OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
-            Object[] fila = new Object[modelo.getColumnCount()];
-            fila[0] = ordenDeTrabajo.getID();
-            fila[1] = ordenDeTrabajo.getEstado();
-            fila[2] = ordenDeTrabajo.getPac().getNombre();
-            modelo.addRow(fila);
+            if (ordenDeTrabajo.getEstado().equals(EstadoOT.Activa) && ordenDeTrabajo.getFechaEntrega().before(new Date(System.currentTimeMillis()))) {
+                Object[] fila = new Object[modelo.getColumnCount()];
+                fila[0] = ordenDeTrabajo.getID();
+                fila[1] = ordenDeTrabajo.getEstado();
+                fila[2] = ordenDeTrabajo.getPac().getNombre();
+                Date hoy = new Date(System.currentTimeMillis());
+                fila[3] = (hoy.getTime() - ordenDeTrabajo.getFechaEntrega().getTime()) / 86400000;
+                modelo.addRow(fila);
+            }
+
         }
         return modelo;
     }
@@ -167,6 +179,7 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
         if (ordenDeTrabajo.getFechaEntrega().before(new Date(System.currentTimeMillis()))) {
             throw new SipsaExcepcion("La fecha de entrega no puede ser anterior a al dia de hoy");
         }
+
         switch (ordenDeTrabajo.getEstado()) {
             case Nueva:
                 persistencia.guardar(ordenDeTrabajo);
@@ -177,6 +190,7 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
             case Anulada:
                 persistencia.actualizar(ordenDeTrabajo);
         }
+
         recuperarLista();
     }
 
@@ -206,7 +220,8 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
      * @return devuelve una lista de Modelos para un Tipo de Prod específico,
      * para cargar el ComboBOx
      */
-    public ComboBoxModel getListaModelos(Object tipoProducto) {
+    public ComboBoxModel getListaModelos(
+            Object tipoProducto) {
         TipoProducto tp = (TipoProducto) tipoProducto;
         DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(tp.getModelos().toArray());
         return comboBoxModel;
