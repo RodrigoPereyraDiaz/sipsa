@@ -53,4 +53,8 @@ public class Modelo implements IPersistible, Serializable{
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    public void setTipoProducto(TipoProducto tipoProducto) {
+        this.tipoProducto = tipoProducto;
+    }
 }

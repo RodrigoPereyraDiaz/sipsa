@@ -32,7 +32,7 @@ class TipoProductoBroker implements ISipsaBroker {
         consulta.append("FROM ");
         consulta.append("TiposProducto ");
         consulta.append("WHERE ");
-        consulta.append("descripcion = ? ");
+        consulta.append("nombre = ? ");
         try {
             ps = conn.prepareStatement(consulta.toString());
 
@@ -55,8 +55,31 @@ class TipoProductoBroker implements ISipsaBroker {
     }
 
     public void actualizar(IPersistible o) throws SipsaExcepcion {
-        //TODO definiar actualizacion de Tipo de Producto
-        throw new UnsupportedOperationException("Not supported yet.");
+        TipoProducto tipoProducto = (TipoProducto) o;
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("UPDATE ");
+        consulta.append("TiposProducto ");
+        consulta.append("SET ");
+        consulta.append("nombre = ? "); //nombre
+        consulta.append(", ");
+        consulta.append("duracionGarantia = ? "); //duracionGarantia
+        consulta.append("WHERE ");
+        consulta.append("id = ? "); //id Autoincremental
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setString(1, tipoProducto.getDescripcion());
+            ps.setInt(2, tipoProducto.getDuracionGarantia());
+            ps.setInt(3, tipoProducto.getID());
+
+            ps.execute();
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new SipsaExcepcion("Error al actualizar el Tipo de Producto");
+        }
     }
 
     public void guardar(IPersistible o) throws SipsaExcepcion {
@@ -70,7 +93,7 @@ class TipoProductoBroker implements ISipsaBroker {
         consulta.append("VALUES ( ");
         consulta.append("default "); //id Autoincremental
         consulta.append(", ");
-        consulta.append("? "); //descripcion
+        consulta.append("? "); //nombre
         consulta.append(", ");
         consulta.append("? "); //duracionGarantia
         consulta.append(") ");

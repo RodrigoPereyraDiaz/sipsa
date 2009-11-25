@@ -52,8 +52,37 @@ class VentaBroker implements ISipsaBroker {
     }
 
     public void actualizar(IPersistible o) throws SipsaExcepcion {
-        //TODO definir actualizacion de Venta
-        throw new UnsupportedOperationException("Not supported yet.");
+        Venta venta = (Venta) o;
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("UPDATE ");
+        consulta.append("Ventas ");
+        consulta.append("SET ");
+        consulta.append("idPv = ? "); //idPv
+        consulta.append(", ");
+        consulta.append("idProducto = ? "); //idProducto
+        consulta.append(", ");
+        consulta.append("nroFactura = ? "); //nroFactura
+        consulta.append(", ");
+        consulta.append("fechaFactura = ? "); //fechaFactura
+        consulta.append("WHERE ");
+        consulta.append("id = ? ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setInt(1, venta.getEmpresaVendedora().getID());
+            ps.setInt(2, venta.getProducto().getID());
+            ps.setString(3, venta.getNroFactura());
+            ps.setDate(4, Date.valueOf(venta.getFechaFactura().toString()));
+            ps.setInt(5, venta.getID());
+
+            ps.execute();
+            ps.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new SipsaExcepcion("Error al actualizar la Venta");
+        }
     }
 
     public void guardar(IPersistible o) throws SipsaExcepcion {

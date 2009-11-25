@@ -21,6 +21,7 @@ import sipsa.dominio.Venta;
 class OtBroker implements ISipsaBroker {
 
     public IPersistible existe(IPersistible o) throws SipsaExcepcion {
+        //Por defecto toda orden de trabajo es distinta de todas las demas, salvo que tenga un identificador
         OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) o;
         Connection conn = DB.getConexion();
         PreparedStatement ps;
@@ -31,7 +32,6 @@ class OtBroker implements ISipsaBroker {
         consulta.append("FROM ");
         consulta.append("OrdenesDeTrabajo ");
         consulta.append("WHERE ");
-        //TODO verificar bien coo consultar la existencia de una OT
         consulta.append("id = ? ");
         try {
             ps = conn.prepareStatement(consulta.toString());
@@ -54,8 +54,43 @@ class OtBroker implements ISipsaBroker {
     }
 
     public void actualizar(IPersistible o) throws SipsaExcepcion {
-        //TODO definir actualizacion de Orden de Trabajo
-        throw new UnsupportedOperationException("Not supported yet.");
+        OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) o;
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("UPDATE ");
+        consulta.append("OrdenesDeTrabajo ");
+        consulta.append("SET ");
+        consulta.append("idPac = ? "); //idPac
+        consulta.append(", ");
+        consulta.append("idVenta = ? "); //idVenta
+        consulta.append(", ");
+        consulta.append("observaciones = ? "); //observaciones
+        consulta.append(", ");
+        consulta.append("idEstado = ? "); //idEstado
+        consulta.append(", ");
+        consulta.append("motivoEstado = ? "); //motivoEstado
+        consulta.append(", ");
+        consulta.append("fechaEntrega = ? "); //fechaEntrega
+        consulta.append("WHERE ");
+        consulta.append("id = ? ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setInt(1, ordenDeTrabajo.getPac().getID());
+            ps.setInt(2, ordenDeTrabajo.getVenta().getID());
+            ps.setString(3, ordenDeTrabajo.getObservaciones());
+            ps.setInt(4, EstadoOT.toInt(ordenDeTrabajo.getEstado()));
+            ps.setString(5, ordenDeTrabajo.getMotivoEstado());
+            ps.setDate(6, (Date) ordenDeTrabajo.getFechaEntrega());
+            ps.setInt(7, ordenDeTrabajo.getID());
+
+            ps.execute();
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new SipsaExcepcion("Error al actualizar la Orden de Trabajo");
+        }
     }
 
     public void guardar(IPersistible o) throws SipsaExcepcion {

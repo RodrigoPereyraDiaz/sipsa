@@ -49,8 +49,28 @@ class FabricaBroker implements ISipsaBroker{
     }
 
     public void actualizar(IPersistible o) throws SipsaExcepcion {
-        //TODO definir actualizacion de Fabrica
-        throw new UnsupportedOperationException("Not supported yet.");
+        Fabrica fabrica = (Fabrica) o;
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("UPDATE ");
+        consulta.append("Fabrica ");
+        consulta.append("SET ");
+        consulta.append("nombre = ? "); //nombre
+        consulta.append("WHERE ");
+        consulta.append("id = ? ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setString(1, fabrica.getNombre());
+            ps.setInt(2, fabrica.getID());
+
+            ps.execute();
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        throw new SipsaExcepcion("Error al actualizar la Fabrica");
+        }
     }
 
     public void guardar(IPersistible o) throws SipsaExcepcion {

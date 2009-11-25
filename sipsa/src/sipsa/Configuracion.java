@@ -7,10 +7,7 @@ package sipsa;
 
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * Selector de descriptores de Configuracion de los Sistemas Sipsa
@@ -31,6 +28,14 @@ public class Configuracion {
         return configuracion;
     }
 
+    public String getDBPassword() {
+        return "sipsa";
+    }
+
+    public String getDBUsuario() {
+        return "sipsa";
+    }
+
     /**
      * Obtiene la imagen del logotipo del sistema para las GUI
      * @return Logotipo del sistema
@@ -45,14 +50,16 @@ public class Configuracion {
     public void setEstiloLocal(){
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
+    }
+
+    public String getDBDriver(){
+        return "com.mysql.jdbc.Driver";
+    }
+
+    public String getDBCadenaConexion(){
+        return "jdbc:mysql://localhost:3306/sipsa";
     }
 }

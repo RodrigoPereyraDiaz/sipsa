@@ -5,6 +5,7 @@
 package sipsa.persistencia;
 
 import java.util.List;
+
 import sipsa.SipsaExcepcion;
 
 interface ISipsaBroker {

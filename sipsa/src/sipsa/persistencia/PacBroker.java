@@ -19,7 +19,7 @@ import sipsa.dominio.Pac;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-class PacBroker implements ISipsaBroker{
+class PacBroker implements ISipsaBroker {
 
     public IPersistible existe(IPersistible o) throws SipsaExcepcion {
         Pac pac = (Pac) o;
@@ -41,8 +41,11 @@ class PacBroker implements ISipsaBroker{
             ps.setString(1, pac.getCuit());
 
             rs = ps.executeQuery();
-            rs.next();
-            pac = (Pac) recuperar(new Pac(rs.getInt("id")));
+            if (rs.next()) {
+                pac = (Pac) recuperar(new Pac(rs.getInt("id")));
+            } else {
+                pac = null;
+            }
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -52,8 +55,28 @@ class PacBroker implements ISipsaBroker{
     }
 
     public void actualizar(IPersistible o) throws SipsaExcepcion {
-        //TODO definir actualizacion de Punto de Atencion al Cliente
-        throw new UnsupportedOperationException("Not supported yet.");
+        Pac pac = (Pac) o;
+        Connection conn = DB.getConexion();
+        PreparedStatement ps;
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("UPDATE ");
+        consulta.append("Empresas ");
+        consulta.append("SET ");
+        consulta.append("nombre = ? "); //nombre
+        consulta.append("WHERE "); //id Autoincremental
+        consulta.append("id = ? ");
+        try {
+            ps = conn.prepareStatement(consulta.toString());
+
+            ps.setString(1, pac.getNombre());
+            ps.setInt(2, pac.getID());
+
+            ps.execute();
+            ps.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new SipsaExcepcion("Error al actualizar el Punto de Atención al Cliente");
+        }
     }
 
     public void guardar(IPersistible o) throws SipsaExcepcion {
@@ -160,10 +183,10 @@ class PacBroker implements ISipsaBroker{
                 pac.setCuit(rs.getString("cuit"));
                 pac.setNombre(rs.getString("nombre"));
             }
-          ps.close();
+            ps.close();
         } catch (SQLException ex) {
-          ex.printStackTrace();
-          throw new SipsaExcepcion("Error al recuperar el Punto de Atención al Cliente id: " + o.getID());
+            ex.printStackTrace();
+            throw new SipsaExcepcion("Error al recuperar el Punto de Atención al Cliente id: " + o.getID());
         }
         return pac;
     }
