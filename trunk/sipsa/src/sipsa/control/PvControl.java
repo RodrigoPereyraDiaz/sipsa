@@ -106,9 +106,11 @@ public class PvControl implements IEmpresaDatos, IListarABM {
 
     public void guardarEmpresa(Empresa empresa) throws Exception {
         Pv pv = (Pv) empresa;
-        //TODO Validar CUIT
         if (pv.getCuit().equals("") || pv.getNombre().equals("")) {
             throw new SipsaExcepcion("Debe completar todos los datos solicitados");
+        }
+        if (!CUIT.validaCuit(pv.getCuit())){
+            throw new SipsaExcepcion("El Cuit ingresado no es valido, debe escribir el cuit sin guiones");
         }
         if (pv.getID() > 0) {
             persistencia.actualizar(pv);

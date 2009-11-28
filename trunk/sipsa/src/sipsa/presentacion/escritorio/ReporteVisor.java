@@ -49,6 +49,7 @@ public class ReporteVisor extends javax.swing.JDialog {
         jLabelNombre = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setModal(true);
 
         jButtonCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sipsa/presentacion/recursos/system-log-out.png"))); // NOI18N
         jButtonCerrar.setText("Cerrar");
@@ -98,15 +99,15 @@ public class ReporteVisor extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
+                    .addComponent(jLabelNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 671, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1, 1, 1)
-                        .addComponent(jScrollPaneDatos, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE))
+                        .addComponent(jScrollPaneDatos, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonImprimir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonExportar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 431, Short.MAX_VALUE)
                         .addComponent(jButtonCerrar)))
                 .addContainerGap())
         );

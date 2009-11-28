@@ -5,7 +5,6 @@ import sipsa.dominio.OrdenDeTrabajo;
 
 class RespuestaOrdenesDeTrabajo extends Mensaje{
 
-    //TODO ver si es necesario siempre devolver un mensaje
     @Override
     public Mensaje procesar() {
         List<OrdenDeTrabajo> list = (List<OrdenDeTrabajo>) this.getContenido();

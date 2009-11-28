@@ -3,21 +3,20 @@ package sipsa.control.servicios;
 import java.io.IOException;
 
 import java.net.Socket;
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.ComboBoxModel;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
 import sipsa.SipsaExcepcion;
 import sipsa.control.OTControl;
 import sipsa.control.PvControl;
 import sipsa.control.Reporte;
 import sipsa.control.TipoProductoControl;
+import sipsa.dominio.EstadoOT;
 import sipsa.dominio.OrdenDeTrabajo;
 import sipsa.dominio.Pac;
 import sipsa.dominio.TipoProducto;
@@ -27,7 +26,6 @@ import sipsa.presentacion.escritorio.Login;
 import sipsa.presentacion.escritorio.RangoFechas;
 import sipsa.presentacion.escritorio.ReporteVisor;
 import sipsa.presentacion.escritorio.SipsaPacMenu;
-
 import sipsa.presentacion.interfaces.IListarABM;
 import sipsa.presentacion.interfaces.ILogin;
 import sipsa.presentacion.interfaces.IOrdenDeTrabajoDatos;
@@ -40,6 +38,8 @@ import sipsa.presentacion.interfaces.ISipsaPacMenu;
  */
 public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenDeTrabajoDatos, IListarABM {
 
+    private Conexion conexion;
+    private Pac pac;
     private String host = "localhost";
     private int puerto = 1027;
     private static Cliente cliente;
@@ -69,16 +69,11 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
         if (respuesta.getClass().equals(String.class)) {
             new DialogoMensaje(DialogoMensaje.Tipo.Información, respuesta.toString());
         }
-    //TODO otras respuestas
     }
 
     void handleOrdenesDeTrabajo(List<OrdenDeTrabajo> lista) {
         this.lista = lista;
     }
-
-//TODO Completar la clase cliente que es controlador del cliente pac
-    private Conexion conexion;
-    private Pac pac;
 
     /**
      * Muestra la pantalla de Login
@@ -94,7 +89,7 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
         pacLogin.setCuit(cuit);
         login.setContenido(pacLogin);
         try {
-            this.conexion = new Conexion(new Socket(getHost(), getPuerto()));
+            this.conexion = new Conexion(new Socket(host, puerto));
             conexion.enviarMensaje(login);
             Mensaje respuesta = conexion.recibirMensaje();
             respuesta.procesar();
@@ -102,22 +97,7 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
             SipsaPacMenu sipsaPacMenu = new SipsaPacMenu(this);
             sipsaPacMenu.setVisible(true);
         } catch (IOException ex) {
-            throw new SipsaExcepcion("Imposible conectar a: " + this.getHost() + "\n" + ex.getLocalizedMessage());
-        }
-    }
-
-    @Override
-    protected void recuperarLista() {
-        if (this.lista == null) {
-            try {
-                Mensaje solicitud = MensajesFabrica.newSolicitudOrdenesDeTrabajo();
-                solicitud.setContenido(this.pac);
-                conexion.enviarMensaje(solicitud);
-                Mensaje respuesta = conexion.recibirMensaje();
-                respuesta.procesar();
-            } catch (Exception ex) {
-                new DialogoMensaje(DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
-            }
+            throw new SipsaExcepcion("Imposible conectar a: " + host + "\n" + ex.getLocalizedMessage());
         }
     }
 
@@ -139,7 +119,6 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
     }
 
     public void mostrarReporteOTPendientes() {
-        //TODO filtrar la lista
         Reporte reporte = new Reporte();
         reporte.setNombre("Ordenes de Trabajo Pendientes");
         reporte.setDatos(this.getOTPendientes());
@@ -148,19 +127,11 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
     }
 
     public void mostrarReporteOTVencidas() {
-        //TODO filtrar la lista
         Reporte reporte = new Reporte();
         reporte.setNombre("Ordenes de Trabajo Vencidas");
         reporte.setDatos(this.getOTVencidas());
         ReporteVisor reporteVisor = new ReporteVisor(reporte);
         reporteVisor.setVisible(true);
-    }
-
-    /**
-     * @return the host
-     */
-    public String getHost() {
-        return host;
     }
 
     /**
@@ -171,37 +142,20 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
     }
 
     /**
-     * @return the puerto
-     */
-    public int getPuerto() {
-        return puerto;
-    }
-
-    /**
      * @param puerto the puerto to set
      */
     public void setPuerto(int puerto) {
         this.puerto = puerto;
     }
 
-    /**
-     * 
-     * @param ordenDeTrabajo
-     * @throws java.lang.Exception
-     */
     @Override
     public void guardarOrdenDeTrabajo(OrdenDeTrabajo ordenDeTrabajo) throws SipsaExcepcion {
-        //TODO Validar Datos correctos segun el estado de la orden
-        if (ordenDeTrabajo.getFechaEntrega().before(new Date(System.currentTimeMillis()))) {
-            throw new SipsaExcepcion("La fecha de entrega no puede ser anterior a al dia de hoy");
-        }
         Mensaje solicitud = MensajesFabrica.newSolicitudOrdenDeTrabajoGuardar();
         solicitud.setContenido(ordenDeTrabajo);
         try {
             conexion.enviarMensaje(solicitud);
             Mensaje respuesta = conexion.recibirMensaje();
             respuesta.procesar();
-            this.lista.add(ordenDeTrabajo);
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new SipsaExcepcion("Error solicitando al servidor que guarde la orden de trabajo");
@@ -214,6 +168,7 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
      */
     @Override
     public ComboBoxModel getListaPuntosDeVenta() {
+        //TODO pasar por servidor
         PvControl pvControl = new PvControl();
         DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(pvControl.getListaPvs().toArray());
         return comboBoxModel;
@@ -225,6 +180,7 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
      */
     @Override
     public ComboBoxModel getListaTiposProducto() {
+        //TODO pasar por servidor
         TipoProductoControl tipoProductoControl = new TipoProductoControl();
         DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(tipoProductoControl.getListaTipoProducto().toArray());
         return comboBoxModel;
@@ -238,6 +194,7 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
      */
     @Override
     public ComboBoxModel getListaModelos(Object tipoProducto) {
+        //TODO pasar por servidor
         TipoProducto tp = (TipoProducto) tipoProducto;
         DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(tp.getModelos().toArray());
         return comboBoxModel;
@@ -247,6 +204,7 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
     public TableModel getModelo() {
         String[] columnNames = {"Nro de Orden", "Estado"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
+        recuperarLista();
         for (Iterator it = lista.iterator(); it.hasNext();) {
             OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
             Object[] fila = new Object[modelo.getColumnCount()];
@@ -263,11 +221,9 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
      */
     @Override
     public TableModel getOTRealizadas(Date fechaDesde, Date fechaHasta) {
-        //TODO completar con todos los datos de la orden para visualizar en el reporte
         String[] columnNames = {"Nro de Orden", "Estado"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
-        //TODO filtrar solo las ordenes de trabajo realizadas
-        List<OrdenDeTrabajo> lista = new ArrayList<OrdenDeTrabajo>();
+        recuperarLista();
         for (Iterator it = lista.iterator(); it.hasNext();) {
             OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
             Object[] fila = new Object[modelo.getColumnCount()];
@@ -285,17 +241,18 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
      */
     @Override
     public TableModel getOTPendientes() {
-        //TODO completar con todos los datos de la orden para visualizar en el reporte
-        String[] columnNames = {"Nro de Orden", "Estado"};
+        String[] columnNames = {"Nro de Orden", "Estado", "Fecha a Entregar"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
-        //TODO filtrar solo las ordenes de trabajo Pendientes
-        List<OrdenDeTrabajo> lista = new ArrayList<OrdenDeTrabajo>();
+        recuperarLista();
         for (Iterator it = lista.iterator(); it.hasNext();) {
             OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
-            Object[] fila = new Object[modelo.getColumnCount()];
-            fila[0] = ordenDeTrabajo.getID();
-            fila[1] = ordenDeTrabajo.getEstado();
-            modelo.addRow(fila);
+            if (ordenDeTrabajo.getEstado().equals(EstadoOT.Activa)) {
+                Object[] fila = new Object[modelo.getColumnCount()];
+                fila[0] = ordenDeTrabajo.getID();
+                fila[1] = ordenDeTrabajo.getEstado();
+                fila[2] = ordenDeTrabajo.getFechaEntrega().toString();
+                modelo.addRow(fila);
+            }
         }
         return modelo;
     }
@@ -306,11 +263,9 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
      */
     @Override
     public TableModel getOTVencidas() {
-        //TODO completar con todos los datos de la orden para visualizar en el reporte
         String[] columnNames = {"Nro de Orden", "Estado"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
-        //TODO filtrar solo las ordenes de trabajo vencidas
-        List<OrdenDeTrabajo> lista = new ArrayList<OrdenDeTrabajo>();
+        recuperarLista();
         for (Iterator it = lista.iterator(); it.hasNext();) {
             OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
             Object[] fila = new Object[modelo.getColumnCount()];
@@ -319,5 +274,18 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
             modelo.addRow(fila);
         }
         return modelo;
+    }
+
+    @Override
+    protected void recuperarLista() {
+        try {
+            Mensaje solicitud = MensajesFabrica.newSolicitudOrdenesDeTrabajo();
+            solicitud.setContenido(this.pac);
+            conexion.enviarMensaje(solicitud);
+            Mensaje respuesta = conexion.recibirMensaje();
+            respuesta.procesar();
+        } catch (Exception ex) {
+            new DialogoMensaje(DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
+        }
     }
 }

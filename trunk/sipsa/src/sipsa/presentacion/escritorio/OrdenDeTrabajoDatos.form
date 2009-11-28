@@ -29,7 +29,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPaneObservaciones" alignment="0" pref="574" max="32767" attributes="1"/>
+                          <Component id="jScrollPaneObservaciones" alignment="0" pref="583" max="32767" attributes="1"/>
                           <Component id="jLabelObservaciones" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -40,7 +40,7 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPaneMotivoEstado" pref="457" max="32767" attributes="1"/>
+                                  <Component id="jScrollPaneMotivoEstado" pref="460" max="32767" attributes="1"/>
                                   <Component id="jLabelMotivoEstado" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -49,9 +49,9 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="358" max="-2" attributes="0"/>
-                      <Component id="jButtonGuardar" pref="111" max="32767" attributes="0"/>
+                      <Component id="jButtonGuardar" pref="115" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonCancelar" pref="111" max="32767" attributes="0"/>
+                      <Component id="jButtonCancelar" pref="116" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -81,7 +81,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jFormattedTextFieldFechaEntrega" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPaneMotivoEstado" pref="94" max="32767" attributes="1"/>
+                  <Component id="jScrollPaneMotivoEstado" pref="96" max="32767" attributes="1"/>
               </Group>
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
@@ -253,10 +253,6 @@
               </StringArray>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBoxTipoProductoItemStateChanged"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxTipoProductoActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelModelo">
           <Properties>
@@ -288,9 +284,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldNroSerie">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldNroSerieActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

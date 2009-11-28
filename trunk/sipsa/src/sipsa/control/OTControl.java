@@ -100,8 +100,7 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
      * @return devuelve una lista de ordenes de Trabajo realizadas para mostrar en la tabla
      */
     public TableModel getOTRealizadas(Date fechaDesde, Date fechaHasta) {
-        //TODO completar con todos los datos de la orden para visualizar en el reporte
-        String[] columnNames = {"Nro de Orden", "Estado", "Pac", "Fecha Entregado"};
+        String[] columnNames = {"Nro de Orden", "Estado", "Fecha Entregado", "Pac"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
         recuperarLista();
         for (Iterator it = lista.iterator(); it.hasNext();) {
@@ -110,8 +109,8 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
                 Object[] fila = new Object[modelo.getColumnCount()];
                 fila[0] = ordenDeTrabajo.getID();
                 fila[1] = ordenDeTrabajo.getEstado();
-                fila[2] = ordenDeTrabajo.getPac().getNombre();
-                fila[3] = ordenDeTrabajo.getFechaEntrega().toString();
+                fila[2] = ordenDeTrabajo.getFechaEntrega().toString();
+                fila[3] = ordenDeTrabajo.getPac().getNombre();
                 modelo.addRow(fila);
             }
         }
@@ -123,19 +122,17 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
      * @return devuelve una lista de ordenes de trabajo pendientes para mostrar en la tabla
      */
     public TableModel getOTPendientes() {
-        //TODO completar con todos los datos de la orden para visualizar en el reporte
-        String[] columnNames = {"Nro de Orden", "Estado", "Pac", "Fecha a Entregar"};
+        String[] columnNames = {"Nro de Orden", "Estado", "Fecha a Entregar", "Pac"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
         recuperarLista();
-
         for (Iterator it = lista.iterator(); it.hasNext();) {
             OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
             if (ordenDeTrabajo.getEstado().equals(EstadoOT.Activa)) {
                 Object[] fila = new Object[modelo.getColumnCount()];
                 fila[0] = ordenDeTrabajo.getID();
                 fila[1] = ordenDeTrabajo.getEstado();
-                fila[2] = ordenDeTrabajo.getPac().getNombre();
-                fila[3] = ordenDeTrabajo.getFechaEntrega().toString();
+                fila[2] = ordenDeTrabajo.getFechaEntrega().toString();
+                fila[3] = ordenDeTrabajo.getPac().getNombre();
                 modelo.addRow(fila);
             }
 
@@ -148,8 +145,7 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
      * @return devuelve una lista de Ordenes de Trabajo vencidas
      */
     public TableModel getOTVencidas() {
-        //TODO completar con todos los datos de la orden para visualizar en el reporte
-        String[] columnNames = {"Nro de Orden", "Estado", "Pac", "Dias Vencida"};
+        String[] columnNames = {"Nro de Orden", "Estado", "Dias Vencida", "Pac"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
         recuperarLista();
         for (Iterator it = lista.iterator(); it.hasNext();) {
@@ -158,9 +154,9 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
                 Object[] fila = new Object[modelo.getColumnCount()];
                 fila[0] = ordenDeTrabajo.getID();
                 fila[1] = ordenDeTrabajo.getEstado();
-                fila[2] = ordenDeTrabajo.getPac().getNombre();
                 Date hoy = new Date(System.currentTimeMillis());
-                fila[3] = (hoy.getTime() - ordenDeTrabajo.getFechaEntrega().getTime()) / 86400000;
+                fila[2] = (hoy.getTime() - ordenDeTrabajo.getFechaEntrega().getTime()) / 86400000;
+                fila[3] = ordenDeTrabajo.getPac().getNombre();
                 modelo.addRow(fila);
             }
 
@@ -220,8 +216,7 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
      * @return devuelve una lista de Modelos para un Tipo de Prod específico,
      * para cargar el ComboBOx
      */
-    public ComboBoxModel getListaModelos(
-            Object tipoProducto) {
+    public ComboBoxModel getListaModelos(Object tipoProducto) {
         TipoProducto tp = (TipoProducto) tipoProducto;
         DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(tp.getModelos().toArray());
         return comboBoxModel;

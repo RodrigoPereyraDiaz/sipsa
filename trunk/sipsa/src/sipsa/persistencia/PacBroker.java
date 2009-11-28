@@ -62,14 +62,17 @@ class PacBroker implements ISipsaBroker {
         consulta.append("UPDATE ");
         consulta.append("Empresas ");
         consulta.append("SET ");
+        consulta.append("cuit = ? "); //cuit
+        consulta.append(", ");
         consulta.append("nombre = ? "); //nombre
         consulta.append("WHERE "); //id Autoincremental
         consulta.append("id = ? ");
         try {
             ps = conn.prepareStatement(consulta.toString());
 
-            ps.setString(1, pac.getNombre());
-            ps.setInt(2, pac.getID());
+            ps.setString(1, pac.getCuit());
+            ps.setString(2, pac.getNombre());
+            ps.setInt(3, pac.getID());
 
             ps.execute();
             ps.close();

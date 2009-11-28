@@ -1,4 +1,3 @@
-//TODO verificar que inicializa correctamente, validar el rango de fechas
 package sipsa.presentacion.escritorio;
 
 import java.util.Date;
@@ -10,6 +9,7 @@ import sipsa.Configuracion;
  * @author Maria Eugenia Sanchez
  */
 public class RangoFechas extends javax.swing.JDialog {
+
     /** A return status code - returned if Cancel button has been pressed */
     public static final int RET_CANCEL = 0;
     /** A return status code - returned if OK button has been pressed */
@@ -126,7 +126,11 @@ public class RangoFechas extends javax.swing.JDialog {
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         this.fechaDesde = (Date) this.jFormattedTextFieldDesde.getValue();
         this.fechaHasta = (Date) this.jFormattedTextFieldHasta.getValue();
-        doClose(RET_OK);
+        if (fechaDesde.after(fechaHasta)) {
+            new DialogoMensaje(DialogoMensaje.Tipo.Error, "La fecha desde debe ser anterior o igual a la fecha hasta");
+        } else {
+            doClose(RET_OK);
+        }
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
@@ -143,7 +147,6 @@ public class RangoFechas extends javax.swing.JDialog {
         setVisible(false);
         dispose();
     }
-   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JFormattedTextField jFormattedTextFieldDesde;
@@ -152,7 +155,6 @@ public class RangoFechas extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton okButton;
     // End of variables declaration//GEN-END:variables
-
     private int returnStatus = RET_CANCEL;
     private Date fechaDesde = new Date(System.currentTimeMillis());
     private Date fechaHasta = new Date(System.currentTimeMillis());

@@ -133,13 +133,4 @@ public class OrdenDeTrabajo implements IPersistible, Serializable{
     public void setMotivoEstado(String motivoEstado) {
         this.motivoEstado = motivoEstado;
     }
-
-    /**
-     * Verifica si la garantía esta vigente
-     * @return devuelva verdadero si esta en garantía sino falso
-     */
-    public boolean isEnGarantia(){
-        //TODO implementar la validacion de garantia activa
-        return true;
-    }
 }
