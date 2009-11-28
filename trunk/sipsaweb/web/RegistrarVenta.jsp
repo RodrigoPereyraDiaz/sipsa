@@ -15,13 +15,13 @@
 <%@ page import="sipsa.dominio.Modelo" %>
 <%@ page import="sipsa.control.TipoProductoControl" %>
 <%
-    String usuario = (String) session.getAttribute("usuario");
-    if (usuario == null)
-        response.sendRedirect("Login.jsp");
+        String usuario = (String) session.getAttribute("usuario");
+        if (usuario == null) {
+            response.sendRedirect("Login.jsp");
+        }
 %>
-<%!
-    private TipoProductoControl tipoProductoControl = new TipoProductoControl();
-    private List<TipoProducto> lista = tipoProductoControl.getListaTipoProducto();
+<%!     private TipoProductoControl tipoProductoControl = new TipoProductoControl();
+        private List<TipoProducto> lista = tipoProductoControl.getListaTipoProducto();
 %>
 
 <html>
@@ -55,8 +55,8 @@
                             <!--TODO aca deberia invocar la carga del segundo combo-->
                             <option value=-1 selected>Seleccione una opción</option>
                             <%
-                            for (Iterator tpIt = lista.iterator(); tpIt.hasNext();) {
-                                TipoProducto tipoProducto = (TipoProducto) tpIt.next();
+        for (Iterator tpIt = lista.iterator(); tpIt.hasNext();) {
+            TipoProducto tipoProducto = (TipoProducto) tpIt.next();
                             %>
                             <option value=<%=tipoProducto.getID()%> ><%=tipoProducto.getDescripcion()%></option>
                             <%}%>
@@ -67,14 +67,16 @@
                     <td style="font-weight:bold">Modelo Producto: </td>
                     <td>
                         <select style="width:100%" name="modelo">
-                            <option value=-1 selected>Seleccione una opción</option>
-                            <!--TODO aca deberia ser parametrizado de acuerdo al tipo de producto seleccionado-->
+                            <div id="listaModelos">
+                                <option value=-1 selected>Seleccione una opción</option>
+                                <!--TODO aca deberia ser parametrizado de acuerdo al tipo de producto seleccionado-->
                             <%
-                            for (Iterator tpIt = lista.get(1).getModelos().iterator(); tpIt.hasNext();) {
-                                Modelo modelo = (Modelo) tpIt.next();
-                            %>
-                            <option value=<%=modelo.getID()%> ><%=modelo.getNombre()%></option>
-                            <%}%>
+        for (Iterator tpIt = lista.get(1).getModelos().iterator(); tpIt.hasNext();) {
+            Modelo modelo = (Modelo) tpIt.next();
+                                %>
+                                <option value=<%=modelo.getID()%> ><%=modelo.getNombre()%></option>
+                                <%}%>
+                            </div>
                         </select>
                     </td>
                 </tr>

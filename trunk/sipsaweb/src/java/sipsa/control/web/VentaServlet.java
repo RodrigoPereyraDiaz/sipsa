@@ -30,7 +30,7 @@ public class VentaServlet extends HttpServlet {
             String nroFactura = request.getParameter("nroFactura");
             int tipoProducto = Integer.parseInt(request.getParameter("tipoProducto"));
             int modelo = Integer.parseInt(request.getParameter("modelo"));
-            String nroSerie = request.getParameter("cuit");
+            String nroSerie = request.getParameter("nroSerie");
             ventaControl.activarGarantia(pv, fechaFactura, nroFactura, tipoProducto, modelo, nroSerie);
             response.sendRedirect("ActivacionOk.jsp");
         } catch (Exception ex) {
