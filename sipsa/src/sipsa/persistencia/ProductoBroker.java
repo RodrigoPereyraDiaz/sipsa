@@ -82,7 +82,7 @@ class ProductoBroker implements ISipsaBroker {
             ps.setString(1, producto.getNroSerie());
             ps.setInt(2, producto.getModelo().getID());
             ps.setInt(3, producto.getFabrica().getID());
-            ps.setDate(4, (Date) producto.getFechaFabricacion());
+            ps.setDate(4, new Date(producto.getFechaFabricacion().getTime()));
             ps.setInt(5, producto.getID());
             ps.execute();
             ps.close();
@@ -117,7 +117,7 @@ class ProductoBroker implements ISipsaBroker {
             ps.setString(1, producto.getNroSerie());
             ps.setInt(2, producto.getModelo().getID());
             ps.setInt(3, producto.getFabrica().getID());
-            ps.setDate(4, (Date) producto.getFechaFabricacion());
+            ps.setDate(4, new Date(producto.getFechaFabricacion().getTime()));
 
             ps.execute();
             ps.close();

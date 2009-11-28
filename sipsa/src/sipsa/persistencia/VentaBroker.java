@@ -74,7 +74,7 @@ class VentaBroker implements ISipsaBroker {
             ps.setInt(1, venta.getEmpresaVendedora().getID());
             ps.setInt(2, venta.getProducto().getID());
             ps.setString(3, venta.getNroFactura());
-            ps.setDate(4, Date.valueOf(venta.getFechaFactura().toString()));
+            ps.setDate(4, new Date(venta.getFechaFactura().getTime()));
             ps.setInt(5, venta.getID());
 
             ps.execute();
@@ -110,7 +110,7 @@ class VentaBroker implements ISipsaBroker {
             ps.setInt(1, venta.getEmpresaVendedora().getID());
             ps.setInt(2, venta.getProducto().getID());
             ps.setString(3, venta.getNroFactura());
-            ps.setDate(4, Date.valueOf(venta.getFechaFactura().toString()));
+            ps.setDate(4, new Date(venta.getFechaFactura().getTime()));
 
             ps.execute();
             ps.close();
