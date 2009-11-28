@@ -2,7 +2,6 @@
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa
  */
-
 package sipsa.presentacion.interfaces;
 
 import javax.swing.table.TableModel;
@@ -14,22 +13,24 @@ import javax.swing.table.TableModel;
  */
 public interface IReporte {
 
-    //TODO ver si esta bien usar un TableModel
     /**
      * Obtiene los datos del reporte a mostrar
      * @return devuelve los datos a mostrar en el TableModel
      */
     public TableModel getDatos();
+
     /**
      * Obiene el nombre del Reporte a mostrar
      * @return devuelve el nombre del reporte a mostrar 
      */
     public String getNombre();
+
     /**
      * Accion para imprimir el reporte
      * @throws Exception
      */
     public void imprimir() throws Exception;
+
     /**
      * Accion para exportar el reporte
      * @throws Exception 

@@ -3,6 +3,7 @@
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="modal" type="boolean" value="true"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -25,16 +26,16 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jLabelNombre" alignment="0" pref="449" max="32767" attributes="0"/>
+                  <Component id="jLabelNombre" alignment="0" pref="671" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="1" pref="1" max="1" attributes="0"/>
-                      <Component id="jScrollPaneDatos" pref="448" max="32767" attributes="0"/>
+                      <Component id="jScrollPaneDatos" pref="670" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jButtonImprimir" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonExportar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="209" max="32767" attributes="0"/>
+                      <EmptySpace pref="431" max="32767" attributes="0"/>
                       <Component id="jButtonCerrar" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>

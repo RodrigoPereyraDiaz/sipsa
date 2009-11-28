@@ -13,12 +13,12 @@ class SolicitudLogin extends Mensaje {
         Pac pac = (Pac) this.getContenido();
         try {
             pac = (Pac) persistencia.existe(pac);
-            if (pac.getID() > 0) {
-                mensaje = MensajesFabrica.newRespuestaOK();
-                mensaje.setContenido(pac);
-            } else {
+            if (pac == null) {
                 mensaje = MensajesFabrica.newRespuestaError();
                 mensaje.setContenido(new SipsaExcepcion("Error de autenticación"));
+            } else {
+                mensaje = MensajesFabrica.newRespuestaOK();
+                mensaje.setContenido(pac);
             }
         } catch (SipsaExcepcion ex) {
             mensaje = MensajesFabrica.newRespuestaError();

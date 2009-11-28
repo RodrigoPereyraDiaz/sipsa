@@ -63,14 +63,17 @@ class PvBroker implements ISipsaBroker {
         consulta.append("UPDATE ");
         consulta.append("Empresas ");
         consulta.append("SET ");
+        consulta.append("cuit = ? "); //cuit
+        consulta.append(", ");
         consulta.append("nombre = ? "); //nombre
         consulta.append("WHERE "); //id Autoincremental
         consulta.append("id = ? ");
         try {
             ps = conn.prepareStatement(consulta.toString());
 
-            ps.setString(1, pv.getNombre());
-            ps.setInt(2, pv.getID());
+            ps.setString(1, pv.getCuit());
+            ps.setString(2, pv.getNombre());
+            ps.setInt(1, pv.getID());
 
             ps.execute();
             ps.close();

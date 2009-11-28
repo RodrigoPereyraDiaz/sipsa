@@ -110,9 +110,11 @@ public class PacControl implements IEmpresaDatos, IListarABM {
 
     public void guardarEmpresa(Empresa empresa) throws SipsaExcepcion {
         Pac pac = (Pac) empresa;
-        //TODO Validar CUIT
         if (pac.getCuit().equals("") || pac.getNombre().equals("")) {
             throw new SipsaExcepcion("Debe completar todos los datos solicitados");
+        }
+        if (!CUIT.validaCuit(pac.getCuit())){
+            throw new SipsaExcepcion("El Cuit ingresado no es valido");
         }
         if (pac.getID() > 0) {
             persistencia.actualizar(pac);

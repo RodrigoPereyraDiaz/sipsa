@@ -13,7 +13,6 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
 
     private IOrdenDeTrabajoDatos controlador;
     private OrdenDeTrabajo ordenDeTrabajo;
-    private boolean sinCambio = true;
 
     /** Construye una interface Orden de Trabajo y la llena con los datos
      * @param controlador
@@ -28,10 +27,6 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         this.setTitle("Orden de Trabajo");
         this.poblarFormulario();
-    }
-
-    public boolean isSinCambio() {
-        return this.sinCambio;
     }
 
     /** This method is called from within the constructor to
@@ -106,16 +101,6 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
         jLabelTipoProducto.setText("Tipo de Producto:");
 
         jComboBoxTipoProducto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tipo Producto 1", "Tipo Producto 2", "Tipo Producto 3", "Tipo Producto 4" }));
-        jComboBoxTipoProducto.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBoxTipoProductoItemStateChanged(evt);
-            }
-        });
-        jComboBoxTipoProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxTipoProductoActionPerformed(evt);
-            }
-        });
 
         jLabelModelo.setText("Modelo:");
 
@@ -124,12 +109,6 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
         jLabelNroFactura.setText("Nro de Factura:");
 
         jLabelNroSerie.setText("Nro de Serie:");
-
-        jTextFieldNroSerie.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNroSerieActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanelVentaLayout = new javax.swing.GroupLayout(jPanelVenta);
         jPanelVenta.setLayout(jPanelVentaLayout);
@@ -145,11 +124,11 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
                     .addComponent(jLabelNroFactura))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldNroFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-                    .addComponent(jTextFieldNroSerie, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-                    .addComponent(jComboBoxPv, 0, 375, Short.MAX_VALUE)
-                    .addComponent(jComboBoxTipoProducto, 0, 375, Short.MAX_VALUE)
-                    .addComponent(jComboBoxModelo, 0, 375, Short.MAX_VALUE))
+                    .addComponent(jTextFieldNroFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+                    .addComponent(jTextFieldNroSerie, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
+                    .addComponent(jComboBoxPv, 0, 436, Short.MAX_VALUE)
+                    .addComponent(jComboBoxTipoProducto, 0, 436, Short.MAX_VALUE)
+                    .addComponent(jComboBoxModelo, 0, 436, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanelVentaLayout.setVerticalGroup(
@@ -197,7 +176,7 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPaneObservaciones, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+                            .addComponent(jScrollPaneObservaciones, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
                             .addComponent(jLabelObservaciones)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -207,14 +186,14 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
                                     .addComponent(jFormattedTextFieldFechaEntrega))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPaneMotivoEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
+                                    .addComponent(jScrollPaneMotivoEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
                                     .addComponent(jLabelMotivoEstado)))
                             .addComponent(jPanelVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(358, 358, 358)
-                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -234,11 +213,11 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                         .addComponent(jLabelFechaEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jFormattedTextFieldFechaEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPaneMotivoEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE))
+                    .addComponent(jScrollPaneMotivoEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButtonGuardar)
@@ -252,7 +231,6 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         try {
             this.controlador.guardarOrdenDeTrabajo(this.ordenDeTrabajo);
-            this.sinCambio = false;
             this.setVisible(false);
         } catch (Exception ex) {
             new DialogoMensaje(DialogoMensaje.Tipo.Error,ex.getLocalizedMessage());
@@ -262,18 +240,6 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         this.setVisible(false);
 }//GEN-LAST:event_jButtonCancelarActionPerformed
-
-    private void jTextFieldNroSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNroSerieActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_jTextFieldNroSerieActionPerformed
-
-    private void jComboBoxTipoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoProductoActionPerformed
-            // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxTipoProductoActionPerformed
-
-    private void jComboBoxTipoProductoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTipoProductoItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxTipoProductoItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;

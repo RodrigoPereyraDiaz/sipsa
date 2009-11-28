@@ -18,7 +18,6 @@ public class EmpresaDatos extends javax.swing.JDialog {
 
     private IEmpresaDatos controlador;
     private Empresa empresa;
-    private boolean sinCambio = true;
 
     /** Creates new form EmpresaDatos
      * @param controlador Controlador del formulario
@@ -125,9 +124,9 @@ public class EmpresaDatos extends javax.swing.JDialog {
         empresa.setNombre(this.jTextFieldNombre.getText());
         try {
             this.controlador.guardarEmpresa(empresa);
-            this.sinCambio = false;
             this.setVisible(false);
         } catch (Exception ex) {
+            ex.printStackTrace();
             new DialogoMensaje(DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
         }
 }//GEN-LAST:event_jButtonGuardarActionPerformed
@@ -149,12 +148,6 @@ public class EmpresaDatos extends javax.swing.JDialog {
         if (this.empresa.getCuit() != null) {
             this.jTextFieldNombre.setText(this.empresa.getNombre());
             this.jTextFieldCUIT.setText(this.empresa.getCuit());
-            this.jTextFieldCUIT.setEnabled(false);
         }
-    }
-
-    /** @return True si guardo los cambios, False si cerro sin guardar */
-    public boolean isSinCambio() {
-        return sinCambio;
     }
 }
