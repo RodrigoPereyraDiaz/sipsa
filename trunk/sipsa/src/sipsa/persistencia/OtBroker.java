@@ -82,7 +82,7 @@ class OtBroker implements ISipsaBroker {
             ps.setString(3, ordenDeTrabajo.getObservaciones());
             ps.setInt(4, EstadoOT.toInt(ordenDeTrabajo.getEstado()));
             ps.setString(5, ordenDeTrabajo.getMotivoEstado());
-            ps.setDate(6, (Date) ordenDeTrabajo.getFechaEntrega());
+            ps.setDate(6, new Date(ordenDeTrabajo.getFechaEntrega().getTime()));
             ps.setInt(7, ordenDeTrabajo.getID());
 
             ps.execute();
@@ -124,7 +124,7 @@ class OtBroker implements ISipsaBroker {
             ps.setString(3, ordenDeTrabajo.getObservaciones());
             ps.setInt(4, EstadoOT.toInt(ordenDeTrabajo.getEstado()));
             ps.setString(5, ordenDeTrabajo.getMotivoEstado());
-            ps.setDate(6, (Date) ordenDeTrabajo.getFechaEntrega());
+            ps.setDate(6, new Date(ordenDeTrabajo.getFechaEntrega().getTime()));
 
             ps.execute();
             ps.close();
