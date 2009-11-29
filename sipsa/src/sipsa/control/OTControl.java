@@ -216,7 +216,7 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
      * Obtiene una lista de Puntos de Venta
      * @return devuelve una lista de PV para cargar el ComboBOx
      */
-    public ComboBoxModel getListaPuntosDeVenta() {
+    public ComboBoxModel getListaPuntosDeVenta() throws SipsaExcepcion {
         PvControl pvControl = new PvControl();
         DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
         for (Object o : pvControl.getListaPvs()) {
@@ -231,7 +231,7 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
      * @return devuelve una lista de Modelos para un Tipo de Prod específico,
      * para cargar el ComboBox
      */
-    public ComboBoxModel getListaModelos() {
+    public ComboBoxModel getListaModelos() throws SipsaExcepcion {
         ModeloControl modeloControl = new ModeloControl();
         DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
         for (Object o : modeloControl.getListaModelos()) {
@@ -242,7 +242,12 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
 
     public List<OrdenDeTrabajo> getListaOT(Pac pac) {
         recuperarLista();
-        //TODO Filtrar solo por el pac
+        ArrayList<OrdenDeTrabajo> listaPac = new ArrayList<OrdenDeTrabajo>();
+        for (OrdenDeTrabajo ordenDeTrabajo : lista) {
+            if (pac.equals(ordenDeTrabajo.getPac())) {
+                listaPac.add(ordenDeTrabajo);
+            }
+        }
         return lista;
     }
 
