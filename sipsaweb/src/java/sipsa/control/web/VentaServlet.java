@@ -1,3 +1,7 @@
+/*
+ * Sistemas de Informacion II 2009
+ * Proyecto Sipsa
+ */
 package sipsa.control.web;
 
 import java.io.IOException;
@@ -16,7 +20,7 @@ import sipsa.dominio.Pv;
  * @author Maria Eugenia Sanchez
  */
 public class VentaServlet extends HttpServlet {
-   
+
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -25,7 +29,7 @@ public class VentaServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         VentaControl ventaControl = new VentaControl();
@@ -38,10 +42,10 @@ public class VentaServlet extends HttpServlet {
             ventaControl.activarGarantia(pv, fechaFactura, nroFactura, modelo, nroSerie);
             response.sendRedirect("ActivacionOk.jsp");
         } catch (Exception ex) {
-            response.sendRedirect("ActivacionError.jsp?textoError="+ex.getLocalizedMessage());
+            response.sendRedirect("ActivacionError.jsp?textoError=" + ex.getLocalizedMessage());
         }
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
@@ -52,9 +56,9 @@ public class VentaServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-    } 
+    }
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -65,7 +69,7 @@ public class VentaServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -77,5 +81,4 @@ public class VentaServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

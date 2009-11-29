@@ -1,8 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Sistemas de Informacion II 2009
+ * Proyecto Sipsa
  */
-
 package sipsa.control.web;
 
 import java.io.IOException;
@@ -17,11 +16,12 @@ import sipsa.control.PvControl;
 import sipsa.dominio.Pv;
 
 /**
- *
- * @author elsupergomez
+ * Servlet validacion de Punto de venta, ingreso al sistema
+ * @author Claudio Rodrigo Pereyra Diaz
+ * @author Maria Eugenia Sanchez
  */
 public class IngresoServlet extends HttpServlet {
-   
+
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -30,7 +30,7 @@ public class IngresoServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         PvControl pvControl = new PvControl();
@@ -38,14 +38,14 @@ public class IngresoServlet extends HttpServlet {
         pv.setCuit(request.getParameter("cuit"));
         try {
             pv = pvControl.existePv(pv);
-            session.setAttribute("usuario",pv.getNombre());
-            session.setAttribute("pv",pv);
+            session.setAttribute("usuario", pv.getNombre());
+            session.setAttribute("pv", pv);
             response.sendRedirect("RegistrarVenta.jsp");
         } catch (Exception ex) {
             session.removeAttribute("usuario");
             response.sendRedirect("Ingreso.jsp");
         }
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
@@ -57,9 +57,9 @@ public class IngresoServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-    } 
+    }
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -70,7 +70,7 @@ public class IngresoServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
