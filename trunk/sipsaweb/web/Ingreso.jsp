@@ -18,7 +18,7 @@ session.removeAttribute("usuario");
         <link rel="icon" href="Sipsa.png" type="image/png" />
     </head>
     <body>
-        <p align="center"><img width="20%" height="20%" src="Sipsa.png"></p>
+        <p align="center"><img alt="Sipsa" width="20%" height="20%" src="Sipsa.png"></p>
         <h1  align="center">Sistema Sipsa</h1>
         <h2  align="center">Punto de Venta</h2>
         <form action="IngresoServlet" method="post">

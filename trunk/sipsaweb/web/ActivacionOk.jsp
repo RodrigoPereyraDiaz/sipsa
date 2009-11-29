@@ -16,7 +16,7 @@
         <link rel="icon" href="Sipsa.png" type="image/png" />
     </head>
     <body>
-        <p align="center"><img width="20%" height="20%" src="Sipsa.png"></p>
+        <p align="center"><img alt="Sipsa" width="20%" height="20%" src="Sipsa.png"></p>
         <h1 align="center">Exito</h1>
         <h2 align="center">La Garantia para el producto se activo con exito</h2>
         <br>
