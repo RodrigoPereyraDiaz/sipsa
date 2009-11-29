@@ -21,6 +21,21 @@ public class Sipsa {
         Configuracion configuracion = Configuracion.getInstancia();
         configuracion.setEstiloLocal();
 
+        for (int i = 0; i < args.length; i++) {
+            if (args[i].equals("--dbserver")) {
+                i++;
+                configuracion.setServidorDB(args[i]);
+            } else {
+                StringBuilder ayuda = new StringBuilder();
+                ayuda.append("Ayuda de parametros del Servidor Sipsa:\n");
+                ayuda.append("  --dbserver <host>   --> Indica la direccion del servidor de base de datos\n");
+                ayuda.append("  --help          --> Muestra este mensaje de ayuda\n");
+                System.out.println(ayuda.toString());
+                System.exit(1);
+            }
+        }
+
+
         SipsaMenuControl menuSipsaControl = new SipsaMenuControl();
         menuSipsaControl.mostrarMenu();
     }
