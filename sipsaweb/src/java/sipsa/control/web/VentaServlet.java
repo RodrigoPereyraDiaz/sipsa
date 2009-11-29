@@ -28,10 +28,9 @@ public class VentaServlet extends HttpServlet {
             Pv pv = (Pv) session.getAttribute("pv");
             String fechaFactura = request.getParameter("fechaFactura");
             String nroFactura = request.getParameter("nroFactura");
-            int tipoProducto = Integer.parseInt(request.getParameter("tipoProducto"));
             int modelo = Integer.parseInt(request.getParameter("modelo"));
             String nroSerie = request.getParameter("nroSerie");
-            ventaControl.activarGarantia(pv, fechaFactura, nroFactura, tipoProducto, modelo, nroSerie);
+            ventaControl.activarGarantia(pv, fechaFactura, nroFactura, modelo, nroSerie);
             response.sendRedirect("ActivacionOk.jsp");
         } catch (Exception ex) {
             response.sendRedirect("ActivacionError.jsp?textoError="+ex.getLocalizedMessage());

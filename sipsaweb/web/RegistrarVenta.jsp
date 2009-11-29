@@ -14,6 +14,7 @@
 <%@ page import="sipsa.dominio.TipoProducto" %>
 <%@ page import="sipsa.dominio.Modelo" %>
 <%@ page import="sipsa.control.TipoProductoControl" %>
+<%@ page import="sipsa.control.ModeloControl" %>
 <%
         String usuario = (String) session.getAttribute("usuario");
         if (usuario == null) {
@@ -22,6 +23,8 @@
 %>
 <%!     private TipoProductoControl tipoProductoControl = new TipoProductoControl();
         private List<TipoProducto> lista = tipoProductoControl.getListaTipoProducto();
+        private ModeloControl modeloControl = new ModeloControl();
+        private List<Modelo> listaModelos = modeloControl.getListaModelos();
 %>
 
 <html>
@@ -31,7 +34,7 @@
         <link rel="icon" href="Sipsa.png" type="image/png" />
     </head>
     <body>
-        <p align="center"><img width="20%" height="20%" src="Sipsa.png"></p>
+        <p align="center"><img alt="Sipsa" width="20%" height="20%" src="Sipsa.png"></p>
         <h1 align="center">Activación de Garantia</h1>
         <h2 align="center">Ingrese los datos de la venta para activar la garantia</h2>
         <form name="datosVenta" action="VentaServlet" method="post" >
@@ -58,7 +61,7 @@
         for (Iterator tpIt = lista.iterator(); tpIt.hasNext();) {
             TipoProducto tipoProducto = (TipoProducto) tpIt.next();
                             %>
-                            <option value=<%=tipoProducto.getID()%> ><%=tipoProducto.getDescripcion()%></option>
+                            <option value=<%=tipoProducto.getID()%> ><%=tipoProducto.getNombre()%></option>
                             <%}%>
                         </select>
                     </td>
@@ -67,22 +70,20 @@
                     <td style="font-weight:bold">Modelo Producto: </td>
                     <td>
                         <select style="width:100%" name="modelo">
-                            <div id="listaModelos">
                                 <option value=-1 selected>Seleccione una opción</option>
                                 <!--TODO aca deberia ser parametrizado de acuerdo al tipo de producto seleccionado-->
                             <%
-        for (Iterator tpIt = lista.get(1).getModelos().iterator(); tpIt.hasNext();) {
+        for (Iterator tpIt = listaModelos.iterator(); tpIt.hasNext();) {
             Modelo modelo = (Modelo) tpIt.next();
                                 %>
                                 <option value=<%=modelo.getID()%> ><%=modelo.getNombre()%></option>
                                 <%}%>
-                            </div>
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td style="font-weight:bold">Numero de Serie: </td>
-                    <td><input type="text" name="fechaFactura" value="" /></td>
+                    <td><input type="text" name="nroSerie" value="" /></td>
                 </tr>
                 <tr>
                     <td><p align="center"><input type="submit" value="Activar Garantia"/></p></td>
