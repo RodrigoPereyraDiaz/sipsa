@@ -8,11 +8,18 @@ import sipsa.persistencia.IPersistible;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class Modelo implements IPersistible, Serializable{
+public class Modelo implements IPersistible, Serializable {
 
     private int id;
     private TipoProducto tipoProducto;
     private String nombre;
+    private int duracionGarantia;
+
+    /**
+     * Construye un nuevo objeto modelo
+     */
+    public Modelo() {
+    }
 
     /**
      * Construye un nuevo objeto modelo
@@ -56,5 +63,21 @@ public class Modelo implements IPersistible, Serializable{
 
     public void setTipoProducto(TipoProducto tipoProducto) {
         this.tipoProducto = tipoProducto;
+    }
+
+    public void setDuracionGarantia(int duracionGarantia) {
+        this.duracionGarantia = duracionGarantia;
+    }
+
+    /**
+     * @return the duracionGarantia
+     */
+    public int getDuracionGarantia() {
+        return duracionGarantia;
+    }
+
+    @Override
+    public String toString() {
+        return getNombre();
     }
 }

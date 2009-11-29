@@ -45,7 +45,7 @@ public class PacControl implements IEmpresaDatos, IListarABM {
     /**
      *Muestra el formulario para Administrar Puntos de Atención al Cliente
      */
-    public void mostrarAdministrar() {
+    public void mostrarABM() {
         recuperarLista();
         ListarABM listarABM = new ListarABM(this);
         listarABM.setVisible(true);
@@ -94,7 +94,7 @@ public class PacControl implements IEmpresaDatos, IListarABM {
      * Obtiene el modelo para llenar un jTable con los Puntos de Atencion al Cliente
      * @return TableModel de Puntos de Atencion al Cliente
      */
-    public TableModel getModelo() {
+    public TableModel getTableModel() {
         String[] columnNames = {"Cuit", "Nombre"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
         recuperarLista();

@@ -63,6 +63,8 @@ class ModeloBroker implements ISipsaBroker {
         consulta.append("idTipoProducto = ? "); //idTipoProducto
         consulta.append(", ");
         consulta.append("nombre = ? "); //nombre
+        consulta.append(", ");
+        consulta.append("duracionGarantia = ? "); //duracionGarantia
         consulta.append("WHERE ");
         consulta.append("id = ? ");
 
@@ -71,7 +73,8 @@ class ModeloBroker implements ISipsaBroker {
 
             ps.setInt(1, modelo.getTipoProducto().getID());
             ps.setString(2, modelo.getNombre());
-            ps.setInt(3, modelo.getID());
+            ps.setInt(3, modelo.getDuracionGarantia());
+            ps.setInt(4, modelo.getID());
 
             ps.execute();
             ps.close();
@@ -95,12 +98,15 @@ class ModeloBroker implements ISipsaBroker {
         consulta.append("? "); //idTipoProducto
         consulta.append(", ");
         consulta.append("? "); //nombre
+        consulta.append(", ");
+        consulta.append("? "); //duracionDeGarantia
         consulta.append(") ");
         try {
             ps = conn.prepareStatement(consulta.toString());
 
             ps.setInt(1, modelo.getTipoProducto().getID());
             ps.setString(2, modelo.getNombre());
+            ps.setInt(3, modelo.getDuracionGarantia());
 
             ps.execute();
             ps.close();
@@ -140,6 +146,10 @@ class ModeloBroker implements ISipsaBroker {
         StringBuilder consulta = new StringBuilder();
         consulta.append("SELECT ");
         consulta.append("nombre ");
+        consulta.append(", ");
+        consulta.append("idTipoProducto ");
+        consulta.append(", ");
+        consulta.append("duracionGarantia ");
         consulta.append("FROM ");
         consulta.append("Modelos ");
         consulta.append("WHERE ");
@@ -152,6 +162,10 @@ class ModeloBroker implements ISipsaBroker {
             rs = ps.executeQuery();
             if (rs.next()) {
                 modelo.setNombre(rs.getString("nombre"));
+                modelo.setDuracionGarantia(rs.getInt("duracionGarantia"));
+                TipoProductoBroker tipoProductoBroker = new TipoProductoBroker();
+                TipoProducto tipoProducto = new TipoProducto(rs.getInt("idTipoProducto"));
+                modelo.setTipoProducto((TipoProducto) tipoProductoBroker.recuperar(tipoProducto));
             }
             ps.close();
         } catch (SQLException ex) {

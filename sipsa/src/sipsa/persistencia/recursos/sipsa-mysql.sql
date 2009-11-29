@@ -44,6 +44,7 @@ CREATE  TABLE IF NOT EXISTS `sipsa`.`Modelos` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `idTipoProducto` INT(11) NOT NULL ,
   `nombre` VARCHAR(40) NOT NULL ,
+  `duracionGarantia` INT(11) NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `fk_Modelos_TiposProducto` (`idTipoProducto` ASC) ,
   CONSTRAINT `fk_Modelos_TiposProducto`

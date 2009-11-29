@@ -7,25 +7,17 @@ package sipsa.control;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileFilter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.swing.JFileChooser;
-
+import javax.swing.filechooser.FileFilter;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
+
 import sipsa.SipsaExcepcion;
 import sipsa.dominio.Fabrica;
 import sipsa.dominio.Modelo;
@@ -33,7 +25,6 @@ import sipsa.dominio.Producto;
 import sipsa.persistencia.Persistencia;
 import sipsa.presentacion.escritorio.DialogoMensaje;
 import sipsa.presentacion.escritorio.ReporteVisor;
-import sipsa.presentacion.interfaces.IReporte;
 
 /**
  * Controlador de Productos
@@ -49,7 +40,26 @@ public class ProductosControl {
      */
     public void importarProductosDesdeArchivo() {
         JFileChooser jfileChooser = new JFileChooser();
-        jfileChooser.setDialogType(JFileChooser.OPEN_DIALOG);
+        FileFilter filtro = new FileFilter() {
+
+            @Override
+            public boolean accept(File f) {
+                if (f.isDirectory()) {
+                    return true;
+                }
+                String nombre = f.getName();
+                int i = nombre.lastIndexOf(".");
+                String extension = nombre.substring(i);
+                return extension.toLowerCase().equals(".sipsa");
+            }
+
+            @Override
+            public String getDescription() {
+                return "Archivo Sipsa";
+            }
+        };
+
+        jfileChooser.setFileFilter(filtro);
         int i = jfileChooser.showOpenDialog(jfileChooser);
         if (i == JFileChooser.APPROVE_OPTION) {
             String pathFile = jfileChooser.getSelectedFile().getPath();
@@ -120,7 +130,7 @@ public class ProductosControl {
                 new DialogoMensaje(DialogoMensaje.Tipo.Error, "Se encontro error al importar algunos productos, se procede a generar un nuevo archivo con las lineas en cuestion");
                 try {
                     BufferedWriter salida = new BufferedWriter(new FileWriter(archivo + ".errores"));
-                    for(String lineaError : lineasError) {
+                    for (String lineaError : lineasError) {
                         salida.write(lineaError);
                         salida.newLine();
                     }
@@ -135,17 +145,6 @@ public class ProductosControl {
             ReporteVisor reporteVisor = new ReporteVisor(reporte);
             reporteVisor.setVisible(true);
         }
-    }
-
-    /**
-     * Verifica que el Producto especificado este en garantía
-     * @param producto
-     * @return devuelve verdadero si el producto esta en garantía, sino devuelve
-     * falso
-     */
-    public boolean isEnGarantia(Producto producto) {
-        //TODO agregar la validacion de si se encuentra en garantia
-        return true;
     }
 
     /**

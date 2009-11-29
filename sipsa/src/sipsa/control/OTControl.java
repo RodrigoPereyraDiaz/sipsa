@@ -46,7 +46,7 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
     /**
      * Muestra el formulario para administrar Ordenes de Trabajo
      */
-    public void mostrarAdministrar() {
+    public void mostrarABM() {
         recuperarLista();
         ListarABM listarABM = new ListarABM(this);
         listarABM.setVisible(true);
@@ -78,7 +78,7 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
         return "Orden de Trabajo";
     }
 
-    public TableModel getModelo() {
+    public TableModel getTableModel() {
         String[] columnNames = {"Nro de Orden", "Estado", "Pac"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
         recuperarLista();
@@ -159,7 +159,6 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
                 fila[3] = ordenDeTrabajo.getPac().getNombre();
                 modelo.addRow(fila);
             }
-
         }
         return modelo;
     }
@@ -196,7 +195,10 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
      */
     public ComboBoxModel getListaPuntosDeVenta() {
         PvControl pvControl = new PvControl();
-        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(pvControl.getListaPvs().toArray());
+        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
+        for (Object o : pvControl.getListaPvs()) {
+            comboBoxModel.addElement(o);
+        }
         return comboBoxModel;
     }
 
@@ -206,7 +208,10 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
      */
     public ComboBoxModel getListaTiposProducto() {
         TipoProductoControl tipoProductoControl = new TipoProductoControl();
-        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(tipoProductoControl.getListaTipoProducto().toArray());
+        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
+        for (Object o : tipoProductoControl.getListaTipoProducto()) {
+            comboBoxModel.addElement(o);
+        }
         return comboBoxModel;
     }
 
@@ -214,16 +219,20 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
      * Obtiene la lista de Modelos para un Tipo de Producto específico
      * @param tipoProducto
      * @return devuelve una lista de Modelos para un Tipo de Prod específico,
-     * para cargar el ComboBOx
+     * para cargar el ComboBox
      */
     public ComboBoxModel getListaModelos(Object tipoProducto) {
         TipoProducto tp = (TipoProducto) tipoProducto;
-        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(tp.getModelos().toArray());
+        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
+        for (Object o : tp.getModelos()) {
+            comboBoxModel.addElement(o);
+        }
         return comboBoxModel;
     }
 
     public List<OrdenDeTrabajo> getListaOT(Pac pac) {
         recuperarLista();
+        //Filtrar solo por el pac
         return lista;
     }
 }

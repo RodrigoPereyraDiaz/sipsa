@@ -78,7 +78,9 @@ public class Login extends javax.swing.JDialog {
 
         jLabelIdentificacion.setText("CUIT");
 
+        jLabelInfo.setFont(new java.awt.Font("DejaVu Sans", 1, 15)); // NOI18N
         jLabelInfo.setForeground(javax.swing.UIManager.getDefaults().getColor("nb.errorForeground"));
+        jLabelInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelInfo.setText(" ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -91,15 +93,15 @@ public class Login extends javax.swing.JDialog {
                         .addGap(12, 12, 12)
                         .addComponent(jLabelIdentificacion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldIdentificacion, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))
+                        .addComponent(jTextFieldIdentificacion, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(29, Short.MAX_VALUE)
+                        .addContainerGap(51, Short.MAX_VALUE)
                         .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelButton))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)))
+                        .addComponent(jLabelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

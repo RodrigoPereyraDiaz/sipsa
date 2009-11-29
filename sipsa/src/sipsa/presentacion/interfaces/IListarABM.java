@@ -2,7 +2,6 @@
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa
  */
-
 package sipsa.presentacion.interfaces;
 
 import javax.swing.table.TableModel;
@@ -41,5 +40,7 @@ public interface IListarABM {
      * Obtiene el modelo para llenar un jTable con el contenido y estrutura definido
      * @return TableModel de la Clase de Dominio
      */
-    public TableModel getModelo();
+    public TableModel getTableModel();
+
+    public void mostrarABM();
 }

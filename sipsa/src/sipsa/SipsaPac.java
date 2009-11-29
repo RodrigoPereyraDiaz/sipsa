@@ -15,10 +15,10 @@ public class SipsaPac {
     public static void main(String[] args) {
         Cliente cliente = Cliente.getCliente();
         for (int i = 0; i < args.length; i++) {
-            if (args[i].equals("--host")){
+            if (args[i].equals("--host")) {
                 i++;
                 cliente.setHost(args[i]);
-            } else if (args[i].startsWith("--port")){
+            } else if (args[i].startsWith("--port")) {
                 i++;
                 cliente.setPuerto(Integer.valueOf(args[i].substring(3)));
             } else {

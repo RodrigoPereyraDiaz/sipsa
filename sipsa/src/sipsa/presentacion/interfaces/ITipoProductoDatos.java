@@ -2,9 +2,9 @@
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa
  */
-
 package sipsa.presentacion.interfaces;
 
+import sipsa.SipsaExcepcion;
 import sipsa.dominio.TipoProducto;
 
 /**
@@ -17,7 +17,7 @@ public interface ITipoProductoDatos {
     /**
      * Acción para guardar el Tipo de producto
      * @param tipoProducto
-     * @throws java.lang.Exception
+     * @throws SipsaExcepcion
      */
-    public void guardarTipoProducto(TipoProducto tipoProducto) throws Exception;
+    public void guardarTipoProducto(TipoProducto tipoProducto) throws SipsaExcepcion;
 }

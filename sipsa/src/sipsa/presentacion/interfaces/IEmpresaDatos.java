@@ -2,9 +2,9 @@
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa
  */
-
 package sipsa.presentacion.interfaces;
 
+import sipsa.SipsaExcepcion;
 import sipsa.dominio.Empresa;
 
 /**
@@ -17,9 +17,9 @@ public interface IEmpresaDatos {
     /**
      * Implementa la accion del boton guardar
      * @param empresa Empresa a guardar
-     * @throws java.lang.Exception Si no se puede guardar por algun motivo
+     * @throws SipsaExcepcion Si no se puede guardar por algun motivo
      */
-    public void guardarEmpresa(Empresa empresa) throws Exception;
+    public void guardarEmpresa(Empresa empresa) throws SipsaExcepcion;
 
     /**
      * Obtiene la descripcion para utilizar en formularios genericos

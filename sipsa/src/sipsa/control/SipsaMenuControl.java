@@ -29,7 +29,7 @@ public class SipsaMenuControl implements ISipsaMenu {
      */
     public void administrarPv() {
         PvControl pvControl = new PvControl();
-        pvControl.mostrarAdministrar();
+        pvControl.mostrarABM();
     }
 
     /**
@@ -37,7 +37,7 @@ public class SipsaMenuControl implements ISipsaMenu {
      */
     public void administrarPac() {
         PacControl pacControl = new PacControl();
-        pacControl.mostrarAdministrar();
+        pacControl.mostrarABM();
     }
 
     /**
@@ -45,7 +45,12 @@ public class SipsaMenuControl implements ISipsaMenu {
      */
     public void administrarTipoProducto() {
         TipoProductoControl tipoProductoControl = new TipoProductoControl();
-        tipoProductoControl.mostrarAdministrar();
+        tipoProductoControl.mostrarABM();
+    }
+
+    public void administrarModelos() {
+        ModeloControl modeloControl = new ModeloControl();
+        modeloControl.mostrarABM();
     }
 
     /**

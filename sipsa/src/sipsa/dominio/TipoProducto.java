@@ -14,9 +14,10 @@ import sipsa.persistencia.IPersistible;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class TipoProducto implements IPersistible, Serializable{
+public class TipoProducto implements IPersistible, Serializable {
+
     private int id;
-    private String descripcion;
+    private String nombre;
     private int duracionGarantia;
     private List<Modelo> modelos;
 
@@ -47,16 +48,16 @@ public class TipoProducto implements IPersistible, Serializable{
      * Obtiene el Nombre del tipo de producto
      * @return the nombre
      */
-    public String getDescripcion() {
-        return descripcion;
+    public String getNombre() {
+        return nombre;
     }
 
     /**
-     * Establece la descripcion del tipo de producto
+     * Establece la nombre del tipo de producto
      * @param descripcion
      */
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     /**
@@ -76,32 +77,6 @@ public class TipoProducto implements IPersistible, Serializable{
     }
 
     /**
-     * Agrega un modelo
-     * @param modelo
-     */
-    public void addModelo(Modelo modelo){
-        this.getModelos().add(modelo);
-    }
-    
-    /**
-     * Agrega un modelo
-     * @param nombre nombre del nuevo modelo
-     */
-    public void addModelo(String nombre){
-        Modelo modelo = new Modelo(id);
-        modelo.setNombre(nombre);
-        this.getModelos().add(modelo);
-    }
-
-    /**
-     * remueve un modelo
-     * @param modelo
-     */
-    public void removeModelo(Modelo modelo){
-        this.getModelos().remove(modelo);
-    }
-
-    /**
      * Obtiene la lista de modelos del tipo de producto
      * @return lista de modelos
      */
@@ -115,5 +90,10 @@ public class TipoProducto implements IPersistible, Serializable{
      */
     public void setModelos(List<Modelo> listaModelos) {
         this.modelos = listaModelos;
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
     }
 }

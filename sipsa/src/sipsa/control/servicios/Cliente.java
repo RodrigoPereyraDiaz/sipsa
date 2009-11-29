@@ -168,40 +168,32 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
      */
     @Override
     public ComboBoxModel getListaPuntosDeVenta() {
-        //TODO pasar por servidor
         PvControl pvControl = new PvControl();
-        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(pvControl.getListaPvs().toArray());
-        return comboBoxModel;
-    }
+        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
+        comboBoxModel.addElement("Seleccione...");
+        for (Object o : pvControl.getListaPvs()){
+            comboBoxModel.addElement(o);
+        }
+        return comboBoxModel;    }
 
     /**
      * Obtiene la lista de Tipos de Productos
      * @return devuelve una lista de Tipos de Productos para cargar el ComboBox
      */
+
     @Override
     public ComboBoxModel getListaTiposProducto() {
-        //TODO pasar por servidor
         TipoProductoControl tipoProductoControl = new TipoProductoControl();
-        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(tipoProductoControl.getListaTipoProducto().toArray());
-        return comboBoxModel;
-    }
-
-    /**
-     * Obtiene la lista de Modelos para un Tipo de Producto específico
-     * @param tipoProducto
-     * @return devuelve una lista de Modelos para un Tipo de Prod específico,
-     * para cargar el ComboBOx
-     */
-    @Override
-    public ComboBoxModel getListaModelos(Object tipoProducto) {
-        //TODO pasar por servidor
-        TipoProducto tp = (TipoProducto) tipoProducto;
-        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel(tp.getModelos().toArray());
+        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
+        comboBoxModel.addElement("Seleccione...");
+        for (Object o : tipoProductoControl.getListaTipoProducto()){
+            comboBoxModel.addElement(o);
+        }
         return comboBoxModel;
     }
 
     @Override
-    public TableModel getModelo() {
+    public TableModel getTableModel() {
         String[] columnNames = {"Nro de Orden", "Estado"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
         recuperarLista();

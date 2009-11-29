@@ -2,7 +2,6 @@
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa
  */
-
 package sipsa.dominio;
 
 import java.io.Serializable;
@@ -14,7 +13,8 @@ import sipsa.persistencia.IPersistible;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class Venta implements IPersistible, Serializable{
+public class Venta implements IPersistible, Serializable {
+
     private int id;
     private Pv empresaVendedora;
     private Producto producto;
@@ -23,9 +23,8 @@ public class Venta implements IPersistible, Serializable{
 
     /**
      * Construye un nuevo objeto Venta
-    */
+     */
     public Venta() {
-        
     }
 
     /**
