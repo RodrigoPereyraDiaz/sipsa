@@ -63,4 +63,11 @@ public class Configuracion {
     public String getDBCadenaConexion() {
         return "jdbc:mysql://"+ servidorDB + ":3306/sipsa";
     }
+
+    /**
+     * @param servidorDB the servidorDB to set
+     */
+    public void setServidorDB(String servidorDB) {
+        this.servidorDB = servidorDB;
+    }
 }
