@@ -4,6 +4,7 @@ import javax.swing.ComboBoxModel;
 
 import sipsa.SipsaExcepcion;
 import sipsa.dominio.OrdenDeTrabajo;
+import sipsa.dominio.Pac;
 
 /**
  * Interface a implementar para controlar el fomulario OrdendeTrabajodatos
@@ -26,15 +27,11 @@ public interface IOrdenDeTrabajoDatos {
     public ComboBoxModel getListaPuntosDeVenta();
 
     /**
-     * Obtiene la lista de Tipos de Productos para llenar el comboBox
-     * @return devuelve la lista de Tipos de Productos
-     */
-    public ComboBoxModel getListaTiposProducto();
-
-    /**
      * Obtiene la lista de los Modelos para llenar el comboBox
      * @param tipoProducto
      * @return devuelve la lista de Modelos
      */
-    public ComboBoxModel getListaModelos(Object tipoProducto);
+    public ComboBoxModel getListaModelos();
+
+    public Pac getPac();
 }

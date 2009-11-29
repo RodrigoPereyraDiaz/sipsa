@@ -15,11 +15,9 @@ import sipsa.SipsaExcepcion;
 import sipsa.control.OTControl;
 import sipsa.control.PvControl;
 import sipsa.control.Reporte;
-import sipsa.control.TipoProductoControl;
 import sipsa.dominio.EstadoOT;
 import sipsa.dominio.OrdenDeTrabajo;
 import sipsa.dominio.Pac;
-import sipsa.dominio.TipoProducto;
 import sipsa.presentacion.escritorio.DialogoMensaje;
 import sipsa.presentacion.escritorio.ListarABM;
 import sipsa.presentacion.escritorio.Login;
@@ -176,22 +174,6 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
         }
         return comboBoxModel;    }
 
-    /**
-     * Obtiene la lista de Tipos de Productos
-     * @return devuelve una lista de Tipos de Productos para cargar el ComboBox
-     */
-
-    @Override
-    public ComboBoxModel getListaTiposProducto() {
-        TipoProductoControl tipoProductoControl = new TipoProductoControl();
-        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
-        comboBoxModel.addElement("Seleccione...");
-        for (Object o : tipoProductoControl.getListaTipoProducto()){
-            comboBoxModel.addElement(o);
-        }
-        return comboBoxModel;
-    }
-
     @Override
     public TableModel getTableModel() {
         String[] columnNames = {"Nro de Orden", "Estado"};
@@ -279,5 +261,10 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
         } catch (Exception ex) {
             new DialogoMensaje(DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
         }
+    }
+
+    @Override
+    public Pac getPac() {
+        return pac;
     }
 }

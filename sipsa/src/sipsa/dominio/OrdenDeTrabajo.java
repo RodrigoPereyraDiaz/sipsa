@@ -28,6 +28,7 @@ public class OrdenDeTrabajo implements IPersistible, Serializable {
      */
     public OrdenDeTrabajo() {
         this.estado = EstadoOT.Nueva;
+        this.venta = new Venta();
     }
 
     /**

@@ -5,7 +5,9 @@
 package sipsa.dominio;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
+
 import sipsa.persistencia.IPersistible;
 
 /**
@@ -25,6 +27,7 @@ public class Venta implements IPersistible, Serializable {
      * Construye un nuevo objeto Venta
      */
     public Venta() {
+        producto = new Producto();
     }
 
     /**
@@ -97,5 +100,13 @@ public class Venta implements IPersistible, Serializable {
      */
     public void setNroFactura(String nroFactura) {
         this.nroFactura = nroFactura;
+    }
+
+    public boolean isProductoEnGarantia() {
+        Modelo modelo = producto.getModelo();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fechaFactura);
+        calendar.add(Calendar.MONTH, modelo.getDuracionGarantia());
+        return calendar.getTime().after(new Date(System.currentTimeMillis()));
     }
 }

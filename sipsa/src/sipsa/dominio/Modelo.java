@@ -78,6 +78,6 @@ public class Modelo implements IPersistible, Serializable {
 
     @Override
     public String toString() {
-        return getNombre();
+        return tipoProducto.getNombre() + " : " + getNombre();
     }
 }
