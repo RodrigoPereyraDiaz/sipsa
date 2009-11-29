@@ -2,7 +2,6 @@
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa
  */
-
 package sipsa.control.servicios;
 
 /**
@@ -11,6 +10,7 @@ package sipsa.control.servicios;
  * @author Maria Eugenia Sanchez
  */
 public interface IReceptorNotificado {
+
     /**
      * procesa la notificación
      * @param notificacion

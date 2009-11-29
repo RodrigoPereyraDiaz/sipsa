@@ -107,6 +107,7 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos {
     }
 
     /**
+     * Obtiene la liasta de Tipos de Productos
      * @return the listaTipoProducto
      */
     public List<TipoProducto> getListaTipoProducto() {
@@ -116,8 +117,8 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos {
 
     /**
      * Guarda el Tipo de Producto en el sistema Sipsa
-     * @param tipoProducto
-     * @throws SipsaExcepcion
+     * @param tipoProducto tipo de producto a guardar
+     * @throws SipsaExcepcion si no se puede guardar el tipo de producto
      */
     public void guardarTipoProducto(TipoProducto tipoProducto) throws SipsaExcepcion {
         if (tipoProducto.getNombre().equals("")) {
@@ -138,6 +139,10 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos {
         recuperarLista();
     }
 
+    /**
+     * Obtiene la lista de tipos de productos para usar en un ComboBox
+     * @return Modelo de ComboBox cargado con los tipos de productos
+     */
     public ComboBoxModel getComboBox() {
         DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
         recuperarLista();

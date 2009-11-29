@@ -42,5 +42,8 @@ public interface IListarABM {
      */
     public TableModel getTableModel();
 
+    /**
+     * Muestra la ventanda de Lista, Altas Bajas y Modificaciones
+     */
     public void mostrarABM();
 }

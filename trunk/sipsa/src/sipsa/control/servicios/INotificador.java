@@ -10,16 +10,19 @@ package sipsa.control.servicios;
  * @author Maria Eugenia Sanchez
  */
 public interface INotificador {
+
     /**
      * Notifica al servidor
      * @param mensaje
      */
     public void notificar(String mensaje);
+
     /**
      * Agrega un receptor notificado
      * @param iReceptorNotificado
      */
     public void addReceptorNotificado(IReceptorNotificado iReceptorNotificado);
+
     /**
      * remueve un receptor notificado
      * @param iReceptorNotificado

@@ -107,10 +107,14 @@ public class PvControl implements IEmpresaDatos, IListarABM {
         return modelo;
     }
 
+    /**
+     * Obtiene la listsa de Puntos de Venta para usar en un ComboBox
+     * @return Modelo del ComboBox cargado con los puntos de venta
+     */
     public ComboBoxModel getComboBox() {
         DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
         recuperarLista();
-        for (Object o : lista){
+        for (Object o : lista) {
             comboBoxModel.addElement(o);
         }
         return comboBoxModel;
@@ -121,7 +125,7 @@ public class PvControl implements IEmpresaDatos, IListarABM {
         if (pv.getCuit().equals("") || pv.getNombre().equals("")) {
             throw new SipsaExcepcion("Debe completar todos los datos solicitados");
         }
-        if (!CUIT.validaCuit(pv.getCuit())){
+        if (!CUIT.validaCuit(pv.getCuit())) {
             throw new SipsaExcepcion("El Cuit ingresado no es valido, debe escribir el cuit sin guiones");
         }
         if (pv.getID() > 0) {
@@ -137,6 +141,7 @@ public class PvControl implements IEmpresaDatos, IListarABM {
     }
 
     /**
+     * Obtiene la lista de Puntos de Venta
      * @return the listaPvs
      */
     public List<Pv> getListaPvs() {
@@ -148,12 +153,12 @@ public class PvControl implements IEmpresaDatos, IListarABM {
      * Verifica la existencia del Punto de Venta
      * @param pv
      * @return devuelve el Punto de Venta si existe, sino muestra una excepción
-     * @throws java.lang.Exception
+     * @throws SipsaExcepcion si no se puede verificar la existencia del punto de venta
      */
-    public Pv existePv(Pv pv) throws Exception {
+    public Pv existePv(Pv pv) throws SipsaExcepcion {
         pv = (Pv) persistencia.existe(pv);
         if (pv == null) {
-            throw new Exception("El Punto de Venta no existe");
+            throw new SipsaExcepcion("El Punto de Venta no existe");
         } else {
             return pv;
         }

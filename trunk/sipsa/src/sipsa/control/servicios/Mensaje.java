@@ -2,7 +2,6 @@
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa
  */
-
 package sipsa.control.servicios;
 
 import java.io.Serializable;
@@ -13,15 +12,16 @@ import sipsa.SipsaExcepcion;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public abstract class Mensaje implements Serializable{
+public abstract class Mensaje implements Serializable {
+
     private Object Contenido;
 
     /**
-     * mensaje
-     * @return
-     * @throws java.lang.Exception
+     * Realiza la tarea correspondiente al mensaje implementado
+     * @return Devuelve el resultado de procesar el mensaje, debe ser casteado al tipo esperado
+     * @throws SipsaExcepcion Si existe algun problema al procesar el mensaje
      */
-    public abstract Mensaje procesar() throws SipsaExcepcion;
+    public abstract Object procesar() throws SipsaExcepcion;
 
     /**
      * Obtiene el contenido del cuerpo del mensaje

@@ -79,4 +79,30 @@ public enum EstadoOT implements Serializable {
             }
         }
     }
+
+    /**
+     * Obtiene la descripcion textual del Estado de la Orden de Trabajo
+     * @return Texto del Estado
+     */
+    @Override
+    public String toString() {
+        switch (this) {
+            case Nueva: {
+                return "Nueva";
+            }
+            case Activa: {
+                return "Activa";
+            }
+            case Finalizada: {
+                return "Finalizada";
+            }
+            case Anulada: {
+                return "Anulada";
+            }
+            default: {
+                return "Sin Dato";
+            }
+        }
+    }
+
 }

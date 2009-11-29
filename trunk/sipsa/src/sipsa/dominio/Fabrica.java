@@ -1,3 +1,7 @@
+/*
+ * Sistemas de Informacion II 2009
+ * Proyecto Sipsa
+ */
 package sipsa.dominio;
 
 import sipsa.persistencia.IPersistible;
@@ -44,6 +48,10 @@ public class Fabrica implements IPersistible {
         this.nombre = nombre;
     }
 
+    /**
+     * Obtiene la descripcion de la Fabrica
+     * @return nombre de la fabrica
+     */
     @Override
     public String toString() {
         return getNombre();
