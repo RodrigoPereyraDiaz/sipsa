@@ -1,3 +1,7 @@
+/*
+ * Sistemas de Informacion II 2009
+ * Proyecto Sipsa
+ */
 package sipsa.dominio;
 
 import java.io.Serializable;
@@ -40,6 +44,10 @@ public abstract class Empresa implements Serializable {
         this.cuit = cuit;
     }
 
+    /**
+     * Obtiene el nombre descriptivo de la empresa
+     * @return Nombre de la empresa
+     */
     @Override
     public String toString() {
         return getNombre();

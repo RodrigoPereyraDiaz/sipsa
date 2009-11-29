@@ -1,3 +1,7 @@
+/*
+ * Sistemas de Informacion II 2009
+ * Proyecto Sipsa
+ */
 package sipsa.control.servicios;
 
 import sipsa.SipsaExcepcion;
@@ -8,15 +12,13 @@ class SolicitudOrdenDeTrabajoGuardar extends Mensaje {
 
     @Override
     public Mensaje procesar() {
-        Mensaje mensaje = null;
+        Mensaje mensaje = MensajesFabrica.newRespuesta();
         OTControl oTControl = new OTControl();
         OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) this.getContenido();
         try {
             oTControl.guardarOrdenDeTrabajo(ordenDeTrabajo);
-            mensaje = MensajesFabrica.newRespuestaOK();
             mensaje.setContenido("Orden de Trabajo guardada con exito");
         } catch (SipsaExcepcion ex) {
-            mensaje = MensajesFabrica.newRespuestaError();
             mensaje.setContenido(ex);
         }
         return mensaje;

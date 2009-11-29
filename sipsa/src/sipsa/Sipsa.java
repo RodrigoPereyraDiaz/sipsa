@@ -14,6 +14,7 @@ import sipsa.control.SipsaMenuControl;
 class Sipsa {
 
     /**
+     * Punto de ingreso al Sistema Sipsa
      * @param args Argumentos de linea de comandos
      */
     public static void main(String[] args) {
@@ -34,8 +35,6 @@ class Sipsa {
                 System.exit(1);
             }
         }
-
-
         SipsaMenuControl menuSipsaControl = new SipsaMenuControl();
         menuSipsaControl.mostrarMenu();
     }

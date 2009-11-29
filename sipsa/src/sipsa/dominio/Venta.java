@@ -102,6 +102,10 @@ public class Venta implements IPersistible, Serializable {
         this.nroFactura = nroFactura;
     }
 
+    /**
+     * Verifica si el producto se encuentra en garantia
+     * @return True si esta en garantia, False si la garantia expiro
+     */
     public boolean isProductoEnGarantia() {
         Modelo modelo = producto.getModelo();
         Calendar calendar = Calendar.getInstance();

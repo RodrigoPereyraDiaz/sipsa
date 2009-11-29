@@ -151,6 +151,7 @@ public class ProductosControl {
      * Verifica que el producto exista
      * @param producto
      * @return devuelve un Producto si existe sino devuelve una excepción
+     * @throws SipsaExcepcion Si existe algun error al verificar la existencia del producto
      */
     public Producto existe(Producto producto) throws SipsaExcepcion {
         return (Producto) persistencia.existe(producto);

@@ -1,3 +1,7 @@
+/*
+ * Sistemas de Informacion II 2009
+ * Proyecto Sipsa
+ */
 package sipsa.dominio;
 
 import java.io.Serializable;
@@ -61,10 +65,18 @@ public class Modelo implements IPersistible, Serializable {
         this.nombre = nombre;
     }
 
+    /**
+     * Establece el tipo de producto al que pertenece el modelo
+     * @param tipoProducto
+     */
     public void setTipoProducto(TipoProducto tipoProducto) {
         this.tipoProducto = tipoProducto;
     }
 
+    /**
+     * Establece la duracion de la garantia del Modelo
+     * @param duracionGarantia
+     */
     public void setDuracionGarantia(int duracionGarantia) {
         this.duracionGarantia = duracionGarantia;
     }
@@ -76,6 +88,10 @@ public class Modelo implements IPersistible, Serializable {
         return duracionGarantia;
     }
 
+    /**
+     * Obtiene la descripcion del modelo
+     * @return Tipo de Producto seguido del Modelo
+     */
     @Override
     public String toString() {
         return tipoProducto.getNombre() + " : " + getNombre();

@@ -1,3 +1,7 @@
+/*
+ * Sistemas de Informacion II 2009
+ * Proyecto Sipsa
+ */
 package sipsa.control;
 
 import java.util.ArrayList;
@@ -30,8 +34,14 @@ import sipsa.presentacion.interfaces.IOrdenDeTrabajoDatos;
 public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
 
     private Persistencia persistencia = Persistencia.getPersistencia();
+    /**
+     * Lista de Ordenes de Trabajo
+     */
     protected List<OrdenDeTrabajo> lista;
 
+    /**
+     * Metodo para recuperar el del medio de persistencia la lista de ordenes de trabajo
+     */
     protected void recuperarLista() {
         lista = new ArrayList<OrdenDeTrabajo>();
         try {
@@ -98,6 +108,8 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
 
     /**
      * Obtiene la lista de Ordenes de Trabajo realizadas
+     * @param fechaDesde Fecha desde la cual se quiere consultar
+     * @param fechaHasta Fecha hasta la cual se quiere consultar
      * @return devuelve una lista de ordenes de Trabajo realizadas para mostrar en la tabla
      */
     public TableModel getOTRealizadas(Date fechaDesde, Date fechaHasta) {
@@ -166,9 +178,8 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
 
     /**
      * Guarda una orden de trabajo en el sistema Sipsa
-     * @param ordenDeTrabajo
-     * @throws java.lang.Exception Lanza una excepción si no se puede guardar
-     * la orden de Trabajo
+     * @param ordenDeTrabajo Orden de trabajo a guardar
+     * @throws SipsaExcepcion Lanza una excepción si no se puede guardar la orden de Trabajo
      */
     public void guardarOrdenDeTrabajo(OrdenDeTrabajo ordenDeTrabajo) throws SipsaExcepcion {
         if (ordenDeTrabajo.getFechaEntrega().before(new Date(System.currentTimeMillis()))) {
@@ -215,6 +226,7 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
     /**
      * Obtiene una lista de Puntos de Venta
      * @return devuelve una lista de PV para cargar el ComboBOx
+     * @throws SipsaExcepcion Si ocurre algun error al intentar obtener la lista de puntos de venta
      */
     public ComboBoxModel getListaPuntosDeVenta() throws SipsaExcepcion {
         PvControl pvControl = new PvControl();
@@ -227,9 +239,9 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
 
     /**
      * Obtiene la lista de Modelos para un Tipo de Producto específico
-     * @param tipoProducto
      * @return devuelve una lista de Modelos para un Tipo de Prod específico,
      * para cargar el ComboBox
+     * @throws SipsaExcepcion Si ocurre algun error al intentar recuperar la lista de modelos
      */
     public ComboBoxModel getListaModelos() throws SipsaExcepcion {
         ModeloControl modeloControl = new ModeloControl();
@@ -240,6 +252,11 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
         return comboBoxModel;
     }
 
+    /**
+     * Obtiene la lista de Ordenes de Trabajo de un Pac especifico
+     * @param pac Pac que solicita las ordenes de trabajo
+     * @return Lista de ordenes de trabajo
+     */
     public List<OrdenDeTrabajo> getListaOT(Pac pac) {
         recuperarLista();
         ArrayList<OrdenDeTrabajo> listaPac = new ArrayList<OrdenDeTrabajo>();

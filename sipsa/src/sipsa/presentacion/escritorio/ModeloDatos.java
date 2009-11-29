@@ -5,12 +5,20 @@ import sipsa.dominio.Modelo;
 import sipsa.dominio.TipoProducto;
 import sipsa.presentacion.interfaces.IModeloDatos;
 
+/**
+ * Interface para visulizar y cargar los datos de un Modelo
+  * @author Claudio Rodrigo Pereyra Diaz
+ * @author Maria Eugenia Sanchez
+ */
 public class ModeloDatos extends javax.swing.JDialog {
 
     private final IModeloDatos controlador;
     private final Modelo modelo;
 
-    /** Creates new form ModeloDatos */
+    /** Creates new form ModeloDatos
+     * @param controlador Controlador de la interface de usuario
+     * @param modelo Modelo a mostrar o cargar
+     */
     public ModeloDatos(IModeloDatos controlador, Modelo modelo) {
         initComponents();
         Configuracion configuracion = Configuracion.getInstancia();

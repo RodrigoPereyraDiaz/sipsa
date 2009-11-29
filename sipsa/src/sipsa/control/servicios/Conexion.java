@@ -2,7 +2,6 @@
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa
  */
-
 package sipsa.control.servicios;
 
 import java.net.*;
@@ -27,11 +26,11 @@ class Conexion {
         this.direccionRemota = socket.getInetAddress().getHostName();
     }
 
-    public String getDireccionRemota(){
+    public String getDireccionRemota() {
         return this.direccionRemota;
     }
 
-    public void finalizar() throws IOException{
+    public void finalizar() throws IOException {
         this.socket.close();
     }
 
@@ -40,11 +39,11 @@ class Conexion {
      * @return Mensaje recibido, Mensaje de Error en caso de no recibir correctamente
      */
     public Mensaje recibirMensaje() throws IOException {
-        Mensaje solicitud = MensajesFabrica.newRespuestaError();
+        Mensaje solicitud = MensajesFabrica.newRespuesta();
         ObjectInputStream entrada = new ObjectInputStream(socket.getInputStream());
         try {
             solicitud = (Mensaje) entrada.readObject();
-        } catch (ClassNotFoundException ex){
+        } catch (ClassNotFoundException ex) {
             solicitud.setContenido("Error " + ex.getLocalizedMessage());
         } finally {
             return solicitud;
@@ -55,8 +54,8 @@ class Conexion {
      * Envia un mensaje del protocolo por el canal de comunicacion
      * @param mensaje
      */
-    public void enviarMensaje(Mensaje mensaje) throws IOException{
-            ObjectOutputStream salida = new ObjectOutputStream(socket.getOutputStream());
-            salida.writeObject(mensaje);
+    public void enviarMensaje(Mensaje mensaje) throws IOException {
+        ObjectOutputStream salida = new ObjectOutputStream(socket.getOutputStream());
+        salida.writeObject(mensaje);
     }
 }

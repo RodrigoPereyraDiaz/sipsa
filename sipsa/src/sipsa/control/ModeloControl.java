@@ -1,3 +1,7 @@
+/*
+ * Sistemas de Informacion II 2009
+ * Proyecto Sipsa
+ */
 package sipsa.control;
 
 import java.util.ArrayList;
@@ -15,6 +19,11 @@ import sipsa.presentacion.escritorio.ModeloDatos;
 import sipsa.presentacion.interfaces.IListarABM;
 import sipsa.presentacion.interfaces.IModeloDatos;
 
+/**
+ * Controlador de Modelos de Producto
+ * @author Claudio Rodrigo Pereyra Diaz
+ * @author Maria Eugenia Sanchez
+ */
 public class ModeloControl implements IListarABM, IModeloDatos {
 
     private ArrayList<Modelo> lista;
@@ -74,6 +83,11 @@ public class ModeloControl implements IListarABM, IModeloDatos {
         return tableModel;
     }
 
+    /**
+     * Guardar en el medio de persistencia el modelo especificado
+     * @param modelo Modelo a guardar
+     * @throws SipsaExcepcion Si ocurre algun error al intentar guardar
+     */
     public void guardar(Modelo modelo) throws SipsaExcepcion {
         if (modelo.getNombre().equals("")) {
             throw new SipsaExcepcion("Debe completar el nombre del Modelo");
@@ -95,11 +109,18 @@ public class ModeloControl implements IListarABM, IModeloDatos {
         }
     }
 
+    /**
+     * Obtiene la lista de Tipos de Producto para usar en un ComboBox
+     * @return Modelo del Combobox cargado con los tipos de productos
+     */
     public ComboBoxModel getTiposProducto() {
         TipoProductoControl tipoProductoControl = new TipoProductoControl();
         return tipoProductoControl.getComboBox();
     }
 
+    /**
+     * Abre la venta de administracion de Modelos
+     */
     public void mostrarABM() {
         recuperarLista();
         ListarABM listarABM = new ListarABM(this);
@@ -107,7 +128,8 @@ public class ModeloControl implements IListarABM, IModeloDatos {
     }
 
     /**
-     * @return the lista
+     * Obtiene la lista de Modelos
+     * @return the lista de modelos
      */
     public ArrayList<Modelo> getListaModelos() {
         recuperarLista();

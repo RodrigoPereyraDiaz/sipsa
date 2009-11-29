@@ -54,7 +54,7 @@ public class TipoProducto implements IPersistible, Serializable {
 
     /**
      * Establece la nombre del tipo de producto
-     * @param descripcion
+     * @param nombre nombre del tipo de producto
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -92,6 +92,10 @@ public class TipoProducto implements IPersistible, Serializable {
         this.modelos = listaModelos;
     }
 
+    /**
+     * Obtiene la descricion del tipo de producto
+     * @return nombre del tipo de producto
+     */
     @Override
     public String toString() {
         return nombre;

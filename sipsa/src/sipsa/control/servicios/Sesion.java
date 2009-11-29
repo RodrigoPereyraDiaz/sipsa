@@ -2,7 +2,6 @@
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa
  */
-
 package sipsa.control.servicios;
 
 import java.io.IOException;
@@ -24,7 +23,7 @@ class Sesion extends Thread {
      * @param conexion Conexion con el Cliente
      * @param servidor Servidor receptor de la conexion
      */
-    public Sesion(Conexion conexion,Servidor servidor) {
+    public Sesion(Conexion conexion, Servidor servidor) {
         this.conexion = conexion;
         this.servidor = servidor;
         this.start();
@@ -36,10 +35,10 @@ class Sesion extends Thread {
     @Override
     final public void run() {
         try {
-            while (true){
+            while (true) {
                 Mensaje solicitud = conexion.recibirMensaje();
                 servidor.notificar("<== " + this.conexion.getDireccionRemota());
-                Mensaje respuesta = solicitud.procesar();
+                Mensaje respuesta = (Mensaje) solicitud.procesar();
                 conexion.enviarMensaje(respuesta);
                 servidor.notificar("==> " + this.conexion.getDireccionRemota());
             }

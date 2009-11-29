@@ -1,5 +1,14 @@
+/*
+ * Sistemas de Informacion II 2009
+ * Proyecto Sipsa
+ */
 package sipsa.control;
 
+/**
+ * Clase para validacion de CUIT
+ * @author Claudio Rodrigo Pereyra Diaz
+ * @author Maria Eugenia Sanchez
+ */
 public class CUIT {
 
     /**

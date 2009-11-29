@@ -1,7 +1,10 @@
 package sipsa.presentacion.escritorio;
 
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import sipsa.Configuracion;
+import sipsa.SipsaExcepcion;
 import sipsa.dominio.EstadoOT;
 import sipsa.dominio.Modelo;
 import sipsa.dominio.OrdenDeTrabajo;
@@ -258,7 +261,6 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         this.setVisible(false);
 }//GEN-LAST:event_jButtonCancelarActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonGuardar;
@@ -285,20 +287,27 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void poblarFormulario() {
-        this.jComboBoxPv.setModel(this.controlador.getListaPuntosDeVenta());
-        this.jComboBoxModelo.setModel(this.controlador.getListaModelos());
-        this.jLabelEstaado.setText(ordenDeTrabajo.getEstado().name());
-        if (ordenDeTrabajo.getEstado().equals(EstadoOT.Nueva)) {
-            this.jPanelVenta.setEnabled(true);
-        } else {
-            this.jCheckBoxFinalizada.setEnabled(ordenDeTrabajo.getEstado().equals(EstadoOT.Activa));
-            this.jPanelVenta.setEnabled(false);
-            this.jComboBoxPv.setSelectedItem(ordenDeTrabajo.getVenta().getEmpresaVendedora());
-            this.jComboBoxModelo.setSelectedItem(ordenDeTrabajo.getVenta().getProducto().getModelo());
-            this.jTextAreaMotivoEstado.setText(ordenDeTrabajo.getMotivoEstado());
-            this.jTextAreaObservaciones.setText(ordenDeTrabajo.getMotivoEstado());
-            this.jTextFieldNroFactura.setText(ordenDeTrabajo.getVenta().getNroFactura());
-            this.jTextFieldNroSerie.setText(ordenDeTrabajo.getVenta().getProducto().getNroSerie());
+        try {
+            this.jComboBoxPv.setModel(this.controlador.getListaPuntosDeVenta());
+            this.jComboBoxModelo.setModel(this.controlador.getListaModelos());
+            this.jTextFieldEstado.setText(ordenDeTrabajo.getEstado().toString());
+            this.jFormattedTextFieldFechaEntrega.setValue(new Date(System.currentTimeMillis()));
+            if (!ordenDeTrabajo.getEstado().equals(EstadoOT.Nueva)) {
+                this.jCheckBoxFinalizada.setEnabled(ordenDeTrabajo.getEstado().equals(EstadoOT.Activa));
+                this.jComboBoxPv.setSelectedItem(ordenDeTrabajo.getVenta().getEmpresaVendedora());
+                this.jComboBoxPv.setEnabled(false);
+                this.jComboBoxModelo.setSelectedItem(ordenDeTrabajo.getVenta().getProducto().getModelo());
+                this.jComboBoxModelo.setEnabled(false);
+                this.jTextAreaMotivoEstado.setText(ordenDeTrabajo.getMotivoEstado());
+                this.jTextAreaObservaciones.setText(ordenDeTrabajo.getObservaciones());
+                this.jTextFieldNroFactura.setText(ordenDeTrabajo.getVenta().getNroFactura());
+                this.jTextFieldNroFactura.setEnabled(false);
+                this.jTextFieldNroSerie.setText(ordenDeTrabajo.getVenta().getProducto().getNroSerie());
+                this.jTextFieldNroSerie.setEnabled(false);
+            }
+        } catch (SipsaExcepcion ex) {
+            new DialogoMensaje(DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
+            this.setVisible(false);
         }
     }
 }

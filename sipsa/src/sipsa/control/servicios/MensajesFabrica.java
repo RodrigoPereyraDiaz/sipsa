@@ -2,43 +2,28 @@
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa
  */
-
 package sipsa.control.servicios;
 
 /**
+ * Fabrica de Mensajes crea instancias de mensajes solicitado
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
 public class MensajesFabrica {
-    /**
-     * Crea un mensaje de respuesta de tipo error
-     * @return devuelve un mensaje de tipo error que contiene una excepción
-     */
-    public static Mensaje newRespuestaError(){
-        return new RespuestaError();
-    }
 
     /**
-     * Crea u  mensaje de respuesta de tipo Ok
-     * @return devuelve un mensaje de tipo OK
+     * Crea un nuevo Mensaje de Respuesta
+     * @return Mensaje de respuesta
      */
-    public static Mensaje newRespuestaOK(){
-        return new RespuestaOK();
-    }
-
-    /**
-     * Crea un mensaje de respuesta de tipo Ordenes de Trabajo
-     * @return devuelve un mensaje de tipo Ordenes de trabajo
-     */
-    public static Mensaje newRespuestaOrdenesDeTrabajo(){
-        return new RespuestaOrdenesDeTrabajo();
+    public static Mensaje newRespuesta() {
+        return new Respuesta();
     }
 
     /**
      * Crea un mensaje de tipo solicitud login
      * @return devuelve un mensaje de tipo login
      */
-    public static Mensaje newSolicitudLogin(){
+    public static Mensaje newSolicitudLogin() {
         return new SolicitudLogin();
     }
 
@@ -46,7 +31,7 @@ public class MensajesFabrica {
      * Crea un mensaje de solicitud orden de trabajo
      * @return devuelve un mensaje de tipo orden de trabajo
      */
-    public static Mensaje newSolicitudOrdenesDeTrabajo(){
+    public static Mensaje newSolicitudOrdenesDeTrabajo() {
         return new SolicitudOrdenesDeTrabajo();
     }
 
@@ -54,7 +39,19 @@ public class MensajesFabrica {
      *
      * @return
      */
-    public static Mensaje newSolicitudOrdenDeTrabajoGuardar(){
+    public static Mensaje newSolicitudOrdenDeTrabajoGuardar() {
         return new SolicitudOrdenDeTrabajoGuardar();
+    }
+
+    /**
+     * Crea un nuevo mensaje de solicitud de lista de puntos de venta
+     * @return Mensaje de solicitud
+     */
+    public static Mensaje newSolicitudListsaPuntosDeVenta() {
+        return new SolicitudPuntosDeVenta();
+    }
+
+    static Mensaje newSolicitudListaModelos() {
+        return new SolicitudModelos();
     }
 }

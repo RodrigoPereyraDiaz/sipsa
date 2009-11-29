@@ -1,3 +1,7 @@
+/*
+ * Sistemas de Informacion II 2009
+ * Proyecto Sipsa
+ */
 package sipsa.control.servicios;
 
 import java.io.IOException;
@@ -7,13 +11,11 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import sipsa.SipsaExcepcion;
 import sipsa.control.OTControl;
-import sipsa.control.PvControl;
 import sipsa.control.Reporte;
 import sipsa.dominio.EstadoOT;
 import sipsa.dominio.OrdenDeTrabajo;
@@ -56,23 +58,6 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
         return cliente;
     }
 
-    void handelError(SipsaExcepcion exception) throws SipsaExcepcion {
-        throw exception;
-    }
-
-    void handelOK(Object respuesta) {
-        if (respuesta.getClass().equals(Pac.class)) {
-            this.pac = (Pac) respuesta;
-        }
-        if (respuesta.getClass().equals(String.class)) {
-            new DialogoMensaje(DialogoMensaje.Tipo.Información, respuesta.toString());
-        }
-    }
-
-    void handleOrdenesDeTrabajo(List<OrdenDeTrabajo> lista) {
-        this.lista = lista;
-    }
-
     /**
      * Muestra la pantalla de Login
      */
@@ -90,7 +75,7 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
             this.conexion = new Conexion(new Socket(host, puerto));
             conexion.enviarMensaje(login);
             Mensaje respuesta = conexion.recibirMensaje();
-            respuesta.procesar();
+            pac = (Pac) respuesta.procesar();
             recuperarLista();
             SipsaPacMenu sipsaPacMenu = new SipsaPacMenu(this);
             sipsaPacMenu.setVisible(true);
@@ -133,6 +118,7 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
     }
 
     /**
+     * Establecer la ruta del host del Servidor
      * @param host the host to set
      */
     public void setHost(String host) {
@@ -140,6 +126,7 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
     }
 
     /**
+     * Estable el puerto de comunicacion con el servidor
      * @param puerto the puerto to set
      */
     public void setPuerto(int puerto) {
@@ -154,7 +141,7 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
             conexion.enviarMensaje(solicitud);
             Mensaje respuesta = conexion.recibirMensaje();
             respuesta.procesar();
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             ex.printStackTrace();
             throw new SipsaExcepcion("Error solicitando al servidor que guarde la orden de trabajo");
         }
@@ -162,17 +149,34 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
 
     /**
      * Obtiene una lista de Puntos de Venta
-     * @return devuelve una lista de PV para cargar el ComboBOx
+     * @return devuelve una lista de PV para cargar el ComboBox
+     * @throws SipsaExcepcion Si existe algun error al recuperar al lista de puntos de venta
      */
     @Override
-    public ComboBoxModel getListaPuntosDeVenta() {
-        PvControl pvControl = new PvControl();
-        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
-        comboBoxModel.addElement("Seleccione...");
-        for (Object o : pvControl.getListaPvs()){
-            comboBoxModel.addElement(o);
+    public ComboBoxModel getListaPuntosDeVenta() throws SipsaExcepcion {
+        try {
+            Mensaje solicitud = MensajesFabrica.newSolicitudListsaPuntosDeVenta();
+            conexion.enviarMensaje(solicitud);
+            Mensaje respuesta = conexion.recibirMensaje();
+            return (ComboBoxModel) respuesta.procesar();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            throw new SipsaExcepcion("Error solicitando la lista de Puntos de Venta");
         }
-        return comboBoxModel;    }
+    }
+
+    @Override
+    public ComboBoxModel getListaModelos() throws SipsaExcepcion {
+        try {
+            Mensaje solicitud = MensajesFabrica.newSolicitudListaModelos();
+            conexion.enviarMensaje(solicitud);
+            Mensaje respuesta = conexion.recibirMensaje();
+            return (ComboBoxModel) respuesta.procesar();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            throw new SipsaExcepcion("Error solicitando la lista de Modelos");
+        }
+    }
 
     @Override
     public TableModel getTableModel() {
@@ -181,16 +185,20 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
         recuperarLista();
         for (Iterator it = lista.iterator(); it.hasNext();) {
             OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
-            Object[] fila = new Object[modelo.getColumnCount()];
-            fila[0] = ordenDeTrabajo.getID();
-            fila[1] = ordenDeTrabajo.getEstado();
-            modelo.addRow(fila);
+            if (ordenDeTrabajo.getEstado().equals(EstadoOT.Activa)) {
+                Object[] fila = new Object[modelo.getColumnCount()];
+                fila[0] = ordenDeTrabajo.getID();
+                fila[1] = ordenDeTrabajo.getEstado();
+                modelo.addRow(fila);
+            }
         }
         return modelo;
     }
 
     /**
      * Obtiene la lista de Ordenes de Trabajo realizadas
+     * @param fechaDesde Fecha desde la cual se quiere consultar
+     * @param fechaHasta Fecha hasta la cual se quiere consultar
      * @return devuelve una lista de ordenes de Trabajo realizadas para mostrar en la tabla
      */
     @Override
@@ -200,11 +208,12 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
         recuperarLista();
         for (Iterator it = lista.iterator(); it.hasNext();) {
             OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
-            Object[] fila = new Object[modelo.getColumnCount()];
-            fila[0] = ordenDeTrabajo.getID();
-            fila[1] = ordenDeTrabajo.getEstado();
-            fila[2] = ordenDeTrabajo.getPac().getNombre();
-            modelo.addRow(fila);
+            if (ordenDeTrabajo.getEstado().equals(EstadoOT.Finalizada) && ordenDeTrabajo.getFechaEntrega().after(fechaDesde) && ordenDeTrabajo.getFechaEntrega().before(fechaHasta)) {
+                Object[] fila = new Object[modelo.getColumnCount()];
+                fila[0] = ordenDeTrabajo.getID();
+                fila[1] = ordenDeTrabajo.getEstado();
+                modelo.addRow(fila);
+            }
         }
         return modelo;
     }
@@ -242,14 +251,19 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
         recuperarLista();
         for (Iterator it = lista.iterator(); it.hasNext();) {
             OrdenDeTrabajo ordenDeTrabajo = (OrdenDeTrabajo) it.next();
-            Object[] fila = new Object[modelo.getColumnCount()];
-            fila[0] = ordenDeTrabajo.getID();
-            fila[1] = ordenDeTrabajo.getEstado();
-            modelo.addRow(fila);
+            if (ordenDeTrabajo.getEstado().equals(EstadoOT.Activa) && ordenDeTrabajo.getFechaEntrega().before(new Date(System.currentTimeMillis()))) {
+                Object[] fila = new Object[modelo.getColumnCount()];
+                fila[0] = ordenDeTrabajo.getID();
+                fila[1] = ordenDeTrabajo.getEstado();
+                modelo.addRow(fila);
+            }
         }
         return modelo;
     }
 
+    /**
+     * Recuperar la lista de Ordenes de Trabajo solicitandola al servidor
+     */
     @Override
     protected void recuperarLista() {
         try {
@@ -257,7 +271,7 @@ public class Cliente extends OTControl implements ILogin, ISipsaPacMenu, IOrdenD
             solicitud.setContenido(this.pac);
             conexion.enviarMensaje(solicitud);
             Mensaje respuesta = conexion.recibirMensaje();
-            respuesta.procesar();
+            lista = (List<OrdenDeTrabajo>) respuesta.procesar();
         } catch (Exception ex) {
             new DialogoMensaje(DialogoMensaje.Tipo.Error, ex.getLocalizedMessage());
         }

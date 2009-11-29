@@ -29,10 +29,18 @@ public class Configuracion {
         return configuracion;
     }
 
+    /**
+     * Obtiene la contrasela para acceder a la base de datos
+     * @return
+     */
     public String getDBPassword() {
         return "sipsa";
     }
 
+    /**
+     * Obtiene el usuario de la base de datos
+     * @return
+     */
     public String getDBUsuario() {
         return "sipsa";
     }
@@ -56,15 +64,24 @@ public class Configuracion {
         }
     }
 
+    /**
+     * Obtiene el driver a utilizar para conectarse con la base de datos
+     * @return Driver de la Base de datos
+     */
     public String getDBDriver() {
         return "com.mysql.jdbc.Driver";
     }
 
+    /**
+     * Obtiene la cadena de conexion a la base de datos
+     * @return Cadena de conexion a la base de datos
+     */
     public String getDBCadenaConexion() {
-        return "jdbc:mysql://"+ servidorDB + ":3306/sipsa";
+        return "jdbc:mysql://" + servidorDB + ":3306/sipsa";
     }
 
     /**
+     * Establecer el nombre-ruta del servidor de base de datos
      * @param servidorDB the servidorDB to set
      */
     public void setServidorDB(String servidorDB) {
