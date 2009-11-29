@@ -10,6 +10,11 @@ import javax.servlet.http.HttpSession;
 import sipsa.control.VentaControl;
 import sipsa.dominio.Pv;
 
+/**
+ * Servlet para el registro de ventas y activacion de garantia
+ * @author Claudio Rodrigo Pereyra Diaz
+ * @author Maria Eugenia Sanchez
+ */
 public class VentaServlet extends HttpServlet {
    
     /** 
