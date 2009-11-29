@@ -1,29 +1,23 @@
-<%-- 
-    Document   : registroVenta
-    Created on : 07/11/2009, 13:02:03
-    Author     : elsupergomez
+<%--
+    Author     : Maria Eugenia Sanchez
+    Author     : Claudio Rodrigo Pereyra Diaz
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML
+    PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
 
 <%@ page language="java"%>
-<%@ page import="java.util.Iterator" %>
-<%@ page import="java.util.List" %>
-<%@ page import="sipsa.dominio.TipoProducto" %>
 <%@ page import="sipsa.dominio.Modelo" %>
-<%@ page import="sipsa.control.TipoProductoControl" %>
 <%@ page import="sipsa.control.ModeloControl" %>
 <%
-        String usuario = (String) session.getAttribute("usuario");
-        if (usuario == null) {
-            response.sendRedirect("Login.jsp");
-        }
+            String usuario = (String) session.getAttribute("usuario");
+            if (usuario == null) {
+                response.sendRedirect("Login.jsp");
+            }
 %>
-<%!     private TipoProductoControl tipoProductoControl = new TipoProductoControl();
-        private List<TipoProducto> lista = tipoProductoControl.getListaTipoProducto();
-        private ModeloControl modeloControl = new ModeloControl();
+<%!     private ModeloControl modeloControl = new ModeloControl();
         private List<Modelo> listaModelos = modeloControl.getListaModelos();
 %>
 
@@ -52,32 +46,15 @@
                     <td><input type="text" name="fechaFactura" value="" /></td>
                 </tr>
                 <tr>
-                    <td style="font-weight:bold">Tipo de Producto: </td>
-                    <td>
-                        <select style="width:100%" name="tipoProducto">
-                            <!--TODO aca deberia invocar la carga del segundo combo-->
-                            <option value=-1 selected>Seleccione una opción</option>
-                            <%
-        for (Iterator tpIt = lista.iterator(); tpIt.hasNext();) {
-            TipoProducto tipoProducto = (TipoProducto) tpIt.next();
-                            %>
-                            <option value=<%=tipoProducto.getID()%> ><%=tipoProducto.getNombre()%></option>
-                            <%}%>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="font-weight:bold">Modelo Producto: </td>
+                    <td style="font-weight:bold">Tipo y Modelo de Producto: </td>
                     <td>
                         <select style="width:100%" name="modelo">
-                                <option value=-1 selected>Seleccione una opción</option>
-                                <!--TODO aca deberia ser parametrizado de acuerdo al tipo de producto seleccionado-->
+                            <option value=-1 selected>Seleccione una opción</option>
                             <%
-        for (Iterator tpIt = listaModelos.iterator(); tpIt.hasNext();) {
-            Modelo modelo = (Modelo) tpIt.next();
-                                %>
-                                <option value=<%=modelo.getID()%> ><%=modelo.getNombre()%></option>
-                                <%}%>
+                            for (Modelo modelo : listaModelos) {
+                            %>
+                            <option value=<%=modelo.getID()%> ><%=modelo.toString()%></option>
+                            <%}%>
                         </select>
                     </td>
                 </tr>

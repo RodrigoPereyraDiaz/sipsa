@@ -1,7 +1,6 @@
-<%-- 
-    Document   : ActivacionError
-    Created on : 07/11/2009, 15:43:32
-    Author     : elsupergomez
+<%--
+    Author     : Maria Eugenia Sanchez
+    Author     : Claudio Rodrigo Pereyra Diaz
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

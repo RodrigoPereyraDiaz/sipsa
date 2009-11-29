@@ -1,6 +1,4 @@
 <%-- 
-    Document   : Ingreso
-    Created on : 07/11/2009, 12:21:00
     Author     : Maria Eugenia Sanchez
     Author     : Claudio Rodrigo Pereyra Diaz
 --%>
