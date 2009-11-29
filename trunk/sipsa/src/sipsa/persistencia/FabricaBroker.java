@@ -14,10 +14,10 @@ import java.util.List;
 import sipsa.SipsaExcepcion;
 import sipsa.dominio.Fabrica;
 
-class FabricaBroker implements ISipsaBroker{
+class FabricaBroker implements ISipsaBroker {
 
     public IPersistible existe(IPersistible o) throws SipsaExcepcion {
-                Fabrica fabrica = (Fabrica) o;
+        Fabrica fabrica = (Fabrica) o;
         Connection conn = DB.getConexion();
         PreparedStatement ps;
         ResultSet rs;
@@ -34,7 +34,7 @@ class FabricaBroker implements ISipsaBroker{
             ps.setString(1, fabrica.getNombre());
 
             rs = ps.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 fabrica = new Fabrica(rs.getInt("id"));
                 fabrica = (Fabrica) recuperar(fabrica);
             } else {
@@ -69,7 +69,7 @@ class FabricaBroker implements ISipsaBroker{
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
-        throw new SipsaExcepcion("Error al actualizar la Fabrica");
+            throw new SipsaExcepcion("Error al actualizar la Fabrica");
         }
     }
 
@@ -94,12 +94,12 @@ class FabricaBroker implements ISipsaBroker{
             ps.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
-        throw new SipsaExcepcion("Error al guardar la Fabrica");
+            throw new SipsaExcepcion("Error al guardar la Fabrica");
         }
     }
 
     public void eliminar(IPersistible o) throws SipsaExcepcion {
-                Connection conn = DB.getConexion();
+        Connection conn = DB.getConexion();
         PreparedStatement ps;
         StringBuilder consulta = new StringBuilder();
         consulta.append("DELETE ");

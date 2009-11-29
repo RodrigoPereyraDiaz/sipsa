@@ -172,6 +172,6 @@ public class ListarABM extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void refrescarTabla(){
-        this.jTableDatos.setModel(this.controlador.getModelo());
+        this.jTableDatos.setModel(this.controlador.getTableModel());
     }
 }

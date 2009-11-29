@@ -1,3 +1,4 @@
+//TODO corregir para que se redimencione de acuerdo a la leyenda a mostrar
 package sipsa.presentacion.escritorio;
 
 import sipsa.Configuracion;

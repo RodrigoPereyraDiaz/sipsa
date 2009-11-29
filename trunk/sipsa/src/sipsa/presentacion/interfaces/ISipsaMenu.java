@@ -2,7 +2,6 @@
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa
  */
-
 package sipsa.presentacion.interfaces;
 
 /**
@@ -28,15 +27,20 @@ public interface ISipsaMenu {
     public void administrarTipoProducto();
 
     /**
+     * Accion correspondiente al boton Administrar Modelos
+     */
+    public void administrarModelos();
+
+    /**
      * Accion correspondiente al boton Importar Productos
      */
     public void importarArchivoProductos();
-    
+
     /**
      * Accion correspondiente al boton Reporte Ordenes de Trabajo Realizadas
      */
     public void mostrarReporteOTRealizadas();
-    
+
     /**
      * Accion correspondiente al boton Reporte Ordenes de Trabajo Pendientes
      */

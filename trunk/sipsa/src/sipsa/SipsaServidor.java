@@ -2,7 +2,6 @@
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa
  */
-
 package sipsa;
 
 import sipsa.control.servicios.Servidor;
@@ -14,19 +13,20 @@ import sipsa.presentacion.escritorio.ServidorGUI;
  * @author Maria Eugenia Sanchez
  */
 public class SipsaServidor {
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         Configuracion configuracion = Configuracion.getInstancia();
         configuracion.setEstiloLocal();
-        
+
         Servidor servidor = new Servidor();
         for (int i = 0; i < args.length; i++) {
             String string = args[i];
-            if (string.equalsIgnoreCase("-g")){
+            if (string.equalsIgnoreCase("-g")) {
                 new ServidorGUI(servidor);
-            } else if (string.startsWith("-p=")){
+            } else if (string.startsWith("-p=")) {
                 int puerto = Integer.valueOf(string.substring(3));
                 servidor.setPuerto(puerto);
             } else {

@@ -98,8 +98,8 @@ public class RangoFechas extends javax.swing.JDialog {
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextFieldHasta, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                            .addComponent(jFormattedTextFieldDesde, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))))
+                            .addComponent(jFormattedTextFieldHasta, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                            .addComponent(jFormattedTextFieldDesde, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(

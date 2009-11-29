@@ -2,8 +2,9 @@
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa
  */
-
 package sipsa.presentacion.interfaces;
+
+import sipsa.SipsaExcepcion;
 
 /**
  * Interface a implementar los metodos necesarios para identificar y autenticar usuarios
@@ -15,7 +16,7 @@ public interface ILogin {
     /**
      * Implementa el la validacion de usuario al presionar el boton Ingresar del formulario Login
      * @param usuario Identificacion del usuario
-     * @exception Exception Si no se pudo validar el usuario
+     * @exception SipsaExcepcion Si no se pudo validar el usuario
      */
-    public void ingresar(String usuario) throws Exception;
+    public void ingresar(String usuario) throws SipsaExcepcion;
 }

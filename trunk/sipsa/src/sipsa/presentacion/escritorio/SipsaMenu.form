@@ -61,6 +61,11 @@
               <Component id="jButtonReporteOTVencidas" pref="373" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jButtonAdministrarModelos" pref="373" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -68,6 +73,8 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButtonAdministrarTiposProductos" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jButtonAdministrarModelos" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButtonAdministrarPv" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -82,7 +89,7 @@
               <Component id="jButtonReporteOTPendientes" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButtonReporteOTVencidas" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="17" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="jButtonSalir" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -186,6 +193,18 @@
       </Events>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparatorBotones">
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonAdministrarModelos">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/sipsa/presentacion/recursos/emblem-system.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Administrar Modelos"/>
+        <Property name="horizontalTextPosition" type="int" value="4"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAdministrarModelosActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

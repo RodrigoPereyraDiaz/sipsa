@@ -7,11 +7,12 @@ import java.io.Serializable;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public abstract class Empresa implements Serializable{
+public abstract class Empresa implements Serializable {
+
     private String nombre;
     private String cuit;
 
-     /**
+    /**
      * @return the nombre
      */
     public String getNombre() {
@@ -37,5 +38,10 @@ public abstract class Empresa implements Serializable{
      */
     public void setCuit(String cuit) {
         this.cuit = cuit;
+    }
+
+    @Override
+    public String toString() {
+        return getNombre();
     }
 }

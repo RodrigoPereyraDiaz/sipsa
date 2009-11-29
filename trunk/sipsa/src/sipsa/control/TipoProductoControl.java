@@ -7,10 +7,11 @@ package sipsa.control;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 import sipsa.SipsaExcepcion;
-import sipsa.dominio.Modelo;
 import sipsa.dominio.TipoProducto;
 import sipsa.presentacion.interfaces.IListarABM;
 import sipsa.presentacion.escritorio.ListarABM;
@@ -44,10 +45,9 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos {
     /**
      * Muestra el administrador de Tipos de Productos
      */
-    public void mostrarAdministrar() {
+    public void mostrarABM() {
         ListarABM listarControl = new ListarABM(this);
         listarControl.setVisible(true);
-
     }
 
     /**
@@ -92,14 +92,14 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos {
      * Obtiene el modelo para llenar un jTable con los Tipos de Productos
      * @return TableModel de Tipos de Productos
      */
-    public DefaultTableModel getModelo() {
-        String[] columnNames = {"Descripcion", "Duracion Garantia"};
+    public DefaultTableModel getTableModel() {
+        String[] columnNames = {"Tipo Producto", "Duracion Garantia"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
         recuperarLista();
         for (Iterator tpIt = lista.iterator(); tpIt.hasNext();) {
             TipoProducto tipoProducto = (TipoProducto) tpIt.next();
             Object[] datos = new Object[modelo.getColumnCount()];
-            datos[0] = tipoProducto.getDescripcion();
+            datos[0] = tipoProducto.getNombre();
             datos[1] = tipoProducto.getDuracionGarantia();
             modelo.addRow(datos);
         }
@@ -120,14 +120,11 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos {
      * @throws SipsaExcepcion
      */
     public void guardarTipoProducto(TipoProducto tipoProducto) throws SipsaExcepcion {
-        if (tipoProducto.getDescripcion().equals("")) {
+        if (tipoProducto.getNombre().equals("")) {
             throw new SipsaExcepcion("Debe completar todos los datos solicitados");
         }
         if (tipoProducto.getDuracionGarantia() <= 0) {
             throw new SipsaExcepcion("La duración de la garantia debe ser mayor a 0 meses");
-        }
-        if (tipoProducto.getModelos().isEmpty()) {
-            throw new SipsaExcepcion("Debe definir por lo menos un Modelo del Tipo de Producto");
         }
         if (tipoProducto.getID() > 0) {
             persistencia.actualizar(tipoProducto);
@@ -138,16 +135,15 @@ public class TipoProductoControl implements IListarABM, ITipoProductoDatos {
                 throw new SipsaExcepcion("El Punto de Atencion ya exite, imposible agregar");
             }
         }
-        //TODO ver de hacer que guarde bien los modelos
-        tipoProducto = (TipoProducto) persistencia.existe(tipoProducto);
-        for (Modelo modelo : tipoProducto.getModelos()) {
-            if (persistencia.existe(modelo) == null) {
-                modelo.setTipoProducto(tipoProducto);
-                persistencia.guardar(modelo);
-            } else {
-                persistencia.actualizar(modelo);
-            }
-        }
         recuperarLista();
+    }
+
+    public ComboBoxModel getComboBox() {
+        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
+        recuperarLista();
+        for (Object o : lista) {
+            comboBoxModel.addElement(o);
+        }
+        return comboBoxModel;
     }
 }

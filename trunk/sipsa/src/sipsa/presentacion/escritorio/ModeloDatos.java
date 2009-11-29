@@ -1,40 +1,24 @@
-/*
- * Sistemas de Información II 2009
- * Proyecto Sipsa
- */
 package sipsa.presentacion.escritorio;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.AbstractListModel;
-import javax.swing.ListModel;
-
 import sipsa.Configuracion;
+import sipsa.dominio.Modelo;
 import sipsa.dominio.TipoProducto;
-import sipsa.presentacion.interfaces.ITipoProductoDatos;
+import sipsa.presentacion.interfaces.IModeloDatos;
 
-/**
- * Formulario de datos de Tipo de Producto
- * @author Claudio Rodrigo Pereyra Diaz
- * @author Maria Eugenia Sanchez
- */
-public class TipoProductoDatos extends javax.swing.JDialog {
+public class ModeloDatos extends javax.swing.JDialog {
 
-    private ITipoProductoDatos controlador;
-    private TipoProducto tipoProducto;
+    private final IModeloDatos controlador;
+    private final Modelo modelo;
 
-    /** Construye el formulario de Tipos de Producto
-     * @param controlador Controlador del formulario
-     * @param tipoProducto
-     */
-    public TipoProductoDatos(ITipoProductoDatos controlador, TipoProducto tipoProducto) {
+    /** Creates new form ModeloDatos */
+    public ModeloDatos(IModeloDatos controlador, Modelo modelo) {
         initComponents();
         Configuracion configuracion = Configuracion.getInstancia();
         this.controlador = controlador;
-        this.tipoProducto = tipoProducto;
+        this.modelo = modelo;
         this.setIconImage(configuracion.getIcono());
         this.setLocationRelativeTo(null);
-        this.setTitle("Tipo de Producto");
+        this.setTitle("Modelo de Producto");
         this.poblarFormulario();
     }
 
@@ -47,23 +31,30 @@ public class TipoProductoDatos extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabelNombreProducto = new javax.swing.JLabel();
+        jComboBoxTiposProducto = new javax.swing.JComboBox();
         jLabelDuracionGarantia = new javax.swing.JLabel();
+        jSpinnerDuracionGarantia = new javax.swing.JSpinner();
         jTextFieldNombre = new javax.swing.JTextField();
+        jLabelNombreProducto = new javax.swing.JLabel();
+        jLabelMeses = new javax.swing.JLabel();
         jButtonGuardar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
-        jLabelMeses = new javax.swing.JLabel();
-        jSpinnerDuracionGarantia = new javax.swing.JSpinner();
+        jLabelNombreProducto1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setIconImage(null);
-        setLocationByPlatform(true);
         setModal(true);
-        setResizable(false);
+
+        jComboBoxTiposProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxTiposProductoActionPerformed(evt);
+            }
+        });
+
+        jLabelDuracionGarantia.setText("Duración de la garantía:");
 
         jLabelNombreProducto.setText("Nombre:");
 
-        jLabelDuracionGarantia.setText("Duración de la garantía:");
+        jLabelMeses.setText("Meses");
 
         jButtonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sipsa/presentacion/recursos/document-save.png"))); // NOI18N
         jButtonGuardar.setText("Guardar");
@@ -81,47 +72,51 @@ public class TipoProductoDatos extends javax.swing.JDialog {
             }
         });
 
-        jLabelMeses.setText("Meses");
+        jLabelNombreProducto1.setText("Tipo Producto:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jComboBoxTiposProducto, javax.swing.GroupLayout.Alignment.LEADING, 0, 298, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabelNombreProducto)
+                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                    .addComponent(jLabelNombreProducto, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelNombreProducto1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabelDuracionGarantia)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSpinnerDuracionGarantia, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelMeses))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabelMeses)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelNombreProducto))
+                .addComponent(jLabelNombreProducto1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBoxTiposProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelNombreProducto)
+                .addGap(1, 1, 1)
+                .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelDuracionGarantia)
                     .addComponent(jSpinnerDuracionGarantia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelMeses))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonGuardar, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
 
@@ -129,10 +124,11 @@ public class TipoProductoDatos extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        this.tipoProducto.setNombre(this.jTextFieldNombre.getText());
-        this.tipoProducto.setDuracionGarantia(Integer.valueOf(this.jSpinnerDuracionGarantia.getValue().toString()));
+        this.modelo.setNombre(this.jTextFieldNombre.getText());
+        this.modelo.setDuracionGarantia(Integer.valueOf(this.jSpinnerDuracionGarantia.getValue().toString()));
+        this.modelo.setTipoProducto((TipoProducto) jComboBoxTiposProducto.getSelectedItem());
         try {
-            this.controlador.guardarTipoProducto(this.tipoProducto);
+            this.controlador.guardar(this.modelo);
             this.setVisible(false);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -142,20 +138,32 @@ public class TipoProductoDatos extends javax.swing.JDialog {
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         this.setVisible(false);
-    }//GEN-LAST:event_jButtonCancelarActionPerformed
+}//GEN-LAST:event_jButtonCancelarActionPerformed
 
+    private void jComboBoxTiposProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTiposProductoActionPerformed
+        TipoProducto tipoProducto = (TipoProducto) jComboBoxTiposProducto.getSelectedItem();
+        this.jSpinnerDuracionGarantia.setValue(tipoProducto.getDuracionGarantia());
+    }//GEN-LAST:event_jComboBoxTiposProductoActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonGuardar;
+    private javax.swing.JComboBox jComboBoxTiposProducto;
     private javax.swing.JLabel jLabelDuracionGarantia;
     private javax.swing.JLabel jLabelMeses;
     private javax.swing.JLabel jLabelNombreProducto;
+    private javax.swing.JLabel jLabelNombreProducto1;
     private javax.swing.JSpinner jSpinnerDuracionGarantia;
     private javax.swing.JTextField jTextFieldNombre;
     // End of variables declaration//GEN-END:variables
 
     private void poblarFormulario() {
-        this.jTextFieldNombre.setText(this.tipoProducto.getNombre());
-        this.jSpinnerDuracionGarantia.setValue(this.tipoProducto.getDuracionGarantia());
+        this.jComboBoxTiposProducto.setModel(this.controlador.getTiposProducto());
+        TipoProducto tipoProducto = (TipoProducto) jComboBoxTiposProducto.getSelectedItem();
+        this.jSpinnerDuracionGarantia.setValue(tipoProducto.getDuracionGarantia());
+        if (modelo.getID() > 0) {
+            this.jTextFieldNombre.setText(this.modelo.getNombre());
+            this.jSpinnerDuracionGarantia.setValue(this.modelo.getDuracionGarantia());
+            this.jComboBoxTiposProducto.setSelectedItem(modelo.getTipoProducto());
+        }
     }
 }

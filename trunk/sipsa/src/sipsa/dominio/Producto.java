@@ -2,7 +2,6 @@
  * Sistemas de Informacion II 2009
  * Proyecto Sipsa
  */
-
 package sipsa.dominio;
 
 import java.io.Serializable;
@@ -15,6 +14,7 @@ import sipsa.persistencia.IPersistible;
  * @author Maria Eugenia Sanchez
  */
 public class Producto implements IPersistible, Serializable {
+
     private int id;
     private Modelo modelo;
     private String nroSerie;
@@ -25,9 +25,8 @@ public class Producto implements IPersistible, Serializable {
      * Construye un nuevo objeto Producto
      */
     public Producto() {
-
     }
-    
+
     /**
      * Construye un nuevo objeto Producto
      * @param id

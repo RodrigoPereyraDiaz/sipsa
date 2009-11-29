@@ -8,7 +8,8 @@ import sipsa.presentacion.interfaces.IReporte;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class Reporte implements IReporte{
+public class Reporte implements IReporte {
+
     private TableModel tableModel;
     private String nombre;
 

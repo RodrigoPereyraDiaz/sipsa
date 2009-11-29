@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @author Maria Eugenia Sanchez
  */
 public interface IPersistible extends Serializable {
+
     /**
      * obtiene el identificador de la clase que lo implemente
      * @return devuelve el identificador

@@ -36,7 +36,7 @@ class TipoProductoBroker implements ISipsaBroker {
         try {
             ps = conn.prepareStatement(consulta.toString());
 
-            ps.setString(1, tipoProducto.getDescripcion());
+            ps.setString(1, tipoProducto.getNombre());
 
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -70,7 +70,7 @@ class TipoProductoBroker implements ISipsaBroker {
         try {
             ps = conn.prepareStatement(consulta.toString());
 
-            ps.setString(1, tipoProducto.getDescripcion());
+            ps.setString(1, tipoProducto.getNombre());
             ps.setInt(2, tipoProducto.getDuracionGarantia());
             ps.setInt(3, tipoProducto.getID());
 
@@ -100,7 +100,7 @@ class TipoProductoBroker implements ISipsaBroker {
         try {
             ps = conn.prepareStatement(consulta.toString());
 
-            ps.setString(1, tipoProducto.getDescripcion());
+            ps.setString(1, tipoProducto.getNombre());
             ps.setInt(2, tipoProducto.getDuracionGarantia());
 
             ps.execute();
@@ -155,10 +155,8 @@ class TipoProductoBroker implements ISipsaBroker {
 
             rs = ps.executeQuery();
             if (rs.next()) {
-                tipoProducto.setDescripcion(rs.getString("nombre"));
+                tipoProducto.setNombre(rs.getString("nombre"));
                 tipoProducto.setDuracionGarantia(rs.getInt("duracionGarantia"));
-                ModeloBroker modeloBroker = new ModeloBroker();
-                tipoProducto.setModelos(modeloBroker.recuperarLista(tipoProducto));
             }
             ps.close();
         } catch (SQLException ex) {

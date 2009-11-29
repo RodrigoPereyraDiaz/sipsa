@@ -7,7 +7,10 @@ package sipsa.control;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import sipsa.SipsaExcepcion;
 import sipsa.dominio.Empresa;
@@ -44,7 +47,7 @@ public class PvControl implements IEmpresaDatos, IListarABM {
     /**
      * Muestra el formulario para Administrar Puntos de Venta
      */
-    public void mostrarAdministrar() {
+    public void mostrarABM() {
         recuperarLista();
         ListarABM listarABMPv = new ListarABM(this);
         listarABMPv.setVisible(true);
@@ -90,7 +93,7 @@ public class PvControl implements IEmpresaDatos, IListarABM {
      * Obtiene el modelo para llenar un jTable con los Puntos de Venta
      * @return TableModel de Puntos de Venta
      */
-    public DefaultTableModel getModelo() {
+    public TableModel getTableModel() {
         String[] columnNames = {"Cuit", "Nombre"};
         DefaultTableModel modelo = new DefaultTableModel(columnNames, 0);
         recuperarLista();
@@ -104,7 +107,16 @@ public class PvControl implements IEmpresaDatos, IListarABM {
         return modelo;
     }
 
-    public void guardarEmpresa(Empresa empresa) throws Exception {
+    public ComboBoxModel getComboBox() {
+        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
+        recuperarLista();
+        for (Object o : lista){
+            comboBoxModel.addElement(o);
+        }
+        return comboBoxModel;
+    }
+
+    public void guardarEmpresa(Empresa empresa) throws SipsaExcepcion {
         Pv pv = (Pv) empresa;
         if (pv.getCuit().equals("") || pv.getNombre().equals("")) {
             throw new SipsaExcepcion("Debe completar todos los datos solicitados");

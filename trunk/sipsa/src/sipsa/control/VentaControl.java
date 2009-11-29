@@ -27,9 +27,9 @@ public class VentaControl {
      * @param idTipoProducto
      * @param idModelo
      * @param nroSerie
-     * @throws java.lang.Exception
+     * @throws SipsaExcepcion
      */
-    public void activarGarantia(Pv pv, String fechaFactura, String nroFactura, int idTipoProducto, int idModelo, String nroSerie) throws SipsaExcepcion {
+    public void activarGarantia(Pv pv, String fechaFactura, String nroFactura, int idModelo, String nroSerie) throws SipsaExcepcion {
         Venta venta = new Venta();
         ProductosControl productosControl = new ProductosControl();
         Producto producto = new Producto();
