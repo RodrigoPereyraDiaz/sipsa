@@ -9,6 +9,7 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 
 <%@ page language="java"%>
+<%@ page import="java.util.List" %>
 <%@ page import="sipsa.dominio.Modelo" %>
 <%@ page import="sipsa.control.ModeloControl" %>
 <%
