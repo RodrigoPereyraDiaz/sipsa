@@ -29,8 +29,6 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPaneObservaciones" alignment="0" pref="605" max="32767" attributes="1"/>
-                          <Component id="jLabelObservaciones" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabelEstaado" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -46,6 +44,7 @@
                               </Group>
                           </Group>
                           <Component id="jPanelVenta" alignment="0" max="32767" attributes="1"/>
+                          <Component id="jScrollPaneObservaciones" alignment="0" pref="605" max="32767" attributes="1"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
@@ -53,6 +52,10 @@
                       <Component id="jButtonGuardar" pref="126" max="32767" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonCancelar" pref="127" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabelObservaciones" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -64,10 +67,10 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanelVenta" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLabelObservaciones" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPaneObservaciones" pref="99" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Component id="jScrollPaneObservaciones" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabelEstaado" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -161,19 +164,17 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabelTipoProducto" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelPv" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelNroFactura" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelModelo" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelNroSerie" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabelNroFactura" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jComboBoxModelo" pref="437" max="32767" attributes="0"/>
-                      <Component id="jComboBoxTipoProducto" pref="437" max="32767" attributes="0"/>
+                      <Component id="jComboBoxModelo" alignment="1" pref="437" max="32767" attributes="0"/>
                       <Component id="jComboBoxPv" pref="437" max="32767" attributes="0"/>
                       <Component id="jTextFieldNroFactura" alignment="0" pref="437" max="32767" attributes="0"/>
-                      <Component id="jTextFieldNroSerie" alignment="0" pref="437" max="32767" attributes="0"/>
+                      <Component id="jTextFieldNroSerie" alignment="1" pref="437" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -194,11 +195,6 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jComboBoxTipoProducto" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                      <Component id="jLabelTipoProducto" alignment="3" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jComboBoxModelo" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="jLabelModelo" alignment="3" max="32767" attributes="0"/>
                   </Group>
@@ -207,7 +203,7 @@
                       <Component id="jTextFieldNroSerie" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabelNroSerie" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -219,16 +215,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="jComboBoxPv">
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabelTipoProducto">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Tipo de Producto:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBoxTipoProducto">
-          <Events>
-            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBoxTipoProductoItemStateChanged"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabelModelo">
           <Properties>

@@ -13,7 +13,8 @@ import sipsa.SipsaExcepcion;
 import sipsa.dominio.EstadoOT;
 import sipsa.dominio.OrdenDeTrabajo;
 import sipsa.dominio.Pac;
-import sipsa.dominio.TipoProducto;
+import sipsa.dominio.Producto;
+import sipsa.dominio.Venta;
 import sipsa.persistencia.Persistencia;
 import sipsa.presentacion.escritorio.DialogoMensaje;
 import sipsa.presentacion.escritorio.ListarABM;
@@ -170,22 +171,44 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
      * la orden de Trabajo
      */
     public void guardarOrdenDeTrabajo(OrdenDeTrabajo ordenDeTrabajo) throws SipsaExcepcion {
-        //TODO Validar Datos correctos segun el estado de la orden
         if (ordenDeTrabajo.getFechaEntrega().before(new Date(System.currentTimeMillis()))) {
             throw new SipsaExcepcion("La fecha de entrega no puede ser anterior a al dia de hoy");
         }
-
+        if (ordenDeTrabajo.getObservaciones().equals("")) {
+            throw new SipsaExcepcion("Debe completar la observacion del trabajo a realizar");
+        }
         switch (ordenDeTrabajo.getEstado()) {
             case Nueva:
-                persistencia.guardar(ordenDeTrabajo);
+                Venta venta = ordenDeTrabajo.getVenta();
+                venta.setProducto((Producto) persistencia.existe(venta.getProducto()));
+                venta = (Venta) persistencia.existe(venta);
+                if (venta == null) {
+                    throw new SipsaExcepcion("La venta no se encuentra registra en el sistema");
+                }
+                if (venta.isProductoEnGarantia()) {
+                    ordenDeTrabajo.setEstado(EstadoOT.Activa);
+                    ordenDeTrabajo.setVenta(venta);
+                    persistencia.guardar(ordenDeTrabajo);
+                } else {
+                    new DialogoMensaje(DialogoMensaje.Tipo.Información, "Garantia del producto vencida");
+                }
+                break;
             case Activa:
                 persistencia.actualizar(ordenDeTrabajo);
+                break;
             case Finalizada:
+                if (ordenDeTrabajo.getMotivoEstado().equals("")) {
+                    throw new SipsaExcepcion("Debe completar el motivo del estado Finalizada");
+                }
                 persistencia.actualizar(ordenDeTrabajo);
+                break;
             case Anulada:
+                if (ordenDeTrabajo.getMotivoEstado().equals("")) {
+                    throw new SipsaExcepcion("Debe completar el motivo del estado Anulada");
+                }
                 persistencia.actualizar(ordenDeTrabajo);
+                break;
         }
-
         recuperarLista();
     }
 
@@ -203,28 +226,15 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
     }
 
     /**
-     * Obtiene la lista de Tipos de Productos
-     * @return devuelve una lista de Tipos de Productos para cargar el ComboBox
-     */
-    public ComboBoxModel getListaTiposProducto() {
-        TipoProductoControl tipoProductoControl = new TipoProductoControl();
-        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
-        for (Object o : tipoProductoControl.getListaTipoProducto()) {
-            comboBoxModel.addElement(o);
-        }
-        return comboBoxModel;
-    }
-
-    /**
      * Obtiene la lista de Modelos para un Tipo de Producto específico
      * @param tipoProducto
      * @return devuelve una lista de Modelos para un Tipo de Prod específico,
      * para cargar el ComboBox
      */
-    public ComboBoxModel getListaModelos(Object tipoProducto) {
-        TipoProducto tp = (TipoProducto) tipoProducto;
+    public ComboBoxModel getListaModelos() {
+        ModeloControl modeloControl = new ModeloControl();
         DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel();
-        for (Object o : tp.getModelos()) {
+        for (Object o : modeloControl.getListaModelos()) {
             comboBoxModel.addElement(o);
         }
         return comboBoxModel;
@@ -232,7 +242,11 @@ public class OTControl implements IListarABM, IOrdenDeTrabajoDatos {
 
     public List<OrdenDeTrabajo> getListaOT(Pac pac) {
         recuperarLista();
-        //Filtrar solo por el pac
+        //TODO Filtrar solo por el pac
         return lista;
+    }
+
+    public Pac getPac() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

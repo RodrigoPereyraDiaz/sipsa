@@ -3,7 +3,11 @@ package sipsa.presentacion.escritorio;
 import java.util.Date;
 import sipsa.Configuracion;
 import sipsa.dominio.EstadoOT;
+import sipsa.dominio.Modelo;
 import sipsa.dominio.OrdenDeTrabajo;
+import sipsa.dominio.Producto;
+import sipsa.dominio.Pv;
+import sipsa.dominio.Venta;
 import sipsa.presentacion.interfaces.IOrdenDeTrabajoDatos;
 
 /**
@@ -49,8 +53,6 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
         jPanelVenta = new javax.swing.JPanel();
         jLabelPv = new javax.swing.JLabel();
         jComboBoxPv = new javax.swing.JComboBox();
-        jLabelTipoProducto = new javax.swing.JLabel();
-        jComboBoxTipoProducto = new javax.swing.JComboBox();
         jLabelModelo = new javax.swing.JLabel();
         jComboBoxModelo = new javax.swing.JComboBox();
         jLabelNroFactura = new javax.swing.JLabel();
@@ -97,14 +99,6 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
 
         jLabelPv.setText("Punto de venta:");
 
-        jLabelTipoProducto.setText("Tipo de Producto:");
-
-        jComboBoxTipoProducto.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBoxTipoProductoItemStateChanged(evt);
-            }
-        });
-
         jLabelModelo.setText("Modelo:");
 
         jLabelNroFactura.setText("Nro de Factura:");
@@ -118,18 +112,16 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
             .addGroup(jPanelVentaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelTipoProducto)
                     .addComponent(jLabelPv)
+                    .addComponent(jLabelNroFactura)
                     .addComponent(jLabelModelo)
-                    .addComponent(jLabelNroSerie)
-                    .addComponent(jLabelNroFactura))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabelNroSerie))
+                .addGap(21, 21, 21)
                 .addGroup(jPanelVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxModelo, 0, 437, Short.MAX_VALUE)
-                    .addComponent(jComboBoxTipoProducto, 0, 437, Short.MAX_VALUE)
+                    .addComponent(jComboBoxModelo, javax.swing.GroupLayout.Alignment.TRAILING, 0, 437, Short.MAX_VALUE)
                     .addComponent(jComboBoxPv, 0, 437, Short.MAX_VALUE)
                     .addComponent(jTextFieldNroFactura, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
-                    .addComponent(jTextFieldNroSerie, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE))
+                    .addComponent(jTextFieldNroSerie, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanelVentaLayout.setVerticalGroup(
@@ -145,17 +137,13 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
                     .addComponent(jLabelNroFactura))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBoxTipoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelTipoProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelModelo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelVentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldNroSerie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelNroSerie))
-                .addGap(12, 12, 12))
+                .addContainerGap())
         );
 
         jLabelMotivoEstado.setText("Motivo del Estado:");
@@ -182,8 +170,6 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPaneObservaciones, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
-                            .addComponent(jLabelObservaciones)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelEstaado)
@@ -195,12 +181,16 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPaneMotivoEstado, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
                                     .addComponent(jLabelMotivoEstado)))
-                            .addComponent(jPanelVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jPanelVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPaneObservaciones, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(358, 358, 358)
                         .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)))
+                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabelObservaciones)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -208,10 +198,10 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanelVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelObservaciones)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPaneObservaciones, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPaneObservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelEstaado)
@@ -243,7 +233,20 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
         ordenDeTrabajo.setFechaEntrega((Date) jFormattedTextFieldFechaEntrega.getValue());
         ordenDeTrabajo.setMotivoEstado(jTextAreaMotivoEstado.getText());
         ordenDeTrabajo.setObservaciones(jTextAreaObservaciones.getText());
-        //TODO rellenar los  datos antes de guardar
+        ordenDeTrabajo.setPac(controlador.getPac());
+        if (ordenDeTrabajo.getEstado().equals(EstadoOT.Nueva)) {
+            Venta venta = ordenDeTrabajo.getVenta();
+            venta.setEmpresaVendedora((Pv) jComboBoxPv.getSelectedItem());
+            venta.setNroFactura(jTextFieldNroFactura.getText());
+            Producto producto = venta.getProducto();
+            producto.setModelo((Modelo) jComboBoxModelo.getSelectedItem());
+            producto.setNroSerie(jTextFieldNroSerie.getText());
+            venta.setProducto(producto);
+            ordenDeTrabajo.setVenta(venta);
+        }
+        if (jCheckBoxFinalizada.isSelected()) {
+            ordenDeTrabajo.setEstado(EstadoOT.Finalizada);
+        }
         try {
             this.controlador.guardarOrdenDeTrabajo(this.ordenDeTrabajo);
             this.setVisible(false);
@@ -256,17 +259,12 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
         this.setVisible(false);
 }//GEN-LAST:event_jButtonCancelarActionPerformed
 
-    private void jComboBoxTipoProductoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTipoProductoItemStateChanged
-        this.jComboBoxModelo.setModel(this.controlador.getListaModelos(jComboBoxTipoProducto.getSelectedItem()));
-    }//GEN-LAST:event_jComboBoxTipoProductoItemStateChanged
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JCheckBox jCheckBoxFinalizada;
     private javax.swing.JComboBox jComboBoxModelo;
     private javax.swing.JComboBox jComboBoxPv;
-    private javax.swing.JComboBox jComboBoxTipoProducto;
     private javax.swing.JFormattedTextField jFormattedTextFieldFechaEntrega;
     private javax.swing.JLabel jLabelEstaado;
     private javax.swing.JLabel jLabelFechaEntrega;
@@ -276,7 +274,6 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
     private javax.swing.JLabel jLabelNroSerie;
     private javax.swing.JLabel jLabelObservaciones;
     private javax.swing.JLabel jLabelPv;
-    private javax.swing.JLabel jLabelTipoProducto;
     private javax.swing.JPanel jPanelVenta;
     private javax.swing.JScrollPane jScrollPaneMotivoEstado;
     private javax.swing.JScrollPane jScrollPaneObservaciones;
@@ -289,7 +286,7 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
 
     private void poblarFormulario() {
         this.jComboBoxPv.setModel(this.controlador.getListaPuntosDeVenta());
-        this.jComboBoxTipoProducto.setModel(this.controlador.getListaTiposProducto());
+        this.jComboBoxModelo.setModel(this.controlador.getListaModelos());
         this.jLabelEstaado.setText(ordenDeTrabajo.getEstado().name());
         if (ordenDeTrabajo.getEstado().equals(EstadoOT.Nueva)) {
             this.jPanelVenta.setEnabled(true);
@@ -297,8 +294,6 @@ public class OrdenDeTrabajoDatos extends javax.swing.JDialog {
             this.jCheckBoxFinalizada.setEnabled(ordenDeTrabajo.getEstado().equals(EstadoOT.Activa));
             this.jPanelVenta.setEnabled(false);
             this.jComboBoxPv.setSelectedItem(ordenDeTrabajo.getVenta().getEmpresaVendedora());
-            this.jComboBoxTipoProducto.setSelectedItem(ordenDeTrabajo.getVenta().getProducto().getModelo().getTipoProducto());
-            this.jComboBoxModelo.setModel(this.controlador.getListaModelos(jComboBoxTipoProducto.getSelectedItem()));
             this.jComboBoxModelo.setSelectedItem(ordenDeTrabajo.getVenta().getProducto().getModelo());
             this.jTextAreaMotivoEstado.setText(ordenDeTrabajo.getMotivoEstado());
             this.jTextAreaObservaciones.setText(ordenDeTrabajo.getMotivoEstado());
