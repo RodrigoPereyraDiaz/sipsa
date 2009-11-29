@@ -11,7 +11,7 @@ import sipsa.control.SipsaMenuControl;
  * @author Claudio Rodrigo Pereyra Diaz
  * @author Maria Eugenia Sanchez
  */
-public class Sipsa {
+class Sipsa {
 
     /**
      * @param args Argumentos de linea de comandos

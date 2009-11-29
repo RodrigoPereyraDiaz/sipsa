@@ -65,7 +65,7 @@ class OtBroker implements ISipsaBroker {
         consulta.append(", ");
         consulta.append("idVenta = ? "); //idVenta
         consulta.append(", ");
-        consulta.append("observaciones = ? "); //observaciones
+        consulta.append("observacion = ? "); //observaciones
         consulta.append(", ");
         consulta.append("idEstado = ? "); //idEstado
         consulta.append(", ");
